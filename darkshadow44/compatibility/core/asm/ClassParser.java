@@ -142,7 +142,7 @@ public class ClassParser {
 				}
 			}
 
-			short access_flags = inputstream.readShort();
+			this.access_flags = inputstream.readShort();
 			this.this_class = inputstream.readShort();
 			this.super_class = inputstream.readShort();
 
