@@ -56,39 +56,48 @@ public class ClassTransformer {
 		classLoader.injectClass(className.replace('/', '.'), data);
 	}
 
-	boolean HasRequirements(HashMap<String, Boolean> loadedClasses, ClassParser parser) {
-		String superclass = transformConfig.GetTransformedClassname(parser.GetSuperclass());
-		String[] interfaces = parser.GetInterfaces();
-		if (!loadedClasses.containsKey(superclass))
-			return false;
-
-		for (int i = 0; i < interfaces.length; i++) {
-			if (!loadedClasses.containsKey(transformConfig.GetTransformedClassname(interfaces[i])))
-				return false;
-		}
-
-		if (IsClassLoaded(superclass.replace('/', '.'))) {
-			loadedClasses.put(superclass, true);
-			return true;
-		}
-
-		return true;
-	}
-
 	boolean IsClassLoaded(String name) {
 		try {
-			Class<?> cl = Class.forName("name");
+			Class<?> cl = Class.forName(name);
 			return true;
 		} catch (ClassNotFoundException e) {
 			return false;
 		}
 	}
 
+	boolean ClassExists(HashMap<String, Boolean> loadedClasses, String name) {
+		if (name.startsWith("java/"))
+			return true;
+
+		if (loadedClasses.containsKey(name))
+			return true;
+
+		if (IsClassLoaded(name.replace('/', '.'))) {
+			loadedClasses.put(name, true);
+			return true;
+		}
+
+		return false;
+	}
+
+	boolean HasRequirements(HashMap<String, Boolean> loadedClasses, ClassParser parser) {
+		String superclass = transformConfig.GetTransformedClassname(parser.GetSuperclass());
+		String[] interfaces = parser.GetInterfaces();
+
+		if (!ClassExists(loadedClasses, superclass))
+			return false;
+
+		for (int i = 0; i < interfaces.length; i++) {
+			if (!ClassExists(loadedClasses, transformConfig.GetTransformedClassname(interfaces[i])))
+				return false;
+		}
+
+		return true;
+	}
+
 	public void LoadClasses(byte[][] classes) {
 		HashMap<String, Boolean> loadedClasses = new HashMap<String, Boolean>();
 		List<ClassParser> classesToLoad = new ArrayList<ClassParser>();
-
-		loadedClasses.put("java/lang/Object", true);
 
 		for (int i = 0; i < classes.length; i++) {
 			ClassParser parser = new ClassParser();
