@@ -16,16 +16,6 @@ import darkshadow44.compatibility.core.asm.ClassTransformer;
 
 public class ArchiveHandler {
 
-	static class ClassInfo {
-		public String name;
-		public byte[] data;
-
-		public ClassInfo(String name, byte[] data) {
-			this.name = name;
-			this.data = data;
-		}
-	}
-
 	public String[] GetModFiles(File path) {
 		List<String> files = new ArrayList();
 
@@ -39,8 +29,8 @@ public class ArchiveHandler {
 		return files.toArray(new String[0]);
 	}
 
-	public ClassInfo[] LoadClasses(String path) {
-		List<ClassInfo> classes = new ArrayList<ClassInfo>();
+	public byte[][] LoadClasses(String path) {
+		List<byte[]> classes = new ArrayList<byte[]>();
 
 		ZipInputStream zip;
 		try {
@@ -59,7 +49,7 @@ public class ArchiveHandler {
 						read += zip.read(data, read, length - read);
 					}
 
-					classes.add(new ClassInfo(name.replace('/', '.'), data));
+					classes.add(data);
 				}
 			}
 		} catch (FileNotFoundException e) {
@@ -68,7 +58,7 @@ public class ArchiveHandler {
 			e.printStackTrace();
 		}
 
-		return classes.toArray(new ClassInfo[0]);
+		return classes.toArray(new byte[0][]);
 	}
 
 	public void LoadAllMods(String path) {
@@ -77,10 +67,8 @@ public class ArchiveHandler {
 		ClassTransformer transformer = new ClassTransformer();
 
 		for (String pathMod : pathMods) {
-			ClassInfo[] classes = LoadClasses(pathMod);
-			for (ClassInfo classInfo : classes) {
-				transformer.LoadClass(classInfo.name, classInfo.data);
-			}
+			byte[][] classes = LoadClasses(pathMod);
+			transformer.LoadClasses(classes);
 		}
 	}
 
