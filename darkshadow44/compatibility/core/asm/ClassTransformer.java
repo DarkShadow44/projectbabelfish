@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
@@ -19,6 +20,7 @@ import org.objectweb.asm.tree.ClassNode;
 
 import com.google.common.io.Files;
 
+import helper.IOHelper;
 import helper.ReflectionHelper;
 import net.minecraft.launchwrapper.Launch;
 import scala.Console;
@@ -26,16 +28,17 @@ import scala.Console;
 public class ClassTransformer {
 
 	TransformConfig transformConfig;
+	ClassConstantTransformer constantTransformer;
 
 	public ClassTransformer() {
 		transformConfig = new TransformConfig();
+		constantTransformer = new ClassConstantTransformer(transformConfig);
 	}
 
-	public byte[] TransformClass(byte[] data) {
-		ClassConstantTransformer constantTransformer = new ClassConstantTransformer(transformConfig);
-		byte[] ret = constantTransformer.TransformClass(data);
-
-		return ret;
+	static class LoadClassInfo {
+		public String name;
+		public byte[] data;
+		public String[] dependencies;
 	}
 
 	public Class InjectClass(String className, byte[] data) {
@@ -45,25 +48,6 @@ public class ClassTransformer {
 		Object cl = ReflectionHelper.callPrivateMethod(ClassLoader.class, classLoader, "defineClass", parameters,
 				classParameters);
 		return (Class) cl;
-	}
-
-	public Class LoadClass(String className, byte[] data) {
-		try {
-			Files.write(data, new File("./testIn.class"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		data = TransformClass(data);
-
-		try {
-			Files.write(data, new File("./testOut.class"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		System.out.println("Loading: " + className);
-		return InjectClass(className.replace('/', '.'), data);
 	}
 
 	boolean IsClassLoaded(String name) {
@@ -90,64 +74,72 @@ public class ClassTransformer {
 		return false;
 	}
 
-	boolean HasRequirements(HashMap<String, Boolean> loadedClassNames, ClassParser parser) {
-		String superclass = transformConfig.GetTransformedClassname(parser.GetSuperclass());
-		String[] interfaces = parser.GetInterfaces();
+	void LogLoadErrors(List<LoadClassInfo> classesToLoad, HashMap<String, Boolean> loadedClassNames) {
+		String err = "Can't find classes: \n";
+		List<String> classesErr = new ArrayList<String>();
 
-		if (!ClassExists(loadedClassNames, superclass))
-			return false;
-
-		for (int i = 0; i < interfaces.length; i++) {
-			if (!ClassExists(loadedClassNames, transformConfig.GetTransformedClassname(interfaces[i])))
-				return false;
+		for (LoadClassInfo cl : classesToLoad) {
+			for (String dep : cl.dependencies)
+				classesErr.add(dep);
 		}
 
-		return true;
+		classesErr = classesErr.stream().distinct().collect(Collectors.toList());
+		Collections.sort(classesErr);
+		for (String name : classesErr) {
+			if (!ClassExists(loadedClassNames, name))
+				err += name + "\n";
+		}
+		throw new RuntimeException(err);
 	}
 
 	public Class[] LoadClasses(byte[][] classes) {
 		List<Class> loadedClasses = new ArrayList<Class>();
 		HashMap<String, Boolean> loadedClassNames = new HashMap<String, Boolean>();
-		List<ClassParser> classesToLoad = new ArrayList<ClassParser>();
+		List<LoadClassInfo> classesToLoad = new ArrayList<LoadClassInfo>();
 
-		for (int i = 0; i < classes.length; i++) {
+		for (byte[] cl : classes) {
+			LoadClassInfo loadClassInfo = new LoadClassInfo();
+			classesToLoad.add(loadClassInfo);
+
 			ClassParser parser = new ClassParser();
-			parser.Parse(classes[i]);
-			classesToLoad.add(parser);
+			parser.Parse(cl);
+
+			loadClassInfo.name = transformConfig.GetPrefix() + parser.GetThisclass();
+
+			List<String> dependencies = new ArrayList<String>();
+			loadClassInfo.data = constantTransformer.TransformAndGetDependencies(cl, dependencies);
+			dependencies.add(transformConfig.GetTransformedClassname(parser.GetSuperclass()));
+
+			String[] interfaces = parser.GetInterfaces();
+			for (String interfacex : interfaces)
+				dependencies.add(transformConfig.GetTransformedClassname(interfacex));
+			loadClassInfo.dependencies = dependencies.toArray(new String[0]);
 		}
 
 		int num_iterations = 0;
 		while (classesToLoad.size() > 0) {
 			num_iterations++;
 			if (num_iterations > 100) {
-				String err = "Can't find classes: \n";
-				List<String> classesErr = new ArrayList<String>();
-
-				for (ClassParser parser : classesToLoad) {
-					classesErr.add(transformConfig.GetTransformedClassname(parser.GetSuperclass()));
-
-					String[] interfaces = parser.GetInterfaces();
-					for (String interfacex : interfaces)
-						classesErr.add(transformConfig.GetTransformedClassname(interfacex));
-				}
-
-				classesErr = classesErr.stream().distinct().collect(Collectors.toList());
-				for (String name : classesErr) {
-					if (!ClassExists(loadedClassNames, name))
-						err += name + "\n";
-				}
-				throw new RuntimeException(err);
+				LogLoadErrors(classesToLoad, loadedClassNames);
 			}
 
-			ListIterator<ClassParser> iter = classesToLoad.listIterator();
+			ListIterator<LoadClassInfo> iter = classesToLoad.listIterator();
 			while (iter.hasNext()) {
-				ClassParser parser = iter.next();
+				LoadClassInfo loadClassInfo = iter.next();
 
-				if (HasRequirements(loadedClassNames, parser)) {
-					String className = transformConfig.GetPrefix() + parser.GetThisclass();
-					Class c = LoadClass(className, parser.GetData());
+				boolean depsFound = true;
+				for (String dep : loadClassInfo.dependencies) {
+					if (!ClassExists(loadedClassNames, dep)) {
+						depsFound = false;
+						break;
+					}
+				}
+
+				if (depsFound) {
+					System.out.println("Loading: " + loadClassInfo.name);
+					Class c = InjectClass(loadClassInfo.name.replace('/', '.'), loadClassInfo.data);
 					loadedClasses.add(c);
-					loadedClassNames.put(className, true);
+					loadedClassNames.put(loadClassInfo.name, true);
 					iter.remove();
 				}
 			}

@@ -24,17 +24,19 @@ public class ClassConstantTransformer {
 		this.transformConfig = transformConfig;
 	}
 
-	String TransformNormal(String desc) {
+	String TransformNormal(String desc, List<String> outDependencies) {
 		if (desc.startsWith("["))
-			return TransformDescriptor(desc);
+			return TransformDescriptor(desc, outDependencies);
 
-		if (!transformConfig.IsException(desc))
-			return transformConfig.GetPrefix() + desc;
+		if (!transformConfig.IsException(desc)) {
+			desc = transformConfig.GetPrefix() + desc;
+			outDependencies.add(desc);
+		}
 
 		return desc;
 	}
 
-	String TransformDescriptor(String desc) {
+	String TransformDescriptor(String desc, List<String> outDependencies) {
 		if (desc == null) {
 			return null;
 		}
@@ -64,8 +66,10 @@ public class ClassConstantTransformer {
 				while (desc.charAt(pos) != ';')
 					pos++;
 				substr = desc.substring(posOld, pos);
-				if (!transformConfig.IsException(substr))
+				if (!transformConfig.IsException(substr)) {
+					outDependencies.add(transformConfig.GetPrefix() + substr);
 					sb.append(transformConfig.GetPrefix());
+				}
 				sb.append(substr);
 				sb.append(';');
 				break;
@@ -73,10 +77,9 @@ public class ClassConstantTransformer {
 			}
 		}
 		return sb.toString();
-
 	}
 
-	public byte[] TransformClass(byte[] data) {
+	byte[] TransformAndGetDependencies(byte[] data, List<String> outDependencies) {
 
 		ClassParser parser = new ClassParser();
 		parser.Parse(data);
@@ -112,23 +115,22 @@ public class ClassConstantTransformer {
 		check_normal = check_normal.stream().distinct().collect(Collectors.toList());
 		check_descriptor = check_descriptor.stream().distinct().collect(Collectors.toList());
 
-		//Console.out().println("Normal:");
 		for (int i : check_normal) {
 			String str = parser.constants[i].str;
-			//Console.out().println("Before: " + str);
-			str = TransformNormal(str);
-			//Console.out().println("After : " + str);
+			str = TransformNormal(str, outDependencies);
 			parser.constants[i].str = str;
 		}
-		//Console.out().println("Descriptor:");
 		for (int i : check_descriptor) {
 			String str = parser.constants[i].str;
-			//Console.out().println("Before: " + str);
-			str = TransformDescriptor(str);
-			//Console.out().println("After : " + str);
+			str = TransformDescriptor(str, outDependencies);
 			parser.constants[i].str = str;
 		}
 
+		List<String> outDependenciesDedup = outDependencies.stream().distinct().collect(Collectors.toList());
+		outDependencies.clear();
+		outDependencies.addAll(outDependenciesDedup);
+
 		return parser.GetChangedClass();
 	}
+
 }
