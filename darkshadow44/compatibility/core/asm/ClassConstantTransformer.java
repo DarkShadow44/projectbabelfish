@@ -112,20 +112,20 @@ public class ClassConstantTransformer {
 		check_normal = check_normal.stream().distinct().collect(Collectors.toList());
 		check_descriptor = check_descriptor.stream().distinct().collect(Collectors.toList());
 
-		Console.out().println("Normal:");
+		//Console.out().println("Normal:");
 		for (int i : check_normal) {
 			String str = parser.constants[i].str;
-			Console.out().println("Before: " + str);
+			//Console.out().println("Before: " + str);
 			str = TransformNormal(str);
-			Console.out().println("After : " + str);
+			//Console.out().println("After : " + str);
 			parser.constants[i].str = str;
 		}
-		Console.out().println("Descriptor:");
+		//Console.out().println("Descriptor:");
 		for (int i : check_descriptor) {
 			String str = parser.constants[i].str;
-			Console.out().println("Before: " + str);
+			//Console.out().println("Before: " + str);
 			str = TransformDescriptor(str);
-			Console.out().println("After : " + str);
+			//Console.out().println("After : " + str);
 			parser.constants[i].str = str;
 		}
 
