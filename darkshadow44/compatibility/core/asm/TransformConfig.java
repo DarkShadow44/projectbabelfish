@@ -9,6 +9,9 @@ public class TransformConfig {
 		if (name.startsWith("javax/"))
 			return true;
 
+		if (name.startsWith("org/lwjgl/"))
+			return true;
+
 		return false;
 	}
 
