@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import com.google.common.primitives.Bytes;
 
 import darkshadow44.compatibility.core.asm.ClassParser.ConstantInfo;
+import darkshadow44.compatibility.core.asm.ClassParser.FieldMethodInfo;
 import scala.Console;
 
 public class ClassConstantTransformer {
@@ -101,6 +102,12 @@ public class ClassConstantTransformer {
 				break;
 			}
 		}
+
+		for (FieldMethodInfo field : parser.fields)
+			check_descriptor.add((int) field.descriptor_index);
+
+		for (FieldMethodInfo method : parser.methods)
+			check_descriptor.add((int) method.descriptor_index);
 
 		check_normal = check_normal.stream().distinct().collect(Collectors.toList());
 		check_descriptor = check_descriptor.stream().distinct().collect(Collectors.toList());
