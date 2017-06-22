@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.stream.Collectors;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
@@ -108,9 +109,25 @@ public class ClassTransformer {
 		int num_iterations = 0;
 		while (classesToLoad.size() > 0) {
 			num_iterations++;
-			if (num_iterations > 100)
-				throw new RuntimeException("Can't find class: \n" + classesToLoad.get(0).GetSuperclass()
-						+ "\nrequired by: \n" + classesToLoad.get(0).GetThisclass());
+			if (num_iterations > 100) {
+				String err = "Can't find classes: \n";
+				List<String> classesErr = new ArrayList<String>();
+
+				for (ClassParser parser : classesToLoad) {
+					classesErr.add(transformConfig.GetTransformedClassname(parser.GetSuperclass()));
+
+					String[] interfaces = parser.GetInterfaces();
+					for (String interfacex : interfaces)
+						classesErr.add(transformConfig.GetTransformedClassname(interfacex));
+				}
+
+				classesErr = classesErr.stream().distinct().collect(Collectors.toList());
+				for (String name : classesErr) {
+					if (!ClassExists(loadedClasses, name))
+						err += name + "\n";
+				}
+				throw new RuntimeException(err);
+			}
 
 			ListIterator<ClassParser> iter = classesToLoad.listIterator();
 			while (iter.hasNext()) {
