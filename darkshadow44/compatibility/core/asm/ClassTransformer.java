@@ -76,6 +76,8 @@ public class ClassTransformer {
 
 	void LogLoadErrors(List<LoadClassInfo> classesToLoad, HashMap<String, Boolean> loadedClassNames) {
 		String err = "Can't find classes: \n";
+		String errInJar = "";
+		String errOutJar = "";
 		List<String> classesErr = new ArrayList<String>();
 
 		for (LoadClassInfo cl : classesToLoad) {
@@ -86,9 +88,20 @@ public class ClassTransformer {
 		classesErr = classesErr.stream().distinct().collect(Collectors.toList());
 		Collections.sort(classesErr);
 		for (String name : classesErr) {
-			if (!ClassExists(loadedClassNames, name))
-				err += name + "\n";
+			boolean inThisJar = false;
+			for (LoadClassInfo classInfo : classesToLoad) {
+				if (classInfo.name.equals(name))
+					inThisJar = true;
+			}
+
+			if (!ClassExists(loadedClassNames, name)) {
+				if (inThisJar)
+					errInJar += name + "\n";
+				else
+					errOutJar += name + "\n";
+			}
 		}
+		err += "Outside Jar: \n" + errOutJar + "Inside Jar: \n" + errInJar;
 		throw new RuntimeException(err);
 	}
 
