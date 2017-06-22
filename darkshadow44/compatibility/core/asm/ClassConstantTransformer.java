@@ -116,6 +116,8 @@ public class ClassConstantTransformer {
 		check_descriptor = check_descriptor.stream().distinct().collect(Collectors.toList());
 
 		for (int i : check_normal) {
+			if (check_descriptor.contains(i))
+				continue;
 			String str = parser.constants[i].str;
 			str = TransformNormal(str, outDependencies);
 			parser.constants[i].str = str;
