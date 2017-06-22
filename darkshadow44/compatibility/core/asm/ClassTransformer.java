@@ -19,15 +19,15 @@ import org.objectweb.asm.tree.ClassNode;
 
 import com.google.common.io.Files;
 
+import helper.ReflectionHelper;
+import net.minecraft.launchwrapper.Launch;
 import scala.Console;
 
 public class ClassTransformer {
 
-	MemoryClassLoader classLoader;
 	TransformConfig transformConfig;
 
 	public ClassTransformer() {
-		classLoader = new MemoryClassLoader();
 		transformConfig = new TransformConfig();
 	}
 
@@ -38,7 +38,16 @@ public class ClassTransformer {
 		return ret;
 	}
 
-	public void LoadClass(String className, byte[] data) {
+	public Class InjectClass(String className, byte[] data) {
+		ClassLoader classLoader = Launch.classLoader;
+		Object[] parameters = new Object[] { className, data, 0, data.length };
+		Class[] classParameters = new Class[] { String.class, byte[].class, int.class, int.class };
+		Object cl = ReflectionHelper.callPrivateMethod(ClassLoader.class, classLoader, "defineClass", parameters,
+				classParameters);
+		return (Class) cl;
+	}
+
+	public Class LoadClass(String className, byte[] data) {
 		try {
 			Files.write(data, new File("./testIn.class"));
 		} catch (IOException e) {
@@ -54,7 +63,7 @@ public class ClassTransformer {
 		}
 
 		System.out.println("Loading: " + className);
-		classLoader.injectClass(className.replace('/', '.'), data);
+		return InjectClass(className.replace('/', '.'), data);
 	}
 
 	boolean IsClassLoaded(String name) {
@@ -66,38 +75,39 @@ public class ClassTransformer {
 		}
 	}
 
-	boolean ClassExists(HashMap<String, Boolean> loadedClasses, String name) {
+	boolean ClassExists(HashMap<String, Boolean> loadedClassNames, String name) {
 		if (name.startsWith("java/"))
 			return true;
 
-		if (loadedClasses.containsKey(name))
+		if (loadedClassNames.containsKey(name))
 			return true;
 
 		if (IsClassLoaded(name.replace('/', '.'))) {
-			loadedClasses.put(name, true);
+			loadedClassNames.put(name, true);
 			return true;
 		}
 
 		return false;
 	}
 
-	boolean HasRequirements(HashMap<String, Boolean> loadedClasses, ClassParser parser) {
+	boolean HasRequirements(HashMap<String, Boolean> loadedClassNames, ClassParser parser) {
 		String superclass = transformConfig.GetTransformedClassname(parser.GetSuperclass());
 		String[] interfaces = parser.GetInterfaces();
 
-		if (!ClassExists(loadedClasses, superclass))
+		if (!ClassExists(loadedClassNames, superclass))
 			return false;
 
 		for (int i = 0; i < interfaces.length; i++) {
-			if (!ClassExists(loadedClasses, transformConfig.GetTransformedClassname(interfaces[i])))
+			if (!ClassExists(loadedClassNames, transformConfig.GetTransformedClassname(interfaces[i])))
 				return false;
 		}
 
 		return true;
 	}
 
-	public void LoadClasses(byte[][] classes) {
-		HashMap<String, Boolean> loadedClasses = new HashMap<String, Boolean>();
+	public Class[] LoadClasses(byte[][] classes) {
+		List<Class> loadedClasses = new ArrayList<Class>();
+		HashMap<String, Boolean> loadedClassNames = new HashMap<String, Boolean>();
 		List<ClassParser> classesToLoad = new ArrayList<ClassParser>();
 
 		for (int i = 0; i < classes.length; i++) {
@@ -123,7 +133,7 @@ public class ClassTransformer {
 
 				classesErr = classesErr.stream().distinct().collect(Collectors.toList());
 				for (String name : classesErr) {
-					if (!ClassExists(loadedClasses, name))
+					if (!ClassExists(loadedClassNames, name))
 						err += name + "\n";
 				}
 				throw new RuntimeException(err);
@@ -133,14 +143,16 @@ public class ClassTransformer {
 			while (iter.hasNext()) {
 				ClassParser parser = iter.next();
 
-				if (HasRequirements(loadedClasses, parser)) {
+				if (HasRequirements(loadedClassNames, parser)) {
 					String className = transformConfig.GetPrefix() + parser.GetThisclass();
-					LoadClass(className, parser.GetData());
-					loadedClasses.put(className, true);
+					Class c = LoadClass(className, parser.GetData());
+					loadedClasses.add(c);
+					loadedClassNames.put(className, true);
 					iter.remove();
 				}
 			}
 		}
+		return loadedClasses.toArray(new Class[0]);
 	}
 
 }
