@@ -6,6 +6,9 @@ public class TransformConfig {
 		if (name.startsWith("java/"))
 			return true;
 
+		if (name.startsWith("javax/"))
+			return true;
+
 		return false;
 	}
 
