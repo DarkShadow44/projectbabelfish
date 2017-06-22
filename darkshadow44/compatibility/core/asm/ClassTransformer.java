@@ -38,7 +38,8 @@ public class ClassTransformer {
 	static class LoadClassInfo {
 		public String name;
 		public byte[] data;
-		public String[] dependencies;
+		public String[] dependenciesHard;
+		public String[] dependenciesSoft;
 	}
 
 	public Class InjectClass(String className, byte[] data) {
@@ -59,7 +60,7 @@ public class ClassTransformer {
 		}
 	}
 
-	boolean ClassExists(HashMap<String, Boolean> loadedClassNames, String name) {
+	boolean ClassExists(HashMap<String, LoadClassInfo> loadedClassNames, String name) {
 		if (name.startsWith("java/"))
 			return true;
 
@@ -67,47 +68,50 @@ public class ClassTransformer {
 			return true;
 
 		if (IsClassLoaded(name.replace('/', '.'))) {
-			loadedClassNames.put(name, true);
 			return true;
 		}
 
 		return false;
 	}
 
-	void LogLoadErrors(List<LoadClassInfo> classesToLoad, HashMap<String, Boolean> loadedClassNames) {
+	void LogLoadErrors(List<LoadClassInfo> classesToLoad, HashMap<String, LoadClassInfo> loadedClassNames,
+			boolean hard) {
 		String err = "Can't find classes: \n";
 		String errInJar = "";
 		String errOutJar = "";
 		List<String> classesErr = new ArrayList<String>();
 
 		for (LoadClassInfo cl : classesToLoad) {
-			for (String dep : cl.dependencies)
+			String[] dependencies = hard ? cl.dependenciesHard : cl.dependenciesSoft;
+			for (String dep : dependencies)
+				classesErr.add(dep);
+		}
+
+		for (LoadClassInfo cl : loadedClassNames.values()) {
+			Console.out().println(cl.name);
+			String[] dependencies = hard ? cl.dependenciesHard : cl.dependenciesSoft;
+			for (String dep : dependencies)
 				classesErr.add(dep);
 		}
 
 		classesErr = classesErr.stream().distinct().collect(Collectors.toList());
-		Collections.sort(classesErr);
-		for (String name : classesErr) {
-			boolean inThisJar = false;
-			for (LoadClassInfo classInfo : classesToLoad) {
-				if (classInfo.name.equals(name))
-					inThisJar = true;
-			}
 
-			if (!ClassExists(loadedClassNames, name)) {
-				if (inThisJar)
-					errInJar += name + "\n";
-				else
-					errOutJar += name + "\n";
-			}
+		Collections.sort(classesErr);
+		for (String name : classesErr)
+			if (!ClassExists(loadedClassNames, name))
+				err += name + "\n";
+
+		if (classesErr.size() > 0) {
+			if (hard)
+				throw new RuntimeException(err);
+			else
+				Console.out().println("################ Compatibiliy Mod - Missing Classes!\n" + err);
 		}
-		err += "Outside Jar: \n" + errOutJar + "Inside Jar: \n" + errInJar;
-		throw new RuntimeException(err);
 	}
 
 	public Class[] LoadClasses(byte[][] classes) {
 		List<Class> loadedClasses = new ArrayList<Class>();
-		HashMap<String, Boolean> loadedClassNames = new HashMap<String, Boolean>();
+		HashMap<String, LoadClassInfo> loadedClassNames = new HashMap<String, LoadClassInfo>();
 		List<LoadClassInfo> classesToLoad = new ArrayList<LoadClassInfo>();
 
 		for (byte[] cl : classes) {
@@ -117,23 +121,26 @@ public class ClassTransformer {
 			ClassParser parser = new ClassParser();
 			parser.Parse(cl);
 
+			List<String> dependenciesSoft = new ArrayList<String>();
+			List<String> dependenciesHard = new ArrayList<String>();
+
 			loadClassInfo.name = transformConfig.GetPrefix() + parser.GetThisclass();
+			loadClassInfo.data = constantTransformer.TransformAndGetDependencies(cl, dependenciesSoft);
 
-			List<String> dependencies = new ArrayList<String>();
-			loadClassInfo.data = constantTransformer.TransformAndGetDependencies(cl, dependencies);
-			dependencies.add(transformConfig.GetTransformedClassname(parser.GetSuperclass()));
-
+			dependenciesHard.add(transformConfig.GetTransformedClassname(parser.GetSuperclass()));
 			String[] interfaces = parser.GetInterfaces();
 			for (String interfacex : interfaces)
-				dependencies.add(transformConfig.GetTransformedClassname(interfacex));
-			loadClassInfo.dependencies = dependencies.toArray(new String[0]);
+				dependenciesHard.add(transformConfig.GetTransformedClassname(interfacex));
+
+			loadClassInfo.dependenciesSoft = dependenciesSoft.toArray(new String[0]);
+			loadClassInfo.dependenciesHard = dependenciesHard.toArray(new String[0]);
 		}
 
 		int num_iterations = 0;
 		while (classesToLoad.size() > 0) {
 			num_iterations++;
 			if (num_iterations > 100) {
-				LogLoadErrors(classesToLoad, loadedClassNames);
+				LogLoadErrors(classesToLoad, loadedClassNames, true);
 			}
 
 			ListIterator<LoadClassInfo> iter = classesToLoad.listIterator();
@@ -141,7 +148,7 @@ public class ClassTransformer {
 				LoadClassInfo loadClassInfo = iter.next();
 
 				boolean depsFound = true;
-				for (String dep : loadClassInfo.dependencies) {
+				for (String dep : loadClassInfo.dependenciesHard) {
 					if (!ClassExists(loadedClassNames, dep)) {
 						depsFound = false;
 						break;
@@ -152,11 +159,13 @@ public class ClassTransformer {
 					System.out.println("Loading: " + loadClassInfo.name);
 					Class c = InjectClass(loadClassInfo.name.replace('/', '.'), loadClassInfo.data);
 					loadedClasses.add(c);
-					loadedClassNames.put(loadClassInfo.name, true);
+					loadedClassNames.put(loadClassInfo.name, loadClassInfo);
 					iter.remove();
 				}
 			}
 		}
+		LogLoadErrors(classesToLoad, loadedClassNames, false);
+
 		return loadedClasses.toArray(new Class[0]);
 	}
 
