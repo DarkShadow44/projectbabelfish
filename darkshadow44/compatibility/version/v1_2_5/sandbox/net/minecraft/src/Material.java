@@ -12,6 +12,12 @@ public class Material extends net.minecraft.block.material.Material {
 	public static final Material ground = new Material(MapColor.dirtColor);
 	public static final Material grass = new Material(MapColor.grassColor);
 	public static final Material sand = new Material(MapColor.sandColor);
+	public static final Material snow = (Material) (new MaterialLogic(MapColor.snowColor)).setReplaceable();
+	public static final Material clay = new Material(MapColor.clayColor);
+	public static final Material craftedSnow = (new Material(MapColor.snowColor));
+	public static final Material ice = (new Material(MapColor.iceColor));
+	public static final Material circuits = (new Material(MapColor.airColor));
+	public static final Material iron = (new Material(MapColor.ironColor));
 
 	public Material(MapColor p_i2116_1_) {
 		super(p_i2116_1_);
