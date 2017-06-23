@@ -100,8 +100,7 @@ public class ModLoader {
 	// }
 
 	public static Minecraft getMinecraftInstance() {
-		return null;
-
+		return Minecraft.instance;
 	}
 
 	public static Object getMinecraftServerInstance() {

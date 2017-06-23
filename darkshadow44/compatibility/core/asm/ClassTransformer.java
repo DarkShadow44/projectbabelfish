@@ -88,7 +88,6 @@ public class ClassTransformer {
 		}
 
 		for (LoadClassInfo cl : loadedClassNames.values()) {
-			Console.out().println(cl.name);
 			String[] dependencies = hard ? cl.dependenciesHard : cl.dependenciesSoft;
 			for (String dep : dependencies)
 				classesErr.add(dep);
@@ -156,7 +155,6 @@ public class ClassTransformer {
 				}
 
 				if (depsFound) {
-					System.out.println("Loading: " + loadClassInfo.name);
 					Class c = InjectClass(loadClassInfo.name.replace('/', '.'), loadClassInfo.data);
 					loadedClasses.add(c);
 					loadedClassNames.put(loadClassInfo.name, loadClassInfo);
