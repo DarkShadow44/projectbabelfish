@@ -1,26 +1,70 @@
 package darkshadow44.compatibility.version.v1_2_5.sandbox.net.minecraft.src;
 
-import net.minecraft.block.material.MapColor;
-import net.minecraft.block.material.MaterialLogic;
-
-public class Material extends net.minecraft.block.material.Material {
-
-	public static final Material rock = (Material) (new Material(MapColor.stoneColor)).setRequiresTool();
-	public static final Material wood = (Material) (new Material(MapColor.woodColor)).setBurning();
-	public static final Material leaves = (Material) (new Material(MapColor.foliageColor)).setBurning();
-	public static final Material plants = (Material) (new Material(MapColor.foliageColor)).setNoPushMobility();
-	public static final Material ground = new Material(MapColor.dirtColor);
+public class Material {
+	public static final Material air = new MaterialTransparent(MapColor.airColor);
 	public static final Material grass = new Material(MapColor.grassColor);
+	public static final Material ground = new Material(MapColor.dirtColor);
+	public static final Material wood = (new Material(MapColor.woodColor)).setBurning();
+	public static final Material rock = (new Material(MapColor.stoneColor)).setNoHarvest();
+	public static final Material iron = (new Material(MapColor.ironColor)).setNoHarvest();
+	public static final Material water = (new MaterialLiquid(MapColor.waterColor)).setNoPushMobility();
+	public static final Material lava = (new MaterialLiquid(MapColor.tntColor)).setNoPushMobility();
+	public static final Material leaves = (new Material(MapColor.foliageColor)).setBurning().setTranslucent()
+			.setNoPushMobility();
+	public static final Material plants = (new MaterialLogic(MapColor.foliageColor)).setNoPushMobility();
+	public static final Material vine = (new MaterialLogic(MapColor.foliageColor)).setBurning().setNoPushMobility()
+			.setGroundCover();
+	public static final Material sponge = new Material(MapColor.clothColor);
+	public static final Material cloth = (new Material(MapColor.clothColor)).setBurning();
+	public static final Material fire = (new MaterialTransparent(MapColor.airColor)).setNoPushMobility();
 	public static final Material sand = new Material(MapColor.sandColor);
-	public static final Material snow = (Material) (new MaterialLogic(MapColor.snowColor)).setReplaceable();
+	public static final Material circuits = (new MaterialLogic(MapColor.airColor)).setNoPushMobility();
+	public static final Material glass = (new Material(MapColor.airColor)).setTranslucent();
+	public static final Material redstoneLight = new Material(MapColor.airColor);
+	public static final Material tnt = (new Material(MapColor.tntColor)).setBurning().setTranslucent();
+	public static final Material unused = (new Material(MapColor.foliageColor)).setNoPushMobility();
+	public static final Material ice = (new Material(MapColor.iceColor)).setTranslucent();
+	public static final Material snow = (new MaterialLogic(MapColor.snowColor)).setGroundCover().setTranslucent()
+			.setNoHarvest().setNoPushMobility();
+	public static final Material craftedSnow = (new Material(MapColor.snowColor)).setNoHarvest();
+	public static final Material cactus = (new Material(MapColor.foliageColor)).setTranslucent().setNoPushMobility();
 	public static final Material clay = new Material(MapColor.clayColor);
-	public static final Material craftedSnow = (new Material(MapColor.snowColor));
-	public static final Material ice = (new Material(MapColor.iceColor));
-	public static final Material circuits = (new Material(MapColor.airColor));
-	public static final Material iron = (new Material(MapColor.ironColor));
+	public static final Material pumpkin = (new Material(MapColor.foliageColor)).setNoPushMobility();
+	public static final Material dragonEgg = (new Material(MapColor.foliageColor)).setNoPushMobility();
+	public static final Material portal = (new MaterialPortal(MapColor.airColor)).setImmovableMobility();
+	public static final Material cake = (new Material(MapColor.airColor)).setNoPushMobility();
+	public static final Material web = (new MaterialWeb(MapColor.clothColor)).setNoHarvest().setNoPushMobility();
+	public static final Material piston = (new Material(MapColor.stoneColor)).setImmovableMobility();
 
-	public Material(MapColor p_i2116_1_) {
-		super(p_i2116_1_);
+	public Material(MapColor par0) {
+	}
+
+	protected Material setTranslucent() {
+		return this;
+	}
+
+	protected Material setImmovableMobility() {
+		return this;
+	}
+
+	protected Material setNoHarvest() {
+		return this;
+	}
+
+	public Material setNoPushMobility() {
+		return this;
+	}
+
+	protected Material setRequiresTool() {
+		return this;
+	}
+
+	protected Material setBurning() {
+		return this;
+	}
+
+	public Material setGroundCover() {
+		return this;
 	}
 
 }
