@@ -19,11 +19,15 @@ public class MemoryClassLoader extends ClassLoader {
 	}
 
 	public void addResource(String path, byte[] data) {
+		if (!path.startsWith("/"))
+			path = "/" + path;
 		resources.put(path, data);
 	}
 
 	@Override
 	public InputStream getResourceAsStream(String path) {
+		if (!path.startsWith("/"))
+			path = "/" + path;
 		if (resources.containsKey(path))
 			return new DataInputStream(new ByteArrayInputStream(resources.get(path)));
 		return null;

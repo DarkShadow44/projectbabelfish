@@ -26,18 +26,13 @@ import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.ModMetadata;
 import darkshadow44.compatibility.core.asm.ClassTransformer;
 import darkshadow44.compatibility.core.asm.MemoryClassLoader;
+import darkshadow44.compatibility.version.v1_2_5.sandbox.Core;
 import darkshadow44.compatibility.version.v1_2_5.sandbox.net.minecraft.src.BaseMod;
 import helper.ReflectionHelper;
 import net.minecraft.launchwrapper.Launch;
 import scala.Console;
 
 public class ArchiveHandler {
-
-	MemoryClassLoader classLoader;
-
-	public ArchiveHandler() {
-		classLoader = new MemoryClassLoader(Launch.classLoader);
-	}
 
 	public String[] GetModFiles(File path) {
 		List<String> files = new ArrayList();
@@ -79,7 +74,7 @@ public class ArchiveHandler {
 						classes.add(data);
 
 					if (nameLower.endsWith(".txt") || nameLower.endsWith(".png"))
-						classLoader.addResource(entry.getName(), data);
+						Core.classLoader.addResource(entry.getName(), data);
 				}
 			}
 		} catch (FileNotFoundException e) {
@@ -145,7 +140,7 @@ public class ArchiveHandler {
 	public void LoadAllMods(String path) {
 		String[] pathMods = GetModFiles(new File(path));
 
-		ClassTransformer transformer = new ClassTransformer(classLoader);
+		ClassTransformer transformer = new ClassTransformer(Core.classLoader);
 
 		List<Class> baseMods = new ArrayList<Class>();
 
