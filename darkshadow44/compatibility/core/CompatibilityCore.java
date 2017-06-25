@@ -26,6 +26,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
+import darkshadow44.testmod.TestMod;
 import scala.Console;
 
 @IFMLLoadingPlugin.MCVersion
@@ -34,6 +35,8 @@ public class CompatibilityCore implements IFMLLoadingPlugin {
 
 	@Mod.Instance
 	public static CompatibilityCore instance;
+
+	TestMod test = new TestMod();
 
 	@Override
 	public String[] getASMTransformerClass() {
@@ -71,6 +74,7 @@ public class CompatibilityCore implements IFMLLoadingPlugin {
 
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		test.preInit(event);
 	}
 
 	@Mod.EventHandler
