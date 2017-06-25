@@ -11,6 +11,8 @@ public class ModLoader {
 	// name, String description) {
 	// }
 
+	public static String tmpLocale;
+
 	public static int addAllFuel(int id, int metadata) {
 		return metadata;
 	}
@@ -32,7 +34,7 @@ public class ModLoader {
 	}
 
 	public static void addLocalization(String key, String value) {
-
+		tmpLocale += key + "=" + value + "\n";
 	}
 
 	public static void addLocalization(String key, String lang, String value) {
@@ -40,7 +42,10 @@ public class ModLoader {
 	}
 
 	public static void addName(Object instance, String name) {
-
+		if (instance instanceof Item) {
+			Item item = (Item) instance;
+			tmpLocale += "item." + item.unlocalisedName + ".name=" + name + "\n";
+		}
 	}
 
 	public static void addName(Object instance, String lang, String name) {
@@ -68,23 +73,19 @@ public class ModLoader {
 
 	}
 
-	public static void addSpawn(Class<? extends EntityLiving> entityClass, int weightedProb, int min, int max,
-			EnumCreatureType spawnList) {
+	public static void addSpawn(Class<? extends EntityLiving> entityClass, int weightedProb, int min, int max, EnumCreatureType spawnList) {
 	}
 
-	public static void addSpawn(Class<? extends EntityLiving> entityClass, int weightedProb, int min, int max,
-			EnumCreatureType spawnList, BiomeGenBase... biomes) {
+	public static void addSpawn(Class<? extends EntityLiving> entityClass, int weightedProb, int min, int max, EnumCreatureType spawnList, BiomeGenBase... biomes) {
 	}
 
 	public static void addSpawn(String entityName, int weightedProb, int min, int max, EnumCreatureType spawnList) {
 	}
 
-	public static void addSpawn(String entityName, int weightedProb, int min, int max, EnumCreatureType spawnList,
-			BiomeGenBase... biomes) {
+	public static void addSpawn(String entityName, int weightedProb, int min, int max, EnumCreatureType spawnList, BiomeGenBase... biomes) {
 	}
 
-	public static boolean dispenseEntity(World world, double x, double y, double z, int xVel, int zVel,
-			ItemStack item) {
+	public static boolean dispenseEntity(World world, double x, double y, double z, int xVel, int zVel, ItemStack item) {
 		return false;
 	}
 
@@ -177,8 +178,7 @@ public class ModLoader {
 	public static void registerEntityID(Class<? extends Entity> entityClass, String entityName, int id) {
 	}
 
-	public static void registerEntityID(Class<? extends Entity> entityClass, String entityName, int id, int background,
-			int foreground) {
+	public static void registerEntityID(Class<? extends Entity> entityClass, String entityName, int id, int background, int foreground) {
 	}
 
 	public static void registerKey(BaseMod mod, KeyBinding keyHandler, boolean allowRepeat) {
@@ -191,8 +191,7 @@ public class ModLoader {
 
 	}
 
-	public static void registerTileEntity(Class<? extends TileEntity> tileEntityClass, String id,
-			TileEntitySpecialRenderer renderer) {
+	public static void registerTileEntity(Class<? extends TileEntity> tileEntityClass, String id, TileEntitySpecialRenderer renderer) {
 
 	}
 
@@ -203,8 +202,7 @@ public class ModLoader {
 	public static void removeSpawn(Class<? extends EntityLiving> entityClass, EnumCreatureType spawnList) {
 	}
 
-	public static void removeSpawn(Class<? extends EntityLiving> entityClass, EnumCreatureType spawnList,
-			BiomeGenBase... biomes) {
+	public static void removeSpawn(Class<? extends EntityLiving> entityClass, EnumCreatureType spawnList, BiomeGenBase... biomes) {
 	}
 
 	public static void removeSpawn(String entityName, EnumCreatureType spawnList) {
@@ -220,8 +218,7 @@ public class ModLoader {
 	public static void renderInvBlock(RenderBlocks renderer, Block block, int metadata, int modelID) {
 	}
 
-	public static boolean renderWorldBlock(RenderBlocks renderer, IBlockAccess world, int x, int y, int z, Block block,
-			int modelID) {
+	public static boolean renderWorldBlock(RenderBlocks renderer, IBlockAccess world, int x, int y, int z, Block block, int modelID) {
 		return false;
 	}
 

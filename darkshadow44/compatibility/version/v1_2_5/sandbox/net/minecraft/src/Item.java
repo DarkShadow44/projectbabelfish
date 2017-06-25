@@ -6,6 +6,7 @@ import darkshadow44.compatibility.version.v1_2_5.shim.net.minecraft.src.ItemShim
 public class Item {
 
 	private ItemShim itemShim;
+	public String unlocalisedName;
 
 	public int bR;
 	public float a;
@@ -352,8 +353,10 @@ public class Item {
 	}
 
 	public Item setItemName(String name) {
-		if (!dummy)
-			itemShim.setItemName(name);
+		if (dummy)
+			return this;
+		unlocalisedName = name;
+		itemShim.setItemName(name);
 		return this;
 	}
 
@@ -380,4 +383,9 @@ public class Item {
 	public Item setPotionEffect(String par0) {
 		return this;
 	}
+
+	public ItemShim getShim() {
+		return itemShim;
+	}
+
 }

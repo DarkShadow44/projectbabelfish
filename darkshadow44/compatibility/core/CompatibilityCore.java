@@ -86,32 +86,15 @@ public class CompatibilityCore implements IFMLLoadingPlugin {
 	public void postInit(FMLPostInitializationEvent event) {
 	}
 
-	public ResourcePack resourcePack = new ResourcePack();
-
-	void registerTexturePack() {
-		FMLClientHandler INSTANCE;
-		List<IResourcePack> resourcePackList;
-		Map<String, IResourcePack> resourcePackMap;
-
-		INSTANCE = (FMLClientHandler) ReflectionHelper.getPrivateField(FMLClientHandler.class, "INSTANCE");
-		resourcePackList = (List<IResourcePack>) ReflectionHelper.getPrivateField(INSTANCE, "resourcePackList");
-		resourcePackMap = (Map<String, IResourcePack>) ReflectionHelper.getPrivateField(INSTANCE, "resourcePackMap");
-
-		resourcePackList.add(resourcePack);
-		resourcePackMap.put("compat", resourcePack);
-
-		Minecraft.getMinecraft().refreshResources();
-	}
+	public ModController modController;
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
 		File pathMods = new File(net.minecraft.client.Minecraft.getMinecraft().mcDataDir, "compatibility/1.2.5/mods");
 		pathMods.mkdirs();
 
-		ArchiveHandler archiveHandler = new ArchiveHandler();
-		archiveHandler.LoadAllMods(pathMods.getPath());
-		registerTexturePack();
-		Console.out().println("Loaded successfully.");
+		modController = new ModController(pathMods.getPath());
+		modController.LoadMods();
 	}
 
 	@Mod.EventHandler
