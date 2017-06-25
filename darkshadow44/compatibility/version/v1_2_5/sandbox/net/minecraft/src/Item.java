@@ -311,7 +311,7 @@ public class Item {
 	public Item(int par0) {
 		if (dummy)
 			return;
-		itemShim = new ItemShim();
+		itemShim = new ItemShim(this);
 		itemShim.setCreativeTab(Core.tabCompat);
 	}
 
@@ -386,6 +386,10 @@ public class Item {
 
 	public ItemShim getShim() {
 		return itemShim;
+	}
+
+	public String d(ItemStack itemstack) {
+		return "<Missing compat-itemname>";
 	}
 
 }
