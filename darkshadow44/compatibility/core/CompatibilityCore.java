@@ -40,7 +40,6 @@ public class CompatibilityCore implements IFMLLoadingPlugin {
 
 	@Override
 	public String[] getASMTransformerClass() {
-		// return new String[] { DumaClassTransformer.class.getName() };
 		return null;
 	}
 
