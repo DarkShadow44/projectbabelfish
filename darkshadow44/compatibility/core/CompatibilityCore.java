@@ -12,6 +12,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.ModContainer;
@@ -26,7 +27,12 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
+import darkshadow44.compatibility.common.ResourcePack;
 import darkshadow44.testmod.TestMod;
+import helper.ReflectionHelper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.IReloadableResourceManager;
+import net.minecraft.client.resources.IResourcePack;
 import scala.Console;
 
 @IFMLLoadingPlugin.MCVersion
@@ -80,6 +86,23 @@ public class CompatibilityCore implements IFMLLoadingPlugin {
 	public void postInit(FMLPostInitializationEvent event) {
 	}
 
+	public ResourcePack resourcePack = new ResourcePack();
+
+	void registerTexturePack() {
+		FMLClientHandler INSTANCE;
+		List<IResourcePack> resourcePackList;
+		Map<String, IResourcePack> resourcePackMap;
+
+		INSTANCE = (FMLClientHandler) ReflectionHelper.getPrivateField(FMLClientHandler.class, "INSTANCE");
+		resourcePackList = (List<IResourcePack>) ReflectionHelper.getPrivateField(INSTANCE, "resourcePackList");
+		resourcePackMap = (Map<String, IResourcePack>) ReflectionHelper.getPrivateField(INSTANCE, "resourcePackMap");
+
+		resourcePackList.add(resourcePack);
+		resourcePackMap.put("compat", resourcePack);
+
+		Minecraft.getMinecraft().refreshResources();
+	}
+
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
 		File pathMods = new File(net.minecraft.client.Minecraft.getMinecraft().mcDataDir, "compatibility/1.2.5/mods");
@@ -87,6 +110,7 @@ public class CompatibilityCore implements IFMLLoadingPlugin {
 
 		ArchiveHandler archiveHandler = new ArchiveHandler();
 		archiveHandler.LoadAllMods(pathMods.getPath());
+		registerTexturePack();
 		Console.out().println("Loaded successfully.");
 	}
 

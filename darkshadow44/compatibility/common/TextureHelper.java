@@ -24,7 +24,9 @@ public class TextureHelper {
 	}
 
 	public String GetTextureSplitName(String texturePath, int x, int y) {
-		return texturePath.replace('/', '_').replace('.', '_') + "_" + y / 16 + "_" + x / 16 + "_.png";
+		if (texturePath.startsWith("/"))
+			texturePath = texturePath.substring(1);
+		return texturePath.replace('/', '_').replace('.', '_') + "_" + y + "_" + x;
 	}
 
 	public void LoadImage(String texturePath) {
@@ -52,7 +54,8 @@ public class TextureHelper {
 					outputstream.flush();
 					byte[] dataSplit = output.toByteArray();
 
-					Core.classLoader.addResource(GetTextureSplitName(texturePath, x, y), dataSplit);
+					String path = "textures/items/" + GetTextureSplitName(texturePath, x / 16, y / 16) + ".png";
+					Core.classLoader.addResource(path, dataSplit);
 				}
 		} catch (IOException e) {
 			e.printStackTrace();

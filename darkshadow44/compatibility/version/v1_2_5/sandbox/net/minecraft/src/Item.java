@@ -331,7 +331,7 @@ public class Item {
 		Core.textureHelper.LoadImage(texturePath);
 		String name = Core.textureHelper.GetTextureSplitName(texturePath, x, y);
 
-		itemShim.setTextureName(name);
+		itemShim.setTextureName("compat:" + name);
 		return this;
 	}
 
