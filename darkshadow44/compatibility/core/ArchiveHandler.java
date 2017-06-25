@@ -16,7 +16,9 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Multimap;
+import com.google.common.eventbus.EventBus;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.LoaderState.ModState;
@@ -86,18 +88,27 @@ public class ArchiveHandler {
 		Object fmlLoader = Loader.instance();
 		Object fmlLoadController = ReflectionHelper.getPrivateField(fmlLoader, "modController");
 
-		List<ModContainer> mods = new ArrayList((List) ReflectionHelper.getPrivateField(fmlLoader, "mods"));
-		Map<String, ModContainer> namedMods = new HashMap<String, ModContainer>(
-				(Map) ReflectionHelper.getPrivateField(fmlLoader, "namedMods"));
-		Multimap<String, ModState> modStates = ArrayListMultimap
+		List<ModContainer> mods;
+		Map<String, ModContainer> namedMods;
+		Multimap<String, ModState> modStates;
+		List<ModContainer> activeModList;
+		ImmutableMap<String, EventBus> eventChannelsImmutable;
+		HashMap<String, EventBus> eventChannels;
+
+		mods = new ArrayList((List) ReflectionHelper.getPrivateField(fmlLoader, "mods"));
+		namedMods = new HashMap<String, ModContainer>((Map) ReflectionHelper.getPrivateField(fmlLoader, "namedMods"));
+		modStates = ArrayListMultimap
 				.create((Multimap) ReflectionHelper.getPrivateField(fmlLoadController, "modStates"));
-		List<ModContainer> activeModList = new ArrayList(
-				(List) ReflectionHelper.getPrivateField(fmlLoadController, "activeModList"));
+		activeModList = new ArrayList((List) ReflectionHelper.getPrivateField(fmlLoadController, "activeModList"));
+		eventChannelsImmutable = (ImmutableMap<String, EventBus>) ReflectionHelper.getPrivateField(fmlLoadController,
+				"eventChannels");
+		eventChannels = new HashMap<String, EventBus>(eventChannelsImmutable);
+
 		for (Class c : classes) {
 			ModMetadata modFMLMeta = new ModMetadata();
 			modFMLMeta.authorList = Arrays.asList("[missing]");
 			modFMLMeta.name = "[Compat-1.2.5] " + c.getSimpleName();
-			modFMLMeta.modId = "[missing]";
+			modFMLMeta.modId = modFMLMeta.name;
 			modFMLMeta.version = "[missing]";
 			modFMLMeta.description = "[missing]";
 
@@ -107,11 +118,13 @@ public class ArchiveHandler {
 			namedMods.put(modFMLMeta.modId, modFMLContainer);
 			modStates.put(modFMLMeta.modId, ModState.AVAILABLE);
 			activeModList.add(modFMLContainer);
+			eventChannels.put(modFMLMeta.modId, new EventBus());
 		}
 		ReflectionHelper.setPrivateField(fmlLoader, "mods", mods);
 		ReflectionHelper.setPrivateField(fmlLoader, "namedMods", namedMods);
 		ReflectionHelper.setPrivateField(fmlLoadController, "modStates", modStates);
 		ReflectionHelper.setPrivateField(fmlLoadController, "activeModList", activeModList);
+		ReflectionHelper.setPrivateField(fmlLoadController, "eventChannels", ImmutableMap.copyOf(eventChannels));
 	}
 
 	public void LoadAllMods(String path) {
