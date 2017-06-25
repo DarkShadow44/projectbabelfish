@@ -31,10 +31,10 @@ public class ClassTransformer {
 	ClassConstantTransformer constantTransformer;
 	MemoryClassLoader classLoader;
 
-	public ClassTransformer() {
+	public ClassTransformer(MemoryClassLoader classLoader) {
 		transformConfig = new TransformConfig();
 		constantTransformer = new ClassConstantTransformer(transformConfig);
-		classLoader = new MemoryClassLoader(Launch.classLoader);
+		this.classLoader = classLoader;
 	}
 
 	static class LoadClassInfo {
@@ -148,7 +148,7 @@ public class ClassTransformer {
 				}
 
 				if (depsFound) {
-					Class c = classLoader.injectClass(loadClassInfo.name.replace('/', '.'), loadClassInfo.data);
+					Class c = classLoader.addClass(loadClassInfo.name.replace('/', '.'), loadClassInfo.data);
 					loadedClasses.add(c);
 					loadedClassNames.put(loadClassInfo.name, loadClassInfo);
 					iter.remove();

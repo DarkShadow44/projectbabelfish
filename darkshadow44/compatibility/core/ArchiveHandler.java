@@ -25,11 +25,19 @@ import cpw.mods.fml.common.LoaderState.ModState;
 import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.ModMetadata;
 import darkshadow44.compatibility.core.asm.ClassTransformer;
+import darkshadow44.compatibility.core.asm.MemoryClassLoader;
 import darkshadow44.compatibility.version.v1_2_5.sandbox.net.minecraft.src.BaseMod;
 import helper.ReflectionHelper;
+import net.minecraft.launchwrapper.Launch;
 import scala.Console;
 
 public class ArchiveHandler {
+
+	MemoryClassLoader classLoader;
+
+	public ArchiveHandler() {
+		classLoader = new MemoryClassLoader(Launch.classLoader);
+	}
 
 	public String[] GetModFiles(File path) {
 		List<String> files = new ArrayList();
@@ -44,6 +52,17 @@ public class ArchiveHandler {
 		return files.toArray(new String[0]);
 	}
 
+	byte[] LoadFile(ZipInputStream zip, ZipEntry entry) throws IOException {
+		int length = (int) entry.getSize();
+
+		byte[] data = new byte[length];
+		int read = 0;
+		while (read < length) {
+			read += zip.read(data, read, length - read);
+		}
+		return data;
+	}
+
 	public byte[][] LoadClasses(String path) {
 		List<byte[]> classes = new ArrayList<byte[]>();
 
@@ -52,19 +71,15 @@ public class ArchiveHandler {
 			zip = new ZipInputStream(new FileInputStream(path));
 
 			for (ZipEntry entry = zip.getNextEntry(); entry != null; entry = zip.getNextEntry()) {
-				String name = entry.getName();
-				if (!entry.isDirectory() && name.toLowerCase().endsWith(".class")) {
+				String nameLower = entry.getName().toLowerCase();
+				if (!entry.isDirectory()) {
+					byte[] data = LoadFile(zip, entry);
 
-					name = name.substring(0, name.length() - ".class".length());
-					int length = (int) entry.getSize();
+					if (nameLower.endsWith(".class"))
+						classes.add(data);
 
-					byte[] data = new byte[length];
-					int read = 0;
-					while (read < length) {
-						read += zip.read(data, read, length - read);
-					}
-
-					classes.add(data);
+					if (nameLower.endsWith(".txt") || nameLower.endsWith(".png"))
+						classLoader.addResource(entry.getName(), data);
 				}
 			}
 		} catch (FileNotFoundException e) {
@@ -130,7 +145,7 @@ public class ArchiveHandler {
 	public void LoadAllMods(String path) {
 		String[] pathMods = GetModFiles(new File(path));
 
-		ClassTransformer transformer = new ClassTransformer();
+		ClassTransformer transformer = new ClassTransformer(classLoader);
 
 		List<Class> baseMods = new ArrayList<Class>();
 
