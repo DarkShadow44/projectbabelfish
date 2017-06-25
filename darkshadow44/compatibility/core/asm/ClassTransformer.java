@@ -29,10 +29,12 @@ public class ClassTransformer {
 
 	TransformConfig transformConfig;
 	ClassConstantTransformer constantTransformer;
+	MemoryClassLoader classLoader;
 
 	public ClassTransformer() {
 		transformConfig = new TransformConfig();
 		constantTransformer = new ClassConstantTransformer(transformConfig);
+		classLoader = new MemoryClassLoader(Launch.classLoader);
 	}
 
 	static class LoadClassInfo {
@@ -40,15 +42,6 @@ public class ClassTransformer {
 		public byte[] data;
 		public String[] dependenciesHard;
 		public String[] dependenciesSoft;
-	}
-
-	public Class InjectClass(String className, byte[] data) {
-		ClassLoader classLoader = Launch.classLoader;
-		Object[] parameters = new Object[] { className, data, 0, data.length };
-		Class[] classParameters = new Class[] { String.class, byte[].class, int.class, int.class };
-		Object cl = ReflectionHelper.callPrivateMethod(ClassLoader.class, classLoader, "defineClass", parameters,
-				classParameters);
-		return (Class) cl;
 	}
 
 	boolean IsClassLoaded(String name) {
@@ -155,7 +148,7 @@ public class ClassTransformer {
 				}
 
 				if (depsFound) {
-					Class c = InjectClass(loadClassInfo.name.replace('/', '.'), loadClassInfo.data);
+					Class c = classLoader.injectClass(loadClassInfo.name.replace('/', '.'), loadClassInfo.data);
 					loadedClasses.add(c);
 					loadedClassNames.put(loadClassInfo.name, loadClassInfo);
 					iter.remove();
