@@ -19,6 +19,8 @@ import org.objectweb.asm.tree.TypeInsnNode;
 
 public class CompatibilityClassTransformer {
 
+	static final String prefixSandbox = "de/darkshadow44/compatibility/sandbox/v1_7_10/";
+	static final String prefixCompat = "Compat_";
 	ClassNode classNode;
 	List<String> outDependencies;
 
@@ -58,11 +60,10 @@ public class CompatibilityClassTransformer {
 	}
 
 	private String getTransformedClassname(String name) {
-		String prefix = "de/darkshadow44/compatibility/sandbox/v1_7_10/";
 		if (!isClassException(name)) {
 			String[] names = name.split("\\/");
-			names[names.length - 1] = "compat_" + names[names.length - 1];
-			return prefix + String.join("/", names);
+			names[names.length - 1] = prefixCompat + names[names.length - 1];
+			return prefixSandbox + String.join("/", names);
 		}
 		return name;
 	}
@@ -123,20 +124,20 @@ public class CompatibilityClassTransformer {
 		case Opcodes.PUTSTATIC:
 			FieldInsnNode field = (FieldInsnNode) instruction;
 			field.desc = transformDescriptor(field.desc);
-			field.name = "compat_" + field.name;
+			field.name = prefixCompat + field.name;
 			field.owner = getTransformedClassname(field.owner);
 			break;
 		case Opcodes.INVOKEDYNAMIC:
 			InvokeDynamicInsnNode methoddyn = (InvokeDynamicInsnNode) instruction;
 			methoddyn.desc = transformDescriptor(methoddyn.desc);
-			methoddyn.name = "compat_" + methoddyn.name;
+			methoddyn.name = prefixCompat + methoddyn.name;
 			break;
 		case Opcodes.INVOKEINTERFACE:
 		case Opcodes.INVOKESPECIAL:
 		case Opcodes.INVOKESTATIC:
 		case Opcodes.INVOKEVIRTUAL:
 			MethodInsnNode method = (MethodInsnNode) instruction;
-			method.name = "compat_" + method.name;
+			method.name = prefixCompat + method.name;
 			method.owner = getTransformedClassname(method.owner);
 			method.desc = transformDescriptor(method.desc);
 			break;
@@ -169,7 +170,7 @@ public class CompatibilityClassTransformer {
 			transformInstruction(method.instructions.get(i));
 		}
 		transformAnnotations(method.visibleAnnotations);
-		method.name = "compat_" + method.name;
+		method.name = prefixCompat + method.name;
 	}
 
 	public byte[] transform() {
