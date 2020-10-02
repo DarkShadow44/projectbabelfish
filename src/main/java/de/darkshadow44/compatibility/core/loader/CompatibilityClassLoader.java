@@ -1,6 +1,7 @@
 package de.darkshadow44.compatibility.core.loader;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,10 +21,20 @@ public class CompatibilityClassLoader {
 	}
 
 	boolean classExists(HashMap<String, Boolean> loadedClassNames, String name) {
-		if (name.startsWith("java/"))
+		if (name.startsWith("java/")) {
 			return true;
+		}
 
-		return loadedClassNames.containsKey(name);
+		if (loadedClassNames.containsKey(name)) {
+			return true;
+		}
+
+		try {
+			Class.forName(name.replace('/', '.'));
+			return true;
+		} catch (ClassNotFoundException e) {
+			return false;
+		}
 	}
 
 	boolean canLoadClass(HashMap<String, Boolean> loadedClassNames, LoadClassInfo clazz) {
@@ -47,7 +58,7 @@ public class CompatibilityClassLoader {
 		return false;
 	}
 
-	Class<?>[] loadClasses(List<LoadClassInfo> classesToLoad, boolean dryRun) {
+	Class<?>[] loadClasses(List<LoadClassInfo> classesToLoad) {
 		HashMap<String, Boolean> loadedClassNames = new HashMap<String, Boolean>();
 		List<Class<?>> loadedClasses = new ArrayList<Class<?>>();
 
@@ -57,31 +68,28 @@ public class CompatibilityClassLoader {
 			for (LoadClassInfo clazz : classesToLoad) {
 				if (canLoadClass(loadedClassNames, clazz)) {
 					loadedClassNames.put(clazz.name, true);
-					if (!dryRun) {
-						byte[] data = clazz.transformer.getTransformedData();
-						Class<?> c = classLoader.addClass(clazz.name.replace('/', '.'), data);
-						loadedClasses.add(c);
-					}
+					byte[] data = clazz.transformer.getTransformedData();
+					Class<?> c = classLoader.addClass(clazz.name.replace('/', '.'), data);
+					loadedClasses.add(c);
 				}
 			}
 
 			if (loadedClassNames.size() == sizeBefore) {
 				List<String> missingClasses = new ArrayList<String>();
 				for (LoadClassInfo clazz : classesToLoad) {
-					if (!loadedClassNames.containsKey(clazz.name)) {
+					if (!classExists(loadedClassNames, clazz.name)) {
 						for (String dep : clazz.dependenciesHard) {
-							if (!missingClasses.contains(dep) && !isClassToLoad(classesToLoad, dep)) {
+							if (!missingClasses.contains(dep) && !classExists(loadedClassNames, dep) && !isClassToLoad(classesToLoad, dep)) {
 								missingClasses.add(dep);
 							}
 						}
 					}
 				}
-
-				throw new RuntimeException("Deadlock in class loading ################ Compatibiliy Mod - Missing Classes!\n" + String.join("\n", missingClasses));
+				Collections.sort(missingClasses);
+				System.out.println("\n################ Compatibiliy Mod - Missing Classes:\n\t" + String.join("\n\t", missingClasses));
+				break;
 			}
 		}
-
-		System.out.print("");
 
 		return loadedClasses.toArray(new Class<?>[0]);
 	}
@@ -112,7 +120,7 @@ public class CompatibilityClassLoader {
 
 		List<Class<?>> loadedClasses = new ArrayList<Class<?>>();
 
-		loadClasses(classesToLoad, true);
+		loadClasses(classesToLoad);
 
 		return loadedClasses.toArray(new Class[0]);
 	}

@@ -58,6 +58,9 @@ public class CompatibilityClassTransformer {
 	}
 
 	private String getTransformedClassname(String name) {
+		if (name.startsWith("[")) {
+			return transformDescriptor(name);
+		}
 		if (!isClassException(name)) {
 			String[] names = name.split("\\/");
 			names[names.length - 1] = prefixCompat + names[names.length - 1];
@@ -135,7 +138,9 @@ public class CompatibilityClassTransformer {
 		case Opcodes.INVOKESTATIC:
 		case Opcodes.INVOKEVIRTUAL:
 			MethodInsnNode method = (MethodInsnNode) instruction;
-			method.name = prefixCompat + method.name;
+			if (!method.name.equals("<init>") && !method.name.equals("<clinit>")) {
+				method.name = prefixCompat + method.name;
+			}
 			method.owner = getTransformedClassname(method.owner);
 			method.desc = transformDescriptor(method.desc);
 			break;
@@ -178,7 +183,9 @@ public class CompatibilityClassTransformer {
 		}
 		transformVariables(method.localVariables);
 		transformAnnotations(method.visibleAnnotations);
-		method.name = prefixCompat + method.name;
+		if (!method.name.equals("<init>") && !method.name.equals("<clinit>")) {
+			method.name = prefixCompat + method.name;
+		}
 		method.desc = transformDescriptor(method.desc);
 	}
 
@@ -203,7 +210,7 @@ public class CompatibilityClassTransformer {
 
 	public byte[] getTransformedData() {
 		try {
-			ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
+			ClassWriter classWriter = new ClassWriter(0);
 			classNode.accept(classWriter);
 			return classWriter.toByteArray();
 		} catch (Exception e) {
