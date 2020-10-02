@@ -1,9 +1,5 @@
 package de.darkshadow44.compatibility.core.loader;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,19 +33,15 @@ public class CompatibilityClassTransformer {
 	}
 
 	public String getThisClass() {
-		return getTransformedClassname(classNode.name);
+		return classNode.name;
 	}
 
 	public String getSuperClass() {
-		return getTransformedClassname(classNode.superName);
+		return classNode.superName;
 	}
 
 	public String[] getInterfaces() {
-		String[] interfaces = classNode.interfaces.toArray(new String[0]);
-		for (int i = 0; i < interfaces.length; i++) {
-			interfaces[i] = getTransformedClassname(interfaces[i]);
-		}
-		return interfaces;
+		return classNode.interfaces.toArray(new String[0]);
 	}
 
 	public boolean isClassException(String name) {
@@ -195,7 +187,7 @@ public class CompatibilityClassTransformer {
 		field.name = prefixCompat + field.name;
 	}
 
-	public byte[] transform() {
+	public void transform() {
 		outDependencies = new ArrayList<String>();
 		for (MethodNode method : classNode.methods) {
 			transformMethod(method);
@@ -205,21 +197,19 @@ public class CompatibilityClassTransformer {
 		}
 		transformAnnotations(classNode.visibleAnnotations);
 		classNode.name = getTransformedClassname(classNode.name);
-		classNode.superName = getTransformedClassname(classNode.name);
+		classNode.superName = getTransformedClassname(classNode.superName);
 		classNode.interfaces = transformInterfaces(classNode.interfaces);
+	}
 
-		byte[] bytes = null;
-
+	public byte[] getTransformedData() {
 		try {
 			ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
 			classNode.accept(classWriter);
-			bytes = classWriter.toByteArray();
+			return classWriter.toByteArray();
 		} catch (Exception e) {
 			System.out.println("Error transforming: " + classNode.name);
 			throw e;
 		}
-
-		return bytes;
 	}
 
 	public List<String> getDependencies() {
