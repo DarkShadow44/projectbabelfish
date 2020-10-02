@@ -15,6 +15,7 @@ public class MemoryClassLoader extends ClassLoader {
 	}
 
 	public Class<?> addClass(String name, byte[] data) {
+		//System.out.println("Loading class: " + name); // For debugging
 		return defineClass(name, data, 0, data.length);
 	}
 

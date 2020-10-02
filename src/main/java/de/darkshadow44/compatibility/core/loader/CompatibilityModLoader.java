@@ -12,7 +12,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import de.darkshadow44.compatibility.core.CompatibilityMod;
-import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.compat_Mod;
+import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.Compat_Mod;
 
 public class CompatibilityModLoader {
 
@@ -31,7 +31,7 @@ public class CompatibilityModLoader {
 
 	void findBasemods(List<Class<?>> baseMods, Class<?>[] classes) {
 		for (Class<?> c : classes) {
-			Annotation annotation = c.getAnnotation(compat_Mod.class);
+			Annotation annotation = c.getAnnotation(Compat_Mod.class);
 			if (annotation != null)
 				baseMods.add(c);
 		}

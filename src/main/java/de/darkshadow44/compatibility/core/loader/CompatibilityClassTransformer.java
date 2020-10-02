@@ -62,7 +62,7 @@ public class CompatibilityClassTransformer {
 			return transformDescriptor(name);
 		}
 		if (!isClassException(name)) {
-			String[] names = name.split("\\/");
+			String[] names = name.replace('$', '_').split("\\/");
 			names[names.length - 1] = prefixCompat + names[names.length - 1];
 			return prefixSandbox + String.join("/", names);
 		}

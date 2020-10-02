@@ -6,6 +6,11 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
+/*
+ * How handle that BlockChest inherits from block?!
+ * How handle inner classes?
+ * How handle different interfaces? Inherit them?
+ */
 public class Compat_Block extends Block {
 
 	// When object owned by 1.12, this contains the original. When owned by 1.7.10 it is null.
