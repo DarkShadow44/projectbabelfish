@@ -1,5 +1,9 @@
 package de.darkshadow44.compatibility.core.loader;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,7 +15,9 @@ import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.AnnotationNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.FieldInsnNode;
+import org.objectweb.asm.tree.FieldNode;
 import org.objectweb.asm.tree.InvokeDynamicInsnNode;
+import org.objectweb.asm.tree.LocalVariableNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.MultiANewArrayInsnNode;
@@ -165,12 +171,28 @@ public class CompatibilityClassTransformer {
 		return ret;
 	}
 
+	private void transformVariables(List<LocalVariableNode> variables) {
+		if (variables == null)
+			return;
+
+		for (LocalVariableNode variable : variables) {
+			variable.desc = transformDescriptor(variable.desc);
+		}
+	}
+
 	private void transformMethod(MethodNode method) {
 		for (int i = 0; i < method.instructions.size(); i++) {
 			transformInstruction(method.instructions.get(i));
 		}
+		transformVariables(method.localVariables);
 		transformAnnotations(method.visibleAnnotations);
 		method.name = prefixCompat + method.name;
+		method.desc = transformDescriptor(method.desc);
+	}
+
+	private void transformField(FieldNode field) {
+		field.desc = transformDescriptor(field.desc);
+		field.name = prefixCompat + field.name;
 	}
 
 	public byte[] transform() {
@@ -178,14 +200,26 @@ public class CompatibilityClassTransformer {
 		for (MethodNode method : classNode.methods) {
 			transformMethod(method);
 		}
+		for (FieldNode field : classNode.fields) {
+			transformField(field);
+		}
 		transformAnnotations(classNode.visibleAnnotations);
 		classNode.name = getTransformedClassname(classNode.name);
 		classNode.superName = getTransformedClassname(classNode.name);
 		classNode.interfaces = transformInterfaces(classNode.interfaces);
 
-		ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
-		classNode.accept(classWriter);
-		return classWriter.toByteArray();
+		byte[] bytes = null;
+
+		try {
+			ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
+			classNode.accept(classWriter);
+			bytes = classWriter.toByteArray();
+		} catch (Exception e) {
+			System.out.println("Error transforming: " + classNode.name);
+			throw e;
+		}
+
+		return bytes;
 	}
 
 	public List<String> getDependencies() {
