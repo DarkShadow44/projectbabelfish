@@ -1,9 +1,13 @@
 package de.darkshadow44.compatibility.core.loader;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+
+import com.google.common.io.Files;
 
 public class CompatibilityClassLoader {
 
@@ -69,6 +73,15 @@ public class CompatibilityClassLoader {
 				if (canLoadClass(loadedClassNames, clazz)) {
 					loadedClassNames.put(clazz.name, true);
 					byte[] data = clazz.transformer.getTransformedData();
+
+					int debug = 0;
+					if (debug == 1) {
+						try {
+							Files.write(data, new File("/home/fabian/Ramdisk/test.class"));
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
 					Class<?> c = classLoader.addClass(clazz.name.replace('/', '.'), data);
 					loadedClasses.add(c);
 				}
@@ -118,10 +131,8 @@ public class CompatibilityClassLoader {
 			loadClassInfo.dependenciesHard = dependenciesHard.toArray(new String[0]);
 		}
 
-		List<Class<?>> loadedClasses = new ArrayList<Class<?>>();
+		Class<?>[] loadedClasses = loadClasses(classesToLoad);
 
-		loadClasses(classesToLoad);
-
-		return loadedClasses.toArray(new Class[0]);
+		return loadedClasses;
 	}
 }

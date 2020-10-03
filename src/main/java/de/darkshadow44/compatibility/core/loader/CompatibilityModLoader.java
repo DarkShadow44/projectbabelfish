@@ -29,14 +29,6 @@ public class CompatibilityModLoader {
 		return files.toArray(new String[0]);
 	}
 
-	void findBasemods(List<Class<?>> baseMods, Class<?>[] classes) {
-		for (Class<?> c : classes) {
-			Annotation annotation = c.getAnnotation(Compat_Mod.class);
-			if (annotation != null)
-				baseMods.add(c);
-		}
-	}
-
 	byte[] readFileInZip(InputStream stream, ZipEntry entry) throws IOException {
 		int length = (int) entry.getSize();
 
@@ -84,19 +76,27 @@ public class CompatibilityModLoader {
 		return classes.toArray(new byte[0][]);
 	}
 
+	void findMods(List<Class<?>> mods, Class<?>[] classes) {
+		for (Class<?> c : classes) {
+			Annotation annotation = c.getAnnotation(Compat_Mod.class);
+			if (annotation != null)
+				mods.add(c);
+		}
+	}
+
 	public Class<?>[] loadAllMods(File path) {
 		String[] pathMods = getModFiles(path);
 
 		CompatibilityClassLoader transformer = new CompatibilityClassLoader(CompatibilityMod.classLoader);
 
-		List<Class<?>> baseMods = new ArrayList<Class<?>>();
+		List<Class<?>> mods = new ArrayList<Class<?>>();
 
 		for (String pathMod : pathMods) {
 			byte[][] classesBytes = readZip(pathMod);
 			Class<?>[] classesLoaded = transformer.loadClasses(classesBytes);
-			findBasemods(baseMods, classesLoaded);
+			findMods(mods, classesLoaded);
 		}
 
-		return baseMods.toArray(new Class[0]);
+		return mods.toArray(new Class[0]);
 	}
 }
