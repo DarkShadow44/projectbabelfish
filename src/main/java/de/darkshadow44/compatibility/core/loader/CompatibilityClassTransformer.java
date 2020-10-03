@@ -210,7 +210,7 @@ public class CompatibilityClassTransformer {
 
 	public byte[] getTransformedData() {
 		try {
-			ClassWriter classWriter = new ClassWriter(0);
+			ClassWriter classWriter = new CustomClassWriter(ClassWriter.COMPUTE_FRAMES);
 			classNode.accept(classWriter);
 			return classWriter.toByteArray();
 		} catch (Exception e) {
