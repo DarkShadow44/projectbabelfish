@@ -192,6 +192,7 @@ public class CompatibilityClassTransformer {
 	private void transformField(FieldNode field) {
 		field.desc = transformDescriptor(field.desc);
 		field.name = prefixCompat + field.name;
+		transformAnnotations(field.visibleAnnotations);
 	}
 
 	public void transform() {
