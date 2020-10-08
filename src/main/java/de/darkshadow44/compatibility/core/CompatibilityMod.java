@@ -4,12 +4,15 @@ import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 import de.darkshadow44.compatibility.core.loader.CompatibilityModLoader;
 import de.darkshadow44.compatibility.core.loader.MemoryClassLoader;
+import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.Compat_Mod_EventHandler;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.Compat_Mod_Instance;
+import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.event.Compat_FMLPreInitializationEvent;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -30,6 +33,19 @@ public class CompatibilityMod {
 	public void preInit(FMLPreInitializationEvent event) {
 		File directoryMods = new File(event.getModConfigurationDirectory().getParentFile(), "mods");
 		loadMods(new File(directoryMods, "1.7.10"));
+
+		// Execute preInit
+		for (Object mod : mods) {
+			Method methodPreInit = findAnnotateMethod(mod, Compat_Mod_EventHandler.class);
+			if (methodPreInit != null) {
+				Compat_FMLPreInitializationEvent ev = new Compat_FMLPreInitializationEvent();
+				try {
+					methodPreInit.invoke(mod, ev);
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+			}
+		}
 	}
 
 	@EventHandler
@@ -40,6 +56,14 @@ public class CompatibilityMod {
 		for (Field field : obj.getClass().getFields()) {
 			if (field.getAnnotation(annotation) != null)
 				return field;
+		}
+		return null;
+	}
+
+	static <T extends Annotation> Method findAnnotateMethod(Object obj, Class<T> annotation) {
+		for (Method method : obj.getClass().getMethods()) {
+			if (method.getAnnotation(annotation) != null)
+				return method;
 		}
 		return null;
 	}
@@ -55,7 +79,7 @@ public class CompatibilityMod {
 				Object object = ctor.newInstance();
 				mods.add(object);
 			} catch (Exception e) {
-				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		}
 
@@ -66,7 +90,7 @@ public class CompatibilityMod {
 				try {
 					instance.set(mod, mod);
 				} catch (Exception e) {
-					e.printStackTrace();
+					throw new RuntimeException(e);
 				}
 			}
 		}
