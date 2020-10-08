@@ -7,12 +7,14 @@ import java.util.stream.Collectors;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.Type;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.AnnotationNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.FieldInsnNode;
 import org.objectweb.asm.tree.FieldNode;
 import org.objectweb.asm.tree.InvokeDynamicInsnNode;
+import org.objectweb.asm.tree.LdcInsnNode;
 import org.objectweb.asm.tree.LocalVariableNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
@@ -147,6 +149,18 @@ public class CompatibilityClassTransformer {
 		case Opcodes.MULTIANEWARRAY:
 			MultiANewArrayInsnNode multiarray = (MultiANewArrayInsnNode) instruction;
 			multiarray.desc = transformDescriptor(multiarray.desc);
+			break;
+		case Opcodes.LDC:
+			LdcInsnNode ldc = (LdcInsnNode) instruction;
+			if (ldc.cst instanceof Type) {
+				Type typeCst = (Type) ldc.cst;
+				String className = typeCst.getInternalName();
+				if (!isClassException(className)) {
+					className = getTransformedClassname(className);
+					ldc.cst = Type.getObjectType(className);
+				}
+			}
+			break;
 		default:
 			break;
 		}
