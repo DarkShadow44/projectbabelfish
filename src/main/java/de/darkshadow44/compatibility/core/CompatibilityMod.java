@@ -5,6 +5,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,9 +37,9 @@ public class CompatibilityMod {
 
 		// Execute preInit
 		for (Object mod : mods) {
-			Method methodPreInit = findAnnotateMethod(mod, Compat_Mod_EventHandler.class);
+			Method methodPreInit = findAnnotateMethod(mod, Compat_Mod_EventHandler.class, Compat_FMLPreInitializationEvent.class);
 			if (methodPreInit != null) {
-				Compat_FMLPreInitializationEvent ev = new Compat_FMLPreInitializationEvent();
+				Compat_FMLPreInitializationEvent ev = new Compat_FMLPreInitializationEvent(event);
 				try {
 					methodPreInit.invoke(mod, ev);
 				} catch (Exception e) {
@@ -60,10 +61,14 @@ public class CompatibilityMod {
 		return null;
 	}
 
-	static <T extends Annotation> Method findAnnotateMethod(Object obj, Class<T> annotation) {
+	static <T extends Annotation> Method findAnnotateMethod(Object obj, Class<T> annotation, Class<?> event) {
 		for (Method method : obj.getClass().getMethods()) {
-			if (method.getAnnotation(annotation) != null)
-				return method;
+			if (method.getAnnotation(annotation) != null) {
+				Parameter[] params = method.getParameters();
+				if (params.length == 1 && params[0].getParameterizedType().getTypeName().equals(event.getTypeName())) {
+					return method;
+				}
+			}
 		}
 		return null;
 	}
