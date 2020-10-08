@@ -20,4 +20,8 @@ public class Compat_Property {
 	public String[] Compat_getStringList() {
 		return original.getStringList();
 	}
+
+	public double Compat_getDouble(double _default) {
+		return original.getDouble(_default);
+	}
 }
