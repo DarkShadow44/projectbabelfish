@@ -138,7 +138,7 @@ public class CompatibilityClassTransformer {
 		case Opcodes.INVOKESTATIC:
 		case Opcodes.INVOKEVIRTUAL:
 			MethodInsnNode method = (MethodInsnNode) instruction;
-			if (!method.name.equals("<init>") && !method.name.equals("<clinit>")) {
+			if (!isClassException(method.owner) && !method.name.equals("<init>") && !method.name.equals("<clinit>")) {
 				method.name = prefixCompat + method.name;
 			}
 			method.owner = getTransformedClassname(method.owner);
