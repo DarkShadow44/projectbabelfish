@@ -14,6 +14,7 @@ import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.FieldInsnNode;
 import org.objectweb.asm.tree.FieldNode;
 import org.objectweb.asm.tree.InsnList;
+import org.objectweb.asm.tree.InsnNode;
 import org.objectweb.asm.tree.InvokeDynamicInsnNode;
 import org.objectweb.asm.tree.LdcInsnNode;
 import org.objectweb.asm.tree.LocalVariableNode;
@@ -50,8 +51,18 @@ public class CompatibilityClassTransformer {
 	}
 
 	public boolean isClassException(String name) {
-		if (name.startsWith("java/"))
+		if (name.startsWith("java/")) {
+			if (name.startsWith("java/lang/reflect/")) {
+				return false; // We must handle reflection attempts and redirect accordingly...
+			}
+			if (name.equals("java/lang/Class")) {
+				return false; // For cases like XYZ.class.getDeclaredField()
+			}
+			if (name.equals("java/util/EnumSet")) {
+				return false; // EnumSet.noneOf() takes a class...
+			}
 			return true;
+		}
 
 		if (name.startsWith("javax/"))
 			return true;
@@ -147,6 +158,9 @@ public class CompatibilityClassTransformer {
 		case Opcodes.PUTFIELD:
 		case Opcodes.PUTSTATIC:
 			FieldInsnNode field = (FieldInsnNode) instruction;
+			if (isClassException(field.owner)) {
+				break;
+			}
 			if (!isMinecraftClass(field.owner)) {
 				field.desc = transformDescriptor(field.desc);
 				field.name = prefixCompat + field.name;
@@ -191,11 +205,13 @@ public class CompatibilityClassTransformer {
 		case Opcodes.INVOKESTATIC:
 		case Opcodes.INVOKEVIRTUAL:
 			MethodInsnNode method = (MethodInsnNode) instruction;
-			if (!isClassException(method.owner) && !method.name.equals("<init>") && !method.name.equals("<clinit>")) {
-				method.name = prefixCompat + method.name;
+			if (!isClassException(method.owner)) {
+				if (!method.name.equals("<init>") && !method.name.equals("<clinit>")) {
+					method.name = prefixCompat + method.name;
+				}
+				method.owner = getTransformedClassname(method.owner);
+				method.desc = transformDescriptor(method.desc);
 			}
-			method.owner = getTransformedClassname(method.owner);
-			method.desc = transformDescriptor(method.desc);
 			break;
 		case Opcodes.MULTIANEWARRAY:
 			MultiANewArrayInsnNode multiarray = (MultiANewArrayInsnNode) instruction;
@@ -209,6 +225,14 @@ public class CompatibilityClassTransformer {
 				if (!isClassException(className)) {
 					className = getTransformedClassname(className);
 					ldc.cst = Type.getObjectType(className);
+
+					// Convert loaded class
+					String typeClass = getTransformedClassname("java/lang/Class");
+					ret.clear();
+					ret.add(new TypeInsnNode(Opcodes.NEW, typeClass));
+					ret.add(new InsnNode(Opcodes.DUP));
+					ret.add(ldc);
+					ret.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, typeClass, "<init>", "(Ljava/lang/Class;)V", false));
 				}
 			}
 			break;
