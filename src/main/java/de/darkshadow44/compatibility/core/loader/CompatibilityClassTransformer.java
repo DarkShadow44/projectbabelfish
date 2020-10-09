@@ -13,6 +13,7 @@ import org.objectweb.asm.tree.AnnotationNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.FieldInsnNode;
 import org.objectweb.asm.tree.FieldNode;
+import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.InvokeDynamicInsnNode;
 import org.objectweb.asm.tree.LdcInsnNode;
 import org.objectweb.asm.tree.LocalVariableNode;
@@ -25,6 +26,8 @@ public class CompatibilityClassTransformer {
 
 	static final String prefixSandbox = "de/darkshadow44/compatibility/sandbox/v1_7_10/";
 	static final String prefixCompat = "Compat_";
+	static final String prefixGet = "get_";
+	static final String prefixSet = "set_";
 	ClassNode classNode;
 	List<String> outDependencies;
 
@@ -116,8 +119,19 @@ public class CompatibilityClassTransformer {
 		return sb.toString();
 	}
 
-	private void transformInstruction(AbstractInsnNode instruction) {
-		switch (instruction.getOpcode()) {
+	static boolean isMinecraftClass(String name) {
+		if (name.startsWith("net/minecraft/") || name.startsWith("net/minecraftforce/") || name.startsWith("cpw/mods/fml/")) {
+			return true;
+		}
+		return false;
+	}
+
+	private List<AbstractInsnNode> transformInstruction(AbstractInsnNode instruction) {
+		int opcode = instruction.getOpcode();
+		List<AbstractInsnNode> ret = new ArrayList<>();
+		ret.add(instruction);
+
+		switch (opcode) {
 		case Opcodes.CHECKCAST:
 		case Opcodes.ANEWARRAY:
 		case Opcodes.INSTANCEOF:
@@ -130,9 +144,39 @@ public class CompatibilityClassTransformer {
 		case Opcodes.PUTFIELD:
 		case Opcodes.PUTSTATIC:
 			FieldInsnNode field = (FieldInsnNode) instruction;
-			field.desc = transformDescriptor(field.desc);
-			field.name = prefixCompat + field.name;
-			field.owner = getTransformedClassname(field.owner);
+			if (!isMinecraftClass(field.owner)) {
+				field.desc = transformDescriptor(field.desc);
+				field.name = prefixCompat + field.name;
+				field.owner = getTransformedClassname(field.owner);
+			} else {
+				ret.clear();
+				String name = "";
+				MethodInsnNode fieldMethod = null;
+				String desc = transformDescriptor(field.desc);
+				String owner = getTransformedClassname(field.owner);
+				switch (opcode) {
+				case Opcodes.GETSTATIC:
+					name = prefixCompat + prefixGet + field.name;
+					desc = "()" + desc;
+					fieldMethod = new MethodInsnNode(Opcodes.INVOKESTATIC, owner, name, desc, false);
+					break;
+				case Opcodes.PUTSTATIC:
+					name = prefixCompat + prefixSet + field.name;
+					desc = "(" + desc + ")V";
+					fieldMethod = new MethodInsnNode(Opcodes.INVOKESTATIC, owner, name, desc, false);
+					break;
+				case Opcodes.GETFIELD:
+					name = prefixCompat + prefixGet + field.name;
+					desc = "()" + desc;
+					fieldMethod = new MethodInsnNode(Opcodes.INVOKEVIRTUAL, owner, name, desc, false);
+					break;
+				case Opcodes.PUTFIELD:
+					name = prefixCompat + prefixSet + field.name;
+					desc = "(" + desc + ")V";
+					fieldMethod = new MethodInsnNode(Opcodes.INVOKEVIRTUAL, owner, name, desc, false);
+				}
+				ret.add(fieldMethod);
+			}
 			break;
 		case Opcodes.INVOKEDYNAMIC:
 			InvokeDynamicInsnNode methoddyn = (InvokeDynamicInsnNode) instruction;
@@ -168,6 +212,7 @@ public class CompatibilityClassTransformer {
 		default:
 			break;
 		}
+		return ret;
 	}
 
 	private void transformAnnotations(List<AnnotationNode> annotations) {
@@ -196,9 +241,15 @@ public class CompatibilityClassTransformer {
 	}
 
 	private void transformMethod(MethodNode method) {
+		InsnList newList = new InsnList();
 		for (int i = 0; i < method.instructions.size(); i++) {
-			transformInstruction(method.instructions.get(i));
+
+			List<AbstractInsnNode> newInsns = transformInstruction(method.instructions.get(i));
+			for (AbstractInsnNode insn : newInsns) {
+				newList.add(insn);
+			}
 		}
+		method.instructions = newList;
 		transformVariables(method.localVariables);
 		transformAnnotations(method.visibleAnnotations);
 		if (!method.name.equals("<init>") && !method.name.equals("<clinit>")) {
