@@ -76,20 +76,20 @@ public class CompatibilityModLoader {
 		return classes.toArray(new byte[0][]);
 	}
 
-	void findMods(List<Class<?>> mods, Class<?>[] classes) {
+	void findMods(List<String> mods, Class<?>[] classes) {
 		for (Class<?> c : classes) {
 			Annotation annotation = c.getAnnotation(Compat_Mod.class);
 			if (annotation != null)
-				mods.add(c);
+				mods.add(c.getName());
 		}
 	}
 
-	public Class<?>[] loadAllMods(File path) {
+	public String[] loadAllMods(File path) {
 		String[] pathMods = getModFiles(path);
 
 		CompatibilityClassLoader transformer = new CompatibilityClassLoader(CompatibilityMod.classLoader);
 
-		List<Class<?>> mods = new ArrayList<Class<?>>();
+		List<String> mods = new ArrayList<>();
 
 		for (String pathMod : pathMods) {
 			byte[][] classesBytes = readZip(pathMod);
@@ -97,6 +97,6 @@ public class CompatibilityModLoader {
 			findMods(mods, classesLoaded);
 		}
 
-		return mods.toArray(new Class[0]);
+		return mods.toArray(new String[0]);
 	}
 }

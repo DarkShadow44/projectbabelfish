@@ -59,14 +59,18 @@ public class CompatibilityClassTransformer {
 		return false;
 	}
 
+	public static String getPrefixedClassname(String name) {
+		String[] names = name.replace('$', '_').split("\\/");
+		names[names.length - 1] = prefixCompat + names[names.length - 1];
+		return prefixSandbox + String.join("/", names);
+	}
+
 	private String getTransformedClassname(String name) {
 		if (name.startsWith("[")) {
 			return transformDescriptor(name);
 		}
 		if (!isClassException(name)) {
-			String[] names = name.replace('$', '_').split("\\/");
-			names[names.length - 1] = prefixCompat + names[names.length - 1];
-			return prefixSandbox + String.join("/", names);
+			return getPrefixedClassname(name);
 		}
 		return name;
 	}
