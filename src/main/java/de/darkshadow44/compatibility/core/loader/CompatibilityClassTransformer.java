@@ -59,6 +59,9 @@ public class CompatibilityClassTransformer {
 		if (name.startsWith("org/lwjgl/"))
 			return true;
 
+		if (name.startsWith("org/apache/"))
+			return true;
+
 		return false;
 	}
 

@@ -1,5 +1,6 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common;
 
+import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.relauncher.Compat_Side;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class Compat_FMLCommonHandler {
@@ -13,5 +14,9 @@ public class Compat_FMLCommonHandler {
 
 	public static Compat_FMLCommonHandler Compat_instance() {
 		return new Compat_FMLCommonHandler(FMLCommonHandler.instance());
+	}
+
+	public Compat_Side Compat_getEffectiveSide() {
+		return Compat_Side.fromReal(original.getEffectiveSide());
 	}
 }
