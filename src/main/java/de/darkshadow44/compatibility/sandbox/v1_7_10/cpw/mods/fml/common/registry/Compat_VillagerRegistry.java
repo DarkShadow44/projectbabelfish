@@ -1,5 +1,6 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.registry;
 
+import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.util.Compat_ResourceLocation;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 
 public class Compat_VillagerRegistry {
@@ -15,6 +16,18 @@ public class Compat_VillagerRegistry {
 	}
 
 	public void Compat_registerVillagerId(int sd) {
+		// TODO
+	}
+
+	public void Compat_registerVillagerSkin(int p1, Compat_ResourceLocation location) {
+		// TODO
+	}
+
+	public void Compat_registerVillageCreationHandler(Compat_VillagerRegistry_IVillageCreationHandler handler) {
+		// TODO
+	}
+
+	public void Compat_registerVillageTradeHandler(int p1, Compat_VillagerRegistry_IVillageTradeHandler handler) {
 		// TODO
 	}
 }
