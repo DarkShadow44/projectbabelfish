@@ -55,12 +55,6 @@ public class CompatibilityClassTransformer {
 			if (name.startsWith("java/lang/reflect/")) {
 				return false; // We must handle reflection attempts and redirect accordingly...
 			}
-			if (name.equals("java/lang/Class")) {
-				return false; // For cases like XYZ.class.getDeclaredField()
-			}
-			if (name.equals("java/util/EnumSet")) {
-				return false; // EnumSet.noneOf() takes a class...
-			}
 			return true;
 		}
 
@@ -212,6 +206,16 @@ public class CompatibilityClassTransformer {
 				method.owner = getTransformedClassname(method.owner);
 				method.desc = transformDescriptor(method.desc);
 			}
+			if (method.owner.equals("java/lang/Class")) {
+				if (method.name.equals("getConstructor") || method.name.equals("getDeclaredField")) {
+					method.name = prefixCompat + method.name;
+
+					method.setOpcode(Opcodes.INVOKESTATIC);
+					method.owner = getPrefixedClassname(method.owner);
+					method.desc = transformDescriptor(method.desc);
+					method.desc = "(Ljava/lang/Class;" + method.desc.substring(1);
+				}
+			}
 			break;
 		case Opcodes.MULTIANEWARRAY:
 			MultiANewArrayInsnNode multiarray = (MultiANewArrayInsnNode) instruction;
@@ -225,14 +229,6 @@ public class CompatibilityClassTransformer {
 				if (!isClassException(className)) {
 					className = getTransformedClassname(className);
 					ldc.cst = Type.getObjectType(className);
-
-					// Convert loaded class
-					String typeClass = getTransformedClassname("java/lang/Class");
-					ret.clear();
-					ret.add(new TypeInsnNode(Opcodes.NEW, typeClass));
-					ret.add(new InsnNode(Opcodes.DUP));
-					ret.add(ldc);
-					ret.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, typeClass, "<init>", "(Ljava/lang/Class;)V", false));
 				}
 			}
 			break;
