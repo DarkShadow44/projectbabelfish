@@ -5,7 +5,6 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class Compat_FMLCommonHandler {
 
-	@SuppressWarnings("unused")
 	private FMLCommonHandler original;
 
 	public Compat_FMLCommonHandler(FMLCommonHandler original) {
