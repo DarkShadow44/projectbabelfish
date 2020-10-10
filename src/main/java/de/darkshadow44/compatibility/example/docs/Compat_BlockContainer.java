@@ -4,7 +4,7 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 
 @SuppressWarnings("unused")
-public abstract class Compat_BlockContainer extends Compat_Block {
+public class Compat_BlockContainer extends Compat_Block {
 
 	private BlockContainer original;
 	private CompatI_BlockContainer thisReal;

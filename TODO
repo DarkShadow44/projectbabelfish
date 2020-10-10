@@ -1,4 +1,4 @@
 Enable all exceptions in eclipse, some exceptions are "swallowed" by Witchery, e.g. in preInit.
+no abstract "real" classes!
+all in net.minecraft are 3-part-classes, minecraft forge and cpw.mods.fml can be different
 load world automatically on start?
-
-rework at: asd
