@@ -1,4 +1,4 @@
-package de.darkshadow44.compatibility.example;
+package de.darkshadow44.compatibility.example.docs;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;

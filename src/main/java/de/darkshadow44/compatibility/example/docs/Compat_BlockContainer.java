@@ -1,4 +1,4 @@
-package de.darkshadow44.compatibility.example;
+package de.darkshadow44.compatibility.example.docs;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;

@@ -1,2 +1,4 @@
 Enable all exceptions in eclipse, some exceptions are "swallowed" by Witchery, e.g. in preInit.
 load world automatically on start?
+
+rework at: asd
