@@ -1,20 +1,21 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block;
 
-import net.minecraft.block.BlockSand;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockFire;
 import net.minecraft.block.SoundType;
 import net.minecraft.creativetab.CreativeTabs;
 
-public class CompatReal_BlockSand extends BlockSand implements CompatI_BlockSand {
+public class CompatReal_BlockFire extends BlockFire implements CompatI_BlockFire {
 	@SuppressWarnings("unused")
-	private Compat_BlockSand thisFake;
+	private Compat_BlockFire thisFake;
 
-	public CompatReal_BlockSand(Compat_BlockSand thisFake) {
+	public CompatReal_BlockFire(Compat_BlockFire thisFake) {
 		super();
 		this.thisFake = thisFake;
 	}
 
 	@Override
-	public BlockSand get() {
+	public BlockFire get() {
 		return this;
 	}
 
@@ -46,6 +47,11 @@ public class CompatReal_BlockSand extends BlockSand implements CompatI_BlockSand
 	@Override
 	public void setUnlocalizedNameSuper(String name) {
 		super.setUnlocalizedName(name);
+	}
+
+	@Override
+	public void setFireInfoSuper(Block block, int encouragement, int flammability) {
+		super.setFireInfo(block, encouragement, flammability);
 	}
 
 	@Override

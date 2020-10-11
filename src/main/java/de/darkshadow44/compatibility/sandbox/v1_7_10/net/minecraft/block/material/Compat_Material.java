@@ -31,4 +31,12 @@ public class Compat_Material {
 	public static Compat_Material Compat_get_field_151585_k() {
 		return new Compat_Material(Material.PLANTS);
 	}
+
+	public static Compat_Material Compat_get_field_151575_d() {
+		return new Compat_Material(Material.WOOD);
+	}
+
+	public static Compat_Material Compat_get_field_151584_j() {
+		return new Compat_Material(Material.LEAVES);
+	}
 }

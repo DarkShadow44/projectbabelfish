@@ -7,6 +7,12 @@ public class Compat_BlockFlower extends Compat_Block {
 	private BlockFlower original;
 	private CompatI_BlockFlower thisReal;
 
+	// When called from Mod
+	public Compat_BlockFlower() {
+		super(ParentSelector.NULL);
+		this.initialize(new CompatReal_BlockFlower(this), null);
+	}
+
 	// When called from child
 	protected Compat_BlockFlower(ParentSelector s) {
 		super(ParentSelector.NULL);

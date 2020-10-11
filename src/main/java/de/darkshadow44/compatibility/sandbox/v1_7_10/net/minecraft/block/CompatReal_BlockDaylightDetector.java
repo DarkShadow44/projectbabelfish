@@ -42,4 +42,14 @@ public class CompatReal_BlockDaylightDetector extends BlockDaylightDetector impl
 	public void setCreativeTabSuper(CreativeTabs creativeTabs) {
 		super.setCreativeTab(creativeTabs);
 	}
+
+	@Override
+	public void setUnlocalizedNameSuper(String name) {
+		super.setUnlocalizedName(name);
+	}
+
+	@Override
+	public void setLightOpacitySuper(int opacity) {
+		super.setLightOpacity(opacity);
+	}
 }

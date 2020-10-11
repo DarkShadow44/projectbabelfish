@@ -16,4 +16,8 @@ public interface CompatI_Block {
 	public void disableStatsSuper();
 
 	public void setCreativeTabSuper(CreativeTabs creativeTabs);
+	
+	public void setUnlocalizedNameSuper(String name);
+
+	public void setLightOpacitySuper(int opacity);
 }

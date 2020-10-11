@@ -7,6 +7,12 @@ public class Compat_BlockLeaves extends Compat_Block {
 	private BlockLeaves original;
 	private CompatI_BlockLeaves thisReal;
 
+	// When called from Mod
+	public Compat_BlockLeaves() {
+		super(ParentSelector.NULL);
+		this.initialize(new CompatReal_BlockLeaves(this), null);
+	}
+
 	// When called from child
 	protected Compat_BlockLeaves(ParentSelector s) {
 		super(ParentSelector.NULL);

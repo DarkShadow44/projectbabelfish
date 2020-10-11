@@ -82,4 +82,30 @@ public class Compat_Block {
 			original.setCreativeTab(real);
 		return this;
 	}
+
+	public Compat_Block Compat_func_149663_c(String name) {
+		if (this.original == null)
+			thisReal.setUnlocalizedNameSuper(name);
+		else
+			original.setUnlocalizedName(name);
+		return this;
+	}
+
+	public Compat_Block Compat_func_149658_d(String name) {
+		// TODO
+		return this;
+	}
+
+	public static Compat_Block_SoundType Compat_get_field_149766_f() {
+		return new Compat_Block_SoundType(SoundType.WOOD);
+	}
+	
+	public Compat_Block Compat_func_149713_g(int opacity)
+	{
+		if (this.original == null)
+			thisReal.setLightOpacitySuper(opacity);
+		else
+			original.setLightOpacity(opacity);
+		return this;
+	}
 }

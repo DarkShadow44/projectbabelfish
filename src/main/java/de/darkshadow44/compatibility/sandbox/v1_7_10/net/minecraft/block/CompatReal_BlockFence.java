@@ -45,4 +45,14 @@ public class CompatReal_BlockFence extends BlockFence implements CompatI_BlockFe
 		super.setCreativeTab(creativeTabs);
 	}
 
+	@Override
+	public void setUnlocalizedNameSuper(String name) {
+		super.setUnlocalizedName(name);
+	}
+
+	@Override
+	public void setLightOpacitySuper(int opacity) {
+		super.setLightOpacity(opacity);
+	}
+
 }

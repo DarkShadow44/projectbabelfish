@@ -9,7 +9,7 @@ public class Compat_BlockLeavesBase extends Compat_Block {
 	private CompatI_BlockLeavesBase thisReal;
 
 	// When called from Mod
-	public Compat_BlockLeavesBase(Compat_Material material) {
+	public Compat_BlockLeavesBase(Compat_Material material, boolean p1) { // TODO
 		super(ParentSelector.NULL);
 		this.initialize(new CompatReal_BlockLeavesBase(this, material.getReal()), null);
 	}
