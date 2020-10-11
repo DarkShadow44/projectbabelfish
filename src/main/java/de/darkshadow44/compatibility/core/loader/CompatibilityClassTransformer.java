@@ -2,7 +2,7 @@ package de.darkshadow44.compatibility.core.loader;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
@@ -29,16 +29,23 @@ public class CompatibilityClassTransformer {
 	static final String prefixGet = "get_";
 	static final String prefixSet = "set_";
 	ClassNode classNode;
-	List<String> outDependencies;
+	List<String> fields = new ArrayList<>();
 
 	public CompatibilityClassTransformer(byte[] data) {
 		ClassReader classReader = new ClassReader(data);
 		classNode = new ClassNode();
 		classReader.accept(classNode, ClassReader.SKIP_FRAMES);
+		for (FieldNode field : classNode.fields) {
+			fields.add(field.name);
+		}
 	}
 
 	public String getThisClass() {
 		return classNode.name;
+	}
+
+	public List<String> getFields() {
+		return fields;
 	}
 
 	public String getSuperClass() {
@@ -115,9 +122,6 @@ public class CompatibilityClassTransformer {
 				while (desc.charAt(pos) != ';')
 					pos++;
 				substr = desc.substring(posOld, pos);
-				if (!isClassException(substr)) {
-					outDependencies.add(getTransformedClassname(substr));
-				}
 				sb.append(getTransformedClassname(substr));
 
 				sb.append(';');
@@ -129,14 +133,20 @@ public class CompatibilityClassTransformer {
 		return sb.toString();
 	}
 
-	static boolean isMinecraftClass(String name) {
-		if (name.startsWith("net/minecraft/") || name.startsWith("net/minecraftforge/") || name.startsWith("cpw/mods/fml/")) {
+	private boolean doesClassContainField(Map<String, LoadClassInfo> classesToLoad, String className, String fieldName) {
+		if (!classesToLoad.containsKey(className)) {
+			return false;
+		}
+
+		LoadClassInfo classInfo = classesToLoad.get(className);
+		if (classInfo.fields.contains(fieldName)) {
 			return true;
 		}
-		return false;
+
+		return doesClassContainField(classesToLoad, classInfo.parentName, fieldName);
 	}
 
-	private List<AbstractInsnNode> transformInstruction(AbstractInsnNode instruction, List<String> classFields) {
+	private List<AbstractInsnNode> transformInstruction(AbstractInsnNode instruction, Map<String, LoadClassInfo> classesToLoad) {
 		int opcode = instruction.getOpcode();
 		List<AbstractInsnNode> ret = new ArrayList<>();
 		ret.add(instruction);
@@ -158,7 +168,7 @@ public class CompatibilityClassTransformer {
 				break;
 			}
 
-			if (!isMinecraftClass(field.owner) && (classFields.contains(prefixCompat + field.name) || !field.name.startsWith("field_"))) {
+			if (doesClassContainField(classesToLoad, field.owner, field.name)) {
 				field.desc = transformDescriptor(field.desc);
 				field.name = prefixCompat + field.name;
 				field.owner = getTransformedClassname(field.owner);
@@ -266,11 +276,11 @@ public class CompatibilityClassTransformer {
 		}
 	}
 
-	private void transformMethod(MethodNode method, List<String> classFields) {
+	private void transformMethod(MethodNode method, Map<String, LoadClassInfo> classesToLoad) {
 		InsnList newList = new InsnList();
 		for (int i = 0; i < method.instructions.size(); i++) {
 
-			List<AbstractInsnNode> newInsns = transformInstruction(method.instructions.get(i), classFields);
+			List<AbstractInsnNode> newInsns = transformInstruction(method.instructions.get(i), classesToLoad);
 			for (AbstractInsnNode insn : newInsns) {
 				newList.add(insn);
 			}
@@ -290,15 +300,13 @@ public class CompatibilityClassTransformer {
 		transformAnnotations(field.visibleAnnotations);
 	}
 
-	public void transform() {
-		outDependencies = new ArrayList<String>();
-		List<String> classFields = new ArrayList<String>();
+	public void transform(Map<String, LoadClassInfo> classesToLoad) {
 		for (FieldNode field : classNode.fields) {
 			transformField(field);
-			classFields.add(field.name);
 		}
+
 		for (MethodNode method : classNode.methods) {
-			transformMethod(method, classFields);
+			transformMethod(method, classesToLoad);
 		}
 
 		transformAnnotations(classNode.visibleAnnotations);
@@ -316,9 +324,5 @@ public class CompatibilityClassTransformer {
 			System.out.println("Error transforming: " + classNode.name);
 			throw e;
 		}
-	}
-
-	public List<String> getDependencies() {
-		return outDependencies.stream().distinct().collect(Collectors.toList());
 	}
 }

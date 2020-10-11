@@ -35,4 +35,11 @@ public class Compat_BlockFluidBase extends Compat_Block {
 	public BlockFluidBase getReal() {
 		return original == null ? thisReal.get() : original;
 	}
+
+	public void Compat_set_quantaPerBlock(int value) {
+		if (original == null)
+			this.thisReal.setQuantaPerBlockSuper(value);
+		else
+			this.original.setQuantaPerBlock(value);
+	}
 }

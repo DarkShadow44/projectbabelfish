@@ -18,7 +18,9 @@ public class CompatReal_BlockFluidClassic extends BlockFluidClassic implements C
 	@Override
 	public BlockFluidClassic get() {
 		return this;
-	}@Override
+	}
+
+	@Override
 	public void setTickRandomlySuper(boolean shouldTick) {
 		super.setTickRandomly(shouldTick);
 	}
@@ -32,7 +34,7 @@ public class CompatReal_BlockFluidClassic extends BlockFluidClassic implements C
 	public void setSoundTypeSuper(SoundType sound) {
 		super.setSoundType(sound);
 	}
-	
+
 	@Override
 	public void setDefaultSlipperinessSuper(float value) {
 		super.setDefaultSlipperiness(value);
@@ -42,6 +44,7 @@ public class CompatReal_BlockFluidClassic extends BlockFluidClassic implements C
 	public void setResistanceSuper(float resistance) {
 		super.setResistance(resistance);
 	}
+
 	@Override
 	public void setLightLevelSuper(float value) {
 		super.setLightLevel(value);
@@ -70,5 +73,10 @@ public class CompatReal_BlockFluidClassic extends BlockFluidClassic implements C
 	@Override
 	public void setBlockUnbreakableSuper() {
 		super.setBlockUnbreakable();
+	}
+
+	@Override
+	public void setQuantaPerBlockSuper(int value) {
+		super.setQuantaPerBlock(value);
 	}
 }

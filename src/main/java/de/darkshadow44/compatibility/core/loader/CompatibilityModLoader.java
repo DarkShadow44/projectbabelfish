@@ -87,13 +87,13 @@ public class CompatibilityModLoader {
 	public String[] loadAllMods(File path) {
 		String[] pathMods = getModFiles(path);
 
-		CompatibilityClassLoader transformer = new CompatibilityClassLoader(CompatibilityMod.classLoader);
+		CompatibilityClassLoader loader = new CompatibilityClassLoader(CompatibilityMod.classLoader);
 
 		List<String> mods = new ArrayList<>();
 
 		for (String pathMod : pathMods) {
 			byte[][] classesBytes = readZip(pathMod);
-			Class<?>[] classesLoaded = transformer.loadClasses(classesBytes);
+			Class<?>[] classesLoaded = loader.loadClasses(classesBytes);
 			findMods(mods, classesLoaded);
 		}
 

@@ -112,4 +112,9 @@ public class CompatReal_BlockFluidBase extends BlockFluidBase implements CompatI
 		// TODO
 		return 0;
 	}
+
+	@Override
+	public void setQuantaPerBlockSuper(int value) {
+		super.setQuantaPerBlock(value);
+	}
 }
