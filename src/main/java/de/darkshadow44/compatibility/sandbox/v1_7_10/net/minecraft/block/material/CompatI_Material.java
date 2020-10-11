@@ -8,4 +8,6 @@ public interface CompatI_Material {
 	public void setBurningSuper();
 
 	public void setNoPushMobilitySuper();
+
+	public void setReplaceableSuper();
 }

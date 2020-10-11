@@ -2,6 +2,7 @@ package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block;
 
 import net.minecraft.block.BlockVine;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 
 public class CompatReal_BlockVine extends BlockVine implements CompatI_BlockVine {
@@ -36,6 +37,16 @@ public class CompatReal_BlockVine extends BlockVine implements CompatI_BlockVine
 	@Override
 	public void setDefaultSlipperinessSuper(float value) {
 		super.setDefaultSlipperiness(value);
+	}
+
+	@Override
+	public SoundType getSoundTypeSuper() {
+		return this.blockSoundType;
+	}
+
+	@Override
+	public Material getMaterialSuper() {
+		return this.blockMaterial;
 	}
 
 	@Override

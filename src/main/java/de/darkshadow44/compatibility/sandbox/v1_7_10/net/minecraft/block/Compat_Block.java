@@ -171,4 +171,20 @@ public class Compat_Block {
 		// TODO opaque
 	}
 
+	@SuppressWarnings("deprecation")
+	public Compat_Material Compat_func_149688_o() {
+		if (this.original == null)
+			return new Compat_Material(thisReal.getMaterialSuper());
+		else
+			return new Compat_Material(original.getMaterial(null)); // TODO
+	}
+
+	@SuppressWarnings("deprecation")
+	public Compat_Block_SoundType Compat_get_field_149762_H() {
+		if (this.original == null)
+			return new Compat_Block_SoundType(thisReal.getSoundTypeSuper());
+		else
+			return new Compat_Block_SoundType(original.getSoundType()); // TODO
+	}
+
 }

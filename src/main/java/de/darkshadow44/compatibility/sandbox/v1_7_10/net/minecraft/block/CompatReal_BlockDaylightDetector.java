@@ -2,6 +2,7 @@ package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block;
 
 import net.minecraft.block.BlockDaylightDetector;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 
 public class CompatReal_BlockDaylightDetector extends BlockDaylightDetector implements CompatI_BlockDaylightDetector {
@@ -36,6 +37,16 @@ public class CompatReal_BlockDaylightDetector extends BlockDaylightDetector impl
 	@Override
 	public void setResistanceSuper(float resistance) {
 		super.setResistance(resistance);
+	}
+
+	@Override
+	public SoundType getSoundTypeSuper() {
+		return this.blockSoundType;
+	}
+
+	@Override
+	public Material getMaterialSuper() {
+		return this.blockMaterial;
 	}
 	
 	@Override

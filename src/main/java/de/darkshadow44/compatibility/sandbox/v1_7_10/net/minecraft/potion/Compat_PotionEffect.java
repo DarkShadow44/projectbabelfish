@@ -13,6 +13,11 @@ public class Compat_PotionEffect {
 		initialize(new CompatReal_PotionEffect(this, Potion.getPotionById(id), duration, amplifier), null);
 	}
 
+	// When called from Mod
+	public Compat_PotionEffect(int id, int duration) {
+		initialize(new CompatReal_PotionEffect(this, Potion.getPotionById(id), duration), null);
+	}
+
 	// When called from child
 	protected Compat_PotionEffect(ParentSelector s) {
 	}

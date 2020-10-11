@@ -26,4 +26,9 @@ public class CompatReal_Material extends Material implements CompatI_Material {
 	public void setNoPushMobilitySuper() {
 		super.setNoPushMobility();
 	}
+
+	@Override
+	public void setReplaceableSuper() {
+		super.setReplaceable();
+	}
 }

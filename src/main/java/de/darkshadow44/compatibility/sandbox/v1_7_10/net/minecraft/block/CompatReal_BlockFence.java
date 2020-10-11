@@ -40,6 +40,16 @@ public class CompatReal_BlockFence extends BlockFence implements CompatI_BlockFe
 	}
 
 	@Override
+	public SoundType getSoundTypeSuper() {
+		return this.blockSoundType;
+	}
+
+	@Override
+	public Material getMaterialSuper() {
+		return this.blockMaterial;
+	}
+
+	@Override
 	public void disableStatsSuper() {
 		super.disableStats();
 	}

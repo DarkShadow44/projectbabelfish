@@ -40,6 +40,16 @@ public class CompatReal_BlockSlab extends BlockSlab implements CompatI_BlockSlab
 	public void disableStatsSuper() {
 		super.disableStats();
 	}
+
+	@Override
+	public SoundType getSoundTypeSuper() {
+		return this.blockSoundType;
+	}
+
+	@Override
+	public Material getMaterialSuper() {
+		return this.blockMaterial;
+	}
 	
 	@Override
 	public void setDefaultSlipperinessSuper(float value) {

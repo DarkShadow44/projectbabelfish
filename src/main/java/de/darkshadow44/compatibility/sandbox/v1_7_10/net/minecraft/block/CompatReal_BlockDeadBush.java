@@ -2,6 +2,7 @@ package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block;
 
 import net.minecraft.block.BlockDeadBush;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 
 public class CompatReal_BlockDeadBush extends BlockDeadBush implements CompatI_BlockDeadBush {
@@ -36,6 +37,16 @@ public class CompatReal_BlockDeadBush extends BlockDeadBush implements CompatI_B
 	@Override
 	public void setSoundTypeSuper(SoundType sound) {
 		super.setSoundType(sound);
+	}
+
+	@Override
+	public SoundType getSoundTypeSuper() {
+		return this.blockSoundType;
+	}
+
+	@Override
+	public Material getMaterialSuper() {
+		return this.blockMaterial;
 	}
 
 	@Override

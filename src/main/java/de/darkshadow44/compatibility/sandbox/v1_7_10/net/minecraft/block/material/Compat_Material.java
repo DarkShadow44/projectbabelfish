@@ -68,6 +68,14 @@ public class Compat_Material {
 		return this;
 	}
 
+	public Compat_Material Compat_func_76231_i() {
+		if (this.original == null)
+			thisReal.setReplaceableSuper();
+		else
+			original.setReplaceable();
+		return this;
+	}
+
 	public static Compat_Material Compat_get_field_151570_A() {
 		return new Compat_Material(Material.CACTUS);
 	}

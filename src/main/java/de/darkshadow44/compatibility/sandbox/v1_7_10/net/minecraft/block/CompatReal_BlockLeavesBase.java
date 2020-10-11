@@ -38,6 +38,16 @@ public class CompatReal_BlockLeavesBase extends Block implements CompatI_BlockLe
 	public void disableStatsSuper() {
 		super.disableStats();
 	}
+
+	@Override
+	public SoundType getSoundTypeSuper() {
+		return this.blockSoundType;
+	}
+
+	@Override
+	public Material getMaterialSuper() {
+		return this.blockMaterial;
+	}
 	
 	@Override
 	public void setDefaultSlipperinessSuper(float value) {

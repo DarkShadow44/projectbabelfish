@@ -2,6 +2,7 @@ package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block;
 
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 
 public class CompatReal_BlockChest extends BlockChest implements CompatI_BlockChest {
@@ -37,6 +38,11 @@ public class CompatReal_BlockChest extends BlockChest implements CompatI_BlockCh
 	public void setDefaultSlipperinessSuper(float value) {
 		super.setDefaultSlipperiness(value);
 	}
+
+	@Override
+	public SoundType getSoundTypeSuper() {
+		return this.blockSoundType;
+	}
 	
 	@Override
 	public void setLightLevelSuper(float value) {
@@ -70,5 +76,10 @@ public class CompatReal_BlockChest extends BlockChest implements CompatI_BlockCh
 	@Override
 	public void setBlockUnbreakableSuper() {
 		super.setBlockUnbreakable();
+	}
+
+	@Override
+	public Material getMaterialSuper() {
+		return this.blockMaterial;
 	}
 }

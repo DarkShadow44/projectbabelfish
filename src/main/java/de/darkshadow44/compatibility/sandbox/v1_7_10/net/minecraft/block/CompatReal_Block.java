@@ -40,6 +40,16 @@ public class CompatReal_Block extends Block implements CompatI_Block {
 	}
 
 	@Override
+	public SoundType getSoundTypeSuper() {
+		return this.blockSoundType;
+	}
+
+	@Override
+	public Material getMaterialSuper() {
+		return this.blockMaterial;
+	}
+
+	@Override
 	public void setResistanceSuper(float resistance) {
 		super.setResistance(resistance);
 	}

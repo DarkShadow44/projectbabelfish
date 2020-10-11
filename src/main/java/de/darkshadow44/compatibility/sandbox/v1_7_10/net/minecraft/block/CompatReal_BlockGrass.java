@@ -1,22 +1,21 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockFire;
+import net.minecraft.block.BlockGrass;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 
-public class CompatReal_BlockFire extends BlockFire implements CompatI_BlockFire {
+public class CompatReal_BlockGrass extends BlockGrass implements CompatI_BlockGrass {
 	@SuppressWarnings("unused")
-	private Compat_BlockFire thisFake;
+	private Compat_BlockGrass thisFake;
 
-	public CompatReal_BlockFire(Compat_BlockFire thisFake) {
+	public CompatReal_BlockGrass(Compat_BlockGrass thisFake) {
 		super();
 		this.thisFake = thisFake;
 	}
 
 	@Override
-	public BlockFire get() {
+	public BlockGrass get() {
 		return this;
 	}
 
@@ -36,8 +35,8 @@ public class CompatReal_BlockFire extends BlockFire implements CompatI_BlockFire
 	}
 
 	@Override
-	public void disableStatsSuper() {
-		super.disableStats();
+	public void setDefaultSlipperinessSuper(float value) {
+		super.setDefaultSlipperiness(value);
 	}
 
 	@Override
@@ -49,20 +48,20 @@ public class CompatReal_BlockFire extends BlockFire implements CompatI_BlockFire
 	public Material getMaterialSuper() {
 		return this.blockMaterial;
 	}
-	
+
 	@Override
-	public void setDefaultSlipperinessSuper(float value) {
-		super.setDefaultSlipperiness(value);
+	public void setResistanceSuper(float resistance) {
+		super.setResistance(resistance);
 	}
-	
+
 	@Override
 	public void setLightLevelSuper(float value) {
 		super.setLightLevel(value);
 	}
 
 	@Override
-	public void setResistanceSuper(float resistance) {
-		super.setResistance(resistance);
+	public void disableStatsSuper() {
+		super.disableStats();
 	}
 
 	@Override
@@ -73,11 +72,6 @@ public class CompatReal_BlockFire extends BlockFire implements CompatI_BlockFire
 	@Override
 	public void setUnlocalizedNameSuper(String name) {
 		super.setUnlocalizedName(name);
-	}
-
-	@Override
-	public void setFireInfoSuper(Block block, int encouragement, int flammability) {
-		super.setFireInfo(block, encouragement, flammability);
 	}
 
 	@Override

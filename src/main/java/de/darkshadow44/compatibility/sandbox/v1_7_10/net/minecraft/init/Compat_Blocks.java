@@ -12,4 +12,40 @@ public class Compat_Blocks {
 	public static Compat_Block Compat_get_field_150433_aE() {
 		return new Compat_Block(Blocks.SNOW);
 	}
+
+	public static Compat_Block Compat_get_field_150466_ao() {
+		return new Compat_Block(Blocks.OAK_DOOR);
+	}
+
+	public static Compat_Block Compat_get_field_150454_av() {
+		return new Compat_Block(Blocks.IRON_DOOR);
+	}
+
+	public static Compat_Block Compat_get_field_150472_an() {
+		return new Compat_Block(Blocks.STANDING_SIGN);
+	}
+
+	public static Compat_Block Compat_get_field_150444_as() {
+		return new Compat_Block(Blocks.WALL_SIGN);
+	}
+
+	public static Compat_Block Compat_get_field_150436_aH() {
+		return new Compat_Block(Blocks.REEDS);
+	}
+
+	public static Compat_Block Compat_get_field_150452_aw() {
+		return new Compat_Block(Blocks.WOODEN_PRESSURE_PLATE);
+	}
+
+	public static Compat_Block Compat_get_field_150456_au() {
+		return new Compat_Block(Blocks.STONE_PRESSURE_PLATE);
+	}
+
+	public static Compat_Block Compat_get_field_150348_b() {
+		return new Compat_Block(Blocks.STONE);
+	}
+
+	public static Compat_Block Compat_get_field_150346_d() {
+		return new Compat_Block(Blocks.DIRT);
+	}
 }

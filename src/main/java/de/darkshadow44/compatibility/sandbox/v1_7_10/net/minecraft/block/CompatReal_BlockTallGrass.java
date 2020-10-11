@@ -1,22 +1,21 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockFire;
+import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 
-public class CompatReal_BlockFire extends BlockFire implements CompatI_BlockFire {
+public class CompatReal_BlockTallGrass extends BlockTallGrass implements CompatI_BlockTallGrass {
 	@SuppressWarnings("unused")
-	private Compat_BlockFire thisFake;
+	private Compat_BlockTallGrass thisFake;
 
-	public CompatReal_BlockFire(Compat_BlockFire thisFake) {
+	public CompatReal_BlockTallGrass(Compat_BlockTallGrass thisFake) {
 		super();
 		this.thisFake = thisFake;
 	}
 
 	@Override
-	public BlockFire get() {
+	public BlockTallGrass get() {
 		return this;
 	}
 
@@ -31,6 +30,16 @@ public class CompatReal_BlockFire extends BlockFire implements CompatI_BlockFire
 	}
 
 	@Override
+	public void setResistanceSuper(float resistance) {
+		super.setResistance(resistance);
+	}
+
+	@Override
+	public Material getMaterialSuper() {
+		return this.blockMaterial;
+	}
+
+	@Override
 	public void setSoundTypeSuper(SoundType sound) {
 		super.setSoundType(sound);
 	}
@@ -38,31 +47,6 @@ public class CompatReal_BlockFire extends BlockFire implements CompatI_BlockFire
 	@Override
 	public void disableStatsSuper() {
 		super.disableStats();
-	}
-
-	@Override
-	public SoundType getSoundTypeSuper() {
-		return this.blockSoundType;
-	}
-
-	@Override
-	public Material getMaterialSuper() {
-		return this.blockMaterial;
-	}
-	
-	@Override
-	public void setDefaultSlipperinessSuper(float value) {
-		super.setDefaultSlipperiness(value);
-	}
-	
-	@Override
-	public void setLightLevelSuper(float value) {
-		super.setLightLevel(value);
-	}
-
-	@Override
-	public void setResistanceSuper(float resistance) {
-		super.setResistance(resistance);
 	}
 
 	@Override
@@ -76,11 +60,6 @@ public class CompatReal_BlockFire extends BlockFire implements CompatI_BlockFire
 	}
 
 	@Override
-	public void setFireInfoSuper(Block block, int encouragement, int flammability) {
-		super.setFireInfo(block, encouragement, flammability);
-	}
-
-	@Override
 	public void setLightOpacitySuper(int opacity) {
 		super.setLightOpacity(opacity);
 	}
@@ -88,5 +67,20 @@ public class CompatReal_BlockFire extends BlockFire implements CompatI_BlockFire
 	@Override
 	public void setBlockUnbreakableSuper() {
 		super.setBlockUnbreakable();
+	}
+
+	@Override
+	public void setLightLevelSuper(float value) {
+		super.setLightLevel(value);
+	}
+
+	@Override
+	public void setDefaultSlipperinessSuper(float value) {
+		super.setDefaultSlipperiness(value);
+	}
+
+	@Override
+	public SoundType getSoundTypeSuper() {
+		return this.blockSoundType;
 	}
 }

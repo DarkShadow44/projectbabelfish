@@ -1,5 +1,6 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraftforge.fluids;
 
+import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_Block;
 import net.minecraftforge.fluids.Fluid;
 
 public class Compat_Fluid {
@@ -26,5 +27,30 @@ public class Compat_Fluid {
 
 	public Fluid getReal() {
 		return thisReal;
+	}
+
+	public String Compat_getName() {
+		return this.thisReal.getName();
+	}
+
+	public int Compat_getDensity() {
+		return this.thisReal.getDensity();
+	}
+
+	public int Compat_getTemperature() {
+		return this.thisReal.getTemperature();
+	}
+
+	public int Compat_getLuminosity() {
+		return this.thisReal.getLuminosity();
+	}
+
+	public int Compat_getViscosity() {
+		return this.thisReal.getViscosity();
+	}
+
+	public Compat_Fluid Compat_setBlock(Compat_Block block) {
+		this.thisReal.setBlock(block.getReal());
+		return this;
 	}
 }

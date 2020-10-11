@@ -20,4 +20,8 @@ public class Compat_MapColor {
 	public static Compat_MapColor Compat_get_field_151661_c() {
 		return new Compat_MapColor(MapColor.GRASS);
 	}
+
+	public static Compat_MapColor Compat_get_field_151660_b() {
+		return new Compat_MapColor(MapColor.AIR);
+	}
 }

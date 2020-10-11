@@ -42,6 +42,16 @@ public class CompatReal_BlockContainer extends BlockContainer implements CompatI
 	}
 
 	@Override
+	public SoundType getSoundTypeSuper() {
+		return this.blockSoundType;
+	}
+
+	@Override
+	public Material getMaterialSuper() {
+		return this.blockMaterial;
+	}
+
+	@Override
 	public void disableStatsSuper() {
 		super.disableStats();
 	}

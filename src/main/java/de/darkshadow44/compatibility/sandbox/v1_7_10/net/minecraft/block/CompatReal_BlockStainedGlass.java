@@ -38,6 +38,16 @@ public class CompatReal_BlockStainedGlass extends BlockStainedGlass implements C
 	public void setResistanceSuper(float resistance) {
 		super.setResistance(resistance);
 	}
+
+	@Override
+	public SoundType getSoundTypeSuper() {
+		return this.blockSoundType;
+	}
+
+	@Override
+	public Material getMaterialSuper() {
+		return this.blockMaterial;
+	}
 	
 	@Override
 	public void setDefaultSlipperinessSuper(float value) {

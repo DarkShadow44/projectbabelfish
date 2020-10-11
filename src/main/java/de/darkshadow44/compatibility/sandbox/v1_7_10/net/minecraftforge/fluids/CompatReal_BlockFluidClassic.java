@@ -41,6 +41,16 @@ public class CompatReal_BlockFluidClassic extends BlockFluidClassic implements C
 	}
 
 	@Override
+	public SoundType getSoundTypeSuper() {
+		return this.blockSoundType;
+	}
+
+	@Override
+	public Material getMaterialSuper() {
+		return this.blockMaterial;
+	}
+
+	@Override
 	public void setResistanceSuper(float resistance) {
 		super.setResistance(resistance);
 	}

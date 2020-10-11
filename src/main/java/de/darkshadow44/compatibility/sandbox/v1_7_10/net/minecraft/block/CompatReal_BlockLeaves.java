@@ -5,6 +5,7 @@ import java.util.List;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -42,6 +43,16 @@ public class CompatReal_BlockLeaves extends BlockLeaves implements CompatI_Block
 	@Override
 	public void setSoundTypeSuper(SoundType sound) {
 		super.setSoundType(sound);
+	}
+
+	@Override
+	public SoundType getSoundTypeSuper() {
+		return this.blockSoundType;
+	}
+
+	@Override
+	public Material getMaterialSuper() {
+		return this.blockMaterial;
 	}
 
 	@Override

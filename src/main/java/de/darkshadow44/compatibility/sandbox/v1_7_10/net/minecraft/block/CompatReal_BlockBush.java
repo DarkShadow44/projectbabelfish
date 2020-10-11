@@ -40,6 +40,11 @@ public class CompatReal_BlockBush extends BlockBush implements CompatI_BlockBush
 	}
 
 	@Override
+	public Material getMaterialSuper() {
+		return this.blockMaterial;
+	}
+
+	@Override
 	public void setSoundTypeSuper(SoundType sound) {
 		super.setSoundType(sound);
 	}
@@ -77,5 +82,10 @@ public class CompatReal_BlockBush extends BlockBush implements CompatI_BlockBush
 	@Override
 	public void setDefaultSlipperinessSuper(float value) {
 		super.setDefaultSlipperiness(value);
+	}
+
+	@Override
+	public SoundType getSoundTypeSuper() {
+		return this.blockSoundType;
 	}
 }

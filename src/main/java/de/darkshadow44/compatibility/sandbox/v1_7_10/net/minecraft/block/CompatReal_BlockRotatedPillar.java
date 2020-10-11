@@ -40,6 +40,16 @@ public class CompatReal_BlockRotatedPillar extends BlockRotatedPillar implements
 	}
 
 	@Override
+	public SoundType getSoundTypeSuper() {
+		return this.blockSoundType;
+	}
+
+	@Override
+	public Material getMaterialSuper() {
+		return this.blockMaterial;
+	}
+
+	@Override
 	public void disableStatsSuper() {
 		super.disableStats();
 	}

@@ -16,4 +16,8 @@ public class Compat_BlockPressurePlate_Sensitivity {
 	public static Compat_BlockPressurePlate_Sensitivity Compat_get_everything() {
 		return new Compat_BlockPressurePlate_Sensitivity(Sensitivity.EVERYTHING);
 	}
+
+	public static Compat_BlockPressurePlate_Sensitivity Compat_get_mobs() {
+		return new Compat_BlockPressurePlate_Sensitivity(Sensitivity.MOBS);
+	}
 }

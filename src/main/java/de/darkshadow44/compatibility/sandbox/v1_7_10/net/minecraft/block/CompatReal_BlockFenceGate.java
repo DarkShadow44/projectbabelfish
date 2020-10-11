@@ -3,6 +3,7 @@ package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block;
 import net.minecraft.block.BlockFenceGate;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 
 public class CompatReal_BlockFenceGate extends BlockFenceGate implements CompatI_BlockFenceGate {
@@ -40,6 +41,11 @@ public class CompatReal_BlockFenceGate extends BlockFenceGate implements CompatI
 	}
 
 	@Override
+	public Material getMaterialSuper() {
+		return this.blockMaterial;
+	}
+
+	@Override
 	public void setResistanceSuper(float resistance) {
 		super.setResistance(resistance);
 	}
@@ -71,5 +77,10 @@ public class CompatReal_BlockFenceGate extends BlockFenceGate implements CompatI
 	@Override
 	public void setBlockUnbreakableSuper() {
 		super.setBlockUnbreakable();
+	}
+
+	@Override
+	public SoundType getSoundTypeSuper() {
+		return this.blockSoundType;
 	}
 }

@@ -2,6 +2,7 @@ package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 
 public interface CompatI_Block {
@@ -28,4 +29,8 @@ public interface CompatI_Block {
 	public void setLightLevelSuper(float value);
 
 	public void setDefaultSlipperinessSuper(float value);
+
+	public Material getMaterialSuper();
+
+	public SoundType getSoundTypeSuper();
 }
