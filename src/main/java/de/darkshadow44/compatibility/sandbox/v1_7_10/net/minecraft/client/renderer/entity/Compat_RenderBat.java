@@ -1,5 +1,37 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.renderer.entity;
 
-public class Compat_RenderBat extends Compat_RenderLiving {
+import de.darkshadow44.compatibility.core.ParentSelector;
+import net.minecraft.client.renderer.entity.RenderBat;
+import net.minecraft.entity.passive.EntityBat;
 
+public class Compat_RenderBat extends Compat_RenderLiving<EntityBat> {
+	private RenderBat original;
+	private CompatI_RenderBat thisReal;
+
+	// When called from Mod
+	public Compat_RenderBat(Compat_RenderManager renderManager) {
+		super(ParentSelector.NULL);
+		super.initialize(new CompatReal_RenderBat(this, renderManager.getReal()), null);
+	}
+
+	// When called from child
+	protected Compat_RenderBat(ParentSelector s) {
+		super(ParentSelector.NULL);
+	}
+
+	// When called from Minecraft
+	public Compat_RenderBat(RenderBat original) {
+		super(ParentSelector.NULL);
+		super.initialize(null, original);
+	}
+
+	protected void initialize(CompatI_RenderBat thisReal, RenderBat original) {
+		super.initialize(thisReal, original);
+		this.thisReal = thisReal;
+		this.original = original;
+	}
+
+	public RenderBat getReal() {
+		return original == null ? thisReal.get() : original;
+	}
 }

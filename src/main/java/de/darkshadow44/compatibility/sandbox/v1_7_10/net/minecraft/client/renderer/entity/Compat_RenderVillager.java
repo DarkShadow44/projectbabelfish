@@ -1,5 +1,37 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.renderer.entity;
 
-public class Compat_RenderVillager extends Compat_RenderLiving {
+import de.darkshadow44.compatibility.core.ParentSelector;
+import net.minecraft.client.renderer.entity.RenderVillager;
+import net.minecraft.entity.passive.EntityVillager;
 
+public class Compat_RenderVillager extends Compat_RenderLiving<EntityVillager> {
+	private RenderVillager original;
+	private CompatI_RenderVillager thisReal;
+
+	// When called from Mod
+	public Compat_RenderVillager(Compat_RenderManager renderManager) {
+		super(ParentSelector.NULL);
+		super.initialize(new CompatReal_RenderVillager(this, renderManager.getReal()), null);
+	}
+
+	// When called from child
+	protected Compat_RenderVillager(ParentSelector s) {
+		super(ParentSelector.NULL);
+	}
+
+	// When called from Minecraft
+	public Compat_RenderVillager(RenderVillager original) {
+		super(ParentSelector.NULL);
+		super.initialize(null, original);
+	}
+
+	protected void initialize(CompatI_RenderVillager thisReal, RenderVillager original) {
+		super.initialize(thisReal, original);
+		this.thisReal = thisReal;
+		this.original = original;
+	}
+
+	public RenderVillager getReal() {
+		return original == null ? thisReal.get() : original;
+	}
 }
