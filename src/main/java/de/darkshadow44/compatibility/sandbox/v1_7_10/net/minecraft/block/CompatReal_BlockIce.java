@@ -34,6 +34,15 @@ public class CompatReal_BlockIce extends BlockIce implements CompatI_BlockIce {
 	}
 
 	@Override
+	public void setResistanceSuper(float resistance) {
+		super.setResistance(resistance);
+	}
+	@Override
+	public void setLightLevelSuper(float value) {
+		super.setLightLevel(value);
+	}
+
+	@Override
 	public void disableStatsSuper() {
 		super.disableStats();
 	}
@@ -51,5 +60,10 @@ public class CompatReal_BlockIce extends BlockIce implements CompatI_BlockIce {
 	@Override
 	public void setLightOpacitySuper(int opacity) {
 		super.setLightOpacity(opacity);
+	}
+
+	@Override
+	public void setBlockUnbreakableSuper() {
+		super.setBlockUnbreakable();
 	}
 }

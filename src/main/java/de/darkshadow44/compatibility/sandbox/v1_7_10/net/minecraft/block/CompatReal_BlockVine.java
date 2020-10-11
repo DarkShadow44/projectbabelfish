@@ -37,6 +37,15 @@ public class CompatReal_BlockVine extends BlockVine implements CompatI_BlockVine
 	public void disableStatsSuper() {
 		super.disableStats();
 	}
+	@Override
+	public void setLightLevelSuper(float value) {
+		super.setLightLevel(value);
+	}
+
+	@Override
+	public void setResistanceSuper(float resistance) {
+		super.setResistance(resistance);
+	}
 
 	@Override
 	public void setCreativeTabSuper(CreativeTabs creativeTabs) {
@@ -51,5 +60,10 @@ public class CompatReal_BlockVine extends BlockVine implements CompatI_BlockVine
 	@Override
 	public void setLightOpacitySuper(int opacity) {
 		super.setLightOpacity(opacity);
+	}
+
+	@Override
+	public void setBlockUnbreakableSuper() {
+		super.setBlockUnbreakable();
 	}
 }

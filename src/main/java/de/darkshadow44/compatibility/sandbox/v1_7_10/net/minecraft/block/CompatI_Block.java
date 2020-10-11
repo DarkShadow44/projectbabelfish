@@ -20,4 +20,10 @@ public interface CompatI_Block {
 	public void setUnlocalizedNameSuper(String name);
 
 	public void setLightOpacitySuper(int opacity);
+
+	public void setBlockUnbreakableSuper();
+
+	public void setResistanceSuper(float resistance);
+
+	public void setLightLevelSuper(float value);
 }

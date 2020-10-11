@@ -32,7 +32,15 @@ public class CompatReal_BlockChest extends BlockChest implements CompatI_BlockCh
 	public void setSoundTypeSuper(SoundType sound) {
 		super.setSoundType(sound);
 	}
+	@Override
+	public void setLightLevelSuper(float value) {
+		super.setLightLevel(value);
+	}
 
+	@Override
+	public void setResistanceSuper(float resistance) {
+		super.setResistance(resistance);
+	}
 	@Override
 	public void disableStatsSuper() {
 		super.disableStats();
@@ -51,5 +59,10 @@ public class CompatReal_BlockChest extends BlockChest implements CompatI_BlockCh
 	@Override
 	public void setLightOpacitySuper(int opacity) {
 		super.setLightOpacity(opacity);
+	}
+
+	@Override
+	public void setBlockUnbreakableSuper() {
+		super.setBlockUnbreakable();
 	}
 }

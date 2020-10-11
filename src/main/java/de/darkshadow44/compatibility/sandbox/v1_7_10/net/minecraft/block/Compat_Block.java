@@ -99,13 +99,37 @@ public class Compat_Block {
 	public static Compat_Block_SoundType Compat_get_field_149766_f() {
 		return new Compat_Block_SoundType(SoundType.WOOD);
 	}
-	
-	public Compat_Block Compat_func_149713_g(int opacity)
-	{
+
+	public Compat_Block Compat_func_149713_g(int opacity) {
 		if (this.original == null)
 			thisReal.setLightOpacitySuper(opacity);
 		else
 			original.setLightOpacity(opacity);
+		return this;
+	}
+
+	public Compat_Block Compat_func_149722_s() {
+		if (this.original == null)
+			thisReal.setBlockUnbreakableSuper();
+		else
+			original.setBlockUnbreakable();
+		return this;
+	}
+
+	public Compat_Block Compat_func_149752_b(float resistance) {
+		if (this.original == null)
+			thisReal.setResistanceSuper(resistance);
+		else
+			original.setResistance(resistance);
+		return this;
+	}
+
+	public Compat_Block Compat_func_149715_a(float value)
+	{
+		if (this.original == null)
+			thisReal.setLightLevelSuper(value);
+		else
+			original.setLightLevel(value);
 		return this;
 	}
 }

@@ -43,6 +43,15 @@ public class CompatReal_BlockLeaves extends BlockLeaves implements CompatI_Block
 	public void disableStatsSuper() {
 		super.disableStats();
 	}
+	@Override
+	public void setLightLevelSuper(float value) {
+		super.setLightLevel(value);
+	}
+
+	@Override
+	public void setResistanceSuper(float resistance) {
+		super.setResistance(resistance);
+	}
 
 	@Override
 	public void setCreativeTabSuper(CreativeTabs creativeTabs) {
@@ -69,5 +78,10 @@ public class CompatReal_BlockLeaves extends BlockLeaves implements CompatI_Block
 	public EnumType getWoodType(int meta) {
 		// TODO
 		return null;
+	}
+
+	@Override
+	public void setBlockUnbreakableSuper() {
+		super.setBlockUnbreakable();
 	}
 }

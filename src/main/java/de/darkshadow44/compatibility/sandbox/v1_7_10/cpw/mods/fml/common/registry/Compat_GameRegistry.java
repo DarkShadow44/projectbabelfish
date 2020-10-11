@@ -18,7 +18,7 @@ public class Compat_GameRegistry {
 		CompatibilityMod.blocksToRegister.add(new RegistrationInfoBlock(block.getReal(), name));
 		return block;
 	}
-	
+
 	public static Compat_Block Compat_registerBlock(Compat_Block block, Class<?> clazz, String name) {
 		// TODO ItemBlock
 		CompatibilityMod.blocksToRegister.add(new RegistrationInfoBlock(block.getReal(), name));
@@ -26,6 +26,10 @@ public class Compat_GameRegistry {
 	}
 
 	public static void Compat_registerFuelHandler(Compat_IFuelHandler handler) {
+		// TODO
+	}
+
+	public static void Compat_registerTileEntity(Class<?> clazz, String name) {
 		// TODO
 	}
 }

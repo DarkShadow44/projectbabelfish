@@ -40,6 +40,15 @@ public class CompatReal_BlockContainer extends BlockContainer implements CompatI
 	public void disableStatsSuper() {
 		super.disableStats();
 	}
+	@Override
+	public void setLightLevelSuper(float value) {
+		super.setLightLevel(value);
+	}
+
+	@Override
+	public void setResistanceSuper(float resistance) {
+		super.setResistance(resistance);
+	}
 
 	@Override
 	public void setCreativeTabSuper(CreativeTabs creativeTabs) {
@@ -60,5 +69,10 @@ public class CompatReal_BlockContainer extends BlockContainer implements CompatI
 	public TileEntity createNewTileEntity(World var1, int var2) {
 		// TODO
 		return null;
+	}
+
+	@Override
+	public void setBlockUnbreakableSuper() {
+		super.setBlockUnbreakable();
 	}
 }

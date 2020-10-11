@@ -40,6 +40,15 @@ public class CompatReal_BlockSlab extends BlockSlab implements CompatI_BlockSlab
 	public void disableStatsSuper() {
 		super.disableStats();
 	}
+	@Override
+	public void setLightLevelSuper(float value) {
+		super.setLightLevel(value);
+	}
+
+	@Override
+	public void setResistanceSuper(float resistance) {
+		super.setResistance(resistance);
+	}
 
 	@Override
 	public void setCreativeTabSuper(CreativeTabs creativeTabs) {
@@ -78,5 +87,10 @@ public class CompatReal_BlockSlab extends BlockSlab implements CompatI_BlockSlab
 	public Comparable<?> getTypeForItem(ItemStack stack) {
 		// TODO
 		return null;
+	}
+
+	@Override
+	public void setBlockUnbreakableSuper() {
+		super.setBlockUnbreakable();
 	}
 }

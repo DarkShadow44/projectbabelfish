@@ -39,6 +39,16 @@ public class CompatReal_BlockFlower extends BlockFlower implements CompatI_Block
 	}
 
 	@Override
+	public void setLightLevelSuper(float value) {
+		super.setLightLevel(value);
+	}
+
+	@Override
+	public void setResistanceSuper(float resistance) {
+		super.setResistance(resistance);
+	}
+
+	@Override
 	public void setCreativeTabSuper(CreativeTabs creativeTabs) {
 		super.setCreativeTab(creativeTabs);
 	}
@@ -57,5 +67,10 @@ public class CompatReal_BlockFlower extends BlockFlower implements CompatI_Block
 	public EnumFlowerColor getBlockType() {
 		// TODO
 		return null;
+	}
+
+	@Override
+	public void setBlockUnbreakableSuper() {
+		super.setBlockUnbreakable();
 	}
 }
