@@ -127,13 +127,13 @@ public class CompatibilityClassTransformer {
 	}
 
 	static boolean isMinecraftClass(String name) {
-		if (name.startsWith("net/minecraft/") || name.startsWith("net/minecraftforce/") || name.startsWith("cpw/mods/fml/")) {
+		if (name.startsWith("net/minecraft/") || name.startsWith("net/minecraftforge/") || name.startsWith("cpw/mods/fml/")) {
 			return true;
 		}
 		return false;
 	}
 
-	private List<AbstractInsnNode> transformInstruction(AbstractInsnNode instruction) {
+	private List<AbstractInsnNode> transformInstruction(AbstractInsnNode instruction, List<String> classFields) {
 		int opcode = instruction.getOpcode();
 		List<AbstractInsnNode> ret = new ArrayList<>();
 		ret.add(instruction);
@@ -154,7 +154,8 @@ public class CompatibilityClassTransformer {
 			if (isClassException(field.owner)) {
 				break;
 			}
-			if (!isMinecraftClass(field.owner)) {
+
+			if (!isMinecraftClass(field.owner) && (classFields.contains(prefixCompat + field.name) || !field.name.startsWith("field_"))) {
 				field.desc = transformDescriptor(field.desc);
 				field.name = prefixCompat + field.name;
 				field.owner = getTransformedClassname(field.owner);
@@ -262,11 +263,11 @@ public class CompatibilityClassTransformer {
 		}
 	}
 
-	private void transformMethod(MethodNode method) {
+	private void transformMethod(MethodNode method, List<String> classFields) {
 		InsnList newList = new InsnList();
 		for (int i = 0; i < method.instructions.size(); i++) {
 
-			List<AbstractInsnNode> newInsns = transformInstruction(method.instructions.get(i));
+			List<AbstractInsnNode> newInsns = transformInstruction(method.instructions.get(i), classFields);
 			for (AbstractInsnNode insn : newInsns) {
 				newList.add(insn);
 			}
@@ -288,12 +289,15 @@ public class CompatibilityClassTransformer {
 
 	public void transform() {
 		outDependencies = new ArrayList<String>();
-		for (MethodNode method : classNode.methods) {
-			transformMethod(method);
-		}
+		List<String> classFields = new ArrayList<String>();
 		for (FieldNode field : classNode.fields) {
 			transformField(field);
+			classFields.add(field.name);
 		}
+		for (MethodNode method : classNode.methods) {
+			transformMethod(method, classFields);
+		}
+
 		transformAnnotations(classNode.visibleAnnotations);
 		classNode.name = getTransformedClassname(classNode.name);
 		classNode.superName = getTransformedClassname(classNode.superName);
