@@ -30,6 +30,11 @@ public class CompatReal_BlockContainer extends BlockContainer implements CompatI
 	public void setHardnessSuper(float hardness) {
 		super.setHardness(hardness);
 	}
+	
+	@Override
+	public void setDefaultSlipperinessSuper(float value) {
+		super.setDefaultSlipperiness(value);
+	}
 
 	@Override
 	public void setSoundTypeSuper(SoundType sound) {

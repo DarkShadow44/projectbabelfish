@@ -1,6 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block;
 
 import de.darkshadow44.compatibility.core.ParentSelector;
+import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockStairs;
 
 public class Compat_BlockStairs extends Compat_Block {
@@ -8,9 +9,9 @@ public class Compat_BlockStairs extends Compat_Block {
 	private CompatI_BlockStairs thisReal;
 
 	// When called from Mod
-	public Compat_BlockStairs() {
+	public Compat_BlockStairs(Compat_Block block, int p1) {
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_BlockStairs(this, null), null); // TODO
+		this.initialize(new CompatReal_BlockStairs(this, new BlockPlanks().getDefaultState()), null); // TODO
 	}
 
 	// When called from child

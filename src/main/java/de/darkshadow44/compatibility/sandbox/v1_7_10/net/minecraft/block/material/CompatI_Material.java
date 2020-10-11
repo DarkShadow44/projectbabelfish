@@ -4,4 +4,8 @@ import net.minecraft.block.material.Material;
 
 public interface CompatI_Material {
 	public Material get();
+
+	public void setBurningSuper();
+
+	public void setNoPushMobilitySuper();
 }

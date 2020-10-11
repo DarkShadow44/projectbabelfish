@@ -9,7 +9,7 @@ public class Compat_BlockSlab extends Compat_Block {
 	private CompatI_BlockSlab thisReal;
 
 	// When called from Mod
-	public Compat_BlockSlab(Compat_Material material) {
+	public Compat_BlockSlab(boolean p1, Compat_Material material) { // TODO
 		super(ParentSelector.NULL);
 		this.initialize(new CompatReal_BlockSlab(this, material.getReal()), null);
 	}

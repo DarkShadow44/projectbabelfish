@@ -10,9 +10,9 @@ public class Compat_BlockPressurePlate extends Compat_Block {
 	private CompatI_BlockPressurePlate thisReal;
 
 	// When called from Mod
-	public Compat_BlockPressurePlate(Compat_Material material) {
+	public Compat_BlockPressurePlate(String p1, Compat_Material material, Compat_BlockPressurePlate_Sensitivity sensitivity) {
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_BlockPressurePlate(this, material.getReal(), Sensitivity.EVERYTHING), null); // TODO
+		this.initialize(new CompatReal_BlockPressurePlate(this, material.getReal(), sensitivity.getReal()), null); // TODO
 	}
 
 	// When called from child

@@ -16,4 +16,14 @@ public class CompatReal_Material extends Material implements CompatI_Material {
 	public Material get() {
 		return this;
 	}
+
+	@Override
+	public void setBurningSuper() {
+		super.setBurning();
+	}
+
+	@Override
+	public void setNoPushMobilitySuper() {
+		super.setNoPushMobility();
+	}
 }

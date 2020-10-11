@@ -24,6 +24,10 @@ public class CompatReal_BlockFence extends BlockFence implements CompatI_BlockFe
 	public void setTickRandomlySuper(boolean shouldTick) {
 		super.setTickRandomly(shouldTick);
 	}
+	@Override
+	public void setDefaultSlipperinessSuper(float value) {
+		super.setDefaultSlipperiness(value);
+	}
 
 	@Override
 	public void setHardnessSuper(float hardness) {

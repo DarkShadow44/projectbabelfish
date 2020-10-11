@@ -37,6 +37,12 @@ public class CompatReal_BlockLilyPad extends BlockLilyPad implements CompatI_Blo
 	public void setResistanceSuper(float resistance) {
 		super.setResistance(resistance);
 	}
+	
+	@Override
+	public void setDefaultSlipperinessSuper(float value) {
+		super.setDefaultSlipperiness(value);
+	}
+	
 	@Override
 	public void setLightLevelSuper(float value) {
 		super.setLightLevel(value);

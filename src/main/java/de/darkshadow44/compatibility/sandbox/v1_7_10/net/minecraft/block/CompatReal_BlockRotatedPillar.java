@@ -33,6 +33,11 @@ public class CompatReal_BlockRotatedPillar extends BlockRotatedPillar implements
 	public void setSoundTypeSuper(SoundType sound) {
 		super.setSoundType(sound);
 	}
+	
+	@Override
+	public void setDefaultSlipperinessSuper(float value) {
+		super.setDefaultSlipperiness(value);
+	}
 
 	@Override
 	public void disableStatsSuper() {

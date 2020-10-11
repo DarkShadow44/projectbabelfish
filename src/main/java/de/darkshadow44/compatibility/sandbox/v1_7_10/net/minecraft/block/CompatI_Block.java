@@ -26,4 +26,6 @@ public interface CompatI_Block {
 	public void setResistanceSuper(float resistance);
 
 	public void setLightLevelSuper(float value);
+
+	public void setDefaultSlipperinessSuper(float value);
 }

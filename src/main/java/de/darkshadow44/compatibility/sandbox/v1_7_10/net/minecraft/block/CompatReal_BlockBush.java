@@ -73,4 +73,9 @@ public class CompatReal_BlockBush extends BlockBush implements CompatI_BlockBush
 	public void setLightLevelSuper(float value) {
 		super.setLightLevel(value);
 	}
+
+	@Override
+	public void setDefaultSlipperinessSuper(float value) {
+		super.setDefaultSlipperiness(value);
+	}
 }

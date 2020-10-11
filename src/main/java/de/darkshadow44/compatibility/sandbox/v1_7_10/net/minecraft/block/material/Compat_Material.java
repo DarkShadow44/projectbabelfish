@@ -7,8 +7,8 @@ public class Compat_Material {
 	private CompatI_Material thisReal;
 
 	// When called from Mod
-	public Compat_Material() {
-		this.thisReal = new CompatReal_Material(this, null); // TODO
+	public Compat_Material(Compat_MapColor color) {
+		this.thisReal = new CompatReal_Material(this, color.getReal());
 	}
 
 	// When called from child
@@ -39,4 +39,65 @@ public class Compat_Material {
 	public static Compat_Material Compat_get_field_151584_j() {
 		return new Compat_Material(Material.LEAVES);
 	}
+
+	public static Compat_Material Compat_get_field_151580_n() {
+		return new Compat_Material(Material.CLOTH);
+	}
+
+	public static Compat_Material Compat_get_field_151582_l() {
+		return new Compat_Material(Material.VINE);
+	}
+
+	public Compat_MapColor Compat_func_151565_r() {
+		return new Compat_MapColor(original.getMaterialMapColor());
+	}
+
+	public Compat_Material Compat_func_76226_g() {
+		if (this.original == null)
+			thisReal.setBurningSuper();
+		else
+			original.setBurning();
+		return this;
+	}
+
+	public Compat_Material Compat_func_76219_n() {
+		if (this.original == null)
+			thisReal.setNoPushMobilitySuper();
+		else
+			original.setNoPushMobility();
+		return this;
+	}
+
+	public static Compat_Material Compat_get_field_151570_A() {
+		return new Compat_Material(Material.CACTUS);
+	}
+
+	public static Compat_Material Compat_get_field_151578_c() {
+		return new Compat_Material(Material.GROUND);
+	}
+
+	public static Compat_Material Compat_get_field_151594_q() {
+		return new Compat_Material(Material.CIRCUITS);
+	}
+
+	public static Compat_Material Compat_get_field_151574_g() {
+		return new Compat_Material(Material.ANVIL);
+	}
+
+	public static Compat_Material Compat_get_field_151592_s() {
+		return new Compat_Material(Material.GLASS);
+	}
+
+	public static Compat_Material Compat_get_field_151576_e() {
+		return new Compat_Material(Material.ROCK);
+	}
+
+	public static Compat_Material Compat_get_field_151588_w() {
+		return new Compat_Material(Material.ICE);
+	}
+
+	public static Compat_Material Compat_get_field_151597_y() {
+		return new Compat_Material(Material.SNOW);
+	}
+
 }

@@ -124,12 +124,43 @@ public class Compat_Block {
 		return this;
 	}
 
-	public Compat_Block Compat_func_149715_a(float value)
-	{
+	public Compat_Block Compat_func_149715_a(float value) {
 		if (this.original == null)
 			thisReal.setLightLevelSuper(value);
 		else
 			original.setLightLevel(value);
 		return this;
 	}
+
+	public static Compat_Block_SoundType Compat_get_field_149775_l() {
+		return new Compat_Block_SoundType(SoundType.CLOTH);
+	}
+
+	public static Compat_Block_SoundType Compat_get_field_149767_g() {
+		return new Compat_Block_SoundType(SoundType.GROUND);
+	}
+
+	public static Compat_Block_SoundType Compat_get_field_149777_j() {
+		return new Compat_Block_SoundType(SoundType.METAL);
+	}
+
+	public static Compat_Block_SoundType Compat_get_field_149769_e() {
+		return new Compat_Block_SoundType(SoundType.STONE);
+	}
+
+	public static Compat_Block_SoundType Compat_get_field_149773_n() {
+		return new Compat_Block_SoundType(SoundType.SNOW);
+	}
+
+	public void Compat_set_field_149765_K(float value) {
+		if (this.original == null)
+			thisReal.setDefaultSlipperinessSuper(value);
+		else
+			original.setDefaultSlipperiness(value);
+	}
+
+	public void Compat_set_field_149787_q(boolean opaque) {
+		// TODO opaque
+	}
+
 }

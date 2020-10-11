@@ -38,6 +38,12 @@ public class CompatReal_BlockStainedGlass extends BlockStainedGlass implements C
 	public void setResistanceSuper(float resistance) {
 		super.setResistance(resistance);
 	}
+	
+	@Override
+	public void setDefaultSlipperinessSuper(float value) {
+		super.setDefaultSlipperiness(value);
+	}
+	
 	@Override
 	public void setLightLevelSuper(float value) {
 		super.setLightLevel(value);

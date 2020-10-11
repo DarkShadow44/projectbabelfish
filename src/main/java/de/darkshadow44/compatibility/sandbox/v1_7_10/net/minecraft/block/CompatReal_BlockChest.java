@@ -32,6 +32,12 @@ public class CompatReal_BlockChest extends BlockChest implements CompatI_BlockCh
 	public void setSoundTypeSuper(SoundType sound) {
 		super.setSoundType(sound);
 	}
+	
+	@Override
+	public void setDefaultSlipperinessSuper(float value) {
+		super.setDefaultSlipperiness(value);
+	}
+	
 	@Override
 	public void setLightLevelSuper(float value) {
 		super.setLightLevel(value);

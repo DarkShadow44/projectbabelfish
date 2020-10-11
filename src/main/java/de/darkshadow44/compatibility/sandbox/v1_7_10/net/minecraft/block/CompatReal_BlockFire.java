@@ -38,6 +38,12 @@ public class CompatReal_BlockFire extends BlockFire implements CompatI_BlockFire
 	public void disableStatsSuper() {
 		super.disableStats();
 	}
+	
+	@Override
+	public void setDefaultSlipperinessSuper(float value) {
+		super.setDefaultSlipperiness(value);
+	}
+	
 	@Override
 	public void setLightLevelSuper(float value) {
 		super.setLightLevel(value);

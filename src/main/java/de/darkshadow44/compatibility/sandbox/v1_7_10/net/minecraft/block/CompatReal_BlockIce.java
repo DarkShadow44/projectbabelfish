@@ -24,6 +24,11 @@ public class CompatReal_BlockIce extends BlockIce implements CompatI_BlockIce {
 	}
 
 	@Override
+	public void setDefaultSlipperinessSuper(float value) {
+		super.setDefaultSlipperiness(value);
+	}
+	
+	@Override
 	public void setHardnessSuper(float hardness) {
 		super.setHardness(hardness);
 	}

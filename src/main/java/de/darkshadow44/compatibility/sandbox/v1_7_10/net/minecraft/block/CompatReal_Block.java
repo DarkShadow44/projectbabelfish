@@ -33,6 +33,11 @@ public class CompatReal_Block extends Block implements CompatI_Block {
 	public void setSoundTypeSuper(SoundType sound) {
 		super.setSoundType(sound);
 	}
+	
+	@Override
+	public void setDefaultSlipperinessSuper(float value) {
+		super.setDefaultSlipperiness(value);
+	}
 
 	@Override
 	public void setResistanceSuper(float resistance) {

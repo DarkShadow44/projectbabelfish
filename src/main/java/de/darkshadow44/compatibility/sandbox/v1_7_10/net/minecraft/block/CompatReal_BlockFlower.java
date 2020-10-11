@@ -37,6 +37,11 @@ public class CompatReal_BlockFlower extends BlockFlower implements CompatI_Block
 	public void disableStatsSuper() {
 		super.disableStats();
 	}
+	
+	@Override
+	public void setDefaultSlipperinessSuper(float value) {
+		super.setDefaultSlipperiness(value);
+	}
 
 	@Override
 	public void setLightLevelSuper(float value) {

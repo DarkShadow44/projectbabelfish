@@ -33,6 +33,11 @@ public class CompatReal_BlockLeaves extends BlockLeaves implements CompatI_Block
 	public void setHardnessSuper(float hardness) {
 		super.setHardness(hardness);
 	}
+	
+	@Override
+	public void setDefaultSlipperinessSuper(float value) {
+		super.setDefaultSlipperiness(value);
+	}
 
 	@Override
 	public void setSoundTypeSuper(SoundType sound) {

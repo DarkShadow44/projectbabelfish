@@ -22,6 +22,11 @@ public class CompatReal_BlockDeadBush extends BlockDeadBush implements CompatI_B
 	public void setTickRandomlySuper(boolean shouldTick) {
 		super.setTickRandomly(shouldTick);
 	}
+	
+	@Override
+	public void setDefaultSlipperinessSuper(float value) {
+		super.setDefaultSlipperiness(value);
+	}
 
 	@Override
 	public void setHardnessSuper(float hardness) {

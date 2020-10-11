@@ -40,6 +40,12 @@ public class CompatReal_BlockSlab extends BlockSlab implements CompatI_BlockSlab
 	public void disableStatsSuper() {
 		super.disableStats();
 	}
+	
+	@Override
+	public void setDefaultSlipperinessSuper(float value) {
+		super.setDefaultSlipperiness(value);
+	}
+	
 	@Override
 	public void setLightLevelSuper(float value) {
 		super.setLightLevel(value);

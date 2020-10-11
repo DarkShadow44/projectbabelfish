@@ -32,11 +32,17 @@ public class CompatReal_BlockVine extends BlockVine implements CompatI_BlockVine
 	public void setSoundTypeSuper(SoundType sound) {
 		super.setSoundType(sound);
 	}
+	
+	@Override
+	public void setDefaultSlipperinessSuper(float value) {
+		super.setDefaultSlipperiness(value);
+	}
 
 	@Override
 	public void disableStatsSuper() {
 		super.disableStats();
 	}
+	
 	@Override
 	public void setLightLevelSuper(float value) {
 		super.setLightLevel(value);

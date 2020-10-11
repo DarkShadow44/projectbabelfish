@@ -37,6 +37,11 @@ public class CompatReal_BlockDragonEgg extends BlockDragonEgg implements CompatI
 	public void setResistanceSuper(float resistance) {
 		super.setResistance(resistance);
 	}
+	
+	@Override
+	public void setDefaultSlipperinessSuper(float value) {
+		super.setDefaultSlipperiness(value);
+	}
 
 	@Override
 	public void setLightLevelSuper(float value) {

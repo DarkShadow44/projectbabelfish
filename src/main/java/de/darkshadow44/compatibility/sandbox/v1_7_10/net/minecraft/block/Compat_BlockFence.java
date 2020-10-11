@@ -10,9 +10,9 @@ public class Compat_BlockFence extends Compat_Block {
 	private CompatI_BlockFence thisReal;
 
 	// When called from Mod
-	public Compat_BlockFence(Compat_Material material) {
+	public Compat_BlockFence(String p1, Compat_Material material) {
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_BlockFence(this, material.getReal(), MapColor.AIR), null); // TODO
+		this.initialize(new CompatReal_BlockFence(this, material.getReal(), MapColor.BLACK), null); // TODO
 	}
 
 	// When called from child
