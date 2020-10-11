@@ -1,4 +1,10 @@
 Enable all exceptions in eclipse, some exceptions are "swallowed" by Witchery, e.g. in preInit.
-no abstract "real" classes!
 all in net.minecraft are 3-part-classes, minecraft forge and cpw.mods.fml can be different
 load world automatically on start?
+
+how does intermediary work? how handles 1.7.10 method/event to 1.2.5 block?
+in CompatReal_ classes, somehow force classes to override methods like isNormalBlock. Runtime reflection check, for each "super" method, there must be a normal one
+
+
+no abstract "real" classes!
+continue rework!
