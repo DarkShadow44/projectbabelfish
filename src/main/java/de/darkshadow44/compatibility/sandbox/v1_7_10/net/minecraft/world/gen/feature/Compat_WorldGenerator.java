@@ -1,6 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.world.gen.feature;
 
 import de.darkshadow44.compatibility.core.ParentSelector;
+import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class Compat_WorldGenerator {
 	private WorldGenerator original;

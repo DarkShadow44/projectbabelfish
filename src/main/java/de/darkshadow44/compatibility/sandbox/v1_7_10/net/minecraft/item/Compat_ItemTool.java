@@ -1,36 +1,36 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item;
 
 import de.darkshadow44.compatibility.core.ParentSelector;
-import net.minecraft.item.ItemBow;
+import net.minecraft.item.ItemTool;
 
-public class Compat_ItemBow extends Compat_Item {
-	private ItemBow original;
-	private CompatI_ItemBow thisReal;
+public class Compat_ItemTool extends Compat_Item {
+	private ItemTool original;
+	private CompatI_ItemTool thisReal;
 
 	// When called from Mod
-	public Compat_ItemBow() {
+	public Compat_ItemTool() {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_ItemBow(this), null);
+		super.initialize(new CompatReal_ItemTool(this), null);
 	}
 
 	// When called from child
-	protected Compat_ItemBow(ParentSelector s) {
+	protected Compat_ItemTool(ParentSelector s) {
 		super(ParentSelector.NULL);
 	}
 
 	// When called from Minecraft
-	public Compat_ItemBow(ItemBow original) {
+	public Compat_ItemTool(ItemTool original) {
 		super(ParentSelector.NULL);
 		super.initialize(null, original);
 	}
 
-	protected void initialize(CompatI_ItemBow thisReal, ItemBow original) {
+	protected void initialize(CompatI_ItemTool thisReal, ItemTool original) {
 		super.initialize(thisReal, original);
 		this.thisReal = thisReal;
 		this.original = original;
 	}
 
-	public ItemBow getReal() {
+	public ItemTool getReal() {
 		return original == null ? thisReal.get() : original;
 	}
 }
