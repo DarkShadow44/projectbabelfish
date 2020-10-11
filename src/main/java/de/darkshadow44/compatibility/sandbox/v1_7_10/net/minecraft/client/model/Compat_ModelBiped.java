@@ -10,7 +10,7 @@ public class Compat_ModelBiped extends Compat_ModelBase {
 	// When called from Mod
 	public Compat_ModelBiped() {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_ModelBiped(this), null);
+		this.initialize(new CompatReal_ModelBiped(this), null);
 	}
 
 	// When called from child
@@ -21,7 +21,7 @@ public class Compat_ModelBiped extends Compat_ModelBase {
 	// When called from Minecraft
 	public Compat_ModelBiped(ModelBiped original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_ModelBiped thisReal, ModelBiped original) {

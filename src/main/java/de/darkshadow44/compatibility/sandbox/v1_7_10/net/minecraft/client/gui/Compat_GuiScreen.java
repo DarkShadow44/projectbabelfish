@@ -10,7 +10,7 @@ public class Compat_GuiScreen extends Compat_Gui {
 	// When called from Mod
 	public Compat_GuiScreen() {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_GuiScreen(this), null);
+		this.initialize(new CompatReal_GuiScreen(this), null);
 	}
 
 	// When called from child
@@ -21,7 +21,7 @@ public class Compat_GuiScreen extends Compat_Gui {
 	// When called from Minecraft
 	public Compat_GuiScreen(GuiScreen original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_GuiScreen thisReal, GuiScreen original) {

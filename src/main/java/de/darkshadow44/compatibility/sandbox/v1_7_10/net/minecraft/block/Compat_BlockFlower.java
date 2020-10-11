@@ -15,7 +15,7 @@ public class Compat_BlockFlower extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockFlower(BlockFlower original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_BlockFlower thisReal, BlockFlower original) {

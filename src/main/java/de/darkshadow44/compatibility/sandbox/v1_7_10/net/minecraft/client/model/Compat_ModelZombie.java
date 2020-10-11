@@ -10,7 +10,7 @@ public class Compat_ModelZombie extends Compat_ModelBiped {
 	// When called from Mod
 	public Compat_ModelZombie() {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_ModelZombie(this), null);
+		this.initialize(new CompatReal_ModelZombie(this), null);
 	}
 
 	// When called from child
@@ -21,7 +21,7 @@ public class Compat_ModelZombie extends Compat_ModelBiped {
 	// When called from Minecraft
 	public Compat_ModelZombie(ModelZombie original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_ModelZombie thisReal, ModelZombie original) {

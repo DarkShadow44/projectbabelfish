@@ -11,7 +11,7 @@ public class Compat_ItemBlock extends Compat_Item {
 	// When called from Mod
 	public Compat_ItemBlock(Compat_Block block) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_ItemBlock(this, block.getReal()), null);
+		this.initialize(new CompatReal_ItemBlock(this, block.getReal()), null);
 	}
 
 	// When called from child
@@ -22,7 +22,7 @@ public class Compat_ItemBlock extends Compat_Item {
 	// When called from Minecraft
 	public Compat_ItemBlock(ItemBlock original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_ItemBlock thisReal, ItemBlock original) {

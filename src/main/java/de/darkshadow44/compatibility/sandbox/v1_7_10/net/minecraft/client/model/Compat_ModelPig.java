@@ -10,7 +10,7 @@ public class Compat_ModelPig extends Compat_ModelQuadruped {
 	// When called from Mod
 	public Compat_ModelPig() {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_ModelPig(this), null);
+		this.initialize(new CompatReal_ModelPig(this), null);
 	}
 
 	// When called from child
@@ -21,7 +21,7 @@ public class Compat_ModelPig extends Compat_ModelQuadruped {
 	// When called from Minecraft
 	public Compat_ModelPig(ModelPig original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_ModelPig thisReal, ModelPig original) {

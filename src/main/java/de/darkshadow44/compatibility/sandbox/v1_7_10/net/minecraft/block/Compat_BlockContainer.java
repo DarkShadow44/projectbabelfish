@@ -15,7 +15,7 @@ public class Compat_BlockContainer extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockContainer(BlockContainer original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_BlockContainer thisReal, BlockContainer original) {

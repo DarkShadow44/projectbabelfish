@@ -9,7 +9,7 @@ public class Compat_ZZZ extends Compat_XXX {
 	// When called from Mod
 	public Compat_ZZZ() {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_ZZZ(this), null);
+		this.initialize(new CompatReal_ZZZ(this), null);
 	}
 
 	// When called from child
@@ -20,7 +20,7 @@ public class Compat_ZZZ extends Compat_XXX {
 	// When called from Minecraft
 	public Compat_ZZZ(ZZZ original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_ZZZ thisReal, ZZZ original) {

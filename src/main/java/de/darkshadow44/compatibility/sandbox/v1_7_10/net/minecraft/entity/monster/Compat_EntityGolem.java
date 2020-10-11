@@ -12,7 +12,7 @@ public class Compat_EntityGolem extends Compat_EntityCreature {
 	// When called from Mod
 	public Compat_EntityGolem(Compat_World world) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_EntityGolem(this, world.getReal()), null);
+		this.initialize(new CompatReal_EntityGolem(this, world.getReal()), null);
 	}
 
 	// When called from child
@@ -23,7 +23,7 @@ public class Compat_EntityGolem extends Compat_EntityCreature {
 	// When called from Minecraft
 	public Compat_EntityGolem(EntityGolem original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_EntityGolem thisReal, EntityGolem original) {

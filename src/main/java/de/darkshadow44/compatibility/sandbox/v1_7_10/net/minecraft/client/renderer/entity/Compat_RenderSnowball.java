@@ -13,7 +13,7 @@ public class Compat_RenderSnowball<T extends Entity> extends Compat_Render<T> {
 	// When called from Mod
 	public Compat_RenderSnowball(Compat_RenderManager renderManager, Compat_Item item, Compat_RenderItem renderItem) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_RenderSnowball<T>(this, renderManager.getReal(), item.getReal(), renderItem.getReal()), null);
+		this.initialize(new CompatReal_RenderSnowball<T>(this, renderManager.getReal(), item.getReal(), renderItem.getReal()), null);
 	}
 
 	// When called from child
@@ -24,7 +24,7 @@ public class Compat_RenderSnowball<T extends Entity> extends Compat_Render<T> {
 	// When called from Minecraft
 	public Compat_RenderSnowball(RenderSnowball<T> original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_RenderSnowball<T> thisReal, RenderSnowball<T> original) {

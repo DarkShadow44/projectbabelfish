@@ -1,7 +1,9 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block;
 
 import net.minecraft.block.BlockBush;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
 
 public class CompatReal_BlockBush extends BlockBush implements CompatI_BlockBush {
 	@SuppressWarnings("unused")
@@ -11,7 +13,7 @@ public class CompatReal_BlockBush extends BlockBush implements CompatI_BlockBush
 		super();
 		this.thisFake = thisFake;
 	}
-	
+
 	public CompatReal_BlockBush(Compat_BlockBush thisFake, Material material) {
 		super(material);
 		this.thisFake = thisFake;
@@ -20,5 +22,30 @@ public class CompatReal_BlockBush extends BlockBush implements CompatI_BlockBush
 	@Override
 	public BlockBush get() {
 		return this;
+	}
+
+	@Override
+	public void setTickRandomlySuper(boolean shouldTick) {
+		super.setTickRandomly(shouldTick);
+	}
+
+	@Override
+	public void setHardnessSuper(float hardness) {
+		super.setHardness(hardness);
+	}
+
+	@Override
+	public void setSoundTypeSuper(SoundType sound) {
+		super.setSoundType(sound);
+	}
+
+	@Override
+	public void disableStatsSuper() {
+		super.disableStats();
+	}
+
+	@Override
+	public void setCreativeTabSuper(CreativeTabs creativeTabs) {
+		super.setCreativeTab(creativeTabs);
 	}
 }

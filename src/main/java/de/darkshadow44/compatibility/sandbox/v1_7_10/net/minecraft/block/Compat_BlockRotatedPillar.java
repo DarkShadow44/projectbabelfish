@@ -11,7 +11,7 @@ public class Compat_BlockRotatedPillar extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockRotatedPillar(Compat_Material material) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_BlockRotatedPillar(this, material.getReal()), null);
+		this.initialize(new CompatReal_BlockRotatedPillar(this, material.getReal()), null);
 	}
 
 	// When called from child
@@ -22,7 +22,7 @@ public class Compat_BlockRotatedPillar extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockRotatedPillar(BlockRotatedPillar original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_BlockRotatedPillar thisReal, BlockRotatedPillar original) {

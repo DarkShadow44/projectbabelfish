@@ -11,7 +11,7 @@ public class Compat_RenderOcelot extends Compat_RenderLiving<EntityOcelot> {
 	// When called from Mod
 	public Compat_RenderOcelot(Compat_RenderManager renderManager) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_RenderOcelot(this, renderManager.getReal()), null);
+		this.initialize(new CompatReal_RenderOcelot(this, renderManager.getReal()), null);
 	}
 
 	// When called from child
@@ -22,7 +22,7 @@ public class Compat_RenderOcelot extends Compat_RenderLiving<EntityOcelot> {
 	// When called from Minecraft
 	public Compat_RenderOcelot(RenderOcelot original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_RenderOcelot thisReal, RenderOcelot original) {

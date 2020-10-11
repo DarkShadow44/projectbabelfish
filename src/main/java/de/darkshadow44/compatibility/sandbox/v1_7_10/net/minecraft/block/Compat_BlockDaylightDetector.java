@@ -10,7 +10,7 @@ public class Compat_BlockDaylightDetector extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockDaylightDetector(boolean p1) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_BlockDaylightDetector(this, p1), null);
+		this.initialize(new CompatReal_BlockDaylightDetector(this, p1), null);
 	}
 
 	// When called from child
@@ -21,7 +21,7 @@ public class Compat_BlockDaylightDetector extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockDaylightDetector(BlockDaylightDetector original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_BlockDaylightDetector thisReal, BlockDaylightDetector original) {

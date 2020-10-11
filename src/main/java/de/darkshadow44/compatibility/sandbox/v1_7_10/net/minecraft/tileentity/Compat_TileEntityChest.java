@@ -10,7 +10,7 @@ public class Compat_TileEntityChest extends Compat_TileEntity {
 	// When called from Mod
 	public Compat_TileEntityChest() {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_TileEntityChest(this), null);
+		this.initialize(new CompatReal_TileEntityChest(this), null);
 	}
 
 	// When called from child
@@ -21,7 +21,7 @@ public class Compat_TileEntityChest extends Compat_TileEntity {
 	// When called from Minecraft
 	public Compat_TileEntityChest(TileEntityChest original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_TileEntityChest thisReal, TileEntityChest original) {

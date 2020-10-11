@@ -10,7 +10,7 @@ public class Compat_BlockChest extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockChest(Compat_BlockChest_Type chestTypeIn) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_BlockChest(this, chestTypeIn.getReal()), null);
+		this.initialize(new CompatReal_BlockChest(this, chestTypeIn.getReal()), null);
 	}
 
 	// When called from child
@@ -21,7 +21,7 @@ public class Compat_BlockChest extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockChest(BlockChest original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_BlockChest thisReal, BlockChest original) {

@@ -11,7 +11,7 @@ public class Compat_EntityAgeable extends Compat_EntityCreature {
 	// When called from Mod
 	public Compat_EntityAgeable(Compat_World world) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_EntityAgeable(this, world.getReal()), null);
+		this.initialize(new CompatReal_EntityAgeable(this, world.getReal()), null);
 	}
 
 	// When called from child
@@ -22,7 +22,7 @@ public class Compat_EntityAgeable extends Compat_EntityCreature {
 	// When called from Minecraft
 	public Compat_EntityAgeable(EntityAgeable original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_EntityAgeable thisReal, EntityAgeable original) {

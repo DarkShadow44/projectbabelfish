@@ -12,7 +12,7 @@ public class Compat_ItemSlab extends Compat_ItemBlock {
 	// When called from Mod
 	public Compat_ItemSlab(Compat_Block block, Compat_BlockSlab singleSlab, Compat_BlockSlab doubleSlab) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_ItemSlab(this, block.getReal(), singleSlab.getReal(), doubleSlab.getReal()), null);
+		this.initialize(new CompatReal_ItemSlab(this, block.getReal(), singleSlab.getReal(), doubleSlab.getReal()), null);
 	}
 
 	// When called from child
@@ -23,7 +23,7 @@ public class Compat_ItemSlab extends Compat_ItemBlock {
 	// When called from Minecraft
 	public Compat_ItemSlab(ItemSlab original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_ItemSlab thisReal, ItemSlab original) {

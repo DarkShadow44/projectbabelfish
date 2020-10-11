@@ -11,7 +11,7 @@ public class Compat_EntityClientPlayerMP extends Compat_EntityPlayerMP {
 	// When called from Mod
 	public Compat_EntityClientPlayerMP() {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_EntityClientPlayerMP(this), null);
+		this.initialize(new CompatReal_EntityClientPlayerMP(this), null);
 	}
 
 	// When called from child
@@ -22,7 +22,7 @@ public class Compat_EntityClientPlayerMP extends Compat_EntityPlayerMP {
 	// When called from Minecraft
 	public Compat_EntityClientPlayerMP(EntityPlayerMP original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_EntityClientPlayerMP thisReal, EntityPlayerMP original) {

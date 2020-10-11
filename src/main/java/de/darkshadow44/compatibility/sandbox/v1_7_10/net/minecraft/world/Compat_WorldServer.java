@@ -10,7 +10,7 @@ public class Compat_WorldServer extends Compat_World {
 	// When called from Mod
 	public Compat_WorldServer() {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_WorldServer(this), null);
+		this.initialize(new CompatReal_WorldServer(this), null);
 	}
 
 	// When called from child
@@ -21,7 +21,7 @@ public class Compat_WorldServer extends Compat_World {
 	// When called from Minecraft
 	public Compat_WorldServer(WorldServer original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_WorldServer thisReal, WorldServer original) {

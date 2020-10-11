@@ -11,7 +11,7 @@ public class Compat_AbstractHorse extends Compat_EntityAnimal {
 	// When called from Mod
 	public Compat_AbstractHorse(Compat_World world) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_AbstractHorse(this, world.getReal()), null);
+		this.initialize(new CompatReal_AbstractHorse(this, world.getReal()), null);
 	}
 
 	// When called from child
@@ -22,7 +22,7 @@ public class Compat_AbstractHorse extends Compat_EntityAnimal {
 	// When called from Minecraft
 	public Compat_AbstractHorse(AbstractHorse original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_AbstractHorse thisReal, AbstractHorse original) {

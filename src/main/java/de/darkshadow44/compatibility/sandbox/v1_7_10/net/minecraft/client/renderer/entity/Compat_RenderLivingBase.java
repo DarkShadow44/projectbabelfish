@@ -12,7 +12,7 @@ public class Compat_RenderLivingBase<T extends EntityLivingBase> extends Compat_
 	// When called from Mod
 	public Compat_RenderLivingBase(Compat_RenderManager renderManager, Compat_ModelBase model, float p1) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_RenderLivingBase<T>(this, renderManager.getReal(), model.getReal(), p1), null);
+		this.initialize(new CompatReal_RenderLivingBase<T>(this, renderManager.getReal(), model.getReal(), p1), null);
 	}
 
 	// When called from child
@@ -23,7 +23,7 @@ public class Compat_RenderLivingBase<T extends EntityLivingBase> extends Compat_
 	// When called from Minecraft
 	public Compat_RenderLivingBase(RenderLivingBase<T> original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_RenderLivingBase<T> thisReal, RenderLivingBase<T> original) {

@@ -10,7 +10,7 @@ public class Compat_ItemBow extends Compat_Item {
 	// When called from Mod
 	public Compat_ItemBow() {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_ItemBow(this), null);
+		this.initialize(new CompatReal_ItemBow(this), null);
 	}
 
 	// When called from child
@@ -21,7 +21,7 @@ public class Compat_ItemBow extends Compat_Item {
 	// When called from Minecraft
 	public Compat_ItemBow(ItemBow original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_ItemBow thisReal, ItemBow original) {

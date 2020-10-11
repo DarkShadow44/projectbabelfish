@@ -11,7 +11,7 @@ public class Compat_BlockLeavesBase extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockLeavesBase(Compat_Material material) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_BlockLeavesBase(this, material.getReal()), null);
+		this.initialize(new CompatReal_BlockLeavesBase(this, material.getReal()), null);
 	}
 
 	// When called from child
@@ -22,7 +22,7 @@ public class Compat_BlockLeavesBase extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockLeavesBase(Block original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_BlockLeavesBase thisReal, Block original) {

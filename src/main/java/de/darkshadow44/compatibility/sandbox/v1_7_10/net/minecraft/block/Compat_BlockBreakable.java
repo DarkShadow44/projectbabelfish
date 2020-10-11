@@ -11,7 +11,7 @@ public class Compat_BlockBreakable extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockBreakable(Compat_Material material, boolean p1) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_BlockBreakable(this, material.getReal(), p1), null);
+		this.initialize(new CompatReal_BlockBreakable(this, material.getReal(), p1), null);
 	}
 
 	// When called from child
@@ -22,7 +22,7 @@ public class Compat_BlockBreakable extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockBreakable(BlockBreakable original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_BlockBreakable thisReal, BlockBreakable original) {

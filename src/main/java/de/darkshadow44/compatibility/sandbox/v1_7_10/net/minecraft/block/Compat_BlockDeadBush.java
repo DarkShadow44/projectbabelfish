@@ -10,7 +10,7 @@ public class Compat_BlockDeadBush extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockDeadBush() {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_BlockDeadBush(this), null);
+		this.initialize(new CompatReal_BlockDeadBush(this), null);
 	}
 
 	// When called from child
@@ -21,7 +21,7 @@ public class Compat_BlockDeadBush extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockDeadBush(BlockDeadBush original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_BlockDeadBush thisReal, BlockDeadBush original) {

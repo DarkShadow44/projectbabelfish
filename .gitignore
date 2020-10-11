@@ -26,4 +26,4 @@ run
 
 gradle/
 gradlew*
-conf/
+conf*/

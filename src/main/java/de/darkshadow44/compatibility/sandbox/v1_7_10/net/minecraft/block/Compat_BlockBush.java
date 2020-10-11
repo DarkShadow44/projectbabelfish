@@ -11,13 +11,13 @@ public class Compat_BlockBush extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockBush() {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_BlockBush(this), null);
+		this.initialize(new CompatReal_BlockBush(this), null);
 	}
 
 	// When called from Mod
 	public Compat_BlockBush(Compat_Material material) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_BlockBush(this, material.getReal()), null);
+		this.initialize(new CompatReal_BlockBush(this, material.getReal()), null);
 	}
 
 	// When called from child
@@ -28,7 +28,7 @@ public class Compat_BlockBush extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockBush(BlockBush original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_BlockBush thisReal, BlockBush original) {

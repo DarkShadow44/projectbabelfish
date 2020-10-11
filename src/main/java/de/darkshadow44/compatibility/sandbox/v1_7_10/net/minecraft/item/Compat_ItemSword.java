@@ -10,7 +10,7 @@ public class Compat_ItemSword extends Compat_Item {
 	// When called from Mod
 	public Compat_ItemSword(Compat_Item_ToolMaterial material) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_ItemSword(this, material.getReal()), null);
+		this.initialize(new CompatReal_ItemSword(this, material.getReal()), null);
 	}
 
 	// When called from child
@@ -21,7 +21,7 @@ public class Compat_ItemSword extends Compat_Item {
 	// When called from Minecraft
 	public Compat_ItemSword(ItemSword original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_ItemSword thisReal, ItemSword original) {

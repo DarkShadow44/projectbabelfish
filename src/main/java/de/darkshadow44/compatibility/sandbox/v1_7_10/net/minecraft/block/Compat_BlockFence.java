@@ -12,7 +12,7 @@ public class Compat_BlockFence extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockFence(Compat_Material material) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_BlockFence(this, material.getReal(), MapColor.AIR), null); // TODO
+		this.initialize(new CompatReal_BlockFence(this, material.getReal(), MapColor.AIR), null); // TODO
 	}
 
 	// When called from child
@@ -23,7 +23,7 @@ public class Compat_BlockFence extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockFence(BlockFence original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_BlockFence thisReal, BlockFence original) {

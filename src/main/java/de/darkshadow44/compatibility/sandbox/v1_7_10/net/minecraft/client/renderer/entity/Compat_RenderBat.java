@@ -11,7 +11,7 @@ public class Compat_RenderBat extends Compat_RenderLiving<EntityBat> {
 	// When called from Mod
 	public Compat_RenderBat(Compat_RenderManager renderManager) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_RenderBat(this, renderManager.getReal()), null);
+		this.initialize(new CompatReal_RenderBat(this, renderManager.getReal()), null);
 	}
 
 	// When called from child
@@ -22,7 +22,7 @@ public class Compat_RenderBat extends Compat_RenderLiving<EntityBat> {
 	// When called from Minecraft
 	public Compat_RenderBat(RenderBat original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_RenderBat thisReal, RenderBat original) {

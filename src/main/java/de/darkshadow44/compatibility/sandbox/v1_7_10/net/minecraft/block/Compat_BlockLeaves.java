@@ -15,7 +15,7 @@ public class Compat_BlockLeaves extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockLeaves(BlockLeaves original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_BlockLeaves thisReal, BlockLeaves original) {

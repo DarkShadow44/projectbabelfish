@@ -11,7 +11,7 @@ public class Compat_EntitySmallFireball extends Compat_EntityFireball {
 	// When called from Mod
 	public Compat_EntitySmallFireball(Compat_World world) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_EntitySmallFireball(this, world.getReal()), null);
+		this.initialize(new CompatReal_EntitySmallFireball(this, world.getReal()), null);
 	}
 
 	// When called from child
@@ -22,7 +22,7 @@ public class Compat_EntitySmallFireball extends Compat_EntityFireball {
 	// When called from Minecraft
 	public Compat_EntitySmallFireball(EntitySmallFireball original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_EntitySmallFireball thisReal, EntitySmallFireball original) {

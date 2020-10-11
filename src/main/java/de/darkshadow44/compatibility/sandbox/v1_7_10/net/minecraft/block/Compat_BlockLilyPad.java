@@ -10,7 +10,7 @@ public class Compat_BlockLilyPad extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockLilyPad() {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_BlockLilyPad(this), null);
+		this.initialize(new CompatReal_BlockLilyPad(this), null);
 	}
 
 	// When called from child
@@ -21,7 +21,7 @@ public class Compat_BlockLilyPad extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockLilyPad(BlockLilyPad original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_BlockLilyPad thisReal, BlockLilyPad original) {

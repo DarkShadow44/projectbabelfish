@@ -12,7 +12,7 @@ public class Compat_RenderBiped<T extends EntityLiving> extends Compat_RenderLiv
 	// When called from Mod
 	public Compat_RenderBiped(Compat_RenderManager renderManager, Compat_ModelBiped model, float p1) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_RenderBiped<T>(this, renderManager.getReal(), model.getReal(), p1), null);
+		this.initialize(new CompatReal_RenderBiped<T>(this, renderManager.getReal(), model.getReal(), p1), null);
 	}
 
 	// When called from child
@@ -23,7 +23,7 @@ public class Compat_RenderBiped<T extends EntityLiving> extends Compat_RenderLiv
 	// When called from Minecraft
 	public Compat_RenderBiped(RenderBiped<T> original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_RenderBiped<T> thisReal, RenderBiped<T> original) {

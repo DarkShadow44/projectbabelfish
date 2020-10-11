@@ -11,7 +11,7 @@ public class Compat_RenderPlayer extends Compat_RenderLivingBase<AbstractClientP
 	// When called from Mod
 	public Compat_RenderPlayer(Compat_RenderManager renderManager) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_RenderPlayer(this, renderManager.getReal()), null);
+		this.initialize(new CompatReal_RenderPlayer(this, renderManager.getReal()), null);
 	}
 
 	// When called from child
@@ -22,7 +22,7 @@ public class Compat_RenderPlayer extends Compat_RenderLivingBase<AbstractClientP
 	// When called from Minecraft
 	public Compat_RenderPlayer(RenderPlayer original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_RenderPlayer thisReal, RenderPlayer original) {

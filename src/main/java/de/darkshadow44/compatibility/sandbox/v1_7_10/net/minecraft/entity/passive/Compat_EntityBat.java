@@ -11,7 +11,7 @@ public class Compat_EntityBat extends Compat_EntityAmbientCreature {
 	// When called from Mod
 	public Compat_EntityBat(Compat_World world) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_EntityBat(this, world.getReal()), null);
+		this.initialize(new CompatReal_EntityBat(this, world.getReal()), null);
 	}
 
 	// When called from child
@@ -22,7 +22,7 @@ public class Compat_EntityBat extends Compat_EntityAmbientCreature {
 	// When called from Minecraft
 	public Compat_EntityBat(EntityBat original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_EntityBat thisReal, EntityBat original) {

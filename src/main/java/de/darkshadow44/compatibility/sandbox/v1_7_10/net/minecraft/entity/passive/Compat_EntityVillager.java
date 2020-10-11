@@ -12,7 +12,7 @@ public class Compat_EntityVillager extends Compat_EntityAgeable {
 	// When called from Mod
 	public Compat_EntityVillager(Compat_World world) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_EntityVillager(this, world.getReal()), null);
+		this.initialize(new CompatReal_EntityVillager(this, world.getReal()), null);
 	}
 
 	// When called from child
@@ -23,7 +23,7 @@ public class Compat_EntityVillager extends Compat_EntityAgeable {
 	// When called from Minecraft
 	public Compat_EntityVillager(EntityVillager original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_EntityVillager thisReal, EntityVillager original) {

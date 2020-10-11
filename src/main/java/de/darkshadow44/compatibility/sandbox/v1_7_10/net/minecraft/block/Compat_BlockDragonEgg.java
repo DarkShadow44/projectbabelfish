@@ -10,7 +10,7 @@ public class Compat_BlockDragonEgg extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockDragonEgg() {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_BlockDragonEgg(this), null);
+		this.initialize(new CompatReal_BlockDragonEgg(this), null);
 	}
 
 	// When called from child
@@ -21,7 +21,7 @@ public class Compat_BlockDragonEgg extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockDragonEgg(BlockDragonEgg original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_BlockDragonEgg thisReal, BlockDragonEgg original) {

@@ -12,7 +12,7 @@ public class Compat_EntityMob extends Compat_EntityCreature {
 	// When called from Mod
 	public Compat_EntityMob(Compat_World world) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_EntityMob(this, world.getReal()), null);
+		this.initialize(new CompatReal_EntityMob(this, world.getReal()), null);
 	}
 
 	// When called from child
@@ -23,7 +23,7 @@ public class Compat_EntityMob extends Compat_EntityCreature {
 	// When called from Minecraft
 	public Compat_EntityMob(EntityMob original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_EntityMob thisReal, EntityMob original) {

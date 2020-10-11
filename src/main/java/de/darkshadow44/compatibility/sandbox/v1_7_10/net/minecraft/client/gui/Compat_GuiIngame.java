@@ -11,7 +11,7 @@ public class Compat_GuiIngame extends Compat_Gui {
 	// When called from Mod
 	public Compat_GuiIngame(Compat_Minecraft mc) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_GuiIngame(this, mc.getReal()), null);
+		this.initialize(new CompatReal_GuiIngame(this, mc.getReal()), null);
 	}
 
 	// When called from child
@@ -22,7 +22,7 @@ public class Compat_GuiIngame extends Compat_Gui {
 	// When called from Minecraft
 	public Compat_GuiIngame(GuiIngame original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_GuiIngame thisReal, GuiIngame original) {

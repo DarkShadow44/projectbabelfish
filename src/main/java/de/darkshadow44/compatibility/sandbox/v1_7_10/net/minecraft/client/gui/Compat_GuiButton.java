@@ -10,7 +10,7 @@ public class Compat_GuiButton extends Compat_Gui {
 	// When called from Mod
 	public Compat_GuiButton(int buttonId, int x, int y, String buttonText) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_GuiButton(this, buttonId, x, y, buttonText), null);
+		this.initialize(new CompatReal_GuiButton(this, buttonId, x, y, buttonText), null);
 	}
 
 	// When called from child
@@ -21,7 +21,7 @@ public class Compat_GuiButton extends Compat_Gui {
 	// When called from Minecraft
 	public Compat_GuiButton(GuiButton original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_GuiButton thisReal, GuiButton original) {

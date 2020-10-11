@@ -10,7 +10,7 @@ public class Compat_ModelOcelot extends Compat_ModelBase {
 	// When called from Mod
 	public Compat_ModelOcelot() {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_ModelOcelot(this), null);
+		this.initialize(new CompatReal_ModelOcelot(this), null);
 	}
 
 	// When called from child
@@ -21,7 +21,7 @@ public class Compat_ModelOcelot extends Compat_ModelBase {
 	// When called from Minecraft
 	public Compat_ModelOcelot(ModelOcelot original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_ModelOcelot thisReal, ModelOcelot original) {

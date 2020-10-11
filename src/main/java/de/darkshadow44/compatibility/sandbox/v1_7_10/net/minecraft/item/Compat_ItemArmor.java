@@ -10,7 +10,7 @@ public class Compat_ItemArmor extends Compat_Item {
 	// When called from Mod
 	public Compat_ItemArmor() {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_ItemArmor(this), null);
+		this.initialize(new CompatReal_ItemArmor(this), null);
 	}
 
 	// When called from child
@@ -21,7 +21,7 @@ public class Compat_ItemArmor extends Compat_Item {
 	// When called from Minecraft
 	public Compat_ItemArmor(ItemArmor original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_ItemArmor thisReal, ItemArmor original) {

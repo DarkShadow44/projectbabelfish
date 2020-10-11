@@ -11,7 +11,7 @@ public class Compat_EntityDamageSourceIndirect extends Compat_EntityDamageSource
 	// When called from Mod
 	public Compat_EntityDamageSourceIndirect(String p1, Compat_Entity entity1, Compat_Entity entity2) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_EntityDamageSourceIndirect(this, p1, entity1.getReal(), entity2.getReal()), null);
+		this.initialize(new CompatReal_EntityDamageSourceIndirect(this, p1, entity1.getReal(), entity2.getReal()), null);
 	}
 
 	// When called from child
@@ -22,7 +22,7 @@ public class Compat_EntityDamageSourceIndirect extends Compat_EntityDamageSource
 	// When called from Minecraft
 	public Compat_EntityDamageSourceIndirect(EntityDamageSourceIndirect original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_EntityDamageSourceIndirect thisReal, EntityDamageSourceIndirect original) {

@@ -10,7 +10,7 @@ public class Compat_ModelCreeper extends Compat_ModelBase {
 	// When called from Mod
 	public Compat_ModelCreeper() {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_ModelCreeper(this), null);
+		this.initialize(new CompatReal_ModelCreeper(this), null);
 	}
 
 	// When called from child
@@ -21,7 +21,7 @@ public class Compat_ModelCreeper extends Compat_ModelBase {
 	// When called from Minecraft
 	public Compat_ModelCreeper(ModelCreeper original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_ModelCreeper thisReal, ModelCreeper original) {

@@ -11,7 +11,7 @@ public class Compat_BlockDoor extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockDoor(Compat_Material material) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_BlockDoor(this, material.getReal()), null);
+		this.initialize(new CompatReal_BlockDoor(this, material.getReal()), null);
 	}
 
 	// When called from child
@@ -22,7 +22,7 @@ public class Compat_BlockDoor extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockDoor(BlockDoor original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_BlockDoor thisReal, BlockDoor original) {

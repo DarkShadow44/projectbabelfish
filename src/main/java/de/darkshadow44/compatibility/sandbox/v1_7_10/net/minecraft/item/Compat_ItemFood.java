@@ -10,7 +10,7 @@ public class Compat_ItemFood extends Compat_Item {
 	// When called from Mod
 	public Compat_ItemFood(int p1, boolean p2) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_ItemFood(this, p1, p2), null);
+		this.initialize(new CompatReal_ItemFood(this, p1, p2), null);
 	}
 
 	// When called from child
@@ -21,7 +21,7 @@ public class Compat_ItemFood extends Compat_Item {
 	// When called from Minecraft
 	public Compat_ItemFood(ItemFood original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_ItemFood thisReal, ItemFood original) {

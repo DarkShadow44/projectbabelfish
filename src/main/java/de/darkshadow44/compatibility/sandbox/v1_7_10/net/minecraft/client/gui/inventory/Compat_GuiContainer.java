@@ -12,7 +12,7 @@ public class Compat_GuiContainer extends Compat_GuiScreen {
 	// When called from Mod
 	public Compat_GuiContainer(Compat_Container container) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_GuiContainer(this, container.getReal()), null);
+		this.initialize(new CompatReal_GuiContainer(this, container.getReal()), null);
 	}
 
 	// When called from child
@@ -23,7 +23,7 @@ public class Compat_GuiContainer extends Compat_GuiScreen {
 	// When called from Minecraft
 	public Compat_GuiContainer(GuiContainer original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_GuiContainer thisReal, GuiContainer original) {

@@ -10,7 +10,7 @@ public class Compat_ItemShears extends Compat_Item {
 	// When called from Mod
 	public Compat_ItemShears() {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_ItemShears(this), null);
+		this.initialize(new CompatReal_ItemShears(this), null);
 	}
 
 	// When called from child
@@ -21,7 +21,7 @@ public class Compat_ItemShears extends Compat_Item {
 	// When called from Minecraft
 	public Compat_ItemShears(ItemShears original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_ItemShears thisReal, ItemShears original) {

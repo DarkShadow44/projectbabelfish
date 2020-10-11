@@ -11,7 +11,7 @@ public class Compat_BlockFenceGate extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockFenceGate() {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_BlockFenceGate(this, EnumType.BIRCH), null); // TODO
+		this.initialize(new CompatReal_BlockFenceGate(this, EnumType.BIRCH), null); // TODO
 	}
 
 	// When called from child
@@ -22,7 +22,7 @@ public class Compat_BlockFenceGate extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockFenceGate(BlockFenceGate original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_BlockFenceGate thisReal, BlockFenceGate original) {

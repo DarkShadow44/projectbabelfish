@@ -11,11 +11,14 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.Compat_
 import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.Compat_Mod_Instance;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.Compat_SidedProxy;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.event.Compat_FMLPreInitializationEvent;
+import net.minecraft.block.Block;
 import net.minecraft.launchwrapper.Launch;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
 @Mod(modid = CompatibilityMod.MODID, name = CompatibilityMod.NAME, version = CompatibilityMod.VERSION)
@@ -25,6 +28,8 @@ public class CompatibilityMod {
 	public static final String VERSION = "1.0";
 
 	public static MemoryClassLoader classLoader = new MemoryClassLoader(Launch.classLoader);
+
+	public static List<RegistrationInfoBlock> blocksToRegister = new ArrayList<>();
 
 	private List<Object> mods = new ArrayList<Object>();
 
@@ -80,6 +85,13 @@ public class CompatibilityMod {
 				Object proxy = ctor.tryConstruct();
 				instance.trySetValue(proxy);
 			}
+		}
+	}
+
+	@SubscribeEvent
+	public static void onBlocksRegistration(final RegistryEvent.Register<Block> blockRegisterEvent) {
+		for (RegistrationInfoBlock block : blocksToRegister) {
+			blockRegisterEvent.getRegistry().register(block.getBlock());
 		}
 	}
 }

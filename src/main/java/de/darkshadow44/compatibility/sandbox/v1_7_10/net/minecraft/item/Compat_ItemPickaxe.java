@@ -10,7 +10,7 @@ public class Compat_ItemPickaxe extends Compat_ItemTool {
 	// When called from Mod
 	public Compat_ItemPickaxe(Compat_Item_ToolMaterial material) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_ItemPickaxe(this, material.getReal()), null);
+		this.initialize(new CompatReal_ItemPickaxe(this, material.getReal()), null);
 	}
 
 	// When called from child
@@ -21,7 +21,7 @@ public class Compat_ItemPickaxe extends Compat_ItemTool {
 	// When called from Minecraft
 	public Compat_ItemPickaxe(ItemPickaxe original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_ItemPickaxe thisReal, ItemPickaxe original) {

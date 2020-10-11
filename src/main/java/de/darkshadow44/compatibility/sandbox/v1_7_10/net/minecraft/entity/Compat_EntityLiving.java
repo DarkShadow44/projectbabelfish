@@ -11,7 +11,7 @@ public class Compat_EntityLiving extends Compat_EntityLivingBase {
 	// When called from Mod
 	public Compat_EntityLiving(Compat_World world) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_EntityLiving(this, world.getReal()), null);
+		this.initialize(new CompatReal_EntityLiving(this, world.getReal()), null);
 	}
 
 	// When called from child
@@ -22,7 +22,7 @@ public class Compat_EntityLiving extends Compat_EntityLivingBase {
 	// When called from Minecraft
 	public Compat_EntityLiving(EntityLiving original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_EntityLiving thisReal, EntityLiving original) {

@@ -11,7 +11,7 @@ public class Compat_RenderVillager extends Compat_RenderLiving<EntityVillager> {
 	// When called from Mod
 	public Compat_RenderVillager(Compat_RenderManager renderManager) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_RenderVillager(this, renderManager.getReal()), null);
+		this.initialize(new CompatReal_RenderVillager(this, renderManager.getReal()), null);
 	}
 
 	// When called from child
@@ -22,7 +22,7 @@ public class Compat_RenderVillager extends Compat_RenderLiving<EntityVillager> {
 	// When called from Minecraft
 	public Compat_RenderVillager(RenderVillager original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_RenderVillager thisReal, RenderVillager original) {

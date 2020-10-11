@@ -10,7 +10,7 @@ public class Compat_ItemTool extends Compat_Item {
 	// When called from Mod
 	public Compat_ItemTool() {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_ItemTool(this), null);
+		this.initialize(new CompatReal_ItemTool(this), null);
 	}
 
 	// When called from child
@@ -21,7 +21,7 @@ public class Compat_ItemTool extends Compat_Item {
 	// When called from Minecraft
 	public Compat_ItemTool(ItemTool original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_ItemTool thisReal, ItemTool original) {

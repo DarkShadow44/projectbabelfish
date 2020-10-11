@@ -12,7 +12,7 @@ public class Compat_BlockPressurePlate extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockPressurePlate(Compat_Material material) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_BlockPressurePlate(this, material.getReal(), Sensitivity.EVERYTHING), null); // TODO
+		this.initialize(new CompatReal_BlockPressurePlate(this, material.getReal(), Sensitivity.EVERYTHING), null); // TODO
 	}
 
 	// When called from child
@@ -23,7 +23,7 @@ public class Compat_BlockPressurePlate extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockPressurePlate(BlockPressurePlate original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_BlockPressurePlate thisReal, BlockPressurePlate original) {

@@ -12,7 +12,7 @@ public class Compat_EntityPlayer extends Compat_EntityLivingBase {
 	// When called from Mod
 	public Compat_EntityPlayer(Compat_World world) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_EntityPlayer(this, world.getReal(), null), null); // TODO
+		this.initialize(new CompatReal_EntityPlayer(this, world.getReal(), null), null); // TODO
 	}
 
 	// When called from child
@@ -23,7 +23,7 @@ public class Compat_EntityPlayer extends Compat_EntityLivingBase {
 	// When called from Minecraft
 	public Compat_EntityPlayer(EntityPlayer original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_EntityPlayer thisReal, EntityPlayer original) {

@@ -10,7 +10,7 @@ public class Compat_BlockIce extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockIce() {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_BlockIce(this), null);
+		this.initialize(new CompatReal_BlockIce(this), null);
 	}
 
 	// When called from child
@@ -21,7 +21,7 @@ public class Compat_BlockIce extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockIce(BlockIce original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_BlockIce thisReal, BlockIce original) {

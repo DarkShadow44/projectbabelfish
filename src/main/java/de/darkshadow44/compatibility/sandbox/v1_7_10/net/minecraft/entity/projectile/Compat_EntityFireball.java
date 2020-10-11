@@ -16,7 +16,7 @@ public class Compat_EntityFireball extends Compat_Entity {
 	// When called from Minecraft
 	public Compat_EntityFireball(EntityFireball original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_EntityFireball thisReal, EntityFireball original) {

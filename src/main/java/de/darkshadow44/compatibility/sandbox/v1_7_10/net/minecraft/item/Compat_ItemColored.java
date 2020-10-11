@@ -11,7 +11,7 @@ public class Compat_ItemColored extends Compat_ItemBlock {
 	// When called from Mod
 	public Compat_ItemColored(Compat_Block block, boolean p1) {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_ItemColored(this, block.getReal(), p1), null);
+		this.initialize(new CompatReal_ItemColored(this, block.getReal(), p1), null);
 	}
 
 	// When called from child
@@ -22,7 +22,7 @@ public class Compat_ItemColored extends Compat_ItemBlock {
 	// When called from Minecraft
 	public Compat_ItemColored(ItemColored original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_ItemColored thisReal, ItemColored original) {

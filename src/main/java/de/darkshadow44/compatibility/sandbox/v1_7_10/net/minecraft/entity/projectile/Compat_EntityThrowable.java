@@ -16,7 +16,7 @@ public class Compat_EntityThrowable extends Compat_Entity {
 	// When called from Minecraft
 	public Compat_EntityThrowable(EntityThrowable original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_EntityThrowable thisReal, EntityThrowable original) {

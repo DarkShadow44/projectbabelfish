@@ -10,7 +10,7 @@ public class Compat_ItemSeeds extends Compat_Item {
 	// When called from Mod
 	public Compat_ItemSeeds() {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_ItemSeeds(this, null, null), null); // TODO
+		this.initialize(new CompatReal_ItemSeeds(this, null, null), null); // TODO
 	}
 
 	// When called from child
@@ -21,7 +21,7 @@ public class Compat_ItemSeeds extends Compat_Item {
 	// When called from Minecraft
 	public Compat_ItemSeeds(ItemSeeds original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_ItemSeeds thisReal, ItemSeeds original) {

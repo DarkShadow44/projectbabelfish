@@ -10,7 +10,7 @@ public class Compat_ModelSpider extends Compat_ModelBase {
 	// When called from Mod
 	public Compat_ModelSpider() {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_ModelSpider(this), null);
+		this.initialize(new CompatReal_ModelSpider(this), null);
 	}
 
 	// When called from child
@@ -21,7 +21,7 @@ public class Compat_ModelSpider extends Compat_ModelBase {
 	// When called from Minecraft
 	public Compat_ModelSpider(ModelSpider original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_ModelSpider thisReal, ModelSpider original) {

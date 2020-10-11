@@ -10,7 +10,7 @@ public class Compat_BlockStairs extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockStairs() {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_BlockStairs(this, null), null); // TODO
+		this.initialize(new CompatReal_BlockStairs(this, null), null); // TODO
 	}
 
 	// When called from child
@@ -21,7 +21,7 @@ public class Compat_BlockStairs extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockStairs(BlockStairs original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_BlockStairs thisReal, BlockStairs original) {

@@ -10,7 +10,7 @@ public class Compat_EntityPlayerMP extends Compat_EntityPlayer {
 	// When called from Mod
 	public Compat_EntityPlayerMP() {
 		super(ParentSelector.NULL);
-		super.initialize(new CompatReal_EntityPlayerMP(this), null);
+		this.initialize(new CompatReal_EntityPlayerMP(this), null);
 	}
 
 	// When called from child
@@ -21,7 +21,7 @@ public class Compat_EntityPlayerMP extends Compat_EntityPlayer {
 	// When called from Minecraft
 	public Compat_EntityPlayerMP(EntityPlayerMP original) {
 		super(ParentSelector.NULL);
-		super.initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_EntityPlayerMP thisReal, EntityPlayerMP original) {
