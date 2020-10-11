@@ -2,15 +2,16 @@ package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block;
 
 import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.block.BlockChest;
+import net.minecraft.block.BlockChest.Type;
 
 public class Compat_BlockChest extends Compat_Block {
 	private BlockChest original;
 	private CompatI_BlockChest thisReal;
 
 	// When called from Mod
-	public Compat_BlockChest(Compat_BlockChest_Type chestTypeIn) {
+	public Compat_BlockChest(int p1) { // TODO
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_BlockChest(this, chestTypeIn.getReal()), null);
+		this.initialize(new CompatReal_BlockChest(this, Type.BASIC), null);
 	}
 
 	// When called from child

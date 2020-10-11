@@ -100,4 +100,19 @@ public class Compat_Material {
 		return new Compat_Material(Material.SNOW);
 	}
 
+	public static Compat_Material Compat_get_field_151567_E() {
+		return new Compat_Material(Material.PORTAL);
+	}
+
+	public static Compat_Material Compat_get_field_151573_f() {
+		return new Compat_Material(Material.IRON);
+	}
+
+	public static Compat_Material Compat_get_field_151579_a() {
+		return new Compat_Material(Material.AIR);
+	}
+
+	public static Compat_Material Compat_get_field_151586_h() {
+		return new Compat_Material(Material.WATER);
+	}
 }

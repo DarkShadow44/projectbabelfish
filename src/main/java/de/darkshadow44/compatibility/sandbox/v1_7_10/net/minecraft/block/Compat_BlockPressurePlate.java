@@ -3,7 +3,6 @@ package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.material.Compat_Material;
 import net.minecraft.block.BlockPressurePlate;
-import net.minecraft.block.BlockPressurePlate.Sensitivity;
 
 public class Compat_BlockPressurePlate extends Compat_Block {
 	private BlockPressurePlate original;

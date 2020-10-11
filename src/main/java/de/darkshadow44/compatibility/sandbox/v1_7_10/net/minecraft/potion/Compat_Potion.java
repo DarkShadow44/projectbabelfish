@@ -33,4 +33,16 @@ public class Compat_Potion {
 	public static Compat_Potion[] Compat_get_field_76425_a() {
 		return new Compat_Potion[0]; // TODO
 	}
+
+	public static Compat_Potion Compat_get_field_76428_l() {
+		return new Compat_Potion(Potion.REGISTRY.getObjectById(10)); // Regeneration
+	}
+
+	public static Compat_Potion Compat_get_field_76437_t() {
+		return new Compat_Potion(Potion.REGISTRY.getObjectById(18)); // Weakness
+	}
+
+	public int Compat_get_field_76415_H() {
+		return Potion.getIdFromPotion(original);
+	}
 }

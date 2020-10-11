@@ -152,6 +152,14 @@ public class Compat_Block {
 		return new Compat_Block_SoundType(SoundType.SNOW);
 	}
 
+	public static Compat_Block_SoundType Compat_get_field_149780_i() {
+		return new Compat_Block_SoundType(SoundType.WOOD); // TODO
+	}
+
+	public static Compat_Block_SoundType Compat_get_field_149778_k() {
+		return new Compat_Block_SoundType(SoundType.GLASS);
+	}
+
 	public void Compat_set_field_149765_K(float value) {
 		if (this.original == null)
 			thisReal.setDefaultSlipperinessSuper(value);

@@ -66,6 +66,9 @@ public class CompatibilityClassTransformer {
 		if (name.startsWith("org/apache/"))
 			return true;
 
+		if (name.startsWith("com/google/"))
+			return true;
+
 		return false;
 	}
 

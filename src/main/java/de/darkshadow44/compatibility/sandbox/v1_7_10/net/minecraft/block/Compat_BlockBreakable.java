@@ -9,7 +9,7 @@ public class Compat_BlockBreakable extends Compat_Block {
 	private CompatI_BlockBreakable thisReal;
 
 	// When called from Mod
-	public Compat_BlockBreakable(Compat_Material material, boolean p1) {
+	public Compat_BlockBreakable(String p0, Compat_Material material, boolean p1) { // TODO
 		super(ParentSelector.NULL);
 		this.initialize(new CompatReal_BlockBreakable(this, material.getReal(), p1), null);
 	}

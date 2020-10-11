@@ -12,4 +12,12 @@ public class Compat_MapColor {
 	public MapColor getReal() {
 		return original;
 	}
+
+	public static Compat_MapColor Compat_get_field_151664_l() {
+		return new Compat_MapColor(MapColor.DIRT);
+	}
+
+	public static Compat_MapColor Compat_get_field_151661_c() {
+		return new Compat_MapColor(MapColor.GRASS);
+	}
 }
