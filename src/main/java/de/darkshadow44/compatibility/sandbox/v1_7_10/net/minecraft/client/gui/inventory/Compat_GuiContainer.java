@@ -14,7 +14,7 @@ public class Compat_GuiContainer extends Compat_GuiScreen {
 	// When called from Mod
 	public Compat_GuiContainer(Compat_Container container) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, container.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_GuiContainer.class, this, container.getReal()), null);
 	}
 
 	// When called from child

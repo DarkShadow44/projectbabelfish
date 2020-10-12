@@ -11,7 +11,7 @@ public class Compat_FluidStack {
 
 	// When called from Mod
 	public Compat_FluidStack(Compat_Fluid fluid, int amount) {
-		this.initialize(Factory.create(CtorPos.POS1, this, fluid.getReal(), amount), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_FluidStack.class, this, fluid.getReal(), amount), null);
 	}
 
 	// When called from child

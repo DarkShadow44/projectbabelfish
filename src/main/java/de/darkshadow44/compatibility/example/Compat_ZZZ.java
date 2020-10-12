@@ -11,7 +11,7 @@ public class Compat_ZZZ extends Compat_XXX {
 	// When called from Mod
 	public Compat_ZZZ() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ZZZ.class, this), null);
 	}
 
 	// When called from child

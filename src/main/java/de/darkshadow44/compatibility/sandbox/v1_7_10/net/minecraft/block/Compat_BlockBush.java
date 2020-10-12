@@ -13,13 +13,13 @@ public class Compat_BlockBush extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockBush() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockBush.class, this), null);
 	}
 
 	// When called from Mod
 	public Compat_BlockBush(Compat_Material material) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS2, this, material.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS2, CompatI_BlockBush.class, this, material.getReal()), null);
 	}
 
 	// When called from child

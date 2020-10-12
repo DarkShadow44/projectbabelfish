@@ -12,7 +12,7 @@ public class Compat_BlockSand extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockSand() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockSand.class, this), null);
 	}
 
 	// When called from child

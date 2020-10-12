@@ -12,7 +12,7 @@ public class Compat_ModelZombie extends Compat_ModelBiped {
 	// When called from Mod
 	public Compat_ModelZombie() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ModelZombie.class, this), null);
 	}
 
 	// When called from child

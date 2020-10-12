@@ -13,7 +13,7 @@ public class Compat_EntityLiving extends Compat_EntityLivingBase {
 	// When called from Mod
 	public Compat_EntityLiving(Compat_World world) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, world.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityLiving.class, this, world.getReal()), null);
 	}
 
 	// When called from child

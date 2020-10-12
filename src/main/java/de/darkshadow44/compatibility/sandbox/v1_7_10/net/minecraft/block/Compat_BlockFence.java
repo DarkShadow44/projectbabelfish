@@ -14,7 +14,7 @@ public class Compat_BlockFence extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockFence(String p1, Compat_Material material) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, material.getReal(), MapColor.BLACK), null); // TODO
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockFence.class, this, material.getReal(), MapColor.BLACK), null); // TODO
 	}
 
 	// When called from child

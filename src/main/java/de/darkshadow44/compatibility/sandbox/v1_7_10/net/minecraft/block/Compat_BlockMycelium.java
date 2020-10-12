@@ -12,7 +12,7 @@ public class Compat_BlockMycelium extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockMycelium() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockMycelium.class, this), null);
 	}
 
 	// When called from child

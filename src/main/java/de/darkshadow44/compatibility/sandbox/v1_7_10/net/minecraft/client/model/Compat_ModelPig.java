@@ -12,7 +12,7 @@ public class Compat_ModelPig extends Compat_ModelQuadruped {
 	// When called from Mod
 	public Compat_ModelPig() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ModelPig.class, this), null);
 	}
 
 	// When called from child

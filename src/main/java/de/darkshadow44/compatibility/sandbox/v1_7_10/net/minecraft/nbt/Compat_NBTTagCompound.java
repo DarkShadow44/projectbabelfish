@@ -11,7 +11,7 @@ public class Compat_NBTTagCompound extends Compat_NBTBase {
 
 	// When called from Mod
 	public Compat_NBTTagCompound() {
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_NBTTagCompound.class, this), null);
 	}
 
 	// When called from child

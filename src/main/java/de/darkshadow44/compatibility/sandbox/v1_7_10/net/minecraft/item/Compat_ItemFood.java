@@ -12,7 +12,7 @@ public class Compat_ItemFood extends Compat_Item {
 	// When called from Mod
 	public Compat_ItemFood(int p1, boolean p2) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, p1, p2), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemFood.class, this, p1, p2), null);
 	}
 
 	// When called from child

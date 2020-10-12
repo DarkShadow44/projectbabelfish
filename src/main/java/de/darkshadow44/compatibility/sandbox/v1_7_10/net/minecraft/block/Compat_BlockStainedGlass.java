@@ -13,7 +13,7 @@ public class Compat_BlockStainedGlass extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockStainedGlass(Compat_Material material) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, material.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockStainedGlass.class, this, material.getReal()), null);
 	}
 
 	// When called from child

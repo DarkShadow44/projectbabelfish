@@ -13,7 +13,7 @@ public class Compat_BlockFluidClassic extends Compat_BlockFluidBase {
 	// When called from Mod
 	public Compat_BlockFluidClassic(Compat_Fluid fluid, Compat_Material material) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, fluid.getReal(), material.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockFluidClassic.class, this, fluid.getReal(), material.getReal()), null);
 	}
 
 	// When called from child

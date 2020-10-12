@@ -13,7 +13,7 @@ public class Compat_EntityBat extends Compat_EntityAmbientCreature {
 	// When called from Mod
 	public Compat_EntityBat(Compat_World world) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, world.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityBat.class, this, world.getReal()), null);
 	}
 
 	// When called from child

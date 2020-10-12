@@ -11,7 +11,7 @@ public class Compat_Gui {
 
 	// When called from Mod
 	public Compat_Gui() {
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Gui.class, this), null);
 	}
 
 	// When called from child

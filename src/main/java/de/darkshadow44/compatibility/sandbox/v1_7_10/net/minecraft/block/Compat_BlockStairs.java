@@ -13,7 +13,7 @@ public class Compat_BlockStairs extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockStairs(Compat_Block block, int p1) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, new BlockPlanks().getDefaultState()), null); // TODO
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockStairs.class, this, new BlockPlanks().getDefaultState()), null); // TODO
 	}
 
 	// When called from child

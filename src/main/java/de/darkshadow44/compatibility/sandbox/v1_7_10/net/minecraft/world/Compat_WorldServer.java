@@ -12,7 +12,7 @@ public class Compat_WorldServer extends Compat_World {
 	// When called from Mod
 	public Compat_WorldServer() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_WorldServer.class, this), null);
 	}
 
 	// When called from child

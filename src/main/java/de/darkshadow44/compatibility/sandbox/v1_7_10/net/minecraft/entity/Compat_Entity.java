@@ -12,7 +12,7 @@ public class Compat_Entity {
 
 	// When called from Mod
 	public Compat_Entity(Compat_World world) {
-		this.initialize(Factory.create(CtorPos.POS1, this, world.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Entity.class, this, world.getReal()), null);
 	}
 
 	// When called from child

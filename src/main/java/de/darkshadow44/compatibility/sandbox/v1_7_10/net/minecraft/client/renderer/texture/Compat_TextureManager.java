@@ -11,7 +11,7 @@ public class Compat_TextureManager {
 
 	// When called from Mod
 	public Compat_TextureManager() {
-		this.initialize(Factory.create(CtorPos.POS1, this, new Object[] { null }), null); // TODO
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_TextureManager.class, this, new Object[] { null }), null); // TODO
 	}
 
 	// When called from child

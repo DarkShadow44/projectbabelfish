@@ -13,7 +13,7 @@ public class Compat_RenderBat extends Compat_RenderLiving<EntityBat> {
 	// When called from Mod
 	public Compat_RenderBat(Compat_RenderManager renderManager) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, renderManager.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_RenderBat.class, this, renderManager.getReal()), null);
 	}
 
 	// When called from child

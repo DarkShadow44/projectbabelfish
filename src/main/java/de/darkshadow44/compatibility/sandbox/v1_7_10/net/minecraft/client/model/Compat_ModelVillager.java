@@ -12,7 +12,7 @@ public class Compat_ModelVillager extends Compat_ModelBase {
 	// When called from Mod
 	public Compat_ModelVillager(float p1) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, p1), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ModelVillager.class, this, p1), null);
 	}
 
 	// When called from child

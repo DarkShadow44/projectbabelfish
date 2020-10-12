@@ -13,7 +13,7 @@ public class Compat_BlockPressurePlate extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockPressurePlate(String p1, Compat_Material material, Compat_BlockPressurePlate_Sensitivity sensitivity) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, material.getReal(), sensitivity.getReal()), null); // TODO
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockPressurePlate.class, this, material.getReal(), sensitivity.getReal()), null); // TODO
 	}
 
 	// When called from child

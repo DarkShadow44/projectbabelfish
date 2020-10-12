@@ -4,4 +4,8 @@ import net.minecraftforge.fluids.Fluid;
 
 public interface CompatI_Fluid {
 	public Fluid get();
+
+	public Fluid setDensitySuper(int density);
+
+	public Fluid setViscositySuper(int viscosity);
 }

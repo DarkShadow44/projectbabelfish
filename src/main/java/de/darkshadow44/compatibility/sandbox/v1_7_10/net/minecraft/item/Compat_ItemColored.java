@@ -13,7 +13,7 @@ public class Compat_ItemColored extends Compat_ItemBlock {
 	// When called from Mod
 	public Compat_ItemColored(Compat_Block block, boolean p1) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, block.getReal(), p1), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemColored.class, this, block.getReal(), p1), null);
 	}
 
 	// When called from child

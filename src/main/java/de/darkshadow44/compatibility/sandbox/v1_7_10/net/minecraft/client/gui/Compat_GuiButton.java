@@ -12,7 +12,7 @@ public class Compat_GuiButton extends Compat_Gui {
 	// When called from Mod
 	public Compat_GuiButton(int buttonId, int x, int y, String buttonText) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, buttonId, x, y, buttonText), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_GuiButton.class, this, buttonId, x, y, buttonText), null);
 	}
 
 	// When called from child

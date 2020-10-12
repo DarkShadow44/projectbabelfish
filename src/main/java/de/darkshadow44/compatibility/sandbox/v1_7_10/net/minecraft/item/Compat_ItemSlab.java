@@ -14,7 +14,7 @@ public class Compat_ItemSlab extends Compat_ItemBlock {
 	// When called from Mod
 	public Compat_ItemSlab(Compat_Block block, Compat_BlockSlab singleSlab, Compat_BlockSlab doubleSlab) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, block.getReal(), singleSlab.getReal(), doubleSlab.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemSlab.class, this, block.getReal(), singleSlab.getReal(), doubleSlab.getReal()), null);
 	}
 
 	// When called from child

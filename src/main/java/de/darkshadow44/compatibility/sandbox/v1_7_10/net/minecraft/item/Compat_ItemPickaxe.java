@@ -12,7 +12,7 @@ public class Compat_ItemPickaxe extends Compat_ItemTool {
 	// When called from Mod
 	public Compat_ItemPickaxe(Compat_Item_ToolMaterial material) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, material.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemPickaxe.class, this, material.getReal()), null);
 	}
 
 	// When called from child

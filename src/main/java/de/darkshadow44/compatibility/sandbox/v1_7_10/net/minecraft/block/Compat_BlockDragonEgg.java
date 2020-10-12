@@ -12,7 +12,7 @@ public class Compat_BlockDragonEgg extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockDragonEgg() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockDragonEgg.class, this), null);
 	}
 
 	// When called from child

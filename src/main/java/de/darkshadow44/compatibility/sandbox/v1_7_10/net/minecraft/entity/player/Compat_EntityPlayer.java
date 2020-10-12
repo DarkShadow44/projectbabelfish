@@ -14,7 +14,7 @@ public class Compat_EntityPlayer extends Compat_EntityLivingBase {
 	// When called from Mod
 	public Compat_EntityPlayer(Compat_World world) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, world.getReal(), null), null); // TODO
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityPlayer.class, this, world.getReal(), null), null); // TODO
 	}
 
 	// When called from child

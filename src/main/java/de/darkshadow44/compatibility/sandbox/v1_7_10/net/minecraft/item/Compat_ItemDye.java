@@ -12,7 +12,7 @@ public class Compat_ItemDye extends Compat_Item {
 	// When called from Mod
 	public Compat_ItemDye() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemDye.class, this), null);
 	}
 
 	// When called from child

@@ -13,7 +13,7 @@ public class Compat_RenderManager {
 
 	// When called from Mod
 	public Compat_RenderManager(Compat_TextureManager textureManager, Compat_RenderItem renderItem) {
-		this.initialize(Factory.create(CtorPos.POS1, this, textureManager.getReal(), renderItem.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_RenderManager.class, this, textureManager.getReal(), renderItem.getReal()), null);
 	}
 
 	// When called from child

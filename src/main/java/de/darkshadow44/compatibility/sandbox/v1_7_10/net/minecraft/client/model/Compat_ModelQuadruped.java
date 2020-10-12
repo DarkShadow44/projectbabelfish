@@ -12,7 +12,7 @@ public class Compat_ModelQuadruped extends Compat_ModelBase {
 	// When called from Mod
 	public Compat_ModelQuadruped(int p1, float p2) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, p1, p2), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ModelQuadruped.class, this, p1, p2), null);
 	}
 
 	// When called from child

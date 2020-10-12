@@ -10,7 +10,7 @@ public class Compat_XXX {
 
 	// When called from Mod
 	public Compat_XXX() {
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_XXX.class, this), null);
 	}
 
 	// When called from child

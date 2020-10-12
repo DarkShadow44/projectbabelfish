@@ -11,7 +11,7 @@ public class Compat_TileEntity {
 
 	// When called from Mod
 	public Compat_TileEntity() {
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_TileEntity.class, this), null);
 	}
 
 	// When called from child

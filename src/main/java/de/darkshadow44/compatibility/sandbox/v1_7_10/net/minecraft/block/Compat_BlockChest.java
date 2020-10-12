@@ -13,7 +13,7 @@ public class Compat_BlockChest extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockChest(int p1) { // TODO
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, Type.BASIC), null);
+		this.initialize(Factory.create(CtorPos.POS1, Compat_BlockChest.class, this, Type.BASIC), null);
 	}
 
 	// When called from child

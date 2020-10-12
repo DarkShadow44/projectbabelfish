@@ -11,7 +11,7 @@ public class Compat_Fluid {
 
 	// When called from Mod
 	public Compat_Fluid(String fluidName) {
-		this.initialize(Factory.create(CtorPos.POS1, this, fluidName, null, null), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Fluid.class, this, fluidName, null, null), null);
 	}
 
 	// When called from child
@@ -30,5 +30,23 @@ public class Compat_Fluid {
 
 	public Fluid getReal() {
 		return original == null ? thisReal.get() : original;
+	}
+
+	public Compat_Fluid Compat_setDensity(int density) {
+		if (original == null)
+			this.thisReal.setDensitySuper(density);
+		else
+			this.original.setDensity(density);
+
+		return this;
+	}
+	
+	public Compat_Fluid Compat_setViscosity(int viscosity) {
+		if (original == null)
+			this.thisReal.setViscositySuper(viscosity);
+		else
+			this.original.setViscosity(viscosity);
+
+		return this;
 	}
 }

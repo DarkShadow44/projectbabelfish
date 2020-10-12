@@ -11,7 +11,7 @@ public class Compat_Container {
 
 	// When called from Mod
 	public Compat_Container() {
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Container.class, this), null);
 	}
 
 	// When called from child

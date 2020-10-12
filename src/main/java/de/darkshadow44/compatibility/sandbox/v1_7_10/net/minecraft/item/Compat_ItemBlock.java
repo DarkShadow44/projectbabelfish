@@ -13,7 +13,7 @@ public class Compat_ItemBlock extends Compat_Item {
 	// When called from Mod
 	public Compat_ItemBlock(Compat_Block block) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, block.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemBlock.class, this, block.getReal()), null);
 	}
 
 	// When called from child

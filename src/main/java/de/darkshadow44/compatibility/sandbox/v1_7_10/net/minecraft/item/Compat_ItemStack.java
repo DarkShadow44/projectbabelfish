@@ -11,7 +11,7 @@ public class Compat_ItemStack {
 
 	// When called from Mod
 	public Compat_ItemStack(Compat_Item item) {
-		this.initialize(Factory.create(CtorPos.POS1, this, item.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemStack.class, this, item.getReal()), null);
 	}
 
 	// When called from child

@@ -13,7 +13,7 @@ public class Compat_BlockRotatedPillar extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockRotatedPillar(Compat_Material material) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, material.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockRotatedPillar.class, this, material.getReal()), null);
 	}
 
 	// When called from child

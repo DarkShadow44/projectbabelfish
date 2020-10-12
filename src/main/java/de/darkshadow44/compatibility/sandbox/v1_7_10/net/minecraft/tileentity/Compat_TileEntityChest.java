@@ -12,7 +12,7 @@ public class Compat_TileEntityChest extends Compat_TileEntity {
 	// When called from Mod
 	public Compat_TileEntityChest() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_TileEntityChest.class, this), null);
 	}
 
 	// When called from child

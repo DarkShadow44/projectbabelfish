@@ -12,7 +12,7 @@ public class Compat_ModelSpider extends Compat_ModelBase {
 	// When called from Mod
 	public Compat_ModelSpider() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ModelSpider.class, this), null);
 	}
 
 	// When called from child

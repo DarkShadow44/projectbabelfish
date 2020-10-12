@@ -14,7 +14,7 @@ public class Compat_RenderLiving<T extends EntityLiving> extends Compat_RenderLi
 	// When called from Mod
 	public Compat_RenderLiving(Compat_RenderManager renderManager, Compat_ModelBase model, float p1) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, renderManager.getReal(), model.getReal(), p1), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_RenderLiving.class, this, renderManager.getReal(), model.getReal(), p1), null);
 	}
 
 	// When called from child

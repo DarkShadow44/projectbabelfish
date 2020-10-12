@@ -12,7 +12,7 @@ public class Compat_TileEntitySpecialRenderer<T extends TileEntity> {
 
 	// When called from Mod
 	public Compat_TileEntitySpecialRenderer() {
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_TileEntitySpecialRenderer.class, this), null);
 	}
 
 	// When called from child

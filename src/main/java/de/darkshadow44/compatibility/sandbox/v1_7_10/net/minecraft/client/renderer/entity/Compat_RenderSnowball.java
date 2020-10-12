@@ -15,7 +15,7 @@ public class Compat_RenderSnowball<T extends Entity> extends Compat_Render<T> {
 	// When called from Mod
 	public Compat_RenderSnowball(Compat_RenderManager renderManager, Compat_Item item, Compat_RenderItem renderItem) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, renderManager.getReal(), item.getReal(), renderItem.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_RenderSnowball.class, this, renderManager.getReal(), item.getReal(), renderItem.getReal()), null);
 	}
 
 	// When called from child

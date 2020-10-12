@@ -13,7 +13,7 @@ public class Compat_EntityClientPlayerMP extends Compat_EntityPlayerMP {
 	// When called from Mod
 	public Compat_EntityClientPlayerMP() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityClientPlayerMP.class, this), null);
 	}
 
 	// When called from child

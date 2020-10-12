@@ -13,7 +13,7 @@ public class Compat_BlockSlab extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockSlab(boolean p1, Compat_Material material) { // TODO
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, material.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockSlab.class, this, material.getReal()), null);
 	}
 
 	// When called from child

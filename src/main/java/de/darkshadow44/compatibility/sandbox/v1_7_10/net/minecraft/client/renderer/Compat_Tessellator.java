@@ -11,7 +11,7 @@ public class Compat_Tessellator {
 
 	// When called from Mod
 	public Compat_Tessellator(int p1) {
-		this.initialize(Factory.create(CtorPos.POS1, this, p1), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Tessellator.class, this, p1), null);
 	}
 
 	// When called from child

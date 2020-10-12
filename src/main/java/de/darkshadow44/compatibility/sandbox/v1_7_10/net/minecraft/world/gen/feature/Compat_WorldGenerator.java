@@ -11,7 +11,7 @@ public class Compat_WorldGenerator {
 
 	// When called from Mod
 	public Compat_WorldGenerator() {
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_WorldGenerator.class, this), null);
 	}
 
 	// When called from child

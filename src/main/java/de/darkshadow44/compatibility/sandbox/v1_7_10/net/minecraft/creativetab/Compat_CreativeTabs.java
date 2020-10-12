@@ -11,7 +11,7 @@ public class Compat_CreativeTabs {
 
 	// When called from Mod
 	public Compat_CreativeTabs(String label) {
-		this.initialize(Factory.create(CtorPos.POS1, this, label), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_CreativeTabs.class, this, label), null);
 	}
 
 	// When called from child

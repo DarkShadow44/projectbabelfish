@@ -12,7 +12,7 @@ public class Compat_BlockFire extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockFire() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, Compat_BlockFire.class, this), null);
 	}
 
 	// When called from child

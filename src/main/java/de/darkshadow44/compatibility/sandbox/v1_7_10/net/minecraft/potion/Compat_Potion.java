@@ -11,7 +11,7 @@ public class Compat_Potion {
 
 	// When called from Mod
 	public Compat_Potion(boolean isBadEffect, int color) {
-		this.initialize(Factory.create(CtorPos.POS1, this, isBadEffect, color), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Potion.class, this, isBadEffect, color), null);
 	}
 
 	// When called from child

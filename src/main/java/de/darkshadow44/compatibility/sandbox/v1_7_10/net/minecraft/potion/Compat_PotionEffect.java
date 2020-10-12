@@ -12,12 +12,12 @@ public class Compat_PotionEffect {
 
 	// When called from Mod
 	public Compat_PotionEffect(int id, int duration, int amplifier) {
-		this.initialize(Factory.create(CtorPos.POS1, this, Potion.getPotionById(id), duration, amplifier), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_PotionEffect.class, this, Potion.getPotionById(id), duration, amplifier), null);
 	}
 
 	// When called from Mod
 	public Compat_PotionEffect(int id, int duration) {
-		this.initialize(Factory.create(CtorPos.POS2, this, Potion.getPotionById(id), duration), null);
+		this.initialize(Factory.create(CtorPos.POS2, CompatI_PotionEffect.class, this, Potion.getPotionById(id), duration), null);
 	}
 
 	// When called from child

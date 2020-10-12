@@ -11,7 +11,7 @@ public class Compat_ShapelessRecipes {
 
 	// When called from Mod
 	public Compat_ShapelessRecipes() {
-		this.initialize(Factory.create(CtorPos.POS1, this, null, null, null), null); // TODO
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ShapelessRecipes.class, this, null, null, null), null); // TODO
 	}
 
 	// When called from child

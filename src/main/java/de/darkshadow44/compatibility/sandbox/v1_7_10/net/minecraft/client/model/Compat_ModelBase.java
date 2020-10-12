@@ -11,7 +11,7 @@ public class Compat_ModelBase {
 
 	// When called from Mod
 	public Compat_ModelBase() {
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ModelBase.class, this), null);
 	}
 
 	// When called from child

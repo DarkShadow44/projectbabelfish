@@ -13,7 +13,7 @@ public class Compat_RenderVillager extends Compat_RenderLiving<EntityVillager> {
 	// When called from Mod
 	public Compat_RenderVillager(Compat_RenderManager renderManager) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, renderManager.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_RenderVillager.class, this, renderManager.getReal()), null);
 	}
 
 	// When called from child

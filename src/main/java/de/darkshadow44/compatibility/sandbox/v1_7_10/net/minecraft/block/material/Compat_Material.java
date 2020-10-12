@@ -10,7 +10,7 @@ public class Compat_Material {
 
 	// When called from Mod
 	public Compat_Material(Compat_MapColor color) {
-		this.thisReal = Factory.create(CtorPos.POS1, this, color.getReal());
+		this.thisReal = Factory.create(CtorPos.POS1, CompatI_Material.class, this, color.getReal());
 	}
 
 	// When called from child

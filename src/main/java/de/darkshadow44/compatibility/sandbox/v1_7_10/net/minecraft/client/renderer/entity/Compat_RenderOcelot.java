@@ -13,7 +13,7 @@ public class Compat_RenderOcelot extends Compat_RenderLiving<EntityOcelot> {
 	// When called from Mod
 	public Compat_RenderOcelot(Compat_RenderManager renderManager) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, renderManager.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_RenderOcelot.class, this, renderManager.getReal()), null);
 	}
 
 	// When called from child

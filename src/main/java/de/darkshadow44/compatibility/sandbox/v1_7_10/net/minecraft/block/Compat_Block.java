@@ -15,7 +15,7 @@ public class Compat_Block {
 
 	// When called from Mod
 	public Compat_Block(Compat_Material material) {
-		this.initialize(Factory.create(CtorPos.POS1, this, material.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Block.class, this, material.getReal()), null);
 	}
 
 	// When called from child

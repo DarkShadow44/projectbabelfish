@@ -11,7 +11,7 @@ public class Compat_Teleporter {
 
 	// When called from Mod
 	public Compat_Teleporter(Compat_WorldServer world) {
-		this.initialize(Factory.create(CtorPos.POS1, this, world.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Teleporter.class, this, world.getReal()), null);
 	}
 
 	// When called from child

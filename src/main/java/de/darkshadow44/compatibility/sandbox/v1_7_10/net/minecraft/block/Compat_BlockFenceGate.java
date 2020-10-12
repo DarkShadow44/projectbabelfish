@@ -13,7 +13,7 @@ public class Compat_BlockFenceGate extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockFenceGate() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, EnumType.BIRCH), null); // TODO
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockFenceGate.class, this, EnumType.BIRCH), null); // TODO
 	}
 
 	// When called from child

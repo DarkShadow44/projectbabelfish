@@ -13,7 +13,7 @@ public class Compat_BlockLeavesBase extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockLeavesBase(Compat_Material material, boolean p1) { // TODO
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, material.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockLeavesBase.class, this, material.getReal()), null);
 	}
 
 	// When called from child

@@ -13,7 +13,7 @@ public class Compat_EntityTameable extends Compat_EntityAnimal {
 	// When called from Mod
 	public Compat_EntityTameable(Compat_World world) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, world.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityTameable.class, this, world.getReal()), null);
 	}
 
 	// When called from child

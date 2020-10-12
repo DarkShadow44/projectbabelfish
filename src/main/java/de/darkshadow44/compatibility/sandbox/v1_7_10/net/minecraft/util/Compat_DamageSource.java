@@ -11,7 +11,7 @@ public class Compat_DamageSource {
 
 	// When called from Mod
 	public Compat_DamageSource(String p1) {
-		this.initialize(Factory.create(CtorPos.POS1, this, p1), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_DamageSource.class, this, p1), null);
 	}
 
 	// When called from child

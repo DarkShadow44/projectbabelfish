@@ -13,7 +13,7 @@ public class Compat_EntitySilverfish extends Compat_EntityMob {
 	// When called from Mod
 	public Compat_EntitySilverfish(Compat_World world) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, world.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntitySilverfish.class, this, world.getReal()), null);
 	}
 
 	// When called from child

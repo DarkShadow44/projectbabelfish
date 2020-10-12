@@ -11,7 +11,7 @@ public class Compat_WorldProvider {
 
 	// When called from Mod
 	public Compat_WorldProvider() {
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_WorldProvider.class, this), null);
 	}
 
 	// When called from child

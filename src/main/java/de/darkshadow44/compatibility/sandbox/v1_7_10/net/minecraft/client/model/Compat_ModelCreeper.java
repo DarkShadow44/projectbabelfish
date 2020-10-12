@@ -12,7 +12,7 @@ public class Compat_ModelCreeper extends Compat_ModelBase {
 	// When called from Mod
 	public Compat_ModelCreeper() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ModelCreeper.class, this), null);
 	}
 
 	// When called from child

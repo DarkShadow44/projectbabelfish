@@ -11,7 +11,7 @@ public class Compat_Minecraft {
 
 	// When called from Mod
 	public Compat_Minecraft() {
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Minecraft.class, this), null);
 	}
 
 	// When called from child

@@ -12,7 +12,7 @@ public class Compat_BlockDaylightDetector extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockDaylightDetector(boolean p1) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, p1), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockDaylightDetector.class, this, p1), null);
 	}
 
 	// When called from child

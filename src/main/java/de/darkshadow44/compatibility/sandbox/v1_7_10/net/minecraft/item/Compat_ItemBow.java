@@ -12,7 +12,7 @@ public class Compat_ItemBow extends Compat_Item {
 	// When called from Mod
 	public Compat_ItemBow() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemBow.class, this), null);
 	}
 
 	// When called from child

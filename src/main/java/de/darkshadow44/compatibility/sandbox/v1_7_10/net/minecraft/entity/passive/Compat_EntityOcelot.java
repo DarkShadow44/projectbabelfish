@@ -13,7 +13,7 @@ public class Compat_EntityOcelot extends Compat_EntityTameable {
 	// When called from Mod
 	public Compat_EntityOcelot(Compat_World world) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, world.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityOcelot.class, this, world.getReal()), null);
 	}
 
 	// When called from child

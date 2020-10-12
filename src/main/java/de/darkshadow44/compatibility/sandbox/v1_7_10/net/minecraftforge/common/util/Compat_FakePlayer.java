@@ -14,7 +14,7 @@ public class Compat_FakePlayer extends Compat_EntityPlayerMP {
 	// When called from Mod
 	public Compat_FakePlayer(Compat_WorldServer world) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, world.getReal(), null), null); // TODO
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_FakePlayer.class, this, world.getReal(), null), null); // TODO
 	}
 
 	// When called from child

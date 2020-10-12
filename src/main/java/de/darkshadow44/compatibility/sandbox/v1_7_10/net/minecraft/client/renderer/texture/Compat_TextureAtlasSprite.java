@@ -11,7 +11,7 @@ public class Compat_TextureAtlasSprite {
 
 	// When called from Mod
 	public Compat_TextureAtlasSprite(String spriteName) {
-		this.initialize(Factory.create(CtorPos.POS1, this, spriteName), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_TextureAtlasSprite.class, this, spriteName), null);
 	}
 
 	// When called from child

@@ -12,7 +12,7 @@ public class Compat_ItemTool extends Compat_Item {
 	// When called from Mod
 	public Compat_ItemTool() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemTool.class, this), null);
 	}
 
 	// When called from child

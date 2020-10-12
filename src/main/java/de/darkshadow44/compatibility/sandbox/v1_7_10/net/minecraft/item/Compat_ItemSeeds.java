@@ -12,7 +12,7 @@ public class Compat_ItemSeeds extends Compat_Item {
 	// When called from Mod
 	public Compat_ItemSeeds() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, null, null), null); // TODO
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemSeeds.class, this, null, null), null); // TODO
 	}
 
 	// When called from child

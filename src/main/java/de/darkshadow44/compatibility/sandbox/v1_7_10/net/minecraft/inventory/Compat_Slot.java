@@ -11,7 +11,7 @@ public class Compat_Slot {
 
 	// When called from Mod
 	public Compat_Slot() {
-		this.initialize(Factory.create(CtorPos.POS1, this, null, 0, 0, 0), null); // TODO
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Slot.class, this, null, 0, 0, 0), null); // TODO
 	}
 
 	// When called from child

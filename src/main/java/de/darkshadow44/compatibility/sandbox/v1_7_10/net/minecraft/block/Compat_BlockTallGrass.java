@@ -12,7 +12,7 @@ public class Compat_BlockTallGrass extends Compat_BlockBush {
 	// When called from Mod
 	public Compat_BlockTallGrass() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockTallGrass.class, this), null);
 	}
 
 	// When called from child

@@ -13,7 +13,7 @@ public class Compat_EntityMagmaCube extends Compat_EntitySlime {
 	// When called from Mod
 	public Compat_EntityMagmaCube(Compat_World world) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, world.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityMagmaCube.class, this, world.getReal()), null);
 	}
 
 	// When called from child

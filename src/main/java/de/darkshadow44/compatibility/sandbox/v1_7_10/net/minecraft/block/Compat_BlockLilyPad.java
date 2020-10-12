@@ -12,7 +12,7 @@ public class Compat_BlockLilyPad extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockLilyPad() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockLilyPad.class, this), null);
 	}
 
 	// When called from child

@@ -13,7 +13,7 @@ public class Compat_BlockDoor extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockDoor(Compat_Material material) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, material.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockDoor.class, this, material.getReal()), null);
 	}
 
 	// When called from child

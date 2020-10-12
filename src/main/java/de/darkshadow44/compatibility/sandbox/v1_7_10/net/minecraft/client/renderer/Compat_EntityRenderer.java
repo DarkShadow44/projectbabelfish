@@ -12,7 +12,7 @@ public class Compat_EntityRenderer {
 
 	// When called from Mod
 	public Compat_EntityRenderer(Compat_Minecraft mc) {
-		this.initialize(Factory.create(CtorPos.POS1, this, mc.getReal(), null), null); // TODO
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityRenderer.class, this, mc.getReal(), null), null); // TODO
 	}
 
 	// When called from child

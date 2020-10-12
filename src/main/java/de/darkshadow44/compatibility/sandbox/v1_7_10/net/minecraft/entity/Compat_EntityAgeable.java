@@ -13,7 +13,7 @@ public class Compat_EntityAgeable extends Compat_EntityCreature {
 	// When called from Mod
 	public Compat_EntityAgeable(Compat_World world) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, world.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityAgeable.class, this, world.getReal()), null);
 	}
 
 	// When called from child

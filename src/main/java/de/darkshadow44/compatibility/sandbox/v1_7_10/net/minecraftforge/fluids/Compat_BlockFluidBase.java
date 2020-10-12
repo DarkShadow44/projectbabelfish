@@ -14,7 +14,7 @@ public class Compat_BlockFluidBase extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockFluidBase(Compat_Fluid fluid, Compat_Material material) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, fluid.getReal(), material.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockFluidBase.class, this, fluid.getReal(), material.getReal()), null);
 	}
 
 	// When called from child

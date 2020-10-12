@@ -13,7 +13,7 @@ public class Compat_BlockBreakable extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockBreakable(String p0, Compat_Material material, boolean p1) { // TODO
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, material.getReal(), p1), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockBreakable.class, this, material.getReal(), p1), null);
 	}
 
 	// When called from child

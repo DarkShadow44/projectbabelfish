@@ -12,7 +12,7 @@ public class Compat_ItemSword extends Compat_Item {
 	// When called from Mod
 	public Compat_ItemSword(Compat_Item_ToolMaterial material) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, material.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemSword.class, this, material.getReal()), null);
 	}
 
 	// When called from child

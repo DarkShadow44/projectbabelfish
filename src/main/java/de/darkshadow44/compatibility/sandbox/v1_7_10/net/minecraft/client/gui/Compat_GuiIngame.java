@@ -13,7 +13,7 @@ public class Compat_GuiIngame extends Compat_Gui {
 	// When called from Mod
 	public Compat_GuiIngame(Compat_Minecraft mc) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, mc.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_GuiIngame.class, this, mc.getReal()), null);
 	}
 
 	// When called from child

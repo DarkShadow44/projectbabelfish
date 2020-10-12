@@ -12,7 +12,7 @@ public class Compat_Render<T extends Entity> {
 
 	// When called from Mod
 	public Compat_Render(Compat_RenderManager manager) {
-		this.initialize(Factory.create(CtorPos.POS1, this, manager.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Render.class, this, manager.getReal()), null);
 	}
 
 	// When called from child

@@ -42,9 +42,8 @@ public class Factory {
 
 	// TODO: Don't allow duplicate ctor pos
 	@SuppressWarnings("unchecked")
-	public static <T> T create(CtorPos pos, Object... params) {
-		Class<?> classFake = params[0].getClass();
-		String targetName = classFake.getName().replace("Compat_", "CompatReal_");
+	public static <T> T create(CtorPos pos, Class<?> classIface,  Object... params) {
+		String targetName = classIface.getName().replace("CompatI_", "CompatReal_");
 
 		try {
 			Class<?> classReal = Class.forName(targetName, true, CompatibilityMod.classLoader);

@@ -13,7 +13,7 @@ public class Compat_EntityHorse extends Compat_AbstractHorse {
 	// When called from Mod
 	public Compat_EntityHorse(Compat_World world) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, world.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityHorse.class, this, world.getReal()), null);
 	}
 
 	// When called from child

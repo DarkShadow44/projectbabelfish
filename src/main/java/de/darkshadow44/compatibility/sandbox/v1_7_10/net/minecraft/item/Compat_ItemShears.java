@@ -12,7 +12,7 @@ public class Compat_ItemShears extends Compat_Item {
 	// When called from Mod
 	public Compat_ItemShears() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemShears.class, this), null);
 	}
 
 	// When called from child

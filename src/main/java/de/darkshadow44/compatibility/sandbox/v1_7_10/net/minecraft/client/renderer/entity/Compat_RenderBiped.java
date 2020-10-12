@@ -14,7 +14,7 @@ public class Compat_RenderBiped<T extends EntityLiving> extends Compat_RenderLiv
 	// When called from Mod
 	public Compat_RenderBiped(Compat_RenderManager renderManager, Compat_ModelBiped model, float p1) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, this, renderManager.getReal(), model.getReal(), p1), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_RenderBiped.class, this, renderManager.getReal(), model.getReal(), p1), null);
 	}
 
 	// When called from child

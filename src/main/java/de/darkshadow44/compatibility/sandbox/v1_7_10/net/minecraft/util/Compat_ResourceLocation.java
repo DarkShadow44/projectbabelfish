@@ -11,7 +11,7 @@ public class Compat_ResourceLocation {
 
 	// When called from Mod
 	public Compat_ResourceLocation(String name) {
-		this.initialize(Factory.create(CtorPos.POS1, this, name), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ResourceLocation.class, this, name), null);
 	}
 
 	// When called from child
