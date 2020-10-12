@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.entity.monster;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.entity.Compat_EntityLiving;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.world.Compat_World;
@@ -12,7 +14,7 @@ public class Compat_EntitySlime extends Compat_EntityLiving {
 	// When called from Mod
 	public Compat_EntitySlime(Compat_World world) {
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_EntitySlime(this, world.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, this, world.getReal()), null);
 	}
 
 	// When called from child

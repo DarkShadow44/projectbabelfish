@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.inventory;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.inventory.Container;
 
@@ -9,7 +11,7 @@ public class Compat_Container {
 
 	// When called from Mod
 	public Compat_Container() {
-		initialize(new CompatReal_Container(this), null);
+		this.initialize(Factory.create(CtorPos.POS1, this), null);
 	}
 
 	// When called from child
@@ -18,7 +20,7 @@ public class Compat_Container {
 
 	// When called from Minecraft
 	public Compat_Container(Container original) {
-		initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_Container thisReal, Container original) {

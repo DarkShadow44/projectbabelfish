@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockStairs;
@@ -11,7 +13,7 @@ public class Compat_BlockStairs extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockStairs(Compat_Block block, int p1) {
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_BlockStairs(this, new BlockPlanks().getDefaultState()), null); // TODO
+		this.initialize(Factory.create(CtorPos.POS1, this, new BlockPlanks().getDefaultState()), null); // TODO
 	}
 
 	// When called from child

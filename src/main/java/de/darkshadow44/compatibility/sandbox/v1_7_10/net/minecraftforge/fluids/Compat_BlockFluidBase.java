@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraftforge.fluids;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_Block;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.material.Compat_Material;
@@ -12,7 +14,7 @@ public class Compat_BlockFluidBase extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockFluidBase(Compat_Fluid fluid, Compat_Material material) {
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_BlockFluidBase(this, fluid.getReal(), material.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, this, fluid.getReal(), material.getReal()), null);
 	}
 
 	// When called from child

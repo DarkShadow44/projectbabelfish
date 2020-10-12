@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.gui;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.client.gui.GuiScreen;
 
@@ -10,7 +12,7 @@ public class Compat_GuiScreen extends Compat_Gui {
 	// When called from Mod
 	public Compat_GuiScreen() {
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_GuiScreen(this), null);
+		this.initialize(Factory.create(CtorPos.POS1, this), null);
 	}
 
 	// When called from child

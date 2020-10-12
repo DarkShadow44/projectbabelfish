@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.renderer.entity;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.renderer.Compat_RenderItem;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item.Compat_Item;
@@ -13,7 +15,7 @@ public class Compat_RenderSnowball<T extends Entity> extends Compat_Render<T> {
 	// When called from Mod
 	public Compat_RenderSnowball(Compat_RenderManager renderManager, Compat_Item item, Compat_RenderItem renderItem) {
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_RenderSnowball<T>(this, renderManager.getReal(), item.getReal(), renderItem.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, this, renderManager.getReal(), item.getReal(), renderItem.getReal()), null);
 	}
 
 	// When called from child

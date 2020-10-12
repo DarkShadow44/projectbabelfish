@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.creativetab;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.creativetab.CreativeTabs;
 
@@ -9,7 +11,7 @@ public class Compat_CreativeTabs {
 
 	// When called from Mod
 	public Compat_CreativeTabs(String label) {
-		initialize(new CompatReal_CreativeTabs(this, label), null);
+		this.initialize(Factory.create(CtorPos.POS1, this, label), null);
 	}
 
 	// When called from child
@@ -18,7 +20,7 @@ public class Compat_CreativeTabs {
 
 	// When called from Minecraft
 	public Compat_CreativeTabs(CreativeTabs original) {
-		initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_CreativeTabs thisReal, CreativeTabs original) {

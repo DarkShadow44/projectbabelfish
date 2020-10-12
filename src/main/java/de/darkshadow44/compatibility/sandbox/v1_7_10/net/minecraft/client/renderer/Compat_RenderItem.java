@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.renderer;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.renderer.texture.Compat_TextureManager;
 import net.minecraft.client.renderer.RenderItem;
@@ -10,7 +12,7 @@ public class Compat_RenderItem {
 
 	// When called from Mod
 	public Compat_RenderItem(Compat_TextureManager textureManager) {
-		initialize(new CompatReal_RenderItem(this, textureManager.getReal(), null, null), null); // TODO
+		this.initialize(Factory.create(CtorPos.POS1, this, textureManager.getReal(), null, null), null); // TODO
 	}
 
 	// When called from child
@@ -19,7 +21,7 @@ public class Compat_RenderItem {
 
 	// When called from Minecraft
 	public Compat_RenderItem(RenderItem original) {
-		initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_RenderItem thisReal, RenderItem original) {

@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_Block;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_BlockSlab;
@@ -12,7 +14,7 @@ public class Compat_ItemSlab extends Compat_ItemBlock {
 	// When called from Mod
 	public Compat_ItemSlab(Compat_Block block, Compat_BlockSlab singleSlab, Compat_BlockSlab doubleSlab) {
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_ItemSlab(this, block.getReal(), singleSlab.getReal(), doubleSlab.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, this, block.getReal(), singleSlab.getReal(), doubleSlab.getReal()), null);
 	}
 
 	// When called from child

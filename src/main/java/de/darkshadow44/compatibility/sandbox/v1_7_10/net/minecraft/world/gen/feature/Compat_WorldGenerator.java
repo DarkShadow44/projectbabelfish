@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.world.gen.feature;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -9,7 +11,7 @@ public class Compat_WorldGenerator {
 
 	// When called from Mod
 	public Compat_WorldGenerator() {
-		initialize(new CompatReal_WorldGenerator(this), null);
+		this.initialize(Factory.create(CtorPos.POS1, this), null);
 	}
 
 	// When called from child
@@ -18,7 +20,7 @@ public class Compat_WorldGenerator {
 
 	// When called from Minecraft
 	public Compat_WorldGenerator(WorldGenerator original) {
-		initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_WorldGenerator thisReal, WorldGenerator original) {

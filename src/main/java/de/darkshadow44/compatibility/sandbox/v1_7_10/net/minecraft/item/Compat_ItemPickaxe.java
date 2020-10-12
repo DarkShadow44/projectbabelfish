@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.item.ItemPickaxe;
 
@@ -10,7 +12,7 @@ public class Compat_ItemPickaxe extends Compat_ItemTool {
 	// When called from Mod
 	public Compat_ItemPickaxe(Compat_Item_ToolMaterial material) {
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_ItemPickaxe(this, material.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, this, material.getReal()), null);
 	}
 
 	// When called from child

@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.util;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.entity.Compat_Entity;
 import net.minecraft.util.EntityDamageSourceIndirect;
@@ -11,7 +13,7 @@ public class Compat_EntityDamageSourceIndirect extends Compat_EntityDamageSource
 	// When called from Mod
 	public Compat_EntityDamageSourceIndirect(String p1, Compat_Entity entity1, Compat_Entity entity2) {
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_EntityDamageSourceIndirect(this, p1, entity1.getReal(), entity2.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, this, p1, entity1.getReal(), entity2.getReal()), null);
 	}
 
 	// When called from child

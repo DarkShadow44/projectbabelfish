@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.potion;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.potion.Potion;
 
@@ -9,7 +11,7 @@ public class Compat_Potion {
 
 	// When called from Mod
 	public Compat_Potion(boolean isBadEffect, int color) {
-		initialize(new CompatReal_Potion(this, isBadEffect, color), null);
+		this.initialize(Factory.create(CtorPos.POS1, this, isBadEffect, color), null);
 	}
 
 	// When called from child
@@ -18,7 +20,7 @@ public class Compat_Potion {
 
 	// When called from Minecraft
 	public Compat_Potion(Potion original) {
-		initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_Potion thisReal, Potion original) {

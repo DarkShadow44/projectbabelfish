@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.entity.projectile;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.world.Compat_World;
 import net.minecraft.entity.projectile.EntitySmallFireball;
@@ -11,7 +13,7 @@ public class Compat_EntitySmallFireball extends Compat_EntityFireball {
 	// When called from Mod
 	public Compat_EntitySmallFireball(Compat_World world) {
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_EntitySmallFireball(this, world.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, this, world.getReal()), null);
 	}
 
 	// When called from child

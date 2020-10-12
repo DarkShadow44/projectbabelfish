@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.material;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import net.minecraft.block.material.Material;
 
 public class Compat_Material {
@@ -8,7 +10,7 @@ public class Compat_Material {
 
 	// When called from Mod
 	public Compat_Material(Compat_MapColor color) {
-		this.thisReal = new CompatReal_Material(this, color.getReal());
+		this.thisReal = Factory.create(CtorPos.POS1, this, color.getReal());
 	}
 
 	// When called from child

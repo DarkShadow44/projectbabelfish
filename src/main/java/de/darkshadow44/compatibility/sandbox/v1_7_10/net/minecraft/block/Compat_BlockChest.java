@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.BlockChest.Type;
@@ -11,7 +13,7 @@ public class Compat_BlockChest extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockChest(int p1) { // TODO
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_BlockChest(this, Type.BASIC), null);
+		this.initialize(Factory.create(CtorPos.POS1, this, Type.BASIC), null);
 	}
 
 	// When called from child

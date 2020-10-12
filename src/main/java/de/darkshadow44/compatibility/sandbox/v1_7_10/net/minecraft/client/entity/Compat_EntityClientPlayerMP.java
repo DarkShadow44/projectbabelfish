@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.entity;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.entity.player.Compat_EntityPlayerMP;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -11,7 +13,7 @@ public class Compat_EntityClientPlayerMP extends Compat_EntityPlayerMP {
 	// When called from Mod
 	public Compat_EntityClientPlayerMP() {
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_EntityClientPlayerMP(this), null);
+		this.initialize(Factory.create(CtorPos.POS1, this), null);
 	}
 
 	// When called from child

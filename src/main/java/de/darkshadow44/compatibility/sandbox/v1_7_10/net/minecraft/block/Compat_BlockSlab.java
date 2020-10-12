@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.material.Compat_Material;
 import net.minecraft.block.BlockSlab;
@@ -11,7 +13,7 @@ public class Compat_BlockSlab extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockSlab(boolean p1, Compat_Material material) { // TODO
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_BlockSlab(this, material.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, this, material.getReal()), null);
 	}
 
 	// When called from child

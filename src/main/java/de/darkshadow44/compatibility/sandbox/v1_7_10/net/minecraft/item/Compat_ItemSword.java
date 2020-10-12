@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.item.ItemSword;
 
@@ -10,7 +12,7 @@ public class Compat_ItemSword extends Compat_Item {
 	// When called from Mod
 	public Compat_ItemSword(Compat_Item_ToolMaterial material) {
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_ItemSword(this, material.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, this, material.getReal()), null);
 	}
 
 	// When called from child

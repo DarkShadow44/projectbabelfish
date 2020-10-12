@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.model;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.client.model.ModelQuadruped;
 
@@ -10,7 +12,7 @@ public class Compat_ModelQuadruped extends Compat_ModelBase {
 	// When called from Mod
 	public Compat_ModelQuadruped(int p1, float p2) {
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_ModelQuadruped(this, p1, p2), null);
+		this.initialize(Factory.create(CtorPos.POS1, this, p1, p2), null);
 	}
 
 	// When called from child

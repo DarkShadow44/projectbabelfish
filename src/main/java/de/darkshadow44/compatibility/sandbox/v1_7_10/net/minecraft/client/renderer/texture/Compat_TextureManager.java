@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.renderer.texture;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.client.renderer.texture.TextureManager;
 
@@ -9,7 +11,7 @@ public class Compat_TextureManager {
 
 	// When called from Mod
 	public Compat_TextureManager() {
-		initialize(new CompatReal_TextureManager(this, null), null); // TODO
+		this.initialize(Factory.create(CtorPos.POS1, this, new Object[] { null }), null); // TODO
 	}
 
 	// When called from child
@@ -18,7 +20,7 @@ public class Compat_TextureManager {
 
 	// When called from Minecraft
 	public Compat_TextureManager(TextureManager original) {
-		initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_TextureManager thisReal, TextureManager original) {

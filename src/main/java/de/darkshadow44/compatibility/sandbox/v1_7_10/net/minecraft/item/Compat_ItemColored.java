@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_Block;
 import net.minecraft.item.ItemColored;
@@ -11,7 +13,7 @@ public class Compat_ItemColored extends Compat_ItemBlock {
 	// When called from Mod
 	public Compat_ItemColored(Compat_Block block, boolean p1) {
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_ItemColored(this, block.getReal(), p1), null);
+		this.initialize(Factory.create(CtorPos.POS1, this, block.getReal(), p1), null);
 	}
 
 	// When called from child

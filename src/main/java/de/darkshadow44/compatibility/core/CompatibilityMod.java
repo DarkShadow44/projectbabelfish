@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.darkshadow44.compatibility.autogen.ClassGenerator;
 import de.darkshadow44.compatibility.core.loader.CompatibilityClassTransformer;
 import de.darkshadow44.compatibility.core.loader.CompatibilityModLoader;
 import de.darkshadow44.compatibility.core.loader.MemoryClassLoader;
@@ -35,6 +36,9 @@ public class CompatibilityMod {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		ClassGenerator classGenerator = new ClassGenerator();
+		classGenerator.tryGenerateRealClasses();
+
 		File directoryMods = new File(event.getModConfigurationDirectory().getParentFile(), "mods");
 		loadMods(new File(directoryMods, "1.7.10"), event.getSide());
 

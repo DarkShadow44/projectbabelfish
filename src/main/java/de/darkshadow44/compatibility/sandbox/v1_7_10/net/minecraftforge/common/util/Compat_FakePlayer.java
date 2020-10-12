@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraftforge.common.util;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.entity.player.Compat_EntityPlayerMP;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.world.Compat_WorldServer;
@@ -12,7 +14,7 @@ public class Compat_FakePlayer extends Compat_EntityPlayerMP {
 	// When called from Mod
 	public Compat_FakePlayer(Compat_WorldServer world) {
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_FakePlayer(this, world.getReal(), null), null); // TODO
+		this.initialize(Factory.create(CtorPos.POS1, this, world.getReal(), null), null); // TODO
 	}
 
 	// When called from child

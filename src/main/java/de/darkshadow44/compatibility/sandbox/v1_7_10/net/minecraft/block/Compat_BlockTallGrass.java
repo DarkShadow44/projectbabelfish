@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.block.BlockTallGrass;
 
@@ -10,7 +12,7 @@ public class Compat_BlockTallGrass extends Compat_BlockBush {
 	// When called from Mod
 	public Compat_BlockTallGrass() {
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_BlockTallGrass(this), null);
+		this.initialize(Factory.create(CtorPos.POS1, this), null);
 	}
 
 	// When called from child

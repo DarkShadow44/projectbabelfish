@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.renderer;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.Compat_Minecraft;
 import net.minecraft.client.renderer.EntityRenderer;
@@ -10,7 +12,7 @@ public class Compat_EntityRenderer {
 
 	// When called from Mod
 	public Compat_EntityRenderer(Compat_Minecraft mc) {
-		initialize(new CompatReal_EntityRenderer(this, mc.getReal(), null), null); // TODO
+		this.initialize(Factory.create(CtorPos.POS1, this, mc.getReal(), null), null); // TODO
 	}
 
 	// When called from child
@@ -19,7 +21,7 @@ public class Compat_EntityRenderer {
 
 	// When called from Minecraft
 	public Compat_EntityRenderer(EntityRenderer original) {
-		initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_EntityRenderer thisReal, EntityRenderer original) {

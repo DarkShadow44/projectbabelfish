@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.material.Compat_Material;
 import net.minecraft.block.BlockPressurePlate;
@@ -11,7 +13,7 @@ public class Compat_BlockPressurePlate extends Compat_Block {
 	// When called from Mod
 	public Compat_BlockPressurePlate(String p1, Compat_Material material, Compat_BlockPressurePlate_Sensitivity sensitivity) {
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_BlockPressurePlate(this, material.getReal(), sensitivity.getReal()), null); // TODO
+		this.initialize(Factory.create(CtorPos.POS1, this, material.getReal(), sensitivity.getReal()), null); // TODO
 	}
 
 	// When called from child

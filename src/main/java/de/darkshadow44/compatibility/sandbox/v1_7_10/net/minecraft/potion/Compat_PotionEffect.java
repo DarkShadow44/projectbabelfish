@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.potion;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -10,12 +12,12 @@ public class Compat_PotionEffect {
 
 	// When called from Mod
 	public Compat_PotionEffect(int id, int duration, int amplifier) {
-		initialize(new CompatReal_PotionEffect(this, Potion.getPotionById(id), duration, amplifier), null);
+		this.initialize(Factory.create(CtorPos.POS1, this, Potion.getPotionById(id), duration, amplifier), null);
 	}
 
 	// When called from Mod
 	public Compat_PotionEffect(int id, int duration) {
-		initialize(new CompatReal_PotionEffect(this, Potion.getPotionById(id), duration), null);
+		this.initialize(Factory.create(CtorPos.POS2, this, Potion.getPotionById(id), duration), null);
 	}
 
 	// When called from child
@@ -24,7 +26,7 @@ public class Compat_PotionEffect {
 
 	// When called from Minecraft
 	public Compat_PotionEffect(PotionEffect original) {
-		initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_PotionEffect thisReal, PotionEffect original) {

@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.util;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.util.DamageSource;
 
@@ -9,7 +11,7 @@ public class Compat_DamageSource {
 
 	// When called from Mod
 	public Compat_DamageSource(String p1) {
-		initialize(new CompatReal_DamageSource(this, p1), null);
+		this.initialize(Factory.create(CtorPos.POS1, this, p1), null);
 	}
 
 	// When called from child
@@ -18,7 +20,7 @@ public class Compat_DamageSource {
 
 	// When called from Minecraft
 	public Compat_DamageSource(DamageSource original) {
-		initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_DamageSource thisReal, DamageSource original) {

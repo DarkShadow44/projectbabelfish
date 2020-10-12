@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.model;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.client.model.ModelBase;
 
@@ -9,7 +11,7 @@ public class Compat_ModelBase {
 
 	// When called from Mod
 	public Compat_ModelBase() {
-		initialize(new CompatReal_ModelBase(this), null);
+		this.initialize(Factory.create(CtorPos.POS1, this), null);
 	}
 
 	// When called from child
@@ -18,7 +20,7 @@ public class Compat_ModelBase {
 
 	// When called from Minecraft
 	public Compat_ModelBase(ModelBase original) {
-		initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_ModelBase thisReal, ModelBase original) {

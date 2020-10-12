@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.example;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 
 public class Compat_ZZZ extends Compat_XXX {
@@ -9,7 +11,7 @@ public class Compat_ZZZ extends Compat_XXX {
 	// When called from Mod
 	public Compat_ZZZ() {
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_ZZZ(this), null);
+		this.initialize(Factory.create(CtorPos.POS1, this), null);
 	}
 
 	// When called from child

@@ -24,7 +24,7 @@ import org.objectweb.asm.tree.TypeInsnNode;
 
 public class CompatibilityClassTransformer {
 
-	static final String prefixSandbox = "de/darkshadow44/compatibility/sandbox/v1_7_10/";
+	public static final String prefixSandbox = "de/darkshadow44/compatibility/sandbox/v1_7_10/";
 	static final String prefixCompat = "Compat_";
 	static final String prefixGet = "get_";
 	static final String prefixSet = "set_";

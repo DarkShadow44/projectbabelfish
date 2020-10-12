@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraftforge.fluids;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -9,7 +11,7 @@ public class Compat_FluidStack {
 
 	// When called from Mod
 	public Compat_FluidStack(Compat_Fluid fluid, int amount) {
-		initialize(new CompatReal_FluidStack(this, fluid.getReal(), amount), null);
+		this.initialize(Factory.create(CtorPos.POS1, this, fluid.getReal(), amount), null);
 	}
 
 	// When called from child
@@ -18,7 +20,7 @@ public class Compat_FluidStack {
 
 	// When called from Minecraft
 	public Compat_FluidStack(FluidStack original) {
-		initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_FluidStack thisReal, FluidStack original) {

@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.model;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.client.model.ModelOcelot;
 
@@ -10,7 +12,7 @@ public class Compat_ModelOcelot extends Compat_ModelBase {
 	// When called from Mod
 	public Compat_ModelOcelot() {
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_ModelOcelot(this), null);
+		this.initialize(Factory.create(CtorPos.POS1, this), null);
 	}
 
 	// When called from child

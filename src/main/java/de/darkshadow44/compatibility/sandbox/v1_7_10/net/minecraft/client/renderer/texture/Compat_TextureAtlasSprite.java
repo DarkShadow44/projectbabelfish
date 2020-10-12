@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.renderer.texture;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
@@ -9,7 +11,7 @@ public class Compat_TextureAtlasSprite {
 
 	// When called from Mod
 	public Compat_TextureAtlasSprite(String spriteName) {
-		initialize(new CompatReal_TextureAtlasSprite(this, spriteName), null);
+		this.initialize(Factory.create(CtorPos.POS1, this, spriteName), null);
 	}
 
 	// When called from child
@@ -18,7 +20,7 @@ public class Compat_TextureAtlasSprite {
 
 	// When called from Minecraft
 	public Compat_TextureAtlasSprite(TextureAtlasSprite original) {
-		initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_TextureAtlasSprite thisReal, TextureAtlasSprite original) {

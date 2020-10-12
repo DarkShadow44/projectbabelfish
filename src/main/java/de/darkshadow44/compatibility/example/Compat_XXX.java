@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.example;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 
 public class Compat_XXX {
@@ -8,7 +10,7 @@ public class Compat_XXX {
 
 	// When called from Mod
 	public Compat_XXX() {
-		initialize(new CompatReal_XXX(this), null);
+		this.initialize(Factory.create(CtorPos.POS1, this), null);
 	}
 
 	// When called from child
@@ -17,7 +19,7 @@ public class Compat_XXX {
 
 	// When called from Minecraft
 	public Compat_XXX(XXX original) {
-		initialize(null, original);
+		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_XXX thisReal, XXX original) {

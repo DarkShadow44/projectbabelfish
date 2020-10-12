@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.gui;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.client.gui.GuiButton;
 
@@ -10,7 +12,7 @@ public class Compat_GuiButton extends Compat_Gui {
 	// When called from Mod
 	public Compat_GuiButton(int buttonId, int x, int y, String buttonText) {
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_GuiButton(this, buttonId, x, y, buttonText), null);
+		this.initialize(Factory.create(CtorPos.POS1, this, buttonId, x, y, buttonText), null);
 	}
 
 	// When called from child

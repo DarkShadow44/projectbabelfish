@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.gui;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.Compat_Minecraft;
 import net.minecraft.client.gui.GuiIngame;
@@ -11,7 +13,7 @@ public class Compat_GuiIngame extends Compat_Gui {
 	// When called from Mod
 	public Compat_GuiIngame(Compat_Minecraft mc) {
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_GuiIngame(this, mc.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, this, mc.getReal()), null);
 	}
 
 	// When called from child

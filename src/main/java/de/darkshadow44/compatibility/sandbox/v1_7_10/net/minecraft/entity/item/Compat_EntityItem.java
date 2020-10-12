@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.entity.item;
 
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.entity.Compat_Entity;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.world.Compat_World;
@@ -12,7 +14,7 @@ public class Compat_EntityItem extends Compat_Entity {
 	// When called from Mod
 	public Compat_EntityItem(Compat_World world) {
 		super(ParentSelector.NULL);
-		this.initialize(new CompatReal_EntityItem(this, world.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, this, world.getReal()), null);
 	}
 
 	// When called from child
