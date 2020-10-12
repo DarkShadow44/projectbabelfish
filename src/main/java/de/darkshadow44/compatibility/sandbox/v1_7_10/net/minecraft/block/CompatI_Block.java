@@ -3,34 +3,35 @@ package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 
 public interface CompatI_Block {
 	public Block get();
 
-	public void setTickRandomlySuper(boolean shouldTick);
+	public Block setTickRandomlySuper(boolean shouldTick);
 
-	public void setHardnessSuper(float hardness);
+	public Block setHardnessSuper(float hardness);
 
-	public void setSoundTypeSuper(SoundType sound);
+	public Block setSoundTypeSuper(SoundType sound);
 
-	public void disableStatsSuper();
+	public Block disableStatsSuper();
 
-	public void setCreativeTabSuper(CreativeTabs creativeTabs);
+	public Block setCreativeTabSuper(CreativeTabs creativeTabs);
 	
-	public void setUnlocalizedNameSuper(String name);
+	public Block setUnlocalizedNameSuper(String name);
 
-	public void setLightOpacitySuper(int opacity);
+	public Block setLightOpacitySuper(int opacity);
 
-	public void setBlockUnbreakableSuper();
+	public Block setBlockUnbreakableSuper();
 
-	public void setResistanceSuper(float resistance);
+	public Block setResistanceSuper(float resistance);
 
-	public void setLightLevelSuper(float value);
+	public Block setLightLevelSuper(float value);
 
 	public void setDefaultSlipperinessSuper(float value);
 
-	public Material getMaterialSuper();
+	public Material getMaterialSuper(IBlockState state);
 
 	public SoundType getSoundTypeSuper();
 }

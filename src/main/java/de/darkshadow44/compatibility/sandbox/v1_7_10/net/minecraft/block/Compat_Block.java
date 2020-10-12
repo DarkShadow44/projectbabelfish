@@ -176,7 +176,7 @@ public class Compat_Block {
 	@SuppressWarnings("deprecation")
 	public Compat_Material Compat_func_149688_o() {
 		if (this.original == null)
-			return new Compat_Material(thisReal.getMaterialSuper());
+			return new Compat_Material(thisReal.getMaterialSuper(null));
 		else
 			return new Compat_Material(original.getMaterial(null)); // TODO
 	}

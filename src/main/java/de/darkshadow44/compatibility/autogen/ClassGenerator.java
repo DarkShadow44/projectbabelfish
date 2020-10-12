@@ -93,35 +93,6 @@ public class ClassGenerator {
 		return method;
 	}
 
-	boolean paramsMatch(Parameter[] paramMethod, Parameter[] paramPassed) {
-		if (paramMethod.length != paramPassed.length) {
-			return false;
-		}
-
-		for (int i = 0; i < paramMethod.length; i++) {
-			if (!paramMethod[i].getType().isAssignableFrom(paramPassed[i].getType())) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-	Class<?> getClassWithMethod(Class<?> clazz, String name, Parameter[] params) {
-		for (Method method : clazz.getDeclaredMethods()) {
-			if (method.getName().equals(name) && paramsMatch(method.getParameters(), params)) {
-				return clazz;
-			}
-		}
-
-		if (clazz.getSuperclass() == null) {
-			return null;
-		}
-
-		return getClassWithMethod(clazz.getSuperclass(), name, params);
-
-	}
-
 	private MethodNode generateSuper(String realPath, String mcPath, Parameter[] params, String methodName, Class<?> returnType, Class<?> classMc) {
 		MethodNode method = new MethodNode();
 		method.name = methodName;
@@ -138,11 +109,7 @@ public class ClassGenerator {
 
 		String methodNameMc = methodName.substring(0, methodName.length() - "Super".length());
 
-		Class<?> containingClass = getClassWithMethod(classMc, methodNameMc, params);
-		if (containingClass == null) {
-			throw new RuntimeException("Can't find method '" + methodNameMc + "' in '" + mcPath + "'!");
-		}
-		String containingClassName = containingClass.getName().replace(".", "/");
+		String containingClassName = classMc.getName().replace(".", "/");
 
 		method.instructions.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, containingClassName, methodNameMc, superDesc, false));
 		generateReturn(method.instructions, returnType);
