@@ -18,6 +18,30 @@ public class Factory {
 
 	private static Map<String, List<Constructor<?>>> cache = new HashMap<>();
 
+	private static Class<?> boxPrimitive(Class<?> clazz) {
+		if (!clazz.isPrimitive())
+			return clazz;
+
+		if (clazz == Boolean.TYPE)
+			return Boolean.class;
+		if (clazz == Integer.TYPE)
+			return Integer.class;
+		if (clazz == Short.TYPE)
+			return Short.class;
+		if (clazz == Long.TYPE)
+			return Long.class;
+		if (clazz == Byte.TYPE)
+			return Byte.class;
+		if (clazz == Character.TYPE)
+			return Character.class;
+		if (clazz == Float.TYPE)
+			return Float.class;
+		if (clazz == Double.TYPE)
+			return Double.class;
+
+		return clazz;
+	}
+
 	private static boolean constructorMatches(Constructor<?> constructor, Object[] params) {
 		Parameter[] parameters = constructor.getParameters();
 
@@ -25,8 +49,13 @@ public class Factory {
 			return false;
 
 		for (int i = 0; i < params.length; i++) {
-			if (params[i] != null && !parameters[i].getType().isAssignableFrom(params[i].getClass())) {
-				return false;
+			if (params[i] != null) {
+				Class<?> c1 = parameters[i].getType();
+				c1 = boxPrimitive(c1);
+				Class<?> c2 = params[i].getClass();
+				if (!c1.isAssignableFrom(c2)) {
+					return false;
+				}
 			}
 		}
 
@@ -53,6 +82,9 @@ public class Factory {
 	// TODO: Don't allow duplicate ctor pos
 	@SuppressWarnings("unchecked")
 	public static <T> T create(CtorPos pos, Class<?> classIface, Object... params) {
+		if (!classIface.getName().contains(".CompatI_")) {
+			throw new RuntimeException("Not an interface: " + classIface.getName());
+		}
 		String targetName = classIface.getName().replace("CompatI_", "CompatReal_");
 
 		try {

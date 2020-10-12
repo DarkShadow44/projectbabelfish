@@ -48,4 +48,8 @@ public class Compat_Blocks {
 	public static Compat_Block Compat_get_field_150346_d() {
 		return new Compat_Block(Blocks.DIRT);
 	}
+
+	public static Compat_Block Compat_get_field_150354_m() {
+		return new Compat_Block(Blocks.SAND);
+	}
 }

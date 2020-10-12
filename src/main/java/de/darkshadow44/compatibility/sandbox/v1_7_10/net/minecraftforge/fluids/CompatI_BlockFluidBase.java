@@ -6,5 +6,5 @@ import net.minecraftforge.fluids.BlockFluidBase;
 public interface CompatI_BlockFluidBase extends CompatI_Block {
 	public BlockFluidBase get();
 
-	public void setQuantaPerBlockSuper(int value);
+	public BlockFluidBase setQuantaPerBlockSuper(int value);
 }

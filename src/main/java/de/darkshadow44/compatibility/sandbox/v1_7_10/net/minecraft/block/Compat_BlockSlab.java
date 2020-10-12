@@ -36,4 +36,8 @@ public class Compat_BlockSlab extends Compat_Block {
 	public BlockSlab getReal() {
 		return original == null ? thisReal.get() : original;
 	}
+
+	public boolean isDouble() {
+		return false; // TODO
+	}
 }
