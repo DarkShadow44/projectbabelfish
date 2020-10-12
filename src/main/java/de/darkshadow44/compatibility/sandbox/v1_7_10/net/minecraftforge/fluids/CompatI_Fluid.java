@@ -8,4 +8,6 @@ public interface CompatI_Fluid {
 	public Fluid setDensitySuper(int density);
 
 	public Fluid setViscositySuper(int viscosity);
+
+	public Fluid setGaseousSuper(boolean isGaseous);
 }

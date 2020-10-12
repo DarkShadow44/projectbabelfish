@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.objectweb.asm.Type;
+
 import de.darkshadow44.compatibility.core.CompatibilityMod;
 
 public class Factory {
@@ -40,16 +42,24 @@ public class Factory {
 		return null;
 	}
 
+	private static String makeParamDesc(Object[] params) {
+		String desc = "";
+		for (Object param : params) {
+			desc += Type.getDescriptor(param.getClass());
+		}
+		return desc;
+	}
+
 	// TODO: Don't allow duplicate ctor pos
 	@SuppressWarnings("unchecked")
-	public static <T> T create(CtorPos pos, Class<?> classIface,  Object... params) {
+	public static <T> T create(CtorPos pos, Class<?> classIface, Object... params) {
 		String targetName = classIface.getName().replace("CompatI_", "CompatReal_");
 
 		try {
 			Class<?> classReal = Class.forName(targetName, true, CompatibilityMod.classLoader);
 			Constructor<?> constructor = findConstructor(classReal, params);
 			if (constructor == null) {
-				throw new RuntimeException("Can't find constructor!");
+				throw new RuntimeException("Can't find constructor! desc: " + makeParamDesc(params));
 			}
 			return (T) constructor.newInstance(params);
 		} catch (Exception e) {

@@ -30,7 +30,7 @@ import de.darkshadow44.compatibility.core.loader.CompatibilityClassTransformer;
 public class ClassGenerator {
 
 	private void generateLoadParams(InsnList instructions, Parameter[] params, int offset) {
-		offset++; // Skip this parameter
+		offset++; // Skip the "this" parameter
 		for (Parameter param : params) {
 			int opcode = Type.getType(param.getType()).getOpcode(Opcodes.ILOAD);
 			instructions.add(new VarInsnNode(opcode, offset++));
@@ -93,7 +93,36 @@ public class ClassGenerator {
 		return method;
 	}
 
-	private MethodNode generateSuper(String realPath, String mcPath, Parameter[] params, String methodName, Class<?> returnType) {
+	boolean paramsMatch(Parameter[] paramMethod, Parameter[] paramPassed) {
+		if (paramMethod.length != paramPassed.length) {
+			return false;
+		}
+
+		for (int i = 0; i < paramMethod.length; i++) {
+			if (!paramMethod[i].getType().isAssignableFrom(paramPassed[i].getType())) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	Class<?> getClassWithMethod(Class<?> clazz, String name, Parameter[] params) {
+		for (Method method : clazz.getDeclaredMethods()) {
+			if (method.getName().equals(name) && paramsMatch(method.getParameters(), params)) {
+				return clazz;
+			}
+		}
+
+		if (clazz.getSuperclass() == null) {
+			return null;
+		}
+
+		return getClassWithMethod(clazz.getSuperclass(), name, params);
+
+	}
+
+	private MethodNode generateSuper(String realPath, String mcPath, Parameter[] params, String methodName, Class<?> returnType, Class<?> classMc) {
 		MethodNode method = new MethodNode();
 		method.name = methodName;
 		method.access = Opcodes.ACC_PUBLIC;
@@ -108,18 +137,25 @@ public class ClassGenerator {
 		String superDesc = "(" + makeParamDesc(params) + ")" + Type.getDescriptor(returnType);
 
 		String methodNameMc = methodName.substring(0, methodName.length() - "Super".length());
-		method.instructions.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, mcPath, methodNameMc, superDesc, false));
+
+		Class<?> containingClass = getClassWithMethod(classMc, methodNameMc, params);
+		if (containingClass == null) {
+			throw new RuntimeException("Can't find method '" + methodNameMc + "' in '" + mcPath + "'!");
+		}
+		String containingClassName = containingClass.getName().replace(".", "/");
+
+		method.instructions.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, containingClassName, methodNameMc, superDesc, false));
 		generateReturn(method.instructions, returnType);
 
 		return method;
 	}
 
-	private void generateMethodsForIface(List<MethodNode> methods, Class<?> classIface, String realPath, String mcPath) {
+	private void generateMethodsForIface(List<MethodNode> methods, Class<?> classIface, String realPath, String mcPath, Class<?> classMc) {
 		for (Method method : classIface.getMethods()) {
 			if (method.getName().equals("get")) {
 				continue;
 			}
-			MethodNode methodCreated = generateSuper(realPath, mcPath, method.getParameters(), method.getName(), method.getReturnType());
+			MethodNode methodCreated = generateSuper(realPath, mcPath, method.getParameters(), method.getName(), method.getReturnType(), classMc);
 			methods.add(methodCreated);
 		}
 	}
@@ -143,19 +179,19 @@ public class ClassGenerator {
 
 		classNode.methods.add(generateGet(mcPath));
 
-		for (Constructor<?> constructor : classMc.getConstructors()) {
+		for (Constructor<?> constructor : classMc.getDeclaredConstructors()) {
 			MethodNode method = generateConstructor(classNode.name, constructor.getParameters(), mcPath);
 			classNode.methods.add(method);
 		}
 
-		generateMethodsForIface(classNode.methods, classIface, classNode.name, mcPath);
+		generateMethodsForIface(classNode.methods, classIface, classNode.name, mcPath, classMc);
 
 		ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
 		classNode.accept(classWriter);
 		byte[] data = classWriter.toByteArray();
 
 		int debug = 0;
-		if (debug == 1) {
+		if (className.equals("CompatReal_BlockBush")) {
 			Files.write(data, new File("/home/fabian/Ramdisk/" + className + ".class"));
 		}
 

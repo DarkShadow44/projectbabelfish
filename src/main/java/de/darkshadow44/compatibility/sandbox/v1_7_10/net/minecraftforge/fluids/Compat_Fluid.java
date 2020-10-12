@@ -40,12 +40,21 @@ public class Compat_Fluid {
 
 		return this;
 	}
-	
+
 	public Compat_Fluid Compat_setViscosity(int viscosity) {
 		if (original == null)
 			this.thisReal.setViscositySuper(viscosity);
 		else
 			this.original.setViscosity(viscosity);
+
+		return this;
+	}
+
+	public Compat_Fluid Compat_setGaseous(boolean isGaseous) {
+		if (original == null)
+			this.thisReal.setGaseousSuper(isGaseous);
+		else
+			this.original.setGaseous(isGaseous);
 
 		return this;
 	}
