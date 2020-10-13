@@ -51,4 +51,14 @@ public class Compat_GameRegistry {
 	public static void Compat_addRecipe(Compat_IRecipe recipe) {
 		// TODO
 	}
+
+	public static Compat_IRecipe Compat_addShapedRecipe(Compat_ItemStack stack, Object[] objects) {
+		// TODO
+		return null;
+	}
+
+	public static void Compat_addSmelting(Compat_ItemStack input, Compat_ItemStack output, float xp) {
+		GameRegistry.addSmelting(input.getReal(), output.getReal(), xp);
+	}
+
 }

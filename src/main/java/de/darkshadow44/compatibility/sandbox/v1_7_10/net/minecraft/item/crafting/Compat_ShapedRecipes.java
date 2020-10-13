@@ -42,4 +42,13 @@ public class Compat_ShapedRecipes {
 	public ShapedRecipes getReal() {
 		return original == null ? thisReal.get() : original;
 	}
+
+	public Compat_ShapedRecipes() {
+		// DUMMY, TODO: Remove
+	}
+
+	public Compat_ShapedRecipes Compat_func_92100_c() {
+		// TODO
+		return this;
+	}
 }

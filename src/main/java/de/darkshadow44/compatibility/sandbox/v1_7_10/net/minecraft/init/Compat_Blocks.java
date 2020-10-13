@@ -3,11 +3,13 @@ package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.init;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_Block;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_BlockBush;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_BlockChest;
+import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_BlockDaylightDetector;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_BlockDeadBush;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_BlockFire;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_BlockFlower;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_BlockSand;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_BlockSlab;
+import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_BlockStainedGlass;
 import net.minecraft.init.Blocks;
 
 public class Compat_Blocks {
@@ -177,5 +179,49 @@ public class Compat_Blocks {
 
 	public static Compat_Block Compat_get_field_150351_n() {
 		return new Compat_Block(Blocks.GRAVEL);
+	}
+
+	public static Compat_Block Compat_get_field_150371_ca() {
+		return new Compat_Block(Blocks.QUARTZ_BLOCK);
+	}
+
+	public static Compat_Block Compat_get_field_150364_r() {
+		return new Compat_Block(Blocks.LOG);
+	}
+
+	public static Compat_Block Compat_get_field_150407_cf() {
+		return new Compat_Block(Blocks.HAY_BLOCK);
+	}
+
+	public static Compat_Block Compat_get_field_150363_s() {
+		return new Compat_Block(Blocks.LOG2);
+	}
+
+	public static Compat_Block Compat_get_field_150460_al() {
+		return new Compat_Block(Blocks.FURNACE);
+	}
+
+	public static Compat_Block Compat_get_field_150443_bT() {
+		return new Compat_Block(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE);
+	}
+
+	public static Compat_Block Compat_get_field_150390_bg() {
+		return new Compat_Block(Blocks.STONE_BRICK_STAIRS);
+	}
+
+	public static Compat_BlockDaylightDetector Compat_get_field_150453_bW() {
+		return new Compat_BlockDaylightDetector(Blocks.DAYLIGHT_DETECTOR);
+	}
+
+	public static Compat_BlockStainedGlass Compat_get_field_150399_cn() {
+		return new Compat_BlockStainedGlass(Blocks.STAINED_GLASS);
+	}
+
+	public static Compat_Block Compat_get_field_150425_aM() {
+		return new Compat_Block(Blocks.SOUL_SAND);
+	}
+
+	public static Compat_Block Compat_get_field_150395_bd() {
+		return new Compat_Block(Blocks.VINE);
 	}
 }

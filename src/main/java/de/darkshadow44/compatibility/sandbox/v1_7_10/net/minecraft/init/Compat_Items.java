@@ -1,7 +1,9 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.init;
 
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item.Compat_Item;
+import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item.Compat_ItemBow;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item.Compat_ItemPotion;
+import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item.Compat_ItemShears;
 import net.minecraft.init.Items;
 
 public class Compat_Items {
@@ -183,5 +185,109 @@ public class Compat_Items {
 
 	public static Compat_Item Compat_get_field_151073_bk() {
 		return new Compat_Item(Items.GHAST_TEAR);
+	}
+
+	public static Compat_Item Compat_get_field_151034_e() {
+		return new Compat_Item(Items.APPLE);
+	}
+
+	public static Compat_Item Compat_get_field_151102_aT() {
+		return new Compat_Item(Items.SUGAR);
+	}
+
+	public static Compat_Item Compat_get_field_151128_bU() {
+		return new Compat_Item(Items.QUARTZ);
+	}
+
+	public static Compat_Item Compat_get_field_151123_aH() {
+		return new Compat_Item(Items.SLIME_BALL);
+	}
+
+	public static Compat_Item Compat_get_field_151156_bN() {
+		return new Compat_Item(Items.NETHER_STAR);
+	}
+
+	public static Compat_Item Compat_get_field_151064_bs() {
+		return new Compat_Item(Items.MAGMA_CREAM);
+	}
+
+	public static Compat_Item Compat_get_field_151113_aN() {
+		return new Compat_Item(Items.CLOCK);
+	}
+
+	public static Compat_ItemBow Compat_get_field_151031_f() {
+		return new Compat_ItemBow(Items.BOW);
+	}
+
+	public static Compat_Item Compat_get_field_151121_aF() {
+		return new Compat_Item(Items.PAPER);
+	}
+
+	public static Compat_Item Compat_get_field_151010_B() {
+		return new Compat_Item(Items.GOLDEN_SWORD);
+	}
+
+	public static Compat_Item Compat_get_field_151131_as() {
+		return new Compat_Item(Items.WATER_BUCKET);
+	}
+
+	public static Compat_ItemShears Compat_get_field_151097_aZ() {
+		return new Compat_ItemShears(Items.SHEARS);
+	}
+
+	public static Compat_Item Compat_get_field_151172_bF() {
+		return new Compat_Item(Items.CARROT);
+	}
+
+	public static Compat_Item Compat_get_field_151054_z() {
+		return new Compat_Item(Items.BOWL);
+	}
+
+	public static Compat_Item Compat_get_field_151104_aV() {
+		return new Compat_Item(Items.BED);
+	}
+
+	public static Compat_Item Compat_get_field_151107_aW() {
+		return new Compat_Item(Items.REPEATER);
+	}
+
+	public static Compat_Item Compat_get_field_151048_u() {
+		return new Compat_Item(Items.DIAMOND_SWORD);
+	}
+
+	public static Compat_Item Compat_get_field_151137_ax() {
+		return new Compat_Item(Items.REDSTONE);
+	}
+
+	public static Compat_Item Compat_get_field_151079_bi() {
+		return new Compat_Item(Items.ENDER_PEARL);
+	}
+
+	public static Compat_Item Compat_get_field_151015_O() {
+		return new Compat_Item(Items.WHEAT);
+	}
+
+	public static Compat_Item Compat_get_field_151153_ao() {
+		return new Compat_Item(Items.GOLDEN_APPLE);
+	}
+
+	public static Compat_Item Compat_get_field_151150_bK() {
+		return new Compat_Item(Items.GOLDEN_CARROT);
+	}
+
+	public static Compat_Item Compat_get_field_151106_aX() {
+		return new Compat_Item(Items.COOKIE);
+	}
+
+	public static Compat_Item Compat_get_field_151110_aK() {
+		return new Compat_Item(Items.EGG);
+	}
+
+	public static Compat_Item Compat_get_field_151014_N() {
+		return new Compat_Item(Items.WHEAT_SEEDS);
+	}
+
+	public static Compat_Item Compat_get_field_151061_bv() {
+		return new Compat_Item(Items.ENDER_EYE);
 	}
 }
