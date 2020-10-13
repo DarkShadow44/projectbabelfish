@@ -19,4 +19,6 @@ public interface CompatI_Item {
 	public Item setNoRepairSuper();
 
 	public Item setFull3DSuper();
+
+	public Item setContainerItemSuper(Item containerItem);
 }

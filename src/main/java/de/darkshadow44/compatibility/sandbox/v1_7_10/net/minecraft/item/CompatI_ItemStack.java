@@ -4,4 +4,6 @@ import net.minecraft.item.ItemStack;
 
 public interface CompatI_ItemStack {
 	public ItemStack get();
+
+	public ItemStack copySuper();
 }

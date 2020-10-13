@@ -33,4 +33,8 @@ public class Compat_ItemArmor_ArmorMaterial {
 	public int Compat_func_78046_a(int slot) {
 		return original.getDurability(EntityEquipmentSlotHelper.getSlotForPosition(slot));
 	}
+
+	public int Compat_func_78044_b(int slot) {
+		return this.original.getDamageReductionAmount(EntityEquipmentSlotHelper.getSlotForPosition(slot));
+	}
 }

@@ -14,6 +14,11 @@ public class Compat_ItemStack {
 		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemStack.class, this, item.getReal()), null);
 	}
 
+	// When called from Mod
+	public Compat_ItemStack(Compat_Item item, int p1, int p2) {
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemStack.class, this, item.getReal(), p1, p2), null);
+	}
+
 	// When called from child
 	protected Compat_ItemStack(ParentSelector s) {
 	}
@@ -30,5 +35,12 @@ public class Compat_ItemStack {
 
 	public ItemStack getReal() {
 		return original == null ? thisReal.get() : original;
+	}
+
+	public Compat_ItemStack Compat_func_77946_l() {
+		if (this.original == null)
+			return new Compat_ItemStack(thisReal.copySuper());
+		else
+			return new Compat_ItemStack(original.copy());
 	}
 }

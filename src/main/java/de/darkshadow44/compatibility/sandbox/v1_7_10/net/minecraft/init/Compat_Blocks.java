@@ -91,4 +91,12 @@ public class Compat_Blocks {
 	public static Compat_Block Compat_get_field_150353_l() {
 		return new Compat_Block(Blocks.LAVA);
 	}
+
+	public static Compat_Block Compat_get_field_150458_ak() {
+		return new Compat_Block(Blocks.FARMLAND);
+	}
+
+	public static Compat_Block Compat_get_field_150350_a() {
+		return new Compat_Block(Blocks.AIR);
+	}
 }

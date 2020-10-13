@@ -7,4 +7,12 @@ public class Compat_Items {
 	public static Compat_Item Compat_get_field_151043_k() {
 		return new Compat_Item(Items.GOLD_INGOT);
 	}
+
+	public static Compat_Item Compat_get_field_151126_ay() {
+		return new Compat_Item(Items.SNOWBALL);
+	}
+
+	public static Compat_Item Compat_get_field_151133_ar() {
+		return new Compat_Item(Items.BUCKET);
+	}
 }

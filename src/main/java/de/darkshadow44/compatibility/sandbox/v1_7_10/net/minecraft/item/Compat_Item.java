@@ -100,4 +100,12 @@ public class Compat_Item {
 		else
 			original.setHasSubtypes(hasSubtypes);
 	}
+
+	public Compat_Item Compat_func_77642_a(Compat_Item containerItem) {
+		if (this.original == null)
+			thisReal.setContainerItemSuper(containerItem.getReal());
+		else
+			original.setContainerItem(containerItem.getReal());
+		return this;
+	}
 }
