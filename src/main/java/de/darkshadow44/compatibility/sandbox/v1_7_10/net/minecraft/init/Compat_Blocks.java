@@ -1,8 +1,11 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.init;
 
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_Block;
+import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_BlockBush;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_BlockChest;
+import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_BlockDeadBush;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_BlockFire;
+import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_BlockFlower;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_BlockSand;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_BlockSlab;
 import net.minecraft.init.Blocks;
@@ -98,5 +101,81 @@ public class Compat_Blocks {
 
 	public static Compat_Block Compat_get_field_150350_a() {
 		return new Compat_Block(Blocks.AIR);
+	}
+
+	public static Compat_BlockFlower Compat_get_field_150328_O() {
+		return new Compat_BlockFlower(Blocks.RED_FLOWER);
+	}
+
+	public static Compat_BlockFlower Compat_get_field_150327_N() {
+		return new Compat_BlockFlower(Blocks.YELLOW_FLOWER);
+	}
+
+	public static Compat_BlockDeadBush Compat_get_field_150330_I() {
+		return new Compat_BlockDeadBush(Blocks.DEADBUSH);
+	}
+
+	public static Compat_Block Compat_get_field_150392_bi() {
+		return new Compat_Block(Blocks.WATERLILY);
+	}
+
+	public static Compat_Block Compat_get_field_150325_L() {
+		return new Compat_Block(Blocks.WOOL);
+	}
+
+	public static Compat_BlockBush Compat_get_field_150337_Q() {
+		return new Compat_BlockBush(Blocks.RED_MUSHROOM);
+	}
+
+	public static Compat_BlockBush Compat_get_field_150338_P() {
+		return new Compat_BlockBush(Blocks.BROWN_MUSHROOM);
+	}
+
+	public static Compat_Block Compat_get_field_150385_bj() {
+		return new Compat_Block(Blocks.NETHER_BRICK);
+	}
+
+	public static Compat_Block Compat_get_field_150411_aY() {
+		return new Compat_Block(Blocks.IRON_BARS);
+	}
+
+	public static Compat_Block Compat_get_field_150431_aC() {
+		return new Compat_Block(Blocks.SNOW_LAYER);
+	}
+
+	public static Compat_Block Compat_get_field_150417_aV() {
+		return new Compat_Block(Blocks.STONEBRICK);
+	}
+
+	public static Compat_Block Compat_get_field_150478_aa() {
+		return new Compat_Block(Blocks.TORCH);
+	}
+
+	public static Compat_Block Compat_get_field_150345_g() {
+		return new Compat_Block(Blocks.SAPLING);
+	}
+
+	public static Compat_Block Compat_get_field_150321_G() {
+		return new Compat_Block(Blocks.WEB);
+	}
+
+	public static Compat_Block Compat_get_field_150339_S() {
+		return new Compat_Block(Blocks.IRON_BLOCK);
+	}
+
+	public static Compat_Block Compat_get_field_150426_aN() {
+		return new Compat_Block(Blocks.GLOWSTONE);
+	}
+
+	public static Compat_Block Compat_get_field_150359_w() {
+		return new Compat_Block(Blocks.GLASS);
+	}
+
+	public static Compat_Block Compat_get_field_150424_aL() {
+		return new Compat_Block(Blocks.NETHERRACK);
+	}
+
+	public static Compat_Block Compat_get_field_150351_n() {
+		return new Compat_Block(Blocks.GRAVEL);
 	}
 }

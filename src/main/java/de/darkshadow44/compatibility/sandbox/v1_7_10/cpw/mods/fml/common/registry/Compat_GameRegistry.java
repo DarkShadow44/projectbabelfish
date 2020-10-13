@@ -7,6 +7,8 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.Compat_
 import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.Wrapper_IWorldGenerator;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_Block;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item.Compat_Item;
+import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item.Compat_ItemStack;
+import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item.crafting.Compat_IRecipe;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class Compat_GameRegistry {
@@ -35,6 +37,18 @@ public class Compat_GameRegistry {
 	}
 
 	public static void Compat_registerItem(Compat_Item item, String name) {
+		// TODO
+	}
+
+	public static void Compat_addShapelessRecipe(Compat_ItemStack stack, Object[] params) {
+		// TODO
+	}
+
+	public static void Compat_addRecipe(Compat_ItemStack stack, Object[] params) {
+		// TODO
+	}
+
+	public static void Compat_addRecipe(Compat_IRecipe recipe) {
 		// TODO
 	}
 }

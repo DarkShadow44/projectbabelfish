@@ -6,6 +6,7 @@ public class Compat_EnumCreatureType {
 
 	private static final Compat_EnumCreatureType CREATURE = new Compat_EnumCreatureType(EnumCreatureType.CREATURE);
 	private static final Compat_EnumCreatureType AMBIENT = new Compat_EnumCreatureType(EnumCreatureType.AMBIENT);
+	private static final Compat_EnumCreatureType MONSTER = new Compat_EnumCreatureType(EnumCreatureType.MONSTER);
 
 	private EnumCreatureType original;
 
@@ -23,5 +24,9 @@ public class Compat_EnumCreatureType {
 
 	public static Compat_EnumCreatureType Compat_get_ambient() {
 		return AMBIENT;
+	}
+
+	public static Compat_EnumCreatureType Compat_get_monster() {
+		return MONSTER;
 	}
 }
