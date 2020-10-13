@@ -5,6 +5,9 @@ import net.minecraft.item.EnumAction;
 
 public class Compat_EnumAction {
 
+	private final static Compat_EnumAction EAT = new Compat_EnumAction(EnumAction.EAT);
+	private final static Compat_EnumAction DRINK = new Compat_EnumAction(EnumAction.DRINK);
+
 	private EnumAction original;
 
 	public Compat_EnumAction(EnumAction original) {
@@ -16,10 +19,10 @@ public class Compat_EnumAction {
 	}
 
 	public static Compat_EnumAction Compat_get_eat() {
-		return new Compat_EnumAction(EnumAction.EAT);
+		return EAT;
 	}
 
 	public static Compat_EnumAction Compat_get_drink() {
-		return new Compat_EnumAction(EnumAction.DRINK);
+		return DRINK;
 	}
 }

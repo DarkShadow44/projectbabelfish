@@ -93,4 +93,11 @@ public class Compat_Item {
 			original.setFull3D();
 		return this;
 	}
+
+	public void Compat_set_field_77787_bX(boolean hasSubtypes) {
+		if (this.original == null)
+			thisReal.setHasSubtypesSuper(hasSubtypes);
+		else
+			original.setHasSubtypes(hasSubtypes);
+	}
 }

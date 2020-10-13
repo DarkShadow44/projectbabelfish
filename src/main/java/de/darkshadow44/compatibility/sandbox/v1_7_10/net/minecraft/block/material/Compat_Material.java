@@ -5,6 +5,25 @@ import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import net.minecraft.block.material.Material;
 
 public class Compat_Material {
+
+	private static final Compat_Material PLANTS = new Compat_Material(Material.PLANTS);
+	private static final Compat_Material WOOD = new Compat_Material(Material.WOOD);
+	private static final Compat_Material LEAVES = new Compat_Material(Material.LEAVES);
+	private static final Compat_Material CLOTH = new Compat_Material(Material.CLOTH);
+	private static final Compat_Material VINE = new Compat_Material(Material.VINE);
+	private static final Compat_Material CACTUS = new Compat_Material(Material.CACTUS);
+	private static final Compat_Material GROUND = new Compat_Material(Material.GROUND);
+	private static final Compat_Material CIRCUITS = new Compat_Material(Material.CIRCUITS);
+	private static final Compat_Material ANVIL = new Compat_Material(Material.ANVIL);
+	private static final Compat_Material GLASS = new Compat_Material(Material.GLASS);
+	private static final Compat_Material ROCK = new Compat_Material(Material.ROCK);
+	private static final Compat_Material ICE = new Compat_Material(Material.ICE);
+	private static final Compat_Material SNOW = new Compat_Material(Material.SNOW);
+	private static final Compat_Material PORTAL = new Compat_Material(Material.PORTAL);
+	private static final Compat_Material IRON = new Compat_Material(Material.IRON);
+	private static final Compat_Material AIR = new Compat_Material(Material.AIR);
+	private static final Compat_Material WATER = new Compat_Material(Material.WATER);
+
 	private Material original;
 	private CompatI_Material thisReal;
 
@@ -31,23 +50,23 @@ public class Compat_Material {
 	}
 
 	public static Compat_Material Compat_get_field_151585_k() {
-		return new Compat_Material(Material.PLANTS);
+		return PLANTS;
 	}
 
 	public static Compat_Material Compat_get_field_151575_d() {
-		return new Compat_Material(Material.WOOD);
+		return WOOD;
 	}
 
 	public static Compat_Material Compat_get_field_151584_j() {
-		return new Compat_Material(Material.LEAVES);
+		return LEAVES;
 	}
 
 	public static Compat_Material Compat_get_field_151580_n() {
-		return new Compat_Material(Material.CLOTH);
+		return CLOTH;
 	}
 
 	public static Compat_Material Compat_get_field_151582_l() {
-		return new Compat_Material(Material.VINE);
+		return VINE;
 	}
 
 	public Compat_MapColor Compat_func_151565_r() {
@@ -79,50 +98,50 @@ public class Compat_Material {
 	}
 
 	public static Compat_Material Compat_get_field_151570_A() {
-		return new Compat_Material(Material.CACTUS);
+		return CACTUS;
 	}
 
 	public static Compat_Material Compat_get_field_151578_c() {
-		return new Compat_Material(Material.GROUND);
+		return GROUND;
 	}
 
 	public static Compat_Material Compat_get_field_151594_q() {
-		return new Compat_Material(Material.CIRCUITS);
+		return CIRCUITS;
 	}
 
 	public static Compat_Material Compat_get_field_151574_g() {
-		return new Compat_Material(Material.ANVIL);
+		return ANVIL;
 	}
 
 	public static Compat_Material Compat_get_field_151592_s() {
-		return new Compat_Material(Material.GLASS);
+		return GLASS;
 	}
 
 	public static Compat_Material Compat_get_field_151576_e() {
-		return new Compat_Material(Material.ROCK);
+		return ROCK;
 	}
 
 	public static Compat_Material Compat_get_field_151588_w() {
-		return new Compat_Material(Material.ICE);
+		return ICE;
 	}
 
 	public static Compat_Material Compat_get_field_151597_y() {
-		return new Compat_Material(Material.SNOW);
+		return SNOW;
 	}
 
 	public static Compat_Material Compat_get_field_151567_E() {
-		return new Compat_Material(Material.PORTAL);
+		return PORTAL;
 	}
 
 	public static Compat_Material Compat_get_field_151573_f() {
-		return new Compat_Material(Material.IRON);
+		return IRON;
 	}
 
 	public static Compat_Material Compat_get_field_151579_a() {
-		return new Compat_Material(Material.AIR);
+		return AIR;
 	}
 
 	public static Compat_Material Compat_get_field_151586_h() {
-		return new Compat_Material(Material.WATER);
+		return WATER;
 	}
 }
