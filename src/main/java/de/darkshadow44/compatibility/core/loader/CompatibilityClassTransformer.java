@@ -146,6 +146,11 @@ public class CompatibilityClassTransformer {
 		return doesClassContainField(classesToLoad, classInfo.parentName, fieldName);
 	}
 
+	private static boolean isMethodException(String name) {
+		// Skip constructors and special enum methods
+		return name.equals("<init>") || name.equals("<clinit>") || name.equals("values") || name.equals("valueOf") || name.equals("clone");
+	}
+
 	private List<AbstractInsnNode> transformInstruction(AbstractInsnNode instruction, Map<String, LoadClassInfo> classesToLoad) {
 		int opcode = instruction.getOpcode();
 		List<AbstractInsnNode> ret = new ArrayList<>();
@@ -213,7 +218,8 @@ public class CompatibilityClassTransformer {
 		case Opcodes.INVOKEVIRTUAL:
 			MethodInsnNode method = (MethodInsnNode) instruction;
 			if (!isClassException(method.owner)) {
-				if (!method.name.equals("<init>") && !method.name.equals("<clinit>")) {
+				// Skip constructors and special enum methods
+				if (!isMethodException(method.name)) {
 					method.name = prefixCompat + method.name;
 				}
 				method.owner = getTransformedClassname(method.owner);
@@ -288,7 +294,8 @@ public class CompatibilityClassTransformer {
 		method.instructions = newList;
 		transformVariables(method.localVariables);
 		transformAnnotations(method.visibleAnnotations);
-		if (!method.name.equals("<init>") && !method.name.equals("<clinit>")) {
+		// Skip constructors and special enum methods
+		if (!isMethodException(method.name)) {
 			method.name = prefixCompat + method.name;
 		}
 		method.desc = transformDescriptor(method.desc);
