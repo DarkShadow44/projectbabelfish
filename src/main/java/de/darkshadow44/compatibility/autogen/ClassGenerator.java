@@ -116,6 +116,27 @@ public class ClassGenerator {
 		return method;
 	}
 
+	private MethodNode generateGet(String mcPath, String methodName, Class<?> type) {
+		MethodNode method = new MethodNode();
+		method.name = methodName;
+		method.access = Opcodes.ACC_PUBLIC;
+		method.exceptions = new ArrayList<>();
+
+		method.desc = "()" + Type.getDescriptor(type);
+
+		method.instructions = new InsnList();
+
+		method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+
+		String name = methodName.substring("get_".length());
+		String desc = Type.getDescriptor(type);
+
+		method.instructions.add(new FieldInsnNode(Opcodes.GETFIELD, mcPath, name, desc));
+		generateReturn(method.instructions, type);
+
+		return method;
+	}
+
 	private MethodNode generateWrapper(String realPath, Parameter[] params, String methodName, Class<?> returnType) {
 		String thisFakeDesc = "L" + realPath.replace("/CompatReal_", "/Compat_") + ";";
 		MethodNode method = new MethodNode();
@@ -143,6 +164,12 @@ public class ClassGenerator {
 	private void generateMethodsForIface(List<MethodNode> methods, Class<?> classIface, String realPath, String mcPath) {
 		for (Method method : classIface.getMethods()) {
 			if (method.getName().equals("get")) {
+				continue;
+			}
+
+			if (method.getName().startsWith("get_")) {
+				MethodNode methodCreated = generateGet(mcPath, method.getName(), method.getReturnType());
+				methods.add(methodCreated);
 				continue;
 			}
 			MethodNode methodCreated = generateSuper(realPath, mcPath, method.getParameters(), method.getName(), method.getReturnType());
