@@ -36,4 +36,12 @@ public class Compat_ItemBlock extends Compat_Item {
 	public ItemBlock getReal() {
 		return original == null ? thisReal.get() : original;
 	}
+
+	public Compat_ItemBlock Compat_func_77655_b(String unlocalizedName) {
+		if (this.original == null)
+			thisReal.setUnlocalizedNameSuper(unlocalizedName);
+		else
+			original.setUnlocalizedName(unlocalizedName);
+		return this;
+	}
 }

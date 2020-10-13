@@ -6,6 +6,7 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.Compat_
 import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.Compat_IWorldGenerator;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.Wrapper_IWorldGenerator;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_Block;
+import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item.Compat_Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class Compat_GameRegistry {
@@ -30,6 +31,10 @@ public class Compat_GameRegistry {
 	}
 
 	public static void Compat_registerTileEntity(Class<?> clazz, String name) {
+		// TODO
+	}
+
+	public static void Compat_registerItem(Compat_Item item, String name) {
 		// TODO
 	}
 }
