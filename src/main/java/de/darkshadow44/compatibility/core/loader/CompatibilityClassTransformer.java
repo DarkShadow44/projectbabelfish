@@ -226,7 +226,7 @@ public class CompatibilityClassTransformer {
 				method.desc = transformDescriptor(method.desc);
 			}
 			if (method.owner.equals("java/lang/Class")) {
-				if (method.name.equals("getConstructor") || method.name.equals("getDeclaredField")) {
+				if (method.name.equals("getConstructor") || method.name.equals("getDeclaredField") || method.name.equals("getDeclaredFields")) {
 					method.name = prefixCompat + method.name;
 
 					method.setOpcode(Opcodes.INVOKESTATIC);

@@ -1,14 +1,38 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.entity.ai;
 
-import net.minecraft.entity.EntityCreature;
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
+import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 
-@SuppressWarnings("rawtypes")
-public class Compat_EntityAIAvoidEntity extends EntityAIAvoidEntity {
+public class Compat_EntityAIAvoidEntity extends Compat_EntityAIBase {
+	private EntityAIAvoidEntity original;
+	private CompatI_EntityAIAvoidEntity thisReal;
 
-	@SuppressWarnings("unchecked")
-	public Compat_EntityAIAvoidEntity(EntityCreature p_i46404_1_, Class p_i46404_2_, float p_i46404_3_, double p_i46404_4_, double p_i46404_6_) {
-		super(p_i46404_1_, p_i46404_2_, p_i46404_3_, p_i46404_4_, p_i46404_6_);
+	// When called from Mod
+	public Compat_EntityAIAvoidEntity() {
+		super(ParentSelector.NULL);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityAIAvoidEntity.class, this), null);
 	}
 
+	// When called from child
+	protected Compat_EntityAIAvoidEntity(ParentSelector s) {
+		super(ParentSelector.NULL);
+	}
+
+	// When called from Minecraft
+	public Compat_EntityAIAvoidEntity(EntityAIAvoidEntity original) {
+		super(ParentSelector.NULL);
+		this.initialize(null, original);
+	}
+
+	protected void initialize(CompatI_EntityAIAvoidEntity thisReal, EntityAIAvoidEntity original) {
+		super.initialize(thisReal, original);
+		this.thisReal = thisReal;
+		this.original = original;
+	}
+
+	public EntityAIAvoidEntity getReal() {
+		return original == null ? thisReal.get() : original;
+	}
 }
