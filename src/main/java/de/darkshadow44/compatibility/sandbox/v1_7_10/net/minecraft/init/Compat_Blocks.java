@@ -224,4 +224,20 @@ public class Compat_Blocks {
 	public static Compat_Block Compat_get_field_150395_bd() {
 		return new Compat_Block(Blocks.VINE);
 	}
+
+	public static Compat_Block Compat_get_field_150366_p() {
+		return new Compat_Block(Blocks.IRON_ORE);
+	}
+
+	public static Compat_Block Compat_get_field_150352_o() {
+		return new Compat_Block(Blocks.GOLD_ORE);
+	}
+
+	public static Compat_Block Compat_get_field_150343_Z() {
+		return new Compat_Block(Blocks.OBSIDIAN);
+	}
+
+	public static Compat_Block Compat_get_field_150434_aF() {
+		return new Compat_Block(Blocks.CACTUS);
+	}
 }

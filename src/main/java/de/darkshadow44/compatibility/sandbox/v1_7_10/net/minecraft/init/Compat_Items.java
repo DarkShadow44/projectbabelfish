@@ -290,4 +290,24 @@ public class Compat_Items {
 	public static Compat_Item Compat_get_field_151061_bv() {
 		return new Compat_Item(Items.ENDER_EYE);
 	}
+
+	public static Compat_Item Compat_get_field_151036_c() {
+		return new Compat_Item(Items.IRON_AXE);
+	}
+
+	public static Compat_Item Compat_get_field_151041_m() {
+		return new Compat_Item(Items.WOODEN_SWORD);
+	}
+
+	public static Compat_Item Compat_get_field_151052_q() {
+		return new Compat_Item(Items.STONE_SWORD);
+	}
+
+	public static Compat_Item Compat_get_field_151040_l() {
+		return new Compat_Item(Items.IRON_SWORD);
+	}
+
+	public static Compat_Item Compat_get_field_151049_t() {
+		return new Compat_Item(Items.STONE_AXE);
+	}
 }
