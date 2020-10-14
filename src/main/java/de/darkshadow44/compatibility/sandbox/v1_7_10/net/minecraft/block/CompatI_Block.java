@@ -5,6 +5,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public interface CompatI_Block {
 	public Block get();
@@ -34,4 +35,6 @@ public interface CompatI_Block {
 	public Material getMaterialSuper(IBlockState state);
 
 	public SoundType getSoundTypeSuper();
+
+	public IForgeRegistryEntry<Block> setRegistryNameSuper(String name);
 }

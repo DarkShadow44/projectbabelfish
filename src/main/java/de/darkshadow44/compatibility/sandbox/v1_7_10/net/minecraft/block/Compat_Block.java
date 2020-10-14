@@ -87,7 +87,10 @@ public class Compat_Block {
 
 	public Compat_Block Compat_func_149663_c(String name) {
 		if (this.original == null)
+		{
 			thisReal.setUnlocalizedNameSuper(name);
+			thisReal.setRegistryNameSuper(name);
+		}
 		else
 			original.setUnlocalizedName(name);
 		return this;
