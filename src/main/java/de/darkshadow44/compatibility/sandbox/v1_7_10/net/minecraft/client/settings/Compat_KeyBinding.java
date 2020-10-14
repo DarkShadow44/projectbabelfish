@@ -4,6 +4,7 @@ import net.minecraft.client.settings.KeyBinding;
 
 public class Compat_KeyBinding {
 
+	@SuppressWarnings("unused")
 	private KeyBinding original;
 
 	public Compat_KeyBinding(KeyBinding original) {

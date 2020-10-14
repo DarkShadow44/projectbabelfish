@@ -22,7 +22,7 @@ public class Compat_EntityRegistry {
 			biomesConverted.add(biome.getReal());
 		}
 
-		// TODO is class right?!
-		EntityRegistry.addSpawn(entityClass, weightedProb, min, max, typeOfCreature.getReal(), biomesConverted.toArray(new Biome[0]));
+		// TODO need wrapper for entity...
+		//EntityRegistry.addSpawn(entityClass, weightedProb, min, max, typeOfCreature.getReal(), biomesConverted.toArray(new Biome[0]));
 	}
 }

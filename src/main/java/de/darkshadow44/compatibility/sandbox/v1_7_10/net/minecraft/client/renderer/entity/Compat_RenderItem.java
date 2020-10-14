@@ -19,6 +19,7 @@ public class Compat_RenderItem {
 
 	private boolean initialized = false;
 
+	@SuppressWarnings("unused")
 	private void tryInit() {
 		if (initialized) {
 			return;

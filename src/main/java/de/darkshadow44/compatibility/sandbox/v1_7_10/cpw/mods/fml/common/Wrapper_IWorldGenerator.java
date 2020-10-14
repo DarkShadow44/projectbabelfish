@@ -17,6 +17,6 @@ public class Wrapper_IWorldGenerator implements IWorldGenerator {
 
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
-		throw new RuntimeException();
+		// TODO
 	}
 }
