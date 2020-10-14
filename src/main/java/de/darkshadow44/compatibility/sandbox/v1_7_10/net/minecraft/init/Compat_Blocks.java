@@ -240,4 +240,16 @@ public class Compat_Blocks {
 	public static Compat_Block Compat_get_field_150434_aF() {
 		return new Compat_Block(Blocks.CACTUS);
 	}
+
+	public static Compat_Block Compat_get_field_150347_e() {
+		return new Compat_Block(Blocks.COBBLESTONE);
+	}
+
+	public static Compat_Block Compat_get_field_150410_aZ() {
+		return new Compat_Block(Blocks.GLASS_PANE);
+	}
+
+	public static Compat_Block Compat_get_field_150365_q() {
+		return new Compat_Block(Blocks.COAL_ORE);
+	}
 }

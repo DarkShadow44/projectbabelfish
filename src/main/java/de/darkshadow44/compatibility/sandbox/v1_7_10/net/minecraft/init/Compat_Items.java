@@ -310,4 +310,8 @@ public class Compat_Items {
 	public static Compat_Item Compat_get_field_151049_t() {
 		return new Compat_Item(Items.STONE_AXE);
 	}
+
+	public static Compat_Item Compat_get_field_151005_D() {
+		return new Compat_Item(Items.GOLDEN_PICKAXE);
+	}
 }

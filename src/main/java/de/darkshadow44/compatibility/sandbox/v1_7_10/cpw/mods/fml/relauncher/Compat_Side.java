@@ -2,17 +2,33 @@ package de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.relauncher;
 
 import net.minecraftforge.fml.relauncher.Side;
 
-public enum Compat_Side {
-	COMPAT_ERROR, COMPAT_CLIENT, COMPAT_SERVER;
+public class Compat_Side {
+	private final static Compat_Side ERROR = new Compat_Side(null);
+	private final static Compat_Side CLIENT = new Compat_Side(Side.CLIENT);
+	private final static Compat_Side SERVER = new Compat_Side(Side.SERVER);
+
+	private Side original;
+
+	public Compat_Side(Side original) {
+		this.original = original;
+	}
 
 	public static Compat_Side fromReal(Side effectiveSide) {
 		switch (effectiveSide) {
 		case CLIENT:
-			return COMPAT_CLIENT;
+			return CLIENT;
 		case SERVER:
-			return COMPAT_SERVER;
+			return SERVER;
 		}
-		return COMPAT_ERROR;
+		return ERROR;
+	}
+
+	public static Compat_Side Compat_get_CLIENT() {
+		return CLIENT;
+	}
+
+	public Side getReal() {
+		return original;
 	}
 
 }

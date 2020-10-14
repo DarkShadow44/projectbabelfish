@@ -3,6 +3,7 @@ package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client;
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
+import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.settings.Compat_GameSettings;
 import net.minecraft.client.Minecraft;
 
 public class Compat_Minecraft {
@@ -30,5 +31,13 @@ public class Compat_Minecraft {
 
 	public Minecraft getReal() {
 		return original == null ? thisReal.get() : original;
+	}
+
+	public static Compat_Minecraft Compat_func_71410_x() {
+		return new Compat_Minecraft(Minecraft.getMinecraft());
+	}
+
+	public Compat_GameSettings Compat_get_field_71474_y() {
+		return new Compat_GameSettings(original.gameSettings);
 	}
 }
