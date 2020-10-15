@@ -22,6 +22,9 @@ public class MemoryClassLoader extends ClassLoader {
 	public void addResource(String path, byte[] data) {
 		if (!path.startsWith("/"))
 			path = "/" + path;
+		if (path.contains("witchesRobes.png")) {
+			path = "/compatibility/textures/items/witchrobe.png";
+		}
 		resources.put(path, data);
 	}
 
