@@ -8,7 +8,6 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.entity.Compat
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.world.biome.Compat_BiomeGenBase;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.world.biome.Biome;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 public class Compat_EntityRegistry {
 	public static void Compat_registerModEntity(Class<? extends Compat_Entity> entityClass, String entityName, int id, Object mod, int trackingRange, int updateFrequency, boolean sendsVelocityUpdates) {

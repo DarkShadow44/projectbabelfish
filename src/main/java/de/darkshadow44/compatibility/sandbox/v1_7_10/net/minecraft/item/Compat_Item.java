@@ -66,9 +66,10 @@ public class Compat_Item {
 	}
 
 	public Compat_Item Compat_func_77655_b(String unlocalizedName) {
-		if (this.original == null)
+		if (this.original == null) {
 			thisReal.setUnlocalizedNameSuper(unlocalizedName);
-		else
+			System.out.println(unlocalizedName);
+		} else
 			original.setUnlocalizedName(unlocalizedName);
 		return this;
 	}

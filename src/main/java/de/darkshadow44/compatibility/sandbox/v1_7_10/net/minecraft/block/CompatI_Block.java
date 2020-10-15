@@ -19,7 +19,7 @@ public interface CompatI_Block {
 	public Block disableStatsSuper();
 
 	public Block setCreativeTabSuper(CreativeTabs creativeTabs);
-	
+
 	public Block setUnlocalizedNameSuper(String name);
 
 	public Block setLightOpacitySuper(int opacity);
@@ -37,4 +37,6 @@ public interface CompatI_Block {
 	public SoundType getSoundTypeSuper();
 
 	public IForgeRegistryEntry<Block> setRegistryNameSuper(String name);
+
+	public String getUnlocalizedNameSuper();
 }

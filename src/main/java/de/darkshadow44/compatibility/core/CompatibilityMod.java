@@ -13,6 +13,7 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.Compat_
 import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.Compat_SidedProxy;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.event.Compat_FMLPreInitializationEvent;
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -33,6 +34,7 @@ public class CompatibilityMod {
 	public static MemoryClassLoader classLoader = new MemoryClassLoader(Launch.classLoader);
 
 	public static List<RegistrationInfoBlock> blocksToRegister = new ArrayList<>();
+	public static List<RegistrationInfoItem> itemsToRegister = new ArrayList<>();
 
 	private List<Object> mods = new ArrayList<Object>();
 
@@ -98,6 +100,17 @@ public class CompatibilityMod {
 	public static void onBlocksRegistration(final RegistryEvent.Register<Block> blockRegisterEvent) {
 		for (RegistrationInfoBlock block : blocksToRegister) {
 			blockRegisterEvent.getRegistry().register(block.getBlock());
+		}
+	}
+
+	@SubscribeEvent
+	public static void onItemsRegistration(final RegistryEvent.Register<Item> itemRegisterEvent) {
+		for (RegistrationInfoItem itemRegister : itemsToRegister) {
+			Item item = itemRegister.getItem();
+			if (item.getRegistryName() == null) {
+				item.setRegistryName(itemRegister.getName());
+			}
+			itemRegisterEvent.getRegistry().register(item);
 		}
 	}
 }

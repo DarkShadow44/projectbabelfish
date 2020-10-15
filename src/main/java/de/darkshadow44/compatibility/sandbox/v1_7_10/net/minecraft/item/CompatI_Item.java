@@ -2,6 +2,7 @@ package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public interface CompatI_Item {
 	public Item get();
@@ -21,4 +22,6 @@ public interface CompatI_Item {
 	public Item setFull3DSuper();
 
 	public Item setContainerItemSuper(Item containerItem);
+
+	public IForgeRegistryEntry<Item> setRegistryNameSuper(String unlocalizedName);
 }

@@ -2,6 +2,7 @@ package de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.regist
 
 import de.darkshadow44.compatibility.core.CompatibilityMod;
 import de.darkshadow44.compatibility.core.RegistrationInfoBlock;
+import de.darkshadow44.compatibility.core.RegistrationInfoItem;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.Compat_IFuelHandler;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.Compat_IWorldGenerator;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.Wrapper_IWorldGenerator;
@@ -38,6 +39,7 @@ public class Compat_GameRegistry {
 
 	public static void Compat_registerItem(Compat_Item item, String name) {
 		// TODO
+		CompatibilityMod.itemsToRegister.add(new RegistrationInfoItem(item.getReal(), name));
 	}
 
 	public static void Compat_addShapelessRecipe(Compat_ItemStack stack, Object[] params) {

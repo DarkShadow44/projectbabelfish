@@ -40,4 +40,8 @@ public class Compat_BlockSlab extends Compat_Block {
 	public boolean isDouble() {
 		return false; // TODO
 	}
+
+	public String getUnlocalizedName(int meta) {
+		return this.thisReal.getUnlocalizedNameSuper();
+	}
 }
