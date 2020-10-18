@@ -9,12 +9,16 @@ import de.darkshadow44.compatibility.autogen.ClassGenerator;
 import de.darkshadow44.compatibility.core.loader.CompatibilityClassTransformer;
 import de.darkshadow44.compatibility.core.loader.CompatibilityModLoader;
 import de.darkshadow44.compatibility.core.loader.MemoryClassLoader;
-import de.darkshadow44.compatibility.core.model.ItemTest;
 import de.darkshadow44.compatibility.core.model.variabletexture.ModelItemVariableTexture;
 import de.darkshadow44.compatibility.core.model.variabletexture.ModelLoaderItemVariableTexture;
 import de.darkshadow44.compatibility.core.resources.ResourcePack;
+import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.Compat_Mod_EventHandler;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.Compat_Mod_Instance;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.Compat_SidedProxy;
+import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.event.Compat_FMLPreInitializationEvent;
+import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.renderer.texture.Wrapper_IIconRegister;
+import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item.CompatI_Item;
+import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item.Compat_Item;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelBakery;
@@ -35,7 +39,6 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 
 @Mod(modid = CompatibilityMod.MODID, name = CompatibilityMod.NAME, version = CompatibilityMod.VERSION)
@@ -49,6 +52,7 @@ public class CompatibilityMod {
 
 	public static List<RegistrationInfoBlock> blocksToRegister = new ArrayList<>();
 	public static List<RegistrationInfoItem> itemsToRegister = new ArrayList<>();
+	public static List<RegistrationInfoIcon> iconsToRegister = new ArrayList<>();
 
 	private List<Object> mods = new ArrayList<Object>();
 
@@ -59,28 +63,21 @@ public class CompatibilityMod {
 
 		registerTexturePack();
 
-		/*String str = "{\n" + "    \"parent\": \"item/generated\",\n" + "    \"textures\": {\n" + "        \"layer0\": \"compatibility:items/witchrobe\"\n" + "    }\n" + "}";
-		
-		classLoader.addResource("compatibility/models/item/witchrobe.json", str.getBytes());
-		
 		File directoryMods = new File(event.getModConfigurationDirectory().getParentFile(), "mods");
 		loadMods(new File(directoryMods, "1.7.10"), event.getSide());
-		
+
 		// Execute preInit
 		for (Object mod : mods) {
 			MethodInfo<?> methodPreInit = new MethodInfo<>(mod, Compat_Mod_EventHandler.class, Compat_FMLPreInitializationEvent.class);
 			methodPreInit.tryInvoke(new Compat_FMLPreInitializationEvent(event));
 		}
-		
-		for (RegistrationInfoItem itemRegister : itemsToRegister) {
-			Item item = itemRegister.getItem();
-			item.setRegistryName(MODID, itemRegister.getName());
-			ForgeRegistries.ITEMS.register(item);
-			ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName().toString()));
-		}*/
 
-		itemTest = new ItemTest();
-		ForgeRegistries.ITEMS.register(itemTest);
+		// Get icons to register
+		Wrapper_IIconRegister iconRegister = new Wrapper_IIconRegister();
+		for (RegistrationInfoItem itemRegister : itemsToRegister) {
+			Compat_Item item = ((CompatI_Item) itemRegister.getItem()).getFake();
+			item.Compat_func_94581_a(iconRegister);
+		}
 	}
 
 	void loadMods(File dir, Side side) {
@@ -129,6 +126,15 @@ public class CompatibilityMod {
 		}
 	}
 
+	@SubscribeEvent
+	public static void onItemsRegistration(final RegistryEvent.Register<Item> itemRegisterEvent) {
+		for (RegistrationInfoItem itemRegister : itemsToRegister) {
+			Item item = itemRegister.getItem();
+			item.setRegistryName(MODID, itemRegister.getName());
+			itemRegisterEvent.getRegistry().register(item);
+		}
+	}
+
 	public ResourcePack resourcePack = new ResourcePack();
 
 	@SuppressWarnings({ "unchecked", "deprecation" })
@@ -152,18 +158,25 @@ public class CompatibilityMod {
 
 	}
 
-	private static Item itemTest;
-
 	@SubscribeEvent
 	public static void registerModels(ModelRegistryEvent evt) {
 		ModelLoaderRegistry.registerLoader(ModelLoaderItemVariableTexture.INSTANCE);
-		ModelLoader.setCustomMeshDefinition(itemTest, stack -> ModelItemVariableTexture.LOCATION);
-		ModelBakery.registerItemVariants(itemTest, ModelItemVariableTexture.LOCATION);
+
+		for (RegistrationInfoItem itemRegister : itemsToRegister) {
+			Item item = itemRegister.getItem();
+			ModelLoader.setCustomMeshDefinition(item, stack -> ModelItemVariableTexture.LOCATION);
+			ModelBakery.registerItemVariants(item, ModelItemVariableTexture.LOCATION);
+		}
 	}
 
 	@SubscribeEvent
 	public static void registerTextures(TextureStitchEvent.Pre evt) {
 		TextureMap map = evt.getMap();
+
+		for (RegistrationInfoIcon icon : iconsToRegister) {
+			String name = icon.getName().replace(":", "_");
+			map.registerSprite(new ResourceLocation(CompatibilityMod.MODID, "items/" + name));
+		}
 		map.registerSprite(new ResourceLocation(CompatibilityMod.MODID, "items/damage" + 0));
 		map.registerSprite(new ResourceLocation(CompatibilityMod.MODID, "items/damage" + 1));
 		map.registerSprite(new ResourceLocation(CompatibilityMod.MODID, "items/damage" + 2));

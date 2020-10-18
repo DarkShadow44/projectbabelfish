@@ -19,7 +19,7 @@ import net.minecraftforge.common.model.IModelState;
 
 public class ModelItemVariableTexture implements IModel {
 
-	public static final ModelResourceLocation LOCATION = new ModelResourceLocation(new ResourceLocation(CompatibilityMod.MODID, "testitem").toString());
+	public static final ModelResourceLocation LOCATION = new ModelResourceLocation(new ResourceLocation(CompatibilityMod.MODID, "itemvariabletexture").toString());
 
 	public static final IModel MODEL = new ModelItemVariableTexture(new ResourceLocation(CompatibilityMod.MODID, "items/dummy"));
 

@@ -15,17 +15,25 @@ public class MemoryClassLoader extends ClassLoader {
 	}
 
 	public Class<?> addClass(String name, byte[] data) {
-		//System.out.println("Loading class: " + name); // For debugging
+		// System.out.println("Loading class: " + name); // For debugging
 		return defineClass(name, data, 0, data.length);
 	}
 
 	public void addResource(String path, byte[] data) {
-		if (!path.startsWith("/"))
-			path = "/" + path;
-		if (path.contains("witchesRobes.png")) {
-			path = "/compatibility/textures/items/witchrobe.png";
+		if (path.startsWith("/")) {
+			path = path.substring(1);
 		}
-		resources.put(path, data);
+		path = path.toLowerCase();
+
+		String[] split = path.split("\\/");
+
+		String modName = split[1];
+		if (split[2].equals("textures")) {
+			if (split[3].equals("items")) {
+				resources.put("/compatibility/textures/items/" + modName + "_" + split[4], data);
+				System.out.println("/compatibility/textures/items/" + modName + "_" + split[4]);
+			}
+		}
 	}
 
 	@Override

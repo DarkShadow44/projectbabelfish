@@ -8,6 +8,9 @@ import javax.annotation.Nullable;
 import com.google.common.collect.ImmutableList;
 
 import de.darkshadow44.compatibility.core.CompatibilityMod;
+import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item.CompatI_Item;
+import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item.Compat_Item;
+import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.util.Compat_IIcon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;
@@ -28,8 +31,18 @@ public class ModelOverridesItemVariableTexture extends ItemOverrideList {
 
 	@Override
 	public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, ItemStack stack, @Nullable World world, @Nullable EntityLivingBase entity) {
-		int damage = stack.getItemDamage();
-		ResourceLocation loc = new ResourceLocation(CompatibilityMod.MODID, "items/damage" + damage);
+
+		CompatI_Item itemI = (CompatI_Item) stack.getItem();
+		Compat_Item item = itemI.getFake();
+		Compat_IIcon icon = item.Compat_func_77617_a(stack.getItemDamage());
+
+		if (icon == null) {
+			return originalModel;
+		}
+
+		String path = icon.getName().replace(":", "_");
+
+		ResourceLocation loc = new ResourceLocation(CompatibilityMod.MODID, "items/" + path);
 
 		BakedModelItemVariableTexture original = (BakedModelItemVariableTexture) originalModel;
 

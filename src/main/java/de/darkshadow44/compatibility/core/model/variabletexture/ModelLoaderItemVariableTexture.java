@@ -2,7 +2,6 @@ package de.darkshadow44.compatibility.core.model.variabletexture;
 
 import javax.annotation.Nonnull;
 
-import de.darkshadow44.compatibility.core.CompatibilityMod;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ICustomModelLoader;
@@ -13,7 +12,7 @@ public class ModelLoaderItemVariableTexture implements ICustomModelLoader {
 
 	@Override
 	public boolean accepts(ResourceLocation modelLocation) {
-		return modelLocation.getResourceDomain().equals(CompatibilityMod.MODID) && modelLocation.getResourcePath().contains("testitem");
+		return modelLocation.equals(ModelItemVariableTexture.LOCATION);
 	}
 
 	@Nonnull

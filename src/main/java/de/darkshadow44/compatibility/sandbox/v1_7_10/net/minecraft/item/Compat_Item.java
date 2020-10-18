@@ -3,8 +3,12 @@ package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item;
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
+import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.renderer.texture.Compat_IIconRegister;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.creativetab.Compat_CreativeTabs;
+import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.util.Compat_IIcon;
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Compat_Item {
 	private Item original;
@@ -73,9 +77,16 @@ public class Compat_Item {
 		return this;
 	}
 
+	private String iconString = null;
+
 	public Compat_Item Compat_func_111206_d(String name) {
-		// TODO setTextureName
+		iconString = name;
 		return this;
+	}
+
+	@SideOnly(Side.CLIENT)
+	protected String Compat_func_111208_A() { // getIconString
+		return (this.iconString == null) ? ("MISSING_ICON_ITEM") : this.iconString;
 	}
 
 	public Compat_Item Compat_setNoRepair() {
@@ -107,5 +118,26 @@ public class Compat_Item {
 		else
 			original.setContainerItem(containerItem.getReal());
 		return this;
+	}
+
+	@SideOnly(Side.CLIENT)
+	public void Compat_func_94581_a(Compat_IIconRegister iconRegister) {
+		icon = iconRegister.Compat_func_94245_a(Compat_func_111208_A());
+	}
+
+	@SideOnly(Side.CLIENT)
+	public Compat_IIcon Compat_func_77617_a(int damage) {
+		// To be overriden
+		return icon;
+	}
+
+	private Compat_IIcon icon;
+
+	public void Compat_set_field_77791_bV(Compat_IIcon icon) {
+		this.icon = icon;
+	}
+
+	public Compat_IIcon Compat_get_field_77791_bV() {
+		return icon;
 	}
 }

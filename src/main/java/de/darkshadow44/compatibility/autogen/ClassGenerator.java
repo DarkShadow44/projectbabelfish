@@ -94,6 +94,23 @@ public class ClassGenerator {
 		return method;
 	}
 
+	private MethodNode generateGetFake(String realPath, Class<?> type) {
+		String thisFakeDesc = "L" + realPath.replace("/CompatReal_", "/Compat_") + ";";
+		MethodNode method = new MethodNode();
+		method.name = "getFake";
+		method.access = Opcodes.ACC_PUBLIC;
+		method.exceptions = new ArrayList<>();
+
+		method.desc = "()" + Type.getDescriptor(type);
+
+		method.instructions = new InsnList();
+		method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+		method.instructions.add(new FieldInsnNode(Opcodes.GETFIELD, realPath, "thisFake", thisFakeDesc));
+		method.instructions.add(new InsnNode(Opcodes.ARETURN));
+
+		return method;
+	}
+
 	private MethodNode generateSuper(String realPath, String mcPath, Parameter[] params, String methodName, Class<?> returnType) {
 		MethodNode method = new MethodNode();
 		method.name = methodName;
@@ -166,7 +183,10 @@ public class ClassGenerator {
 			if (method.getName().equals("get")) {
 				continue;
 			}
-
+			if (method.getName().equals("getFake")) {
+				methods.add(generateGetFake(realPath, method.getReturnType()));
+				continue;
+			}
 			if (method.getName().startsWith("get_")) {
 				MethodNode methodCreated = generateGet(mcPath, method.getName(), method.getReturnType());
 				methods.add(methodCreated);

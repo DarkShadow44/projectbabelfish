@@ -7,6 +7,8 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 public interface CompatI_Item {
 	public Item get();
 
+	public Compat_Item getFake();
+
 	public Item setMaxDamageSuper(int maxDamage);
 
 	public Item setMaxStackSizeSuper(int maxStackSize);
