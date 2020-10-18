@@ -9,18 +9,24 @@ import de.darkshadow44.compatibility.autogen.ClassGenerator;
 import de.darkshadow44.compatibility.core.loader.CompatibilityClassTransformer;
 import de.darkshadow44.compatibility.core.loader.CompatibilityModLoader;
 import de.darkshadow44.compatibility.core.loader.MemoryClassLoader;
+import de.darkshadow44.compatibility.core.model.ItemTest;
+import de.darkshadow44.compatibility.core.model.variabletexture.ModelItemVariableTexture;
+import de.darkshadow44.compatibility.core.model.variabletexture.ModelLoaderItemVariableTexture;
 import de.darkshadow44.compatibility.core.resources.ResourcePack;
-import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.Compat_Mod_EventHandler;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.Compat_Mod_Instance;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.Compat_SidedProxy;
-import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.event.Compat_FMLPreInitializationEvent;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelBakery;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.item.Item;
 import net.minecraft.launchwrapper.Launch;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.Mod;
@@ -53,25 +59,28 @@ public class CompatibilityMod {
 
 		registerTexturePack();
 
-		String str = "{\n" + "    \"parent\": \"item/generated\",\n" + "    \"textures\": {\n" + "        \"layer0\": \"compatibility:items/witchrobe\"\n" + "    }\n" + "}";
-
+		/*String str = "{\n" + "    \"parent\": \"item/generated\",\n" + "    \"textures\": {\n" + "        \"layer0\": \"compatibility:items/witchrobe\"\n" + "    }\n" + "}";
+		
 		classLoader.addResource("compatibility/models/item/witchrobe.json", str.getBytes());
-
+		
 		File directoryMods = new File(event.getModConfigurationDirectory().getParentFile(), "mods");
 		loadMods(new File(directoryMods, "1.7.10"), event.getSide());
-
+		
 		// Execute preInit
 		for (Object mod : mods) {
 			MethodInfo<?> methodPreInit = new MethodInfo<>(mod, Compat_Mod_EventHandler.class, Compat_FMLPreInitializationEvent.class);
 			methodPreInit.tryInvoke(new Compat_FMLPreInitializationEvent(event));
 		}
-
+		
 		for (RegistrationInfoItem itemRegister : itemsToRegister) {
 			Item item = itemRegister.getItem();
 			item.setRegistryName(MODID, itemRegister.getName());
 			ForgeRegistries.ITEMS.register(item);
 			ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName().toString()));
-		}
+		}*/
+
+		itemTest = new ItemTest();
+		ForgeRegistries.ITEMS.register(itemTest);
 	}
 
 	void loadMods(File dir, Side side) {
@@ -122,7 +131,7 @@ public class CompatibilityMod {
 
 	public ResourcePack resourcePack = new ResourcePack();
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	void registerTexturePack() {
 		FMLClientHandler INSTANCE;
 		List<IResourcePack> resourcePackList;
@@ -141,5 +150,22 @@ public class CompatibilityMod {
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 
+	}
+
+	private static Item itemTest;
+
+	@SubscribeEvent
+	public static void registerModels(ModelRegistryEvent evt) {
+		ModelLoaderRegistry.registerLoader(ModelLoaderItemVariableTexture.INSTANCE);
+		ModelLoader.setCustomMeshDefinition(itemTest, stack -> ModelItemVariableTexture.LOCATION);
+		ModelBakery.registerItemVariants(itemTest, ModelItemVariableTexture.LOCATION);
+	}
+
+	@SubscribeEvent
+	public static void registerTextures(TextureStitchEvent.Pre evt) {
+		TextureMap map = evt.getMap();
+		map.registerSprite(new ResourceLocation(CompatibilityMod.MODID, "items/damage" + 0));
+		map.registerSprite(new ResourceLocation(CompatibilityMod.MODID, "items/damage" + 1));
+		map.registerSprite(new ResourceLocation(CompatibilityMod.MODID, "items/damage" + 2));
 	}
 }
