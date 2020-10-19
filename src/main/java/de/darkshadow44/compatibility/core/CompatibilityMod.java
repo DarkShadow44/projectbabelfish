@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import de.darkshadow44.compatibility.core.layer.CompatibilityLayer;
+import de.darkshadow44.compatibility.core.layer.CompatibilityLayer_1_10_2;
 import de.darkshadow44.compatibility.core.layer.CompatibilityLayer_1_7_10;
 import de.darkshadow44.compatibility.core.loader.MemoryClassLoader;
 import de.darkshadow44.compatibility.core.model.variabletexture.ModelLoaderItemVariableTexture;
@@ -38,9 +39,11 @@ public class CompatibilityMod {
 
 	private static List<CompatibilityLayer> layers = new ArrayList<>();
 	public static CompatibilityLayer_1_7_10 LAYER_1_7_10 = new CompatibilityLayer_1_7_10("1.7.10");
+	public static CompatibilityLayer_1_10_2 LAYER_1_10_2 = new CompatibilityLayer_1_10_2("1.10.2");
 
 	static {
 		layers.add(LAYER_1_7_10);
+		layers.add(LAYER_1_10_2);
 	}
 
 	public static MemoryClassLoader classLoader = new MemoryClassLoader(Launch.classLoader);
