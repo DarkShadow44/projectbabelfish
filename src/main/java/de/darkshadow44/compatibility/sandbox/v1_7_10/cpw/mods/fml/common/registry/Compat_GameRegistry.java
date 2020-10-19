@@ -19,13 +19,13 @@ public class Compat_GameRegistry {
 
 	public static Compat_Block Compat_registerBlock(Compat_Block block, String name) {
 		// TODO
-		CompatibilityMod.blocksToRegister.add(new RegistrationInfoBlock(block.getReal(), name));
+		CompatibilityMod.LAYER_1_7_10.blocksToRegister.add(new RegistrationInfoBlock(block.getReal(), name));
 		return block;
 	}
 
 	public static Compat_Block Compat_registerBlock(Compat_Block block, Class<?> clazz, String name) {
 		// TODO ItemBlock
-		CompatibilityMod.blocksToRegister.add(new RegistrationInfoBlock(block.getReal(), name));
+		CompatibilityMod.LAYER_1_7_10.blocksToRegister.add(new RegistrationInfoBlock(block.getReal(), name));
 		return block;
 	}
 
@@ -39,7 +39,7 @@ public class Compat_GameRegistry {
 
 	public static void Compat_registerItem(Compat_Item item, String name) {
 		// TODO
-		CompatibilityMod.itemsToRegister.add(new RegistrationInfoItem(item.getReal(), name));
+		CompatibilityMod.LAYER_1_7_10.itemsToRegister.add(new RegistrationInfoItem(item.getReal(), name));
 	}
 
 	public static void Compat_addShapelessRecipe(Compat_ItemStack stack, Object[] params) {

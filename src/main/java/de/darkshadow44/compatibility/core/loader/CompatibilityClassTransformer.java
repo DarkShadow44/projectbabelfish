@@ -22,16 +22,15 @@ import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.MultiANewArrayInsnNode;
 import org.objectweb.asm.tree.TypeInsnNode;
 
-public class CompatibilityClassTransformer {
+import de.darkshadow44.compatibility.core.layer.CompatibilityLayer;
 
-	public static final String prefixSandbox = "de/darkshadow44/compatibility/sandbox/v1_7_10/";
-	static final String prefixCompat = "Compat_";
-	static final String prefixGet = "get_";
-	static final String prefixSet = "set_";
+public class CompatibilityClassTransformer {
 	ClassNode classNode;
 	List<String> fields = new ArrayList<>();
+	private final CompatibilityLayer layer;
 
-	public CompatibilityClassTransformer(byte[] data) {
+	public CompatibilityClassTransformer(CompatibilityLayer layer, byte[] data) {
+		this.layer = layer;
 		ClassReader classReader = new ClassReader(data);
 		classNode = new ClassNode();
 		classReader.accept(classNode, ClassReader.SKIP_FRAMES);
@@ -79,18 +78,12 @@ public class CompatibilityClassTransformer {
 		return false;
 	}
 
-	public static String getPrefixedClassname(String name) {
-		String[] names = name.replace('$', '_').split("\\/");
-		names[names.length - 1] = prefixCompat + names[names.length - 1];
-		return prefixSandbox + String.join("/", names);
-	}
-
 	private String getTransformedClassname(String name) {
 		if (name.startsWith("[")) {
 			return transformDescriptor(name);
 		}
 		if (!isClassException(name)) {
-			return getPrefixedClassname(name);
+			return layer.getPrefixedClassname(name);
 		}
 		return name;
 	}
@@ -175,7 +168,7 @@ public class CompatibilityClassTransformer {
 
 			if (doesClassContainField(classesToLoad, field.owner, field.name)) {
 				field.desc = transformDescriptor(field.desc);
-				field.name = prefixCompat + field.name;
+				field.name = layer.getPrefixFake() + field.name;
 				field.owner = getTransformedClassname(field.owner);
 			} else {
 				ret.clear();
@@ -185,22 +178,22 @@ public class CompatibilityClassTransformer {
 				String owner = getTransformedClassname(field.owner);
 				switch (opcode) {
 				case Opcodes.GETSTATIC:
-					name = prefixCompat + prefixGet + field.name;
+					name = layer.getPrefixGet() + field.name;
 					desc = "()" + desc;
 					fieldMethod = new MethodInsnNode(Opcodes.INVOKESTATIC, owner, name, desc, false);
 					break;
 				case Opcodes.PUTSTATIC:
-					name = prefixCompat + prefixSet + field.name;
+					name = layer.getPrefixSet() + field.name;
 					desc = "(" + desc + ")V";
 					fieldMethod = new MethodInsnNode(Opcodes.INVOKESTATIC, owner, name, desc, false);
 					break;
 				case Opcodes.GETFIELD:
-					name = prefixCompat + prefixGet + field.name;
+					name = layer.getPrefixGet() + field.name;
 					desc = "()" + desc;
 					fieldMethod = new MethodInsnNode(Opcodes.INVOKEVIRTUAL, owner, name, desc, false);
 					break;
 				case Opcodes.PUTFIELD:
-					name = prefixCompat + prefixSet + field.name;
+					name = layer.getPrefixSet() + field.name;
 					desc = "(" + desc + ")V";
 					fieldMethod = new MethodInsnNode(Opcodes.INVOKEVIRTUAL, owner, name, desc, false);
 				}
@@ -210,7 +203,7 @@ public class CompatibilityClassTransformer {
 		case Opcodes.INVOKEDYNAMIC:
 			InvokeDynamicInsnNode methoddyn = (InvokeDynamicInsnNode) instruction;
 			methoddyn.desc = transformDescriptor(methoddyn.desc);
-			methoddyn.name = prefixCompat + methoddyn.name;
+			methoddyn.name = layer.getPrefixFake() + methoddyn.name;
 			break;
 		case Opcodes.INVOKEINTERFACE:
 		case Opcodes.INVOKESPECIAL:
@@ -220,17 +213,17 @@ public class CompatibilityClassTransformer {
 			if (!isClassException(method.owner)) {
 				// Skip constructors and special enum methods
 				if (!isMethodException(method.name)) {
-					method.name = prefixCompat + method.name;
+					method.name = layer.getPrefixFake() + method.name;
 				}
 				method.owner = getTransformedClassname(method.owner);
 				method.desc = transformDescriptor(method.desc);
 			}
 			if (method.owner.equals("java/lang/Class")) {
 				if (method.name.equals("getConstructor") || method.name.equals("getDeclaredField") || method.name.equals("getDeclaredFields")) {
-					method.name = prefixCompat + method.name;
+					method.name = layer.getPrefixFake() + method.name;
 
 					method.setOpcode(Opcodes.INVOKESTATIC);
-					method.owner = getPrefixedClassname(method.owner);
+					method.owner = layer.getPrefixedClassname(method.owner);
 					method.desc = transformDescriptor(method.desc);
 					method.desc = "(Ljava/lang/Class;" + method.desc.substring(1);
 				}
@@ -296,14 +289,14 @@ public class CompatibilityClassTransformer {
 		transformAnnotations(method.visibleAnnotations);
 		// Skip constructors and special enum methods
 		if (!isMethodException(method.name)) {
-			method.name = prefixCompat + method.name;
+			method.name = layer.getPrefixFake() + method.name;
 		}
 		method.desc = transformDescriptor(method.desc);
 	}
 
 	private void transformField(FieldNode field) {
 		field.desc = transformDescriptor(field.desc);
-		field.name = prefixCompat + field.name;
+		field.name = layer.getPrefixFake() + field.name;
 		transformAnnotations(field.visibleAnnotations);
 	}
 

@@ -10,11 +10,15 @@ import java.util.Map;
 
 import com.google.common.io.Files;
 
+import de.darkshadow44.compatibility.core.layer.CompatibilityLayer;
+
 public class CompatibilityClassLoader {
 
-	MemoryClassLoader classLoader;
+	private final MemoryClassLoader classLoader;
+	private final CompatibilityLayer layer;
 
-	public CompatibilityClassLoader(MemoryClassLoader classLoader) {
+	public CompatibilityClassLoader(CompatibilityLayer layer, MemoryClassLoader classLoader) {
+		this.layer = layer;
 		this.classLoader = classLoader;
 	}
 
@@ -28,7 +32,7 @@ public class CompatibilityClassLoader {
 		}
 
 		try {
-			name = CompatibilityClassTransformer.getPrefixedClassname(name);
+			name = layer.getPrefixedClassname(name);
 			Class.forName(name.replace('/', '.'));
 			return true;
 		} catch (ClassNotFoundException e) {
@@ -110,7 +114,7 @@ public class CompatibilityClassLoader {
 		for (byte[] cl : classes) {
 			LoadClassInfo loadClassInfo = new LoadClassInfo();
 
-			CompatibilityClassTransformer transformer = new CompatibilityClassTransformer(cl);
+			CompatibilityClassTransformer transformer = new CompatibilityClassTransformer(layer, cl);
 
 			loadClassInfo.name = transformer.getThisClass();
 			classesToLoad.put(loadClassInfo.name, loadClassInfo);

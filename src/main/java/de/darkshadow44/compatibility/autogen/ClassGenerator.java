@@ -26,9 +26,15 @@ import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.ClassPath.ClassInfo;
 
 import de.darkshadow44.compatibility.core.CompatibilityMod;
-import de.darkshadow44.compatibility.core.loader.CompatibilityClassTransformer;
+import de.darkshadow44.compatibility.core.layer.CompatibilityLayer;
 
 public class ClassGenerator {
+
+	private CompatibilityLayer layer;
+
+	public ClassGenerator(CompatibilityLayer layer) {
+		this.layer = layer;
+	}
 
 	private void generateLoadParams(InsnList instructions, Parameter[] params, int offset) {
 		offset++; // Skip the "this" parameter
@@ -261,7 +267,7 @@ public class ClassGenerator {
 
 	private void generateRealClasses() throws Exception {
 		ClassPath classesPath = ClassPath.from(ClassGenerator.class.getClassLoader());
-		String sandbox = CompatibilityClassTransformer.prefixSandbox.replace("/", ".");
+		String sandbox = layer.getPathSandbox().replace("/", ".");
 		sandbox = sandbox.substring(0, sandbox.length() - 1);
 		ImmutableSet<ClassInfo> classes = classesPath.getTopLevelClassesRecursive(sandbox);
 

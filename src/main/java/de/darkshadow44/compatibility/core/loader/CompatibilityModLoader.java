@@ -12,9 +12,16 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import de.darkshadow44.compatibility.core.CompatibilityMod;
+import de.darkshadow44.compatibility.core.layer.CompatibilityLayer;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.Compat_Mod;
 
 public class CompatibilityModLoader {
+
+	private final CompatibilityLayer layer;
+
+	public CompatibilityModLoader(CompatibilityLayer layer) {
+		this.layer = layer;
+	}
 
 	public String[] getModFiles(File path) {
 		List<String> files = new ArrayList<String>();
@@ -68,11 +75,10 @@ public class CompatibilityModLoader {
 
 						String text = new String(data).replace("\r", "");
 
-						if (CompatibilityMod.translationsToRegister.containsKey(lang)) {
-							text = CompatibilityMod.translationsToRegister.get(lang) + "\n" + text;
+						if (layer.translationsToRegister.containsKey(lang)) {
+							text = layer.translationsToRegister.get(lang) + "\n" + text;
 						}
-						CompatibilityMod.translationsToRegister.put(lang, text);
-
+						layer.translationsToRegister.put(lang, text);
 					}
 
 					if (nameLower.endsWith(".png"))
@@ -101,7 +107,7 @@ public class CompatibilityModLoader {
 	public String[] loadAllMods(File path) {
 		String[] pathMods = getModFiles(path);
 
-		CompatibilityClassLoader loader = new CompatibilityClassLoader(CompatibilityMod.classLoader);
+		CompatibilityClassLoader loader = new CompatibilityClassLoader(layer, CompatibilityMod.classLoader);
 
 		List<String> mods = new ArrayList<>();
 
