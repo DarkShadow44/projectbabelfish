@@ -4,4 +4,6 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public interface CompatI_NBTTagCompound {
 	public NBTTagCompound get();
+
+	public String getStringSuper(String key);
 }

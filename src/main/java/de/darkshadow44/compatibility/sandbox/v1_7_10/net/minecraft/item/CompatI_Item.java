@@ -30,4 +30,6 @@ public interface CompatI_Item {
 	public IForgeRegistryEntry<Item> setRegistryNameSuper(String unlocalizedName);
 
 	public void getSubItemsSuper(CreativeTabs tab, NonNullList<ItemStack> items);
+
+	public String getItemStackDisplayNameSuper(ItemStack stack);
 }

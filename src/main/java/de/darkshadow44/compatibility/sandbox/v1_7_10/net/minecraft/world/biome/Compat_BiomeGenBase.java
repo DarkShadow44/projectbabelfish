@@ -36,4 +36,11 @@ public class Compat_BiomeGenBase {
 	public static Compat_BiomeGenBase Compat_get_field_76780_h() {
 		return new Compat_BiomeGenBase(Biomes.SWAMPLAND);
 	}
+
+	public String Compat_get_field_76791_y() {
+		if (original == null)
+			return thisReal.getBiomeNameSuper();
+		else
+			return original.getBiomeName();
+	}
 }

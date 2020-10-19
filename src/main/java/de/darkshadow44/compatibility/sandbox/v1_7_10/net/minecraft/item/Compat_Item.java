@@ -167,4 +167,16 @@ public class Compat_Item {
 			items.add(new Compat_ItemStack(stack));
 		}
 	}
+
+	@Callback
+	public String getItemStackDisplayName(ItemStack stack) {
+		return Compat_func_77653_i(new Compat_ItemStack(stack));
+	}
+
+	public String Compat_func_77653_i(Compat_ItemStack itemstack) {
+		if (this.original == null)
+			return thisReal.getItemStackDisplayNameSuper(itemstack.getReal());
+		else
+			return original.getItemStackDisplayName(itemstack.getReal());
+	}
 }

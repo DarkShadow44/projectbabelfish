@@ -31,4 +31,11 @@ public class Compat_NBTTagCompound extends Compat_NBTBase {
 	public NBTTagCompound getReal() {
 		return original == null ? thisReal.get() : original;
 	}
+
+	public String Compat_func_74779_i(String key) {
+		if (this.original == null)
+			return thisReal.getStringSuper(key);
+		else
+			return original.getString(key);
+	}
 }

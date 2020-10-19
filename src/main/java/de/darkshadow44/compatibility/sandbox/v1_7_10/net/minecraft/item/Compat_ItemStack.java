@@ -4,7 +4,9 @@ import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_Block;
+import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.nbt.Compat_NBTTagCompound;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class Compat_ItemStack {
 	private ItemStack original;
@@ -63,5 +65,31 @@ public class Compat_ItemStack {
 			return new Compat_ItemStack(thisReal.copySuper());
 		else
 			return new Compat_ItemStack(original.copy());
+	}
+
+	public boolean Compat_func_77942_o() {
+		if (this.original == null)
+			return thisReal.hasTagCompoundSuper();
+		else
+			return original.hasTagCompound();
+	}
+
+	public int Compat_func_77960_j() {
+		if (this.original == null)
+			return thisReal.getItemDamageSuper();
+		else
+			return original.getItemDamage();
+	}
+
+	public Compat_NBTTagCompound Compat_func_77978_p() {
+		NBTTagCompound realTag;
+		if (this.original == null)
+			realTag = thisReal.getTagCompoundSuper();
+		else
+			realTag = original.getTagCompound();
+		if (realTag == null) {
+			return null;
+		}
+		return new Compat_NBTTagCompound(realTag);
 	}
 }
