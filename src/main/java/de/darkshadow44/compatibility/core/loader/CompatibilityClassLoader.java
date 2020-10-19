@@ -70,8 +70,9 @@ public class CompatibilityClassLoader {
 
 	List<Class<?>> loadClasses(Map<String, LoadClassInfo> classesToLoad) {
 		List<Class<?>> loadedClasses = new ArrayList<Class<?>>();
+		int target = loadedClassNames.size() + classesToLoad.size();
 
-		while (loadedClassNames.size() < classesToLoad.size()) {
+		while (loadedClassNames.size() < target) {
 			int sizeBefore = loadedClassNames.size();
 
 			for (LoadClassInfo clazz : classesToLoad.values()) {
