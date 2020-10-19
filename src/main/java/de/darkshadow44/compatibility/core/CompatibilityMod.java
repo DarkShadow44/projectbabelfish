@@ -2,6 +2,7 @@ package de.darkshadow44.compatibility.core;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -53,8 +54,37 @@ public class CompatibilityMod {
 	public static List<RegistrationInfoBlock> blocksToRegister = new ArrayList<>();
 	public static List<RegistrationInfoItem> itemsToRegister = new ArrayList<>();
 	public static List<RegistrationInfoIcon> iconsToRegister = new ArrayList<>();
+	public static Map<String, String> translationsToRegister = new HashMap<>();
 
 	private List<Object> mods = new ArrayList<Object>();
+
+	private void registerTranslation(String key) {
+		String text = translationsToRegister.get(key);
+		String lines[] = text.split("\n");
+
+		StringBuilder json = new StringBuilder();
+		;
+		json.append("{\n");
+
+		boolean first = true;
+		for (String line : lines) {
+			line = line.trim();
+			if (line.length() > 1) {
+				String split[] = line.split("=");
+
+				if (first) {
+					first = false;
+				} else {
+					json.append(",\n");
+				}
+				json.append("\titem.\"" + split[0] + "\" = " + "\"" + split[1] + "\"");
+			}
+		}
+
+		json.append("\n}\n");
+
+		//classLoader.addResource("/" + MODID + "/lang/" + key + ".json", json.toString().getBytes());
+	}
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -77,6 +107,11 @@ public class CompatibilityMod {
 		for (RegistrationInfoItem itemRegister : itemsToRegister) {
 			Compat_Item item = ((CompatI_Item) itemRegister.getItem()).getFake();
 			item.Compat_func_94581_a(iconRegister);
+		}
+
+		// Register translations
+		for (String key : translationsToRegister.keySet()) {
+			registerTranslation(key);
 		}
 	}
 

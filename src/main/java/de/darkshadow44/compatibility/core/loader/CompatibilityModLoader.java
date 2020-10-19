@@ -61,7 +61,21 @@ public class CompatibilityModLoader {
 					if (nameLower.endsWith(".class"))
 						classes.add(data);
 
-					if (nameLower.endsWith(".txt") || nameLower.endsWith(".png"))
+					if (nameLower.endsWith(".lang")) {
+						String split[] = nameLower.split("/");
+						String lang = split[split.length - 1];
+						lang = lang.substring(0, lang.length() - ".lang".length());
+
+						String text = new String(data).replace("\r", "");
+
+						if (CompatibilityMod.translationsToRegister.containsKey(lang)) {
+							text = CompatibilityMod.translationsToRegister.get(lang) + "\n" + text;
+						}
+						CompatibilityMod.translationsToRegister.put(lang, text);
+
+					}
+
+					if (nameLower.endsWith(".png"))
 						CompatibilityMod.classLoader.addResource(entry.getName(), data);
 				}
 
