@@ -7,7 +7,7 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item.Compat_I
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 
-public abstract class Compat_CreativeTabs {
+public class Compat_CreativeTabs {
 	private CreativeTabs original;
 	private CompatI_CreativeTabs thisReal;
 
@@ -34,7 +34,10 @@ public abstract class Compat_CreativeTabs {
 		return original == null ? thisReal.get() : original;
 	}
 
-	public abstract Compat_ItemStack Compat_func_151244_d();
+	public Compat_ItemStack Compat_func_151244_d() {
+		// Must be original, method is abstract
+		return new Compat_ItemStack(original.getIconItemStack());
+	}
 
 	public ItemStack getTabIconItem() {
 		return Compat_func_151244_d().getReal();

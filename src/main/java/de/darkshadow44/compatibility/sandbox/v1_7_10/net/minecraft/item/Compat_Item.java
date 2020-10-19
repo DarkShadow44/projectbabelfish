@@ -1,12 +1,19 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import de.darkshadow44.compatibility.autogen.Callback;
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.renderer.texture.Compat_IIconRegister;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.creativetab.Compat_CreativeTabs;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.util.Compat_IIcon;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -139,5 +146,25 @@ public class Compat_Item {
 
 	public Compat_IIcon Compat_get_field_77791_bV() {
 		return icon;
+	}
+
+	@Callback
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+		List<Compat_ItemStack> itemsFake = new ArrayList<>();
+		Compat_func_150895_a(this, new Compat_CreativeTabs(tab), itemsFake);
+		for (Compat_ItemStack stack : itemsFake) {
+			items.add(stack.getReal());
+		}
+	}
+
+	public void Compat_func_150895_a(Compat_Item item, Compat_CreativeTabs tab, List<Compat_ItemStack> items) {
+		NonNullList<ItemStack> realItems = NonNullList.create();
+		if (this.original == null)
+			thisReal.getSubItemsSuper(tab.getReal(), realItems);
+		else
+			original.getSubItems(tab.getReal(), realItems);
+		for (ItemStack stack : realItems) {
+			items.add(new Compat_ItemStack(stack));
+		}
 	}
 }

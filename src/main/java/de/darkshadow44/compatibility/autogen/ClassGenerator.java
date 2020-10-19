@@ -206,6 +206,15 @@ public class ClassGenerator {
 		}
 	}
 
+	private void generateCallbacks(List<MethodNode> methods, Class<?> classFake, String realPath) {
+		for (Method method : classFake.getMethods()) {
+			if (method.getAnnotation(Callback.class) != null) {
+				MethodNode methodCreated = generateWrapper(realPath, method.getParameters(), method.getName(), method.getReturnType());
+				methods.add(methodCreated);
+			}
+		}
+	}
+
 	private void generateClass(Class<?> classIface, String path, String ifaceName) throws Exception {
 		Method methodGet = classIface.getMethod("get");
 		Class<?> classMc = methodGet.getReturnType();
@@ -234,6 +243,9 @@ public class ClassGenerator {
 		generateMethodsForIface(classNode.methods, classIface, classNode.name, mcPath);
 
 		generateAbstractWrappers(classNode.methods, classMc, classNode.name);
+
+		Class<?> classFake = Class.forName(fakePath.replace("/", "."));
+		generateCallbacks(classNode.methods, classFake, classNode.name);
 
 		ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
 		classNode.accept(classWriter);

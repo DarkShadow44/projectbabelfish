@@ -31,7 +31,6 @@ public class MemoryClassLoader extends ClassLoader {
 		if (split[2].equals("textures")) {
 			if (split[3].equals("items")) {
 				resources.put("/compatibility/textures/items/" + modName + "_" + split[4], data);
-				System.out.println("/compatibility/textures/items/" + modName + "_" + split[4]);
 			}
 		}
 	}
