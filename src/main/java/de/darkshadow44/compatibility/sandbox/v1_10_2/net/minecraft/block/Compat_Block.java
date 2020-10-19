@@ -3,6 +3,7 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block;
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.material.Compat_Material;
 import net.minecraft.block.Block;
 
 public class Compat_Block {
@@ -10,8 +11,8 @@ public class Compat_Block {
 	private CompatI_Block thisReal;
 
 	// When called from Mod
-	public Compat_Block() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_Block.class, this), null);
+	public Compat_Block(Compat_Material material) {
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Block.class, this, material.getReal()), null);
 	}
 
 	// When called from child

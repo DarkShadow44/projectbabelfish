@@ -3,7 +3,9 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.creativetab;
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.item.Compat_Item;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemStack;
 
 public class Compat_CreativeTabs {
 	private CreativeTabs original;
@@ -30,5 +32,14 @@ public class Compat_CreativeTabs {
 
 	public CreativeTabs getReal() {
 		return original == null ? thisReal.get() : original;
+	}
+
+	public ItemStack getTabIconItem() {
+		return new ItemStack(Compat_func_78016_d().getReal());
+	}
+
+	public Compat_Item Compat_func_78016_d() {
+		// To be overriden
+		return null;
 	}
 }

@@ -10,13 +10,16 @@ import java.util.Map;
 import de.darkshadow44.compatibility.core.CompatibilityMod;
 import de.darkshadow44.compatibility.core.ConstructorInfo;
 import de.darkshadow44.compatibility.core.FieldInfo;
+import de.darkshadow44.compatibility.core.MethodInfo;
 import de.darkshadow44.compatibility.core.RegistrationInfoBlock;
 import de.darkshadow44.compatibility.core.RegistrationInfoIcon;
 import de.darkshadow44.compatibility.core.RegistrationInfoItem;
 import de.darkshadow44.compatibility.core.loader.CompatibilityModLoader;
 import de.darkshadow44.compatibility.core.model.variabletexture.ModelItemVariableTexture;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.Compat_Mod;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.Compat_Mod_EventHandler;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.Compat_SidedProxy;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.event.Compat_FMLPreInitializationEvent;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -94,10 +97,10 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-		/*for (Object mod : mods) {
+		for (Object mod : mods) {
 			MethodInfo<?> methodPreInit = new MethodInfo<>(mod, Compat_Mod_EventHandler.class, Compat_FMLPreInitializationEvent.class);
 			methodPreInit.tryInvoke(new Compat_FMLPreInitializationEvent(event));
-		}*/
+		}
 	}
 
 	@Override
