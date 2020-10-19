@@ -172,13 +172,9 @@ public class CompatibilityMod {
 	@SubscribeEvent
 	public static void registerTextures(TextureStitchEvent.Pre evt) {
 		TextureMap map = evt.getMap();
-
 		for (RegistrationInfoIcon icon : iconsToRegister) {
 			String name = icon.getName().replace(":", "_");
 			map.registerSprite(new ResourceLocation(CompatibilityMod.MODID, "items/" + name));
 		}
-		map.registerSprite(new ResourceLocation(CompatibilityMod.MODID, "items/damage" + 0));
-		map.registerSprite(new ResourceLocation(CompatibilityMod.MODID, "items/damage" + 1));
-		map.registerSprite(new ResourceLocation(CompatibilityMod.MODID, "items/damage" + 2));
 	}
 }

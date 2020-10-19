@@ -179,4 +179,23 @@ public class Compat_Item {
 		else
 			return original.getItemStackDisplayName(itemstack.getReal());
 	}
+
+	@Callback
+	public String getUnlocalizedName(ItemStack stack) {
+		return Compat_func_77667_c(new Compat_ItemStack(stack));
+	}
+
+	public String Compat_func_77667_c(Compat_ItemStack stack) {
+		if (this.original == null)
+			return thisReal.getUnlocalizedNameSuper(stack.getReal());
+		else
+			return original.getUnlocalizedName(stack.getReal());
+	}
+
+	public String Compat_func_77658_a() {
+		if (this.original == null)
+			return thisReal.getUnlocalizedNameSuper();
+		else
+			return original.getUnlocalizedName();
+	}
 }

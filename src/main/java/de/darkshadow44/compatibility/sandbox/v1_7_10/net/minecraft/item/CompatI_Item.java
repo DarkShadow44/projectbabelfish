@@ -32,4 +32,8 @@ public interface CompatI_Item {
 	public void getSubItemsSuper(CreativeTabs tab, NonNullList<ItemStack> items);
 
 	public String getItemStackDisplayNameSuper(ItemStack stack);
+
+	public String getUnlocalizedNameSuper(ItemStack stack);
+
+	public String getUnlocalizedNameSuper();
 }
