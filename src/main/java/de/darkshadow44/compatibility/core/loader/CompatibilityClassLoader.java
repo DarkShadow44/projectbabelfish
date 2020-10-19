@@ -10,6 +10,7 @@ import java.util.Map;
 
 import com.google.common.io.Files;
 
+import de.darkshadow44.compatibility.core.CompatibilityMod;
 import de.darkshadow44.compatibility.core.layer.CompatibilityLayer;
 
 public class CompatibilityClassLoader {
@@ -27,13 +28,17 @@ public class CompatibilityClassLoader {
 			return true;
 		}
 
+		if (name.startsWith("com/google")) {
+			return true;
+		}
+
 		if (loadedClassNames.containsKey(name)) {
 			return true;
 		}
 
 		try {
 			name = layer.getPrefixedClassname(name);
-			Class.forName(name.replace('/', '.'));
+			Class.forName(name.replace('/', '.'), true, CompatibilityMod.classLoader);
 			return true;
 		} catch (ClassNotFoundException e) {
 			return false;

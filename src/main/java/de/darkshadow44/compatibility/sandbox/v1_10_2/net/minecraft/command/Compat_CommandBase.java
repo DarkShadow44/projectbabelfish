@@ -1,4 +1,4 @@
-package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.server.command;
+package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.command;
 
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;

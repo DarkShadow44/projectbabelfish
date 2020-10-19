@@ -3,6 +3,7 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.server.
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.command.Compat_CommandBase;
 import net.minecraftforge.server.command.CommandTreeBase;
 
 public class Compat_CommandTreeBase extends Compat_CommandBase {
