@@ -25,7 +25,9 @@ public class Compat_Block {
 		Block block = (Block) thisReal;
 		block.blockState = this.createBlockState();
 		thisReal.setDefaultStateSuper(block.blockState.getBaseState());
-		thisReal.set_fullBlock(block.getDefaultState().isOpaqueCube());
+		boolean fullBlock = block.getDefaultState().isOpaqueCube();
+		thisReal.set_fullBlock(fullBlock);
+		block.setLightOpacity(fullBlock ? 255 : 0);
 	}
 
 	// When called from child
@@ -69,6 +71,13 @@ public class Compat_Block {
 	public Compat_BlockStateContainer Compat_func_180661_e() {
 		if (original == null)
 			return new Compat_BlockStateContainer(thisReal.createBlockStateSuper());
+		else
+			throw new RuntimeException("Should not happen");
+	}
+
+	public void Compat_func_180632_j(Compat_IBlockState state) {
+		if (original == null)
+			thisReal.setDefaultStateSuper(state.getReal());
 		else
 			throw new RuntimeException("Should not happen");
 	}
