@@ -10,13 +10,13 @@ import java.util.Map;
 import de.darkshadow44.compatibility.core.CompatibilityMod;
 import de.darkshadow44.compatibility.core.ConstructorInfo;
 import de.darkshadow44.compatibility.core.FieldInfo;
-import de.darkshadow44.compatibility.core.MethodInfo;
 import de.darkshadow44.compatibility.core.RegistrationInfoBlock;
 import de.darkshadow44.compatibility.core.RegistrationInfoIcon;
 import de.darkshadow44.compatibility.core.RegistrationInfoItem;
 import de.darkshadow44.compatibility.core.loader.CompatibilityModLoader;
 import de.darkshadow44.compatibility.core.model.variabletexture.ModelItemVariableTexture;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.Compat_Mod;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.Compat_SidedProxy;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -65,15 +65,15 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 			mods.add(mod);
 		}
 
-		// Fill instances
-		for (Object mod : mods) {
-			//FieldInfo<?> instance = new FieldInfo<>(mod, Compat_Mod_Instance.class);
-			//instance.trySetValue(mod);
-		}
+		// Fill instances TODO
+		/*for (Object mod : mods) {
+			FieldInfo<?> instance = new FieldInfo<>(mod, Compat_Mod_Instance.class);
+			instance.trySetValue(mod);
+		}*/
 
 		// Fill proxys
 		for (Object mod : mods) {
-			/*FieldInfo<Compat_SidedProxy> instance = new FieldInfo<>(mod, Compat_SidedProxy.class);
+			FieldInfo<Compat_SidedProxy> instance = new FieldInfo<>(mod, Compat_SidedProxy.class);
 			if (instance != null) {
 				Compat_SidedProxy sidedProxy = instance.getAnnotation();
 				String className;
@@ -88,7 +88,7 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 				ConstructorInfo ctor = new ConstructorInfo(className);
 				Object proxy = ctor.tryConstruct();
 				instance.trySetValue(proxy);
-			}*/
+			}
 		}
 	}
 
