@@ -16,6 +16,7 @@ public class Factory {
 		POS1, POS2, POS3, POS4, POS5, POS6;
 	}
 
+	@SuppressWarnings("unused")
 	private static Map<String, List<Constructor<?>>> cache = new HashMap<>();
 
 	private static Class<?> boxPrimitive(Class<?> clazz) {

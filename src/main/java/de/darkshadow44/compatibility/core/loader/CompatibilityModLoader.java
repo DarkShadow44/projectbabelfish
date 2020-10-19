@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import de.darkshadow44.compatibility.core.CompatibilityMod;
 import de.darkshadow44.compatibility.core.layer.CompatibilityLayer;
 
@@ -82,6 +84,9 @@ public class CompatibilityModLoader {
 
 	public List<Class<?>> loadAllMods(File path) {
 		String[] pathMods = getModFiles(path);
+
+		// TODO Sort mods. HACK!
+		ArrayUtils.reverse(pathMods);
 
 		CompatibilityClassLoader loader = new CompatibilityClassLoader(layer, CompatibilityMod.classLoader);
 

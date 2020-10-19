@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.Lists;
+
 import de.darkshadow44.compatibility.core.CompatibilityMod;
 import de.darkshadow44.compatibility.core.ConstructorInfo;
 import de.darkshadow44.compatibility.core.FieldInfo;
