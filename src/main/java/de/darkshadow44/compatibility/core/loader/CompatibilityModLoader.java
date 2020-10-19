@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.zip.ZipFile;
 
 import de.darkshadow44.compatibility.core.CompatibilityMod;
 import de.darkshadow44.compatibility.core.layer.CompatibilityLayer;
-import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.Compat_Mod;
 
 public class CompatibilityModLoader {
 
@@ -68,21 +66,7 @@ public class CompatibilityModLoader {
 					if (nameLower.endsWith(".class"))
 						classes.add(data);
 
-					if (nameLower.endsWith(".lang")) {
-						String split[] = nameLower.split("/");
-						String lang = split[split.length - 1];
-						lang = lang.substring(0, lang.length() - ".lang".length());
-
-						String text = new String(data).replace("\r", "");
-
-						if (layer.translationsToRegister.containsKey(lang)) {
-							text = layer.translationsToRegister.get(lang) + "\n" + text;
-						}
-						layer.translationsToRegister.put(lang, text);
-					}
-
-					if (nameLower.endsWith(".png"))
-						CompatibilityMod.classLoader.addResource(entry.getName(), data);
+					layer.handleResource(nameLower, data);
 				}
 
 			}
@@ -96,27 +80,19 @@ public class CompatibilityModLoader {
 		return classes.toArray(new byte[0][]);
 	}
 
-	void findMods(List<String> mods, Class<?>[] classes) {
-		for (Class<?> c : classes) {
-			Annotation annotation = c.getAnnotation(Compat_Mod.class);
-			if (annotation != null)
-				mods.add(c.getName());
-		}
-	}
-
-	public String[] loadAllMods(File path) {
+	public List<Class<?>> loadAllMods(File path) {
 		String[] pathMods = getModFiles(path);
 
 		CompatibilityClassLoader loader = new CompatibilityClassLoader(layer, CompatibilityMod.classLoader);
 
-		List<String> mods = new ArrayList<>();
+		List<Class<?>> classesLoaded = new ArrayList<>();
 
 		for (String pathMod : pathMods) {
 			byte[][] classesBytes = readZip(pathMod);
-			Class<?>[] classesLoaded = loader.loadClasses(classesBytes);
-			findMods(mods, classesLoaded);
+			List<Class<?>> classes = loader.loadClasses(classesBytes);
+			classesLoaded.addAll(classes);
 		}
 
-		return mods.toArray(new String[0]);
+		return classesLoaded;
 	}
 }

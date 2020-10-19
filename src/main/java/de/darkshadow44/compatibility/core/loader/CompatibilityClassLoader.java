@@ -61,7 +61,7 @@ public class CompatibilityClassLoader {
 		return false;
 	}
 
-	Class<?>[] loadClasses(Map<String, LoadClassInfo> classesToLoad) {
+	List<Class<?>> loadClasses(Map<String, LoadClassInfo> classesToLoad) {
 		HashMap<String, Boolean> loadedClassNames = new HashMap<String, Boolean>();
 		List<Class<?>> loadedClasses = new ArrayList<Class<?>>();
 
@@ -105,10 +105,10 @@ public class CompatibilityClassLoader {
 			}
 		}
 
-		return loadedClasses.toArray(new Class<?>[0]);
+		return loadedClasses;
 	}
 
-	public Class<?>[] loadClasses(byte[][] classes) {
+	public List<Class<?>> loadClasses(byte[][] classes) {
 		Map<String, LoadClassInfo> classesToLoad = new HashMap<>();
 
 		for (byte[] cl : classes) {
@@ -131,8 +131,6 @@ public class CompatibilityClassLoader {
 			loadClassInfo.fields = transformer.getFields();
 		}
 
-		Class<?>[] loadedClasses = loadClasses(classesToLoad);
-
-		return loadedClasses;
+		return loadClasses(classesToLoad);
 	}
 }
