@@ -18,12 +18,14 @@ public class CompatibilityClassLoader {
 	private final MemoryClassLoader classLoader;
 	private final CompatibilityLayer layer;
 
+	private HashMap<String, Boolean> loadedClassNames = new HashMap<String, Boolean>();
+
 	public CompatibilityClassLoader(CompatibilityLayer layer, MemoryClassLoader classLoader) {
 		this.layer = layer;
 		this.classLoader = classLoader;
 	}
 
-	boolean classExists(HashMap<String, Boolean> loadedClassNames, String name) {
+	boolean classExists(String name) {
 		if (name.startsWith("java/")) {
 			return true;
 		}
@@ -45,12 +47,12 @@ public class CompatibilityClassLoader {
 		}
 	}
 
-	boolean canLoadClass(HashMap<String, Boolean> loadedClassNames, LoadClassInfo clazz) {
+	boolean canLoadClass(LoadClassInfo clazz) {
 		if (loadedClassNames.containsKey(clazz.name))
 			return false;
 
 		for (String dep : clazz.dependenciesHard) {
-			if (!classExists(loadedClassNames, dep)) {
+			if (!classExists(dep)) {
 				return false;
 			}
 		}
@@ -67,14 +69,13 @@ public class CompatibilityClassLoader {
 	}
 
 	List<Class<?>> loadClasses(Map<String, LoadClassInfo> classesToLoad) {
-		HashMap<String, Boolean> loadedClassNames = new HashMap<String, Boolean>();
 		List<Class<?>> loadedClasses = new ArrayList<Class<?>>();
 
 		while (loadedClassNames.size() < classesToLoad.size()) {
 			int sizeBefore = loadedClassNames.size();
 
 			for (LoadClassInfo clazz : classesToLoad.values()) {
-				if (canLoadClass(loadedClassNames, clazz)) {
+				if (canLoadClass(clazz)) {
 					loadedClassNames.put(clazz.name, true);
 					clazz.transformer.transform(classesToLoad);
 					String name = clazz.transformer.getThisClass();
@@ -96,9 +97,9 @@ public class CompatibilityClassLoader {
 			if (loadedClassNames.size() == sizeBefore) {
 				List<String> missingClasses = new ArrayList<String>();
 				for (LoadClassInfo clazz : classesToLoad.values()) {
-					if (!classExists(loadedClassNames, clazz.name)) {
+					if (!classExists(clazz.name)) {
 						for (String dep : clazz.dependenciesHard) {
-							if (!missingClasses.contains(dep) && !classExists(loadedClassNames, dep) && !isClassToLoad(classesToLoad, dep)) {
+							if (!missingClasses.contains(dep) && !classExists(dep) && !isClassToLoad(classesToLoad, dep)) {
 								missingClasses.add(dep);
 							}
 						}
