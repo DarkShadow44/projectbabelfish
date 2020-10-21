@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.Handle;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 import org.objectweb.asm.tree.AbstractInsnNode;
@@ -204,6 +205,17 @@ public class CompatibilityClassTransformer {
 			InvokeDynamicInsnNode methoddyn = (InvokeDynamicInsnNode) instruction;
 			methoddyn.desc = transformDescriptor(methoddyn.desc);
 			methoddyn.name = layer.getPrefixFake() + methoddyn.name;
+
+			for (int i = 0; i < methoddyn.bsmArgs.length; i++) {
+				Object arg = methoddyn.bsmArgs[i];
+				if (arg instanceof Handle) {
+					Handle handle = (Handle) arg;
+					String desc = transformDescriptor(handle.getDesc());
+					String owner = getTransformedClassname(handle.getOwner());
+					String name = handle.getName();
+					methoddyn.bsmArgs[i] = new Handle(handle.getTag(), owner, name, desc, handle.isInterface());
+				}
+			}
 			break;
 		case Opcodes.INVOKEINTERFACE:
 		case Opcodes.INVOKESPECIAL:
