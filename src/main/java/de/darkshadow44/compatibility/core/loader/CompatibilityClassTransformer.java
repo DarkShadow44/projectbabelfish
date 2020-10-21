@@ -141,8 +141,33 @@ public class CompatibilityClassTransformer {
 	}
 
 	private static boolean isMethodException(String name) {
-		// Skip constructors and special enum methods
-		return name.equals("<init>") || name.equals("<clinit>") || name.equals("values") || name.equals("valueOf") || name.equals("clone");
+		// Skip constructors
+		if (name.equals("<init>") || name.equals("<clinit>"))
+			return true;
+
+		// Skip special enum methods
+		if (name.equals("values") || name.equals("valueOf") || name.equals("clone"))
+			return true;
+
+		// Skip lambdas
+		if (name.startsWith("lambda"))
+			return true;
+
+		// Skip stream methods?
+		if (name.startsWith("apply"))
+			return true;
+
+		return false;
+	}
+
+	private Handle transformHandle(Handle handle) {
+		String desc = transformDescriptor(handle.getDesc());
+		String owner = getTransformedClassname(handle.getOwner());
+		String name = handle.getName();
+		if (!isMethodException(name) && !isClassException(handle.getOwner())) {
+			name = layer.getPrefixFake() + name;
+		}
+		return new Handle(handle.getTag(), owner, name, desc, handle.isInterface());
 	}
 
 	private List<AbstractInsnNode> transformInstruction(AbstractInsnNode instruction, Map<String, LoadClassInfo> classesToLoad) {
@@ -204,16 +229,22 @@ public class CompatibilityClassTransformer {
 		case Opcodes.INVOKEDYNAMIC:
 			InvokeDynamicInsnNode methoddyn = (InvokeDynamicInsnNode) instruction;
 			methoddyn.desc = transformDescriptor(methoddyn.desc);
-			methoddyn.name = layer.getPrefixFake() + methoddyn.name;
 
+			if (!isMethodException(methoddyn.name)) {
+				methoddyn.name = layer.getPrefixFake() + methoddyn.name;
+			}
+
+			methoddyn.bsm = transformHandle(methoddyn.bsm);
 			for (int i = 0; i < methoddyn.bsmArgs.length; i++) {
 				Object arg = methoddyn.bsmArgs[i];
 				if (arg instanceof Handle) {
-					Handle handle = (Handle) arg;
-					String desc = transformDescriptor(handle.getDesc());
-					String owner = getTransformedClassname(handle.getOwner());
-					String name = handle.getName();
-					methoddyn.bsmArgs[i] = new Handle(handle.getTag(), owner, name, desc, handle.isInterface());
+					methoddyn.bsmArgs[i] = transformHandle((Handle) arg);
+				}
+				if (arg instanceof Type) {
+					Type argType = (Type) arg;
+					String desc = argType.getDescriptor();
+					desc = transformDescriptor(desc);
+					methoddyn.bsmArgs[i] = Type.getType(desc);
 				}
 			}
 			break;
