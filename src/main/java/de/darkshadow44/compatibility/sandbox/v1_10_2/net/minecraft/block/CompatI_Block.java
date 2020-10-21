@@ -14,4 +14,8 @@ public interface CompatI_Block {
 	public void setDefaultStateSuper(IBlockState baseState);
 
 	public void set_fullBlock(boolean fullBlock);
+
+	public Block setHardnessSuper(float hardness);
+
+	public Block setUnlocalizedNameSuper(String name);
 }

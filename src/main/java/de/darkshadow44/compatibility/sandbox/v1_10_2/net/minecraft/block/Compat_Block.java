@@ -21,6 +21,10 @@ public class Compat_Block {
 	public Compat_Block(Compat_Material material) {
 		this.initialize(Factory.create(CtorPos.POS1, CompatI_Block.class, this, material.getReal()), null);
 
+		workaround_init();
+	}
+
+	protected void workaround_init() {
 		// Workaround, since we need skipDuringConstructor
 		Block block = (Block) thisReal;
 		block.blockState = this.createBlockState();
@@ -80,5 +84,21 @@ public class Compat_Block {
 			thisReal.setDefaultStateSuper(state.getReal());
 		else
 			throw new RuntimeException("Should not happen");
+	}
+
+	public Compat_Block Compat_func_149711_c(float hardness) {
+		if (original == null)
+			thisReal.setHardnessSuper(hardness);
+		else
+			original.setHardness(hardness);
+		return this;
+	}
+
+	public Compat_Block Compat_func_149663_c(String name) {
+		if (original == null)
+			thisReal.setUnlocalizedNameSuper(name);
+		else
+			original.setUnlocalizedName(name);
+		return this;
 	}
 }

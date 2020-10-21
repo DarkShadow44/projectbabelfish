@@ -35,4 +35,8 @@ public class Compat_Material {
 	public static Compat_Material Compat_get_field_151578_c() {
 		return new Compat_Material(Material.GROUND);
 	}
+
+	public static Compat_Material Compat_get_field_151576_e() {
+		return new Compat_Material(Material.ROCK);
+	}
 }
