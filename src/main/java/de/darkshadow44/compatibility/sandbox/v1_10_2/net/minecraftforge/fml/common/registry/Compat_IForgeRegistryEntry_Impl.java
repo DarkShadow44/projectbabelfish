@@ -1,5 +1,5 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.registry;
 
-public interface Compat_IForgeRegistryEntry<T> {
+public class Compat_IForgeRegistryEntry_Impl<T> implements Compat_IForgeRegistryEntry<T> {
 
 }

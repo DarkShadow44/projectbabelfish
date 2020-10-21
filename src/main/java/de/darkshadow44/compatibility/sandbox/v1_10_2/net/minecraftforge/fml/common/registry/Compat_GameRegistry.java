@@ -7,9 +7,14 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class Compat_GameRegistry {
 
-	public static Compat_IForgeRegistryEntry Compat_register(Compat_IForgeRegistryEntry p1, Compat_ResourceLocation p2) {
+	public static Compat_IForgeRegistryEntry<?> Compat_register(Compat_IForgeRegistryEntry<?> p1, Compat_ResourceLocation p2) {
 		// TODO
-		return null;
+		return p1;
+	}
+
+	public static Compat_IForgeRegistryEntry<?> Compat_register(Compat_IForgeRegistryEntry<?> p1) {
+		// TODO
+		return p1;
 	}
 
 	public static void Compat_registerTileEntityWithAlternatives(Class<? extends TileEntity> tileEntityClass, String id, String... alternatives) {
