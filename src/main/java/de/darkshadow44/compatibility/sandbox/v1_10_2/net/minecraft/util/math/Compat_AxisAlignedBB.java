@@ -10,8 +10,8 @@ public class Compat_AxisAlignedBB {
 	private CompatI_AxisAlignedBB thisReal;
 
 	// When called from Mod
-	public Compat_AxisAlignedBB() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_AxisAlignedBB.class, this), null);
+	public Compat_AxisAlignedBB(double p1, double p2, double p3, double p4, double p5, double p6) {
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_AxisAlignedBB.class, this, p1, p2, p3, p4, p5, p6), null);
 	}
 
 	// When called from child

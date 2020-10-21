@@ -43,6 +43,11 @@ public class ClassGenerator {
 		for (Parameter param : params) {
 			int opcode = Type.getType(param.getType()).getOpcode(Opcodes.ILOAD);
 			instructions.add(new VarInsnNode(opcode, offset++));
+
+			// Some types take two slots...
+			if (opcode == Opcodes.DLOAD) {
+				offset++;
+			}
 		}
 	}
 
@@ -313,8 +318,7 @@ public class ClassGenerator {
 		classNode.accept(classWriter);
 		byte[] data = classWriter.toByteArray();
 
-		int debug = 0;
-		if (debug == 1) {
+		if (className.equals("")) {
 			Files.write(data, new File("/home/fabian/Ramdisk/" + className + ".class"));
 		}
 
