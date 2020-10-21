@@ -17,4 +17,8 @@ public class Compat_EventBus {
 	public void Compat_register(Object obj) {
 		// TODO
 	}
+
+	public boolean Compat_post(Compat_Event event) {
+		return original.post(event.getReal());
+	}
 }
