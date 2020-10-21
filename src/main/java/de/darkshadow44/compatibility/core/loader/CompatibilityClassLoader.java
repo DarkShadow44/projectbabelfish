@@ -115,7 +115,7 @@ public class CompatibilityClassLoader {
 		return loadedClasses;
 	}
 
-	public List<Class<?>> loadClasses(byte[][] classes) {
+	public List<Class<?>> loadClasses(List<byte[]> classes) {
 		Map<String, LoadClassInfo> classesToLoad = new HashMap<>();
 
 		for (byte[] cl : classes) {

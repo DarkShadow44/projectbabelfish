@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import de.darkshadow44.compatibility.core.CompatibilityMod;
 import de.darkshadow44.compatibility.core.layer.CompatibilityLayer;
 
@@ -47,7 +45,7 @@ public class CompatibilityModLoader {
 		return data;
 	}
 
-	public byte[][] readZip(String path) {
+	public List<byte[]> readZip(String path) {
 		List<byte[]> classes = new ArrayList<byte[]>();
 
 		ZipFile zipFile;
@@ -79,25 +77,20 @@ public class CompatibilityModLoader {
 			e.printStackTrace();
 		}
 
-		return classes.toArray(new byte[0][]);
+		return classes;
 	}
 
 	public List<Class<?>> loadAllMods(File path) {
 		String[] pathMods = getModFiles(path);
 
-		// TODO Sort mods. HACK!
-		ArrayUtils.reverse(pathMods);
-
 		CompatibilityClassLoader loader = new CompatibilityClassLoader(layer, CompatibilityMod.classLoader);
 
-		List<Class<?>> classesLoaded = new ArrayList<>();
+		List<byte[]> classes = new ArrayList<>();
 
 		for (String pathMod : pathMods) {
-			byte[][] classesBytes = readZip(pathMod);
-			List<Class<?>> classes = loader.loadClasses(classesBytes);
-			classesLoaded.addAll(classes);
+			List<byte[]> classesBytes = readZip(pathMod);
+			classes.addAll(classesBytes);
 		}
-
-		return classesLoaded;
+		return loader.loadClasses(classes);
 	}
 }

@@ -3,6 +3,7 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state;
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.Compat_Block;
 import net.minecraft.block.state.BlockStateContainer.Builder;
 
 public class Compat_BlockStateContainer_Builder {
@@ -10,8 +11,8 @@ public class Compat_BlockStateContainer_Builder {
 	private CompatI_BlockStateContainer_Builder thisReal;
 
 	// When called from Mod
-	public Compat_BlockStateContainer_Builder() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockStateContainer_Builder.class, this), null);
+	public Compat_BlockStateContainer_Builder(Compat_Block block) {
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockStateContainer_Builder.class, this, block.getReal()), null);
 	}
 
 	// When called from child

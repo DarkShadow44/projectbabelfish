@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.Lists;
+
 import de.darkshadow44.compatibility.core.CompatibilityMod;
 import de.darkshadow44.compatibility.core.ConstructorInfo;
 import de.darkshadow44.compatibility.core.FieldInfo;
@@ -46,9 +48,9 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 	private List<String> findMods(List<Class<?>> classes) {
 		List<String> mods = new ArrayList<>();
 		for (Class<?> c : classes) {
-			 Annotation annotation = c.getAnnotation(Compat_Mod.class);
-			 if (annotation != null)
-			 mods.add(c.getName());
+			Annotation annotation = c.getAnnotation(Compat_Mod.class);
+			if (annotation != null)
+				mods.add(c.getName());
 		}
 		return mods;
 	}
@@ -60,6 +62,9 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 		CompatibilityModLoader loader = new CompatibilityModLoader(this);
 		List<Class<?>> modClasses = loader.loadAllMods(dir);
 		List<String> modClassNames = findMods(modClasses);
+
+		// HACK TODO dependencies
+		modClassNames = Lists.reverse(modClassNames);
 
 		// Construct mod objects
 		for (String modClassName : modClassNames) {
