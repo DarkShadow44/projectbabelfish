@@ -3,6 +3,7 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.item;
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.inventory.Compat_EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 
 public class Compat_ItemArmor extends Compat_Item {
@@ -10,9 +11,9 @@ public class Compat_ItemArmor extends Compat_Item {
 	private CompatI_ItemArmor thisReal;
 
 	// When called from Mod
-	public Compat_ItemArmor() {
+	public Compat_ItemArmor(Compat_ItemArmor_ArmorMaterial material, int renderIndex, Compat_EntityEquipmentSlot slot) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemArmor.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemArmor.class, this, material.getReal(), renderIndex, slot.getReal()), null);
 	}
 
 	// When called from child
