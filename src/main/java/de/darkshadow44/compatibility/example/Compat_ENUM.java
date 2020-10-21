@@ -1,12 +1,12 @@
 package de.darkshadow44.compatibility.example;
 
-public class Compat_ENUM {
+public enum Compat_ENUM {
 
-	private static final Compat_ENUM VALUE = new Compat_ENUM(ENUM.VALUE);
+	VALUE(ENUM.VALUE);
 
 	private ENUM original;
 
-	public Compat_ENUM(ENUM original) {
+	private Compat_ENUM(ENUM original) {
 		this.original = original;
 	}
 
@@ -14,8 +14,7 @@ public class Compat_ENUM {
 		return original;
 	}
 
-	public static Compat_ENUM Compat_get_VALUE()
-	{
+	public static Compat_ENUM Compat_get_VALUE() {
 		return VALUE;
 	}
 }
