@@ -21,6 +21,7 @@ import org.objectweb.asm.tree.LocalVariableNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.MultiANewArrayInsnNode;
+import org.objectweb.asm.tree.TryCatchBlockNode;
 import org.objectweb.asm.tree.TypeInsnNode;
 
 import de.darkshadow44.compatibility.core.layer.CompatibilityLayer;
@@ -321,12 +322,20 @@ public class CompatibilityClassTransformer {
 	private void transformMethod(MethodNode method, Map<String, LoadClassInfo> classesToLoad) {
 		InsnList newList = new InsnList();
 		for (int i = 0; i < method.instructions.size(); i++) {
-
 			List<AbstractInsnNode> newInsns = transformInstruction(method.instructions.get(i), classesToLoad);
 			for (AbstractInsnNode insn : newInsns) {
 				newList.add(insn);
 			}
 		}
+
+		if (method.tryCatchBlocks != null) {
+			for (TryCatchBlockNode block : method.tryCatchBlocks) {
+				if (block.type != null) {
+					block.type = getTransformedClassname(block.type);
+				}
+			}
+		}
+
 		method.instructions = newList;
 		transformVariables(method.localVariables);
 		transformAnnotations(method.visibleAnnotations);
