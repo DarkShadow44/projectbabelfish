@@ -82,4 +82,11 @@ public class Compat_NBTTagCompound extends Compat_NBTBase {
 		else
 			return original.getKeySet();
 	}
+
+	public byte Compat_func_74771_c(String key) {
+		if (original == null)
+			return thisReal.getByteSuper(key);
+		else
+			return original.getByte(key);
+	}
 }

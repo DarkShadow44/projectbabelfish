@@ -31,4 +31,46 @@ public class Compat_AxisAlignedBB {
 	public AxisAlignedBB getReal() {
 		return original == null ? thisReal.get() : original;
 	}
+
+	public double Compat_get_field_72340_a() {
+		if (original == null)
+			return thisReal.get_minX();
+		else
+			return original.minX;
+	}
+
+	public double Compat_get_field_72338_b() {
+		if (original == null)
+			return thisReal.get_minY();
+		else
+			return original.minY;
+	}
+
+	public double Compat_get_field_72339_c() {
+		if (original == null)
+			return thisReal.get_minZ();
+		else
+			return original.minZ;
+	}
+
+	public double Compat_get_field_72336_d() {
+		if (original == null)
+			return thisReal.get_maxX();
+		else
+			return original.maxX;
+	}
+
+	public double Compat_get_field_72337_e() {
+		if (original == null)
+			return thisReal.get_maxY();
+		else
+			return original.maxY;
+	}
+
+	public double Compat_get_field_72334_f() {
+		if (original == null)
+			return thisReal.get_maxZ();
+		else
+			return original.maxZ;
+	}
 }

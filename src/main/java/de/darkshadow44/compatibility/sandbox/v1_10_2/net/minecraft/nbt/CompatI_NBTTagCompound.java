@@ -21,4 +21,6 @@ public interface CompatI_NBTTagCompound {
 	public NBTTagCompound getCompoundTagSuper(String key);
 
 	public Set<String> getKeySetSuper();
+
+	public byte getByteSuper(String key);
 }

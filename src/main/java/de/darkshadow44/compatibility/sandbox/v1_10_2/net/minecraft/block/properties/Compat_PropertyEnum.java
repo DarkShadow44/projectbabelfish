@@ -36,4 +36,8 @@ public class Compat_PropertyEnum<T extends Enum<T> & IStringSerializable> extend
 	public PropertyEnum<T> getReal() {
 		return original == null ? thisReal.get() : original;
 	}
+
+	public static <T extends Enum<T> & IStringSerializable> Compat_PropertyEnum<T> Compat_func_177709_a(String p1, Class<T> p2) {
+		return new Compat_PropertyEnum<T>(PropertyEnum.create(p1, p2)); // TODO is class correct?
+	}
 }

@@ -4,4 +4,16 @@ import net.minecraft.util.math.AxisAlignedBB;
 
 public interface CompatI_AxisAlignedBB {
 	public AxisAlignedBB get();
+
+	public double get_minX();
+
+	public double get_minY();
+
+	public double get_minZ();
+
+	public double get_maxX();
+
+	public double get_maxY();
+
+	public double get_maxZ();
 }
