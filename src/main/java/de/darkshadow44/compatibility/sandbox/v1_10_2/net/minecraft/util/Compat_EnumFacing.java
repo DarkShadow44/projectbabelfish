@@ -4,7 +4,7 @@ import net.minecraft.util.EnumFacing;
 
 public enum Compat_EnumFacing {
 
-	EAST(EnumFacing.EAST);
+	UP(EnumFacing.UP), DOWN(EnumFacing.DOWN), EAST(EnumFacing.EAST), WEST(EnumFacing.WEST), SOUTH(EnumFacing.SOUTH), NORTH(EnumFacing.NORTH);
 
 	private EnumFacing original;
 
@@ -18,5 +18,27 @@ public enum Compat_EnumFacing {
 
 	public static Compat_EnumFacing Compat_get_EAST() {
 		return EAST;
+	}
+
+	private static Compat_EnumFacing map_real_to_fake(EnumFacing real) {
+		switch (real) {
+		case DOWN:
+			return DOWN;
+		case EAST:
+			return EAST;
+		case NORTH:
+			return NORTH;
+		case SOUTH:
+			return SOUTH;
+		case UP:
+			return UP;
+		case WEST:
+			return WEST;
+		}
+		return null;
+	}
+
+	public static Compat_EnumFacing Compat_func_82600_a(int index) {
+		return map_real_to_fake(EnumFacing.getFront(index));
 	}
 }

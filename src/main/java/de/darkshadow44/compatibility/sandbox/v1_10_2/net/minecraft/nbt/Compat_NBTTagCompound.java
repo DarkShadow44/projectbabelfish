@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.nbt;
 
+import java.util.Set;
+
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
@@ -37,5 +39,47 @@ public class Compat_NBTTagCompound extends Compat_NBTBase {
 			thisReal.setIntegerSuper(key, value);
 		else
 			original.setInteger(key, value);
+	}
+
+	public int Compat_func_74762_e(String key) {
+		if (original == null)
+			return thisReal.getIntegerSuper(key);
+		else
+			return original.getInteger(key);
+	}
+
+	public boolean Compat_func_74767_n(String key) {
+		if (original == null)
+			return thisReal.getBooleanSuper(key);
+		else
+			return original.getBoolean(key);
+	}
+
+	public Compat_NBTTagList Compat_func_150295_c(String key, int type) {
+		if (original == null)
+			return new Compat_NBTTagList(thisReal.getTagListSuper(key, type));
+		else
+			return new Compat_NBTTagList(original.getTagList(key, type));
+	}
+
+	public boolean Compat_func_74764_b(String key) {
+		if (original == null)
+			return thisReal.hasKeySuper(key);
+		else
+			return original.hasKey(key);
+	}
+
+	public Compat_NBTTagCompound Compat_func_74775_l(String key) {
+		if (original == null)
+			return new Compat_NBTTagCompound(thisReal.getCompoundTagSuper(key));
+		else
+			return new Compat_NBTTagCompound(original.getCompoundTag(key));
+	}
+
+	public Set<String> Compat_func_150296_c() {
+		if (original == null)
+			return thisReal.getKeySetSuper();
+		else
+			return original.getKeySet();
 	}
 }

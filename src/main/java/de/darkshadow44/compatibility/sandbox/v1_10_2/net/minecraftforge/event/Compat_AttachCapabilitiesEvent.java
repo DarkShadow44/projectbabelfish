@@ -46,7 +46,13 @@ public class Compat_AttachCapabilitiesEvent<T> extends Compat_GenericEvent<T> {
 	}
 
 	public Map<Compat_ResourceLocation, Compat_ICapabilityProvider> Compat_getCapabilities() {
-		Map<ResourceLocation, ICapabilityProvider> capabilities = original.getCapabilities();
+		Map<ResourceLocation, ICapabilityProvider> capabilities;
+
+		if (original == null)
+			capabilities = thisReal.getCapabilitiesSuper();
+		else
+			capabilities = original.getCapabilities();
+
 		Map<Compat_ResourceLocation, Compat_ICapabilityProvider> ret = new HashMap<>();
 
 		for (ResourceLocation location : capabilities.keySet()) {
