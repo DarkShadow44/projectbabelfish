@@ -154,7 +154,7 @@ public class CompatibilityClassTransformer {
 		if (name.equals("values") || name.equals("valueOf") || name.equals("clone"))
 			return true;
 
-		if (name.equals("ordinal")) {
+		if (name.equals("ordinal") || name.equals("name")) {
 			if (!isMcClass(targetClassName)) {
 				return true;
 			}
