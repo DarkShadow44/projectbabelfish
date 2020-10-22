@@ -2,7 +2,6 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.nbt;
 
 import java.util.Set;
 
-import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 

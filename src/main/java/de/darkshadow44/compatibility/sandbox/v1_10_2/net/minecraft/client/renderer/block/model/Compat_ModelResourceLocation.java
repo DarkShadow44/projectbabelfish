@@ -11,9 +11,9 @@ public class Compat_ModelResourceLocation extends Compat_ResourceLocation {
 	private CompatI_ModelResourceLocation thisReal;
 
 	// When called from Mod
-	public Compat_ModelResourceLocation() {
+	public Compat_ModelResourceLocation(String p1, String p2) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ModelResourceLocation.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ModelResourceLocation.class, this, p1, p2), null);
 	}
 
 	// When called from child

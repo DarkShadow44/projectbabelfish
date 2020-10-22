@@ -52,7 +52,7 @@ public enum Compat_EnumFacing implements IStringSerializable {
 		return SOUTH;
 	}
 
-	private static Compat_EnumFacing map_real_to_fake(EnumFacing real) {
+	public static Compat_EnumFacing map_real_to_fake(EnumFacing real) {
 		switch (real) {
 		case DOWN:
 			return DOWN;
