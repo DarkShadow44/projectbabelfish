@@ -4,7 +4,7 @@ import net.minecraft.item.EnumDyeColor;
 
 public enum Compat_EnumDyeColor {
 
-	VALUE(EnumDyeColor.WHITE);
+	BLUE(EnumDyeColor.BLUE), RED(EnumDyeColor.RED);
 
 	private EnumDyeColor original;
 
@@ -16,7 +16,15 @@ public enum Compat_EnumDyeColor {
 		return original;
 	}
 
-	public static Compat_EnumDyeColor Compat_get_VALUE() {
-		return VALUE;
+	public static Compat_EnumDyeColor Compat_get_BLUE() {
+		return BLUE;
+	}
+
+	public static Compat_EnumDyeColor Compat_get_RED() {
+		return RED;
+	}
+
+	public int Compat_func_176767_b() {
+		return original.getDyeDamage();
 	}
 }

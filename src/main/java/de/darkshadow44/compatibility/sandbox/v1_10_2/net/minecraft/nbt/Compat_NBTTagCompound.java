@@ -89,4 +89,18 @@ public class Compat_NBTTagCompound extends Compat_NBTBase {
 		else
 			return original.getByte(key);
 	}
+
+	public Compat_NBTTagCompound Compat_func_74737_b() {
+		if (original == null)
+			return new Compat_NBTTagCompound(thisReal.copySuper());
+		else
+			return new Compat_NBTTagCompound(original.copy());
+	}
+
+	public String Compat_func_74779_i(String key) {
+		if (original == null)
+			return thisReal.getStringSuper(key);
+		else
+			return original.getString(key);
+	}
 }

@@ -1,5 +1,6 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.registry;
 
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.item.crafting.Compat_IRecipe;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_ResourceLocation;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -23,6 +24,10 @@ public class Compat_GameRegistry {
 	}
 
 	public static void Compat_registerTileEntity(Class<? extends TileEntity> clazz, String key) {
-		GameRegistry.registerTileEntity(clazz, new ResourceLocation(key));
+		GameRegistry.registerTileEntity(clazz, new ResourceLocation(key)); // TODO class?
+	}
+
+	public static void Compat_addRecipe(Compat_IRecipe recipe) {
+		// TODO
 	}
 }
