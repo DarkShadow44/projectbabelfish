@@ -1,0 +1,9 @@
+{
+    "package": "de.darkshadow44.compatibility.mixin",
+    "refmap": "mixin.compatibility.refmap.json",
+    "target": "@env(DEFAULT)",
+    "compatibilityLevel": "JAVA_8",
+    "mixins": [
+        "MixinPropertyEnum"
+    ]
+}

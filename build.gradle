@@ -3,9 +3,13 @@ buildscript {
         maven { url = 'https://files.minecraftforge.net/maven' }
         jcenter()
         mavenCentral()
+		maven {
+			setUrl("http://repo.spongepowered.org/maven")
+		}
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
+		classpath("org.spongepowered:mixingradle:0.7-SNAPSHOT")
     }
 }
         
@@ -13,6 +17,7 @@ apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
+apply plugin: 'org.spongepowered.mixin'
 
 version = '1.0'
 group = 'com.yourname.modid' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -67,6 +72,15 @@ repositories {
 		name = "ModMaven"
 		url = "https://modmaven.k-4u.nl"
 	}
+	maven {
+		setUrl("http://repo.spongepowered.org/maven")
+	}
+}
+
+sourceSets {
+    main {
+        refMap = "mixin.compatibility.refmap.json"
+    }
 }
 
 dependencies {
@@ -76,6 +90,12 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2854'
 
 	runtime "mezz.jei:jei_${mc_version}:${jei_version}"
+
+	runtime('org.spongepowered:mixin:0.8.2') {
+		exclude module: 'guava'
+		exclude module: 'commons-io'
+		exclude module: 'gson'
+	}
 
     // You may put jars on which you depend on in ./libs or you may define them like so..
     // compile "some.group:artifact:version:classifier"
@@ -107,7 +127,11 @@ jar {
             "Implementation-Title": project.name,
             "Implementation-Version": "${version}",
             "Implementation-Vendor" :"examplemodsareus",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+			'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
+			'MixinConfigs': 'mixin.compatibility.json',
+			'FMLCorePluginContainsFMLMod': 'true',
+			'FMLAT': 'META-INF/accesstransformer.cfg',
         ])
     }
 }
