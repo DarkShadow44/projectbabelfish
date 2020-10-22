@@ -8,6 +8,7 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.materia
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state.Compat_BlockStateContainer;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state.Compat_IBlockState;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state.Wrapper_IBlockState;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.creativetab.Compat_CreativeTabs;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_AxisAlignedBB;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.registry.Compat_IForgeRegistryEntry_Impl;
 import net.minecraft.block.Block;
@@ -103,6 +104,14 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 			thisReal.setUnlocalizedNameSuper(name);
 		else
 			original.setUnlocalizedName(name);
+		return this;
+	}
+
+	public Compat_Block Compat_func_149647_a(Compat_CreativeTabs tabs) {
+		if (original == null)
+			thisReal.setCreativeTabSuper(tabs.getReal());
+		else
+			original.setCreativeTab(tabs.getReal());
 		return this;
 	}
 }
