@@ -141,7 +141,11 @@ public class CompatibilityClassTransformer {
 		return doesClassContainField(classesToLoad, classInfo.parentName, fieldName);
 	}
 
-	private static boolean isMethodException(String name) {
+	private static boolean isMcClass(String name) {
+		return name.startsWith("net/minecraft/") || name.startsWith("net/minecraftforge/");
+	}
+
+	private static boolean isMethodException(String targetClassName, String name) {
 		// Skip constructors
 		if (name.equals("<init>") || name.equals("<clinit>"))
 			return true;
@@ -149,6 +153,12 @@ public class CompatibilityClassTransformer {
 		// Skip special enum methods
 		if (name.equals("values") || name.equals("valueOf") || name.equals("clone"))
 			return true;
+
+		if (name.equals("ordinal")) {
+			if (!isMcClass(targetClassName)) {
+				return true;
+			}
+		}
 
 		// Skip lambdas
 		if (name.startsWith("lambda"))
@@ -165,7 +175,7 @@ public class CompatibilityClassTransformer {
 		String desc = transformDescriptor(handle.getDesc());
 		String owner = getTransformedClassname(handle.getOwner());
 		String name = handle.getName();
-		if (!isMethodException(name) && !isClassException(handle.getOwner())) {
+		if (!isMethodException(handle.getOwner(), name) && !isClassException(handle.getOwner())) {
 			name = layer.getPrefixFake() + name;
 		}
 		return new Handle(handle.getTag(), owner, name, desc, handle.isInterface());
@@ -231,7 +241,7 @@ public class CompatibilityClassTransformer {
 			InvokeDynamicInsnNode methoddyn = (InvokeDynamicInsnNode) instruction;
 			methoddyn.desc = transformDescriptor(methoddyn.desc);
 
-			if (!isMethodException(methoddyn.name)) {
+			if (!isMethodException("", methoddyn.name)) {
 				methoddyn.name = layer.getPrefixFake() + methoddyn.name;
 			}
 
@@ -256,7 +266,7 @@ public class CompatibilityClassTransformer {
 			MethodInsnNode method = (MethodInsnNode) instruction;
 			if (!isClassException(method.owner)) {
 				// Skip constructors and special enum methods
-				if (!isMethodException(method.name)) {
+				if (!isMethodException(method.owner, method.name)) {
 					method.name = layer.getPrefixFake() + method.name;
 				}
 				method.owner = getTransformedClassname(method.owner);
@@ -340,7 +350,7 @@ public class CompatibilityClassTransformer {
 		transformVariables(method.localVariables);
 		transformAnnotations(method.visibleAnnotations);
 		// Skip constructors and special enum methods
-		if (!isMethodException(method.name)) {
+		if (!isMethodException(classNode.name, method.name)) {
 			method.name = layer.getPrefixFake() + method.name;
 		}
 		method.desc = transformDescriptor(method.desc);
