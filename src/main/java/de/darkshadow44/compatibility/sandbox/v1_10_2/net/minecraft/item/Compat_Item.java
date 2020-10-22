@@ -4,29 +4,32 @@ import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.creativetab.Compat_CreativeTabs;
-import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.registry.Compat_IForgeRegistryEntry;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.registry.Compat_IForgeRegistryEntry_Impl;
 import net.minecraft.item.Item;
 
-public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Compat_Item> {
+public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 	private Item original;
 	private CompatI_Item thisReal;
 
 	// When called from Mod
 	public Compat_Item() {
+		super(ParentSelector.NULL);
 		this.initialize(Factory.create(CtorPos.POS1, CompatI_Item.class, this), null);
 	}
 
 	// When called from child
 	protected Compat_Item(ParentSelector s) {
+		super(ParentSelector.NULL);
 	}
 
 	// When called from Minecraft
 	public Compat_Item(Item original) {
+		super(ParentSelector.NULL);
 		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_Item thisReal, Item original) {
+		super.initialize(thisReal, original);
 		this.thisReal = thisReal;
 		this.original = original;
 	}
@@ -64,14 +67,6 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Compat_Item> {
 			thisReal.setCreativeTabSuper(tab.getReal());
 		else
 			this.original.setCreativeTab(tab.getReal());
-		return this;
-	}
-
-	public Compat_IForgeRegistryEntry<Compat_Item> Compat_setRegistryName(String name) {
-		if (this.original == null)
-			thisReal.setRegistryNameSuper(name);
-		else
-			this.original.setRegistryName(name);
 		return this;
 	}
 }

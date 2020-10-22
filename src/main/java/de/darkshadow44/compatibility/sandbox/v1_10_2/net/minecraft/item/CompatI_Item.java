@@ -1,10 +1,10 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.item;
 
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.registry.CompatI_IForgeRegistryEntry_Impl;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraftforge.registries.IForgeRegistryEntry;
 
-public interface CompatI_Item {
+public interface CompatI_Item extends CompatI_IForgeRegistryEntry_Impl<Item> {
 	public Item get();
 
 	public Item setUnlocalizedNameSuper(String name);
@@ -14,6 +14,4 @@ public interface CompatI_Item {
 	public Item setMaxDamageSuper(int damage);
 
 	public Item setCreativeTabSuper(CreativeTabs tab);
-
-	public IForgeRegistryEntry<?> setRegistryNameSuper(String name);
 }

@@ -9,16 +9,18 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state.C
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state.Compat_IBlockState;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state.Wrapper_IBlockState;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_AxisAlignedBB;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.registry.Compat_IForgeRegistryEntry_Impl;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 
-public class Compat_Block {
+public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	private Block original;
 	private CompatI_Block thisReal;
 
 	// When called from Mod
 	public Compat_Block(Compat_Material material) {
+		super(ParentSelector.NULL);
 		this.initialize(Factory.create(CtorPos.POS1, CompatI_Block.class, this, material.getReal()), null);
 
 		workaround_init();
@@ -36,15 +38,17 @@ public class Compat_Block {
 
 	// When called from child
 	protected Compat_Block(ParentSelector s) {
-
+		super(ParentSelector.NULL);
 	}
 
 	// When called from Minecraft
 	public Compat_Block(Block original) {
+		super(ParentSelector.NULL);
 		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_Block thisReal, Block original) {
+		super.initialize(thisReal, original);
 		this.thisReal = thisReal;
 		this.original = original;
 	}
