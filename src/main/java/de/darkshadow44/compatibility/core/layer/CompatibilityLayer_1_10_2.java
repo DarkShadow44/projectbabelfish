@@ -14,22 +14,16 @@ import de.darkshadow44.compatibility.core.ConstructorInfo;
 import de.darkshadow44.compatibility.core.FieldInfo;
 import de.darkshadow44.compatibility.core.MethodInfo;
 import de.darkshadow44.compatibility.core.RegistrationInfoBlock;
-import de.darkshadow44.compatibility.core.RegistrationInfoIcon;
 import de.darkshadow44.compatibility.core.RegistrationInfoItem;
 import de.darkshadow44.compatibility.core.loader.CompatibilityModLoader;
-import de.darkshadow44.compatibility.core.model.variabletexture.ModelItemVariableTexture;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.Compat_Mod;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.Compat_Mod_EventHandler;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.Compat_SidedProxy;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.event.Compat_FMLPreInitializationEvent;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.block.model.ModelBakery;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.event.TextureStitchEvent.Pre;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -38,7 +32,6 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 
 	public List<RegistrationInfoBlock> blocksToRegister = new ArrayList<>();
 	public List<RegistrationInfoItem> itemsToRegister = new ArrayList<>();
-	public List<RegistrationInfoIcon> iconsToRegister = new ArrayList<>();
 	public Map<String, String> translationsToRegister = new HashMap<>();
 
 	public CompatibilityLayer_1_10_2(String pathSandbox) {
@@ -110,8 +103,14 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 
 	@Override
 	public void onBlocksRegistration(Register<Block> blockRegisterEvent) {
-		for (RegistrationInfoBlock block : blocksToRegister) {
-			blockRegisterEvent.getRegistry().register(block.getBlock());
+		for (RegistrationInfoBlock blockRegister : blocksToRegister) {
+			// TODO location?
+			Block block = blockRegister.getBlock();
+			if (blockRegister.getLocation() != null) {
+				block.setRegistryName(blockRegister.getLocation());
+			}
+
+			blockRegisterEvent.getRegistry().register(block);
 		}
 	}
 
@@ -119,26 +118,10 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 	public void onItemsRegistration(Register<Item> itemRegisterEvent) {
 		for (RegistrationInfoItem itemRegister : itemsToRegister) {
 			Item item = itemRegister.getItem();
-			item.setRegistryName(CompatibilityMod.MODID, itemRegister.getName());
+			if (itemRegister.getLocation() != null) {
+				item.setRegistryName(itemRegister.getLocation());
+			}
 			itemRegisterEvent.getRegistry().register(item);
-		}
-	}
-
-	@Override
-	public void registerModels(ModelRegistryEvent evt) {
-		for (RegistrationInfoItem itemRegister : itemsToRegister) {
-			Item item = itemRegister.getItem();
-			ModelLoader.setCustomMeshDefinition(item, stack -> ModelItemVariableTexture.LOCATION);
-			ModelBakery.registerItemVariants(item, ModelItemVariableTexture.LOCATION);
-		}
-	}
-
-	@Override
-	public void registerTextures(TextureStitchEvent.Pre evt) {
-		TextureMap map = evt.getMap();
-		for (RegistrationInfoIcon icon : iconsToRegister) {
-			String name = icon.getName().replace(":", "_");
-			map.registerSprite(new ResourceLocation(CompatibilityMod.MODID, "items/" + name));
 		}
 	}
 
@@ -159,6 +142,16 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 
 		if (name.endsWith(".png"))
 			CompatibilityMod.classLoader.addResource(name, data);
+	}
+
+	@Override
+	public void registerModels(ModelRegistryEvent evt) {
+
+	}
+
+	@Override
+	public void registerTextures(Pre evt) {
+
 	}
 
 }

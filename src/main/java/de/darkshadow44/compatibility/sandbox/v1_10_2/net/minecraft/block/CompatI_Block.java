@@ -21,5 +21,7 @@ public interface CompatI_Block extends CompatI_IForgeRegistryEntry_Impl<Block> {
 
 	public Block setUnlocalizedNameSuper(String name);
 
-	public Block setCreativeTabSuper(CreativeTabs real);
+	public Block setCreativeTabSuper(CreativeTabs tab);
+
+	public int getMetaFromStateSuper(IBlockState state);
 }

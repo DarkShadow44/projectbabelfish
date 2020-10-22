@@ -114,4 +114,16 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 			original.setCreativeTab(tabs.getReal());
 		return this;
 	}
+
+	@Callback
+	public int getMetaFromState(IBlockState state) {
+		return Compat_func_176201_c(new Wrapper_IBlockState(state));
+	}
+
+	public int Compat_func_176201_c(Compat_IBlockState state) {
+		if (original == null)
+			return thisReal.getMetaFromStateSuper(state.getReal());
+		else
+			return original.getMetaFromState(state.getReal());
+	}
 }
