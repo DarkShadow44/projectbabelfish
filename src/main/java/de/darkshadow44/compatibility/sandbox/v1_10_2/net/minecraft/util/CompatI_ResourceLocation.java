@@ -6,4 +6,6 @@ public interface CompatI_ResourceLocation {
 	public ResourceLocation get();
 
 	public int compareToSuper(ResourceLocation real);
+
+	public String getResourceDomainSuper();
 }

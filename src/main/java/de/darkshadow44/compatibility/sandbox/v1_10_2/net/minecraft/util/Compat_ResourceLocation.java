@@ -14,6 +14,11 @@ public class Compat_ResourceLocation implements Comparable<Compat_ResourceLocati
 		this.initialize(Factory.create(CtorPos.POS1, CompatI_ResourceLocation.class, this, p1, p2), null);
 	}
 
+	// When called from Mod
+	public Compat_ResourceLocation(String p1) {
+		this.initialize(Factory.create(CtorPos.POS2, CompatI_ResourceLocation.class, this, p1), null);
+	}
+
 	// When called from child
 	protected Compat_ResourceLocation(ParentSelector s) {
 	}
@@ -54,5 +59,13 @@ public class Compat_ResourceLocation implements Comparable<Compat_ResourceLocati
 			return thisReal.compareToSuper(other.getReal());
 		else
 			return original.compareTo(other.getReal());
+	}
+
+	public String Compat_func_110624_b() {
+		if (original == null)
+			return thisReal.getResourceDomainSuper();
+		else
+			return original.getResourceDomain();
+
 	}
 }

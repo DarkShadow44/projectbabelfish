@@ -10,8 +10,8 @@ public class Compat_SoundEvent {
 	private CompatI_SoundEvent thisReal;
 
 	// When called from Mod
-	public Compat_SoundEvent() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_SoundEvent.class, this), null);
+	public Compat_SoundEvent(Compat_ResourceLocation location) {
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_SoundEvent.class, this, location.getReal()), null);
 	}
 
 	// When called from child

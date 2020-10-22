@@ -18,12 +18,12 @@ public class Wrapper_ICustomModelLoader implements ICustomModelLoader {
 
 	@Override
 	public void onResourceManagerReload(IResourceManager resourceManager) {
-		fake.onResourceManagerReload(new Wrapper_IResourceManager(resourceManager));
+		fake.Compat_func_110549_a(new Wrapper_IResourceManager(resourceManager));
 	}
 
 	@Override
 	public boolean accepts(ResourceLocation modelLocation) {
-		return fake.accepts(new Compat_ResourceLocation(modelLocation));
+		return fake.Compat_accepts(new Compat_ResourceLocation(modelLocation));
 	}
 
 	@Override
