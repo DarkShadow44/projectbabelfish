@@ -1,6 +1,8 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.client.model;
 
+import de.darkshadow44.compatibility.core.CompatibilityMod;
 import de.darkshadow44.compatibility.core.ParentSelector;
+import de.darkshadow44.compatibility.core.layer.ModelLocationInfo;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.Compat_Block;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.block.model.Compat_ModelBakery;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.block.model.Compat_ModelResourceLocation;
@@ -27,6 +29,6 @@ public class Compat_ModelLoader extends Compat_ModelBakery {
 	}
 
 	public static void Compat_setCustomModelResourceLocation(Compat_Item item, int metadata, Compat_ModelResourceLocation location) {
-		ModelLoader.setCustomModelResourceLocation(item.getReal(), metadata, location.getReal());
+		CompatibilityMod.LAYER_1_10_2.modelLocationInfo.add(new ModelLocationInfo(item.getReal(),  metadata, location.getReal()));
 	}
 }

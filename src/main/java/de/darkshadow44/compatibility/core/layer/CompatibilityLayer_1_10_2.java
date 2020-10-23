@@ -21,9 +21,9 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.comm
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.event.Compat_FMLPreInitializationEvent;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent.Pre;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -32,6 +32,7 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 
 	public List<RegistrationInfoBlock> blocksToRegister = new ArrayList<>();
 	public List<RegistrationInfoItem> itemsToRegister = new ArrayList<>();
+	public List<ModelLocationInfo> modelLocationInfo = new ArrayList<>();
 
 	public String currentModId = "";
 
@@ -117,10 +118,6 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 		}
 	}
 
-	private String makeItemModelJson(String pathTexture) {
-		return "{\n" + "    \"parent\": \"item/generated\",\n" + "    \"textures\": {\n" + "        \"layer0\": \"" + pathTexture + "\"\n" + "    }\n" + "}";
-	}
-
 	@Override
 	public void onItemsRegistration(Register<Item> itemRegisterEvent) {
 		for (RegistrationInfoItem itemRegister : itemsToRegister) {
@@ -129,14 +126,10 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 				item.setRegistryName(itemRegister.getLocation());
 			}
 			itemRegisterEvent.getRegistry().register(item);
+		}
 
-			ResourceLocation location = item.getRegistryName();
-
-			String itemModelJson = makeItemModelJson(location.getResourceDomain() + ":items/" + location.getResourcePath());
-
-			String path = location.getResourceDomain() + "/models/item/" + location.getResourcePath() + ".json";
-
-			CompatibilityMod.classLoader.addResource(path, itemModelJson.getBytes());
+		for (ModelLocationInfo itemRegister : modelLocationInfo) {
+			ModelLoader.setCustomModelResourceLocation(itemRegister.item, itemRegister.metadata, itemRegister.location);
 		}
 	}
 
@@ -155,6 +148,9 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 				String text = new String(data);
 				text = fixBlockstate(text);
 				data = text.getBytes();
+
+				split[1] = "models/item";
+				CompatibilityMod.classLoader.addResource(String.join("/", split), data);
 			}
 			CompatibilityMod.classLoader.addResource(name, data);
 		}
@@ -162,7 +158,12 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 
 	@Override
 	public void registerModels(ModelRegistryEvent evt) {
-
+		for (RegistrationInfoItem itemRegister : itemsToRegister) {
+			Item item = itemRegister.getItem();
+			// ModelLoader.setCustomMeshDefinition(item, stack ->
+			// ModelItemVariableTexture.LOCATION);
+			// ModelBakery.registerItemVariants(item, ModelItemVariableTexture.LOCATION);
+		}
 	}
 
 	@Override
