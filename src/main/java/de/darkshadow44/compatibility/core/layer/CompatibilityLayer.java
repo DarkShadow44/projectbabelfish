@@ -1,8 +1,8 @@
 package de.darkshadow44.compatibility.core.layer;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import de.darkshadow44.compatibility.autogen.ClassGenerator;
 import net.minecraft.block.Block;
@@ -24,7 +24,7 @@ public abstract class CompatibilityLayer {
 	private final String pathSandbox;
 	protected final String version;
 
-	protected final List<Object> mods = new ArrayList<Object>();
+	protected final Map<String, Object> mods = new HashMap<>();
 
 	public CompatibilityLayer(String version) {
 		this.pathSandbox = "de/darkshadow44/compatibility/sandbox/v" + version.replace(".", "_") + "/";

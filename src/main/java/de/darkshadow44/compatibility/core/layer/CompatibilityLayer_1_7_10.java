@@ -1,7 +1,6 @@
 package de.darkshadow44.compatibility.core.layer;
 
 import java.io.File;
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +10,7 @@ import de.darkshadow44.compatibility.core.CompatibilityMod;
 import de.darkshadow44.compatibility.core.ConstructorInfo;
 import de.darkshadow44.compatibility.core.FieldInfo;
 import de.darkshadow44.compatibility.core.MethodInfo;
+import de.darkshadow44.compatibility.core.ModInfo;
 import de.darkshadow44.compatibility.core.RegistrationInfoBlock;
 import de.darkshadow44.compatibility.core.RegistrationInfoIcon;
 import de.darkshadow44.compatibility.core.RegistrationInfoItem;
@@ -75,12 +75,14 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 		// json.toString().getBytes());
 	}
 
-	private List<String> findMods(List<Class<?>> classes) {
-		List<String> mods = new ArrayList<>();
+	private List<ModInfo> findMods(List<Class<?>> classes) {
+		List<ModInfo> mods = new ArrayList<>();
 		for (Class<?> c : classes) {
-			Annotation annotation = c.getAnnotation(Compat_Mod.class);
+			Compat_Mod annotation = c.getAnnotation(Compat_Mod.class);
 			if (annotation != null)
-				mods.add(c.getName());
+			{
+				mods.add(new ModInfo(annotation.modid(), c.getName()));
+			}
 		}
 		return mods;
 	}
@@ -91,23 +93,23 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 		dir.mkdirs();
 		CompatibilityModLoader loader = new CompatibilityModLoader(this);
 		List<Class<?>> modClasses = loader.loadAllMods(dir);
-		List<String> modClassNames = findMods(modClasses);
+		List<ModInfo> modInfos = findMods(modClasses);
 
 		// Construct mod objects
-		for (String modClassName : modClassNames) {
-			ConstructorInfo ctor = new ConstructorInfo(modClassName);
+		for (ModInfo modInfo : modInfos) {
+			ConstructorInfo ctor = new ConstructorInfo(modInfo.className);
 			Object mod = ctor.tryConstruct();
-			mods.add(mod);
+			mods.put(modInfo.id, mod);
 		}
 
 		// Fill instances
-		for (Object mod : mods) {
+		for (Object mod : mods.entrySet()) {
 			FieldInfo<?> instance = new FieldInfo<>(mod, Compat_Mod_Instance.class);
 			instance.trySetValue(mod);
 		}
 
 		// Fill proxys
-		for (Object mod : mods) {
+		for (Object mod : mods.entrySet()) {
 			FieldInfo<Compat_SidedProxy> instance = new FieldInfo<>(mod, Compat_SidedProxy.class);
 			if (instance != null) {
 				Compat_SidedProxy sidedProxy = instance.getAnnotation();
@@ -129,7 +131,7 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-		for (Object mod : mods) {
+		for (Object mod : mods.entrySet()) {
 			MethodInfo<?> methodPreInit = new MethodInfo<>(mod, Compat_Mod_EventHandler.class, Compat_FMLPreInitializationEvent.class);
 			methodPreInit.tryInvoke(new Compat_FMLPreInitializationEvent(event));
 		}

@@ -16,6 +16,10 @@ public class ResourcePack implements IResourcePack {
 
 	@Override
 	public InputStream getInputStream(ResourceLocation loc) throws IOException {
+		if (loc.toString().contains("screwdriver.json"))
+		{
+			int k = 0;
+		}
 		String path = loc.getResourceDomain() + "/" + loc.getResourcePath();
 		return CompatibilityMod.classLoader.getResourceAsStream(path);
 	}
@@ -35,6 +39,8 @@ public class ResourcePack implements IResourcePack {
 	public Set<String> getResourceDomains() {
 		Set<String> set = new HashSet<>();
 		set.add("compatibility");
+		set.add("mcmultipart");
+		set.add("rscircuits");
 		return set;
 	}
 

@@ -7,4 +7,6 @@ public interface CompatI_IForgeRegistryEntry_Impl<T extends IForgeRegistryEntry<
 	public Impl<T> get();
 
 	public IForgeRegistryEntry<?> setRegistryNameSuper(String name);
+
+	public IForgeRegistryEntry<?>  setRegistryNameSuper(String currentModId, String name);
 }

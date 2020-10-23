@@ -19,7 +19,7 @@ public class MemoryClassLoader extends ClassLoader {
 		return defineClass(name, data, 0, data.length);
 	}
 
-	public void addResource(String path, byte[] data) {
+	public void addResourceOld(String path, byte[] data) {
 		if (path.startsWith("/")) {
 			path = path.substring(1);
 		}
@@ -33,6 +33,13 @@ public class MemoryClassLoader extends ClassLoader {
 				resources.put("/compatibility/textures/items/" + modName + "_" + split[4], data);
 			}
 		}
+	}
+
+	public void addResource(String path, byte[] data) {
+		if (!path.startsWith("/")) {
+			path = "/" + path;
+		}
+		resources.put(path.toLowerCase(), data);
 	}
 
 	@Override

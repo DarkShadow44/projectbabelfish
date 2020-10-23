@@ -1,11 +1,9 @@
 package de.darkshadow44.compatibility.core.layer;
 
 import java.io.File;
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Map.Entry;
 
 import com.google.common.collect.Lists;
 
@@ -13,6 +11,7 @@ import de.darkshadow44.compatibility.core.CompatibilityMod;
 import de.darkshadow44.compatibility.core.ConstructorInfo;
 import de.darkshadow44.compatibility.core.FieldInfo;
 import de.darkshadow44.compatibility.core.MethodInfo;
+import de.darkshadow44.compatibility.core.ModInfo;
 import de.darkshadow44.compatibility.core.RegistrationInfoBlock;
 import de.darkshadow44.compatibility.core.RegistrationInfoItem;
 import de.darkshadow44.compatibility.core.loader.CompatibilityModLoader;
@@ -22,6 +21,7 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.comm
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.event.Compat_FMLPreInitializationEvent;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent.Pre;
 import net.minecraftforge.event.RegistryEvent.Register;
@@ -32,18 +32,20 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 
 	public List<RegistrationInfoBlock> blocksToRegister = new ArrayList<>();
 	public List<RegistrationInfoItem> itemsToRegister = new ArrayList<>();
-	public Map<String, String> translationsToRegister = new HashMap<>();
+
+	public String currentModId = "";
 
 	public CompatibilityLayer_1_10_2(String pathSandbox) {
 		super(pathSandbox);
 	}
 
-	private List<String> findMods(List<Class<?>> classes) {
-		List<String> mods = new ArrayList<>();
+	private List<ModInfo> findMods(List<Class<?>> classes) {
+		List<ModInfo> mods = new ArrayList<>();
 		for (Class<?> c : classes) {
-			Annotation annotation = c.getAnnotation(Compat_Mod.class);
-			if (annotation != null)
-				mods.add(c.getName());
+			Compat_Mod annotation = c.getAnnotation(Compat_Mod.class);
+			if (annotation != null) {
+				mods.add(new ModInfo(annotation.modid(), c.getName()));
+			}
 		}
 		return mods;
 	}
@@ -54,16 +56,16 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 		dir.mkdirs();
 		CompatibilityModLoader loader = new CompatibilityModLoader(this);
 		List<Class<?>> modClasses = loader.loadAllMods(dir);
-		List<String> modClassNames = findMods(modClasses);
+		List<ModInfo> modInfos = findMods(modClasses);
 
 		// HACK TODO dependencies
-		modClassNames = Lists.reverse(modClassNames);
+		modInfos = Lists.reverse(modInfos);
 
 		// Construct mod objects
-		for (String modClassName : modClassNames) {
-			ConstructorInfo ctor = new ConstructorInfo(modClassName);
+		for (ModInfo modInfo : modInfos) {
+			ConstructorInfo ctor = new ConstructorInfo(modInfo.className);
 			Object mod = ctor.tryConstruct();
-			mods.add(mod);
+			mods.put(modInfo.id, mod);
 		}
 
 		// Fill instances TODO
@@ -73,8 +75,8 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 		}*/
 
 		// Fill proxys
-		for (Object mod : mods) {
-			FieldInfo<Compat_SidedProxy> instance = new FieldInfo<>(mod, Compat_SidedProxy.class);
+		for (Entry<String, Object> mod : mods.entrySet()) {
+			FieldInfo<Compat_SidedProxy> instance = new FieldInfo<>(mod.getValue(), Compat_SidedProxy.class);
 			if (instance != null) {
 				Compat_SidedProxy sidedProxy = instance.getAnnotation();
 				String className;
@@ -95,8 +97,9 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-		for (Object mod : mods) {
-			MethodInfo<?> methodPreInit = new MethodInfo<>(mod, Compat_Mod_EventHandler.class, Compat_FMLPreInitializationEvent.class);
+		for (String modId : mods.keySet()) {
+			currentModId = modId;
+			MethodInfo<?> methodPreInit = new MethodInfo<>(mods.get(modId), Compat_Mod_EventHandler.class, Compat_FMLPreInitializationEvent.class);
 			methodPreInit.tryInvoke(new Compat_FMLPreInitializationEvent(event));
 		}
 	}
@@ -114,6 +117,10 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 		}
 	}
 
+	private String makeItemModelJson(String pathTexture) {
+		return "{\n" + "    \"parent\": \"item/generated\",\n" + "    \"textures\": {\n" + "        \"layer0\": \"" + pathTexture + "\"\n" + "    }\n" + "}";
+	}
+
 	@Override
 	public void onItemsRegistration(Register<Item> itemRegisterEvent) {
 		for (RegistrationInfoItem itemRegister : itemsToRegister) {
@@ -122,26 +129,35 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 				item.setRegistryName(itemRegister.getLocation());
 			}
 			itemRegisterEvent.getRegistry().register(item);
+
+			ResourceLocation location = item.getRegistryName();
+
+			String itemModelJson = makeItemModelJson(location.getResourceDomain() + ":items/" + location.getResourcePath());
+
+			String path = location.getResourceDomain() + "/models/item/" + location.getResourcePath() + ".json";
+
+			CompatibilityMod.classLoader.addResource(path, itemModelJson.getBytes());
 		}
+	}
+
+	private String fixBlockstate(String text) {
+		text = text.replace("\"inventory\": { }", "\"inventory\": [{ }]");
+		return text;
 	}
 
 	@Override
 	public void handleResource(String name, byte[] data) {
-		if (name.endsWith(".lang")) {
-			String split[] = name.split("/");
-			String lang = split[split.length - 1];
-			lang = lang.substring(0, lang.length() - ".lang".length());
+		name = name.substring("assets/".length());
+		if (name.endsWith(".png") || name.endsWith(".json")) {
+			String[] split = name.split("\\/");
 
-			String text = new String(data).replace("\r", "");
-
-			if (translationsToRegister.containsKey(lang)) {
-				text = translationsToRegister.get(lang) + "\n" + text;
+			if (split[1].equals("blockstates")) {
+				String text = new String(data);
+				text = fixBlockstate(text);
+				data = text.getBytes();
 			}
-			translationsToRegister.put(lang, text);
-		}
-
-		if (name.endsWith(".png"))
 			CompatibilityMod.classLoader.addResource(name, data);
+		}
 	}
 
 	@Override

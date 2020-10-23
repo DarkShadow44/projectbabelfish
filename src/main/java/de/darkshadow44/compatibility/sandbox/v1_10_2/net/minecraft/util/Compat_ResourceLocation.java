@@ -2,6 +2,7 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util;
 
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
+import de.darkshadow44.compatibility.core.CompatibilityMod;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.util.ResourceLocation;
 
@@ -16,7 +17,7 @@ public class Compat_ResourceLocation implements Comparable<Compat_ResourceLocati
 
 	// When called from Mod
 	public Compat_ResourceLocation(String p1) {
-		this.initialize(Factory.create(CtorPos.POS2, CompatI_ResourceLocation.class, this, p1), null);
+		this.initialize(Factory.create(CtorPos.POS2, CompatI_ResourceLocation.class, this, CompatibilityMod.LAYER_1_10_2.currentModId, p1), null);
 	}
 
 	// When called from child
