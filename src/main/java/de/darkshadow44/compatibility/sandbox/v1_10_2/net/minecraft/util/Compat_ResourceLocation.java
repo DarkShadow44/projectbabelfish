@@ -66,6 +66,12 @@ public class Compat_ResourceLocation implements Comparable<Compat_ResourceLocati
 			return thisReal.getResourceDomainSuper();
 		else
 			return original.getResourceDomain();
+	}
 
+	public String Compat_func_110623_a() {
+		if (original == null)
+			return thisReal.getResourcePathSuper();
+		else
+			return original.getResourcePath();
 	}
 }

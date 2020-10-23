@@ -8,4 +8,6 @@ public interface CompatI_ResourceLocation {
 	public int compareToSuper(ResourceLocation real);
 
 	public String getResourceDomainSuper();
+
+	public String getResourcePathSuper();
 }

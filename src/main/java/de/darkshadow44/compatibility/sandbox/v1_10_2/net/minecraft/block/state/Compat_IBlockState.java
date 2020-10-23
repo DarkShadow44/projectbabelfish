@@ -7,4 +7,6 @@ public interface Compat_IBlockState {
 	<T extends Comparable<T>, V extends T> Compat_IBlockState Compat_func_177226_a(Compat_IProperty<T> var1, V var2);
 
 	public IBlockState getReal();
+
+	Comparable<?> Compat_func_177229_b(Compat_IProperty<?> property);
 }
