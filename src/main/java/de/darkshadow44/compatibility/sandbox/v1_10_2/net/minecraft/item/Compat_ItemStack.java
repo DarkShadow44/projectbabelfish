@@ -82,4 +82,11 @@ public class Compat_ItemStack {
 			original.setStackDisplayName(name);
 		return this;
 	}
+
+	public int Compat_func_77952_i() {
+		if (original == null)
+			return thisReal.getItemDamageSuper();
+		else
+			return original.getItemDamage();
+	}
 }

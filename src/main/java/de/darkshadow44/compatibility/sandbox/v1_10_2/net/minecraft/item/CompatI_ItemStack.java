@@ -13,4 +13,6 @@ public interface CompatI_ItemStack {
 	public String getDisplayNameSuper();
 
 	public ItemStack setStackDisplayNameSuper(String name);
+
+	public int getItemDamageSuper();
 }
