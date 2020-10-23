@@ -154,16 +154,18 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 			}
 			CompatibilityMod.classLoader.addResource(name, data);
 		}
+
+		if (name.endsWith(".lang")) {
+			registerTranslation(name, new String(data));
+		}
+	}
+
+	private void registerTranslation(String name, String text) {
+		CompatibilityMod.classLoader.addResource(name, text.getBytes());
 	}
 
 	@Override
 	public void registerModels(ModelRegistryEvent evt) {
-		for (RegistrationInfoItem itemRegister : itemsToRegister) {
-			Item item = itemRegister.getItem();
-			// ModelLoader.setCustomMeshDefinition(item, stack ->
-			// ModelItemVariableTexture.LOCATION);
-			// ModelBakery.registerItemVariants(item, ModelItemVariableTexture.LOCATION);
-		}
 	}
 
 	@Override

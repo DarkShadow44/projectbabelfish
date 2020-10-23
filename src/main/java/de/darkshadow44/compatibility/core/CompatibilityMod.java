@@ -25,6 +25,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -66,6 +67,12 @@ public class CompatibilityMod {
 
 	}
 
+	@SuppressWarnings("deprecation")
+	@EventHandler
+	void postInit(FMLPostInitializationEvent event) {
+		Minecraft.getMinecraft().refreshResources();
+	}
+
 	@SubscribeEvent
 	public static void onBlocksRegistration(final RegistryEvent.Register<Block> blockRegisterEvent) {
 		for (CompatibilityLayer layer : layers) {
@@ -95,7 +102,7 @@ public class CompatibilityMod {
 		}
 	}
 
-	@SuppressWarnings({ "unchecked", "deprecation" })
+	@SuppressWarnings({ "unchecked" })
 	void registerTexturePack() {
 		FMLClientHandler INSTANCE;
 		List<IResourcePack> resourcePackList;
@@ -107,7 +114,5 @@ public class CompatibilityMod {
 
 		resourcePackList.add(resourcePack);
 		resourcePackMap.put("compat", resourcePack);
-
-		Minecraft.getMinecraft().refreshResources();
 	}
 }
