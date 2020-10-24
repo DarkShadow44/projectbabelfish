@@ -238,7 +238,7 @@ public class ClassGenerator {
 		return method;
 	}
 
-	private void generateMethodsForIface(List<MethodNode> methods, Class<?> classIface, String realPath, String mcPath) {
+	private void generateMethodsForIface(List<MethodNode> methods, Class<?> classIface, String realPath, String mcPath, Class<?> classMc) {
 		for (Method method : classIface.getMethods()) {
 			if (method.getName().equals("get")) {
 				continue;
@@ -257,6 +257,9 @@ public class ClassGenerator {
 				methods.add(methodCreated);
 				continue;
 			}
+			if (!methodExistsInClass(classMc, method, true)) {
+				throw new RuntimeException("Can't find method \"" + method.getName() + "\" in class " + mcPath);
+			}
 			MethodNode methodCreated = generateSuper(realPath, mcPath, method.getParameters(), method.getName(), method.getReturnType());
 			methods.add(methodCreated);
 		}
@@ -271,10 +274,52 @@ public class ClassGenerator {
 		}
 	}
 
-	private void generateCallbacks(List<MethodNode> methods, Class<?> classFake, String realPath, String mcPath) {
+	private boolean methodsMatch(Method method, Method methodSearch, boolean isSuper) {
+		String nameSearch = methodSearch.getName();
+		if (isSuper) {
+			nameSearch = nameSearch.substring(0, nameSearch.length() - "Super".length());
+		}
+		if (!method.getName().equals(nameSearch))
+			return false;
+		if (!method.getReturnType().equals(methodSearch.getReturnType()))
+			return false;
+		Parameter[] params1 = method.getParameters();
+		Parameter[] params2 = methodSearch.getParameters();
+
+		if (params1.length != params2.length)
+			return false;
+
+		for (int i = 0; i < params1.length; i++) {
+			Parameter param1 = params1[i];
+			Parameter param2 = params2[i];
+
+			if (!param1.getType().equals(param2.getType()))
+				return false;
+		}
+
+		return true;
+	}
+
+	private boolean methodExistsInClass(Class<?> classMc, Method methodSearch, boolean isSuper) {
+		for (Method method : classMc.getDeclaredMethods()) {
+			if (methodsMatch(method, methodSearch, isSuper))
+				return true;
+		}
+
+		if (classMc.getSuperclass() != null) {
+			return methodExistsInClass(classMc.getSuperclass(), methodSearch, isSuper);
+		}
+
+		return false;
+	}
+
+	private void generateCallbacks(List<MethodNode> methods, Class<?> classFake, String realPath, String mcPath, Class<?> classMc) {
 		for (Method method : classFake.getMethods()) {
 			Callback callback = method.getAnnotation(Callback.class);
 			if (callback != null) {
+				if (!methodExistsInClass(classMc, method, false)) {
+					throw new RuntimeException("Can't find method \"" + method.getName() + "\" in class " + mcPath);
+				}
 				MethodNode methodCreated = generateWrapper(realPath, method.getParameters(), method.getName(), method.getReturnType(), mcPath, callback.skipDuringConstructor());
 				methods.add(methodCreated);
 			}
@@ -307,12 +352,12 @@ public class ClassGenerator {
 			classNode.methods.add(method);
 		}
 
-		generateMethodsForIface(classNode.methods, classIface, classNode.name, mcPath);
+		generateMethodsForIface(classNode.methods, classIface, classNode.name, mcPath, classMc);
 
 		generateAbstractWrappers(classNode.methods, classMc, classNode.name);
 
 		Class<?> classFake = Class.forName(fakePath.replace("/", "."));
-		generateCallbacks(classNode.methods, classFake, classNode.name, mcPath);
+		generateCallbacks(classNode.methods, classFake, classNode.name, mcPath, classMc);
 
 		ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
 		classNode.accept(classWriter);

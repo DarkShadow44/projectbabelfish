@@ -19,6 +19,4 @@ Interface methods:
 
 for entity mapping where witchery registers its entities into a map, maybe subclass HashMap and hande insertions differently...
 
-ToolModelLoader custom model for loading item textures ?!?! ModelDynBucket CulinaryConstruct
-
 --tweakClass org.spongepowered.asm.launch.MixinTweaker --mixin mixins.compatibility.json
