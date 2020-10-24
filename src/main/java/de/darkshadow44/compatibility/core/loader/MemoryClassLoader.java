@@ -2,21 +2,42 @@ package de.darkshadow44.compatibility.core.loader;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.HashMap;
 
-public class MemoryClassLoader extends ClassLoader {
+import com.google.common.io.Files;
+
+public class MemoryClassLoader extends URLClassLoader {
 
 	HashMap<String, byte[]> resources;
 
-	public MemoryClassLoader(ClassLoader parent) {
-		super(parent);
+	public MemoryClassLoader(URL[] urls, ClassLoader parent) {
+		super(urls, parent);
 		resources = new HashMap<String, byte[]>();
 	}
 
-	public Class<?> addClass(String name, byte[] data) {
+	public Class<?> addClassOld(String name, byte[] data) {
 		// System.out.println("Loading class: " + name); // For debugging
 		return defineClass(name, data, 0, data.length);
+	}
+
+	public Class<?> addClass(String name, byte[] data) {
+		try {
+			File file = new File("/home/fabian/Ramdisk/temp/" + name.replace(".", "/") + ".class");
+			file.getParentFile().mkdirs();
+			Files.write(data, file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			return loadClass(name, false);
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public void addResourceOld(String path, byte[] data) {

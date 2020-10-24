@@ -1,6 +1,8 @@
 package de.darkshadow44.compatibility.core;
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +49,19 @@ public class CompatibilityMod {
 		layers.add(LAYER_1_10_2);
 	}
 
-	public static MemoryClassLoader classLoader = new MemoryClassLoader(Launch.classLoader);
+	public static MemoryClassLoader classLoader;
+
+	static {
+		File file = new File("/home/fabian/Ramdisk/temp/");
+		URL[] urls = null;
+		try {
+			urls = new URL[] { file.toURI().toURL() };
+		} catch (MalformedURLException e) {
+			throw new RuntimeException(e);
+		}
+
+		classLoader = new MemoryClassLoader(urls, Launch.classLoader);
+	}
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
