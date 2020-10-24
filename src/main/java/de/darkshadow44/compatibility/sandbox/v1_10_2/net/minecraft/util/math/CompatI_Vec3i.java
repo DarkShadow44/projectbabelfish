@@ -6,4 +6,10 @@ public interface CompatI_Vec3i {
 	public Vec3i get();
 
 	public int compareToSuper(Vec3i other);
+
+	public int getXSuper();
+
+	public int getYSuper();
+
+	public int getZSuper();
 }

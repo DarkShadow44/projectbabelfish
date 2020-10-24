@@ -17,4 +17,8 @@ public interface CompatI_ItemStack {
 	public int getItemDamageSuper();
 
 	public boolean hasTagCompoundSuper();
+
+	public int getCountSuper();
+
+	public void setCountSuper(int value);
 }

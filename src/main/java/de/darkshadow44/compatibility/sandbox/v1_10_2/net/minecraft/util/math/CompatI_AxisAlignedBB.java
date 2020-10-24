@@ -16,4 +16,8 @@ public interface CompatI_AxisAlignedBB {
 	public double get_maxY();
 
 	public double get_maxZ();
+
+	public boolean intersectsSuper(AxisAlignedBB other);
+
+	public AxisAlignedBB offsetSuper(double x, double y, double z);
 }

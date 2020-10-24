@@ -10,6 +10,8 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state.C
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state.Wrapper_IBlockState;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.creativetab.Compat_CreativeTabs;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_AxisAlignedBB;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_BlockPos;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_IBlockAccess;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.registry.Compat_IForgeRegistryEntry_Impl;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.BlockStateContainer;
@@ -125,5 +127,12 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 			return thisReal.getMetaFromStateSuper(state.getReal());
 		else
 			return original.getMetaFromState(state.getReal());
+	}
+
+	public boolean Compat_func_176200_f(Compat_IBlockAccess world, Compat_BlockPos pos) {
+		if (original == null)
+			return thisReal.isReplaceableSuper(world.getReal(), pos.getReal());
+		else
+			return original.isReplaceable(world.getReal(), pos.getReal());
 	}
 }

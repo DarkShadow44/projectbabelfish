@@ -5,6 +5,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 
 public interface CompatI_Block extends CompatI_IForgeRegistryEntry_Impl<Block> {
 	public Block get();
@@ -24,4 +26,6 @@ public interface CompatI_Block extends CompatI_IForgeRegistryEntry_Impl<Block> {
 	public Block setCreativeTabSuper(CreativeTabs tab);
 
 	public int getMetaFromStateSuper(IBlockState state);
+
+	public boolean isReplaceableSuper(IBlockAccess world, BlockPos pos);
 }

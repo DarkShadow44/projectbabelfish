@@ -103,4 +103,18 @@ public class Compat_ItemStack {
 		else
 			return original.hasTagCompound();
 	}
+
+	public int Compat_get_field_77994_a() {
+		if (original == null)
+			return thisReal.getCountSuper();
+		else
+			return original.getCount();
+	}
+
+	public void Compat_set_field_77994_a(int value) {
+		if (original == null)
+			thisReal.setCountSuper(value);
+		else
+			original.setCount(value);
+	}
 }

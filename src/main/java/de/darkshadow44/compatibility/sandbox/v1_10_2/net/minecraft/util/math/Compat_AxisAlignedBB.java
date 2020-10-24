@@ -73,4 +73,20 @@ public class Compat_AxisAlignedBB {
 		else
 			return original.maxZ;
 	}
+
+	public boolean Compat_func_72326_a(Compat_AxisAlignedBB other) {
+		if (original == null)
+			return thisReal.intersectsSuper(other.getReal());
+		else
+			return original.intersects(other.getReal());
+	}
+
+	public Compat_AxisAlignedBB Compat_func_72317_d(double x, double y, double z) {
+		AxisAlignedBB axis;
+		if (original == null)
+			axis = thisReal.offsetSuper(x, y, z);
+		else
+			axis = original.offset(x, y, z);
+		return new Compat_AxisAlignedBB(axis);
+	}
 }

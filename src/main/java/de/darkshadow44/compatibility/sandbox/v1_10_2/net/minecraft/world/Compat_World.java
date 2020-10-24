@@ -5,7 +5,11 @@ import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state.Compat_IBlockState;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state.Wrapper_IBlockState;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.entity.player.Compat_EntityPlayer;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.tileentity.Compat_TileEntity;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_SoundCategory;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_SoundEvent;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_AxisAlignedBB;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_BlockPos;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
@@ -66,5 +70,19 @@ public class Compat_World implements Compat_IBlockAccess {
 			tile = original.getTileEntity(pos.getReal());
 
 		return new Compat_TileEntity(tile);
+	}
+
+	public boolean Compat_func_72855_b(Compat_AxisAlignedBB axis) {
+		if (original == null)
+			return thisReal.checkNoEntityCollisionSuper(axis.getReal());
+		else
+			return original.checkNoEntityCollision(axis.getReal());
+	}
+
+	public void Compat_func_184133_a(Compat_EntityPlayer player, Compat_BlockPos pos, Compat_SoundEvent sound, Compat_SoundCategory category, float volume, float pitch) {
+		if (original == null)
+			thisReal.playSoundSuper(player.getReal(), pos.getReal(), sound.getReal(), category.getReal(), volume, pitch);
+		else
+			original.playSound(player.getReal(), pos.getReal(), sound.getReal(), category.getReal(), volume, pitch);
 	}
 }

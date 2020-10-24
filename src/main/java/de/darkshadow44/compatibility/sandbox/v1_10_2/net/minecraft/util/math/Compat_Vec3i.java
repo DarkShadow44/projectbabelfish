@@ -55,4 +55,25 @@ public class Compat_Vec3i implements Comparable<Compat_Vec3i> {
 		else
 			return original.compareTo(other.getReal());
 	}
+
+	public int Compat_func_177958_n() {
+		if (original == null)
+			return thisReal.getXSuper();
+		else
+			return original.getX();
+	}
+
+	public int Compat_func_177956_o() {
+		if (original == null)
+			return thisReal.getYSuper();
+		else
+			return original.getY();
+	}
+
+	public int Compat_func_177952_p() {
+		if (original == null)
+			return thisReal.getZSuper();
+		else
+			return original.getZ();
+	}
 }
