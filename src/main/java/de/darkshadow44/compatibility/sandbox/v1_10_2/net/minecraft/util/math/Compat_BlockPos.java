@@ -3,6 +3,7 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math;
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
 public class Compat_BlockPos extends Compat_Vec3i {
@@ -34,5 +35,12 @@ public class Compat_BlockPos extends Compat_Vec3i {
 
 	public BlockPos getReal() {
 		return original == null ? thisReal.get() : original;
+	}
+
+	public Compat_BlockPos Compat_func_177972_a(Compat_EnumFacing facing) {
+		if (original == null)
+			return new Compat_BlockPos(thisReal.offsetSuper(facing.getReal()));
+		else
+			return new Compat_BlockPos(original.offset(facing.getReal()));
 	}
 }

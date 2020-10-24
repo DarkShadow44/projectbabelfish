@@ -4,6 +4,9 @@ import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.entity.Compat_EntityLivingBase;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.item.Compat_ItemStack;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_EnumFacing;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_BlockPos;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class Compat_EntityPlayer extends Compat_EntityLivingBase {
@@ -35,5 +38,12 @@ public class Compat_EntityPlayer extends Compat_EntityLivingBase {
 
 	public EntityPlayer getReal() {
 		return original == null ? thisReal.get() : original;
+	}
+
+	public boolean Compat_func_175151_a(Compat_BlockPos pos, Compat_EnumFacing facing, Compat_ItemStack stack) {
+		if (original == null)
+			return thisReal.canPlayerEditSuper(pos.getReal(), facing.getReal(), stack.getReal());
+		else
+			return original.canPlayerEdit(pos.getReal(), facing.getReal(), stack.getReal());
 	}
 }

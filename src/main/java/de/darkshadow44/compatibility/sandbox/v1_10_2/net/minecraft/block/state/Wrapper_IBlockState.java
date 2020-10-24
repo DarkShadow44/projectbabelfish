@@ -2,6 +2,8 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state;
 
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.properties.Compat_IProperty;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_EnumFacing;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_BlockPos;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_IBlockAccess;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 
@@ -29,5 +31,10 @@ public class Wrapper_IBlockState implements Compat_IBlockState {
 			return Compat_EnumFacing.map_real_to_fake((EnumFacing) value);
 		}
 		return value;
+	}
+
+	@Override
+	public boolean Compat_isSideSolid(Compat_IBlockAccess world, Compat_BlockPos pos, Compat_EnumFacing facing) {
+		return original.isSideSolid(world.getReal(), pos.getReal(), facing.getReal());
 	}
 }

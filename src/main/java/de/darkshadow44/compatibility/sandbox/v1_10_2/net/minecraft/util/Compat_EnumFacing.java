@@ -86,4 +86,20 @@ public enum Compat_EnumFacing implements IStringSerializable {
 	public int Compat_ordinal() {
 		return original.ordinal();
 	}
+
+	public int Compat_func_82601_c() {
+		return original.getFrontOffsetX();
+	}
+
+	public int Compat_func_96559_d() {
+		return original.getFrontOffsetY();
+	}
+
+	public int Compat_func_82599_e() {
+		return original.getFrontOffsetZ();
+	}
+
+	public Compat_EnumFacing Compat_func_176734_d() {
+		return map_real_to_fake(original.getOpposite());
+	}
 }

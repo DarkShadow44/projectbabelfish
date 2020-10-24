@@ -6,6 +6,7 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.Compat_Block;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.nbt.Compat_NBTTagCompound;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class Compat_ItemStack {
 	private ItemStack original;
@@ -62,10 +63,16 @@ public class Compat_ItemStack {
 	}
 
 	public Compat_NBTTagCompound Compat_func_77978_p() {
+		NBTTagCompound tag;
 		if (original == null)
-			return new Compat_NBTTagCompound(thisReal.getTagCompoundSuper());
+			tag = thisReal.getTagCompoundSuper();
 		else
-			return new Compat_NBTTagCompound(original.getTagCompound());
+			tag = original.getTagCompound();
+
+		if (tag == null)
+			return null;
+
+		return new Compat_NBTTagCompound(tag);
 	}
 
 	public String Compat_func_82833_r() {
