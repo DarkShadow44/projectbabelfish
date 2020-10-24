@@ -3,6 +3,8 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.tileentity;
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_BlockPos;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_World;
 import net.minecraft.tileentity.TileEntity;
 
 public class Compat_TileEntity {
@@ -30,5 +32,19 @@ public class Compat_TileEntity {
 
 	public TileEntity getReal() {
 		return original == null ? thisReal.get() : original;
+	}
+
+	public Compat_World Compat_func_145831_w() {
+		if (original == null)
+			return new Compat_World(thisReal.getWorldSuper());
+		else
+			return new Compat_World(original.getWorld());
+	}
+
+	public Compat_BlockPos Compat_func_174877_v() {
+		if (original == null)
+			return new Compat_BlockPos(thisReal.getPosSuper());
+		else
+			return new Compat_BlockPos(original.getPos());
 	}
 }

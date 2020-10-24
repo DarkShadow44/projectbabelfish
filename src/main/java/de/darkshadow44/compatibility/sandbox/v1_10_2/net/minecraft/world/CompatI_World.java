@@ -23,4 +23,6 @@ public interface CompatI_World {
 	public void playSoundSuper(EntityPlayer player, BlockPos pos, SoundEvent sound, SoundCategory category, float volume, float pitch);
 
 	public boolean setBlockStateSuper(BlockPos pos, IBlockState state);
+
+	public void setTileEntitySuper(BlockPos pos, TileEntity tile);
 }

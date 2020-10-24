@@ -92,4 +92,11 @@ public class Compat_World implements Compat_IBlockAccess {
 		else
 			return original.setBlockState(pos.getReal(), state.getReal());
 	}
+
+	public void Compat_func_175690_a(Compat_BlockPos pos, Compat_TileEntity tile) {
+		if (original == null)
+			thisReal.setTileEntitySuper(pos.getReal(), tile.getReal());
+		else
+			original.setTileEntity(pos.getReal(), tile.getReal());
+	}
 }
