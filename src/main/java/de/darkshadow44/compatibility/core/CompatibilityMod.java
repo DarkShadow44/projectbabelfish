@@ -37,6 +37,7 @@ public class CompatibilityMod {
 	public static final String MODID = "compatibility";
 	public static final String NAME = "Compatibility Mod";
 	public static final String VERSION = "1.0";
+	public static final boolean INTELLIJ = false;
 
 	private final ResourcePack resourcePack = new ResourcePack();
 

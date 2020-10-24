@@ -85,4 +85,11 @@ public class Compat_World implements Compat_IBlockAccess {
 		else
 			original.playSound(player.getReal(), pos.getReal(), sound.getReal(), category.getReal(), volume, pitch);
 	}
+
+	public boolean Compat_func_175656_a(Compat_BlockPos pos, Compat_IBlockState state) {
+		if (original == null)
+			return thisReal.setBlockStateSuper(pos.getReal(), state.getReal());
+		else
+			return original.setBlockState(pos.getReal(), state.getReal());
+	}
 }

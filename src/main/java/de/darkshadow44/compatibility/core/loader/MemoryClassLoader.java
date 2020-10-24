@@ -11,6 +11,8 @@ import java.util.HashMap;
 
 import com.google.common.io.Files;
 
+import de.darkshadow44.compatibility.core.CompatibilityMod;
+
 public class MemoryClassLoader extends URLClassLoader {
 
 	HashMap<String, byte[]> resources;
@@ -20,12 +22,11 @@ public class MemoryClassLoader extends URLClassLoader {
 		resources = new HashMap<String, byte[]>();
 	}
 
-	public Class<?> addClassOld(String name, byte[] data) {
-		// System.out.println("Loading class: " + name); // For debugging
-		return defineClass(name, data, 0, data.length);
-	}
-
 	public Class<?> addClass(String name, byte[] data) {
+		// System.out.println("Loading class: " + name); // For debugging
+		if (!CompatibilityMod.INTELLIJ)
+			return defineClass(name, data, 0, data.length);
+
 		try {
 			File file = new File("/home/fabian/Ramdisk/temp/" + name.replace(".", "/") + ".class");
 			file.getParentFile().mkdirs();

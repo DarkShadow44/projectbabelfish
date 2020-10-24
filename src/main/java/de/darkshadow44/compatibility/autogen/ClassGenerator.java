@@ -374,7 +374,12 @@ public class ClassGenerator {
 		ClassPath classesPath = ClassPath.from(ClassGenerator.class.getClassLoader());
 		String sandbox = layer.getPathSandbox().replace("/", ".");
 		sandbox = sandbox.substring(0, sandbox.length() - 1);
-		ImmutableSet<ClassInfo> classes = classesPath.getTopLevelClassesRecursive(sandbox + "net/");
+		ImmutableSet<ClassInfo> classes;
+
+		if (CompatibilityMod.INTELLIJ)
+			classes = classesPath.getTopLevelClassesRecursive(sandbox + "net/");
+		else
+			classes = classesPath.getTopLevelClassesRecursive(sandbox);
 
 		for (ClassInfo clazzInfo : classes) {
 			String classFullName = clazzInfo.getName().replace(".", "/");
