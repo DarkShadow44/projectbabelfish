@@ -91,7 +91,7 @@ dependencies {
 
 	runtime "mezz.jei:jei_${mc_version}:${jei_version}"
 
-	runtime('org.spongepowered:mixin:0.8.2') {
+	compile('org.spongepowered:mixin:0.8.2') {
 		exclude module: 'guava'
 		exclude module: 'commons-io'
 		exclude module: 'gson'
