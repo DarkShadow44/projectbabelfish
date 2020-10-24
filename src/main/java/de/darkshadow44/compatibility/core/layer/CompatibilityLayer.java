@@ -10,6 +10,8 @@ import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent.Pre;
 import net.minecraftforge.event.RegistryEvent.Register;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
@@ -67,6 +69,10 @@ public abstract class CompatibilityLayer {
 	}
 
 	public abstract void preInit(FMLPreInitializationEvent event);
+
+	public abstract void init(FMLInitializationEvent event);
+
+	public abstract void postInit(FMLPostInitializationEvent event);
 
 	public abstract void onBlocksRegistration(Register<Block> blockRegisterEvent);
 

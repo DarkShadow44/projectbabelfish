@@ -4,4 +4,6 @@ import net.minecraft.tileentity.TileEntity;
 
 public interface CompatI_TileEntity {
 	public TileEntity get();
+
+	public Compat_TileEntity getFake();
 }

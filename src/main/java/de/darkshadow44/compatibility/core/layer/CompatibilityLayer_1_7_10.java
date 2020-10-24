@@ -33,6 +33,8 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent.Register;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
@@ -79,8 +81,7 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 		List<ModInfo> mods = new ArrayList<>();
 		for (Class<?> c : classes) {
 			Compat_Mod annotation = c.getAnnotation(Compat_Mod.class);
-			if (annotation != null)
-			{
+			if (annotation != null) {
 				mods.add(new ModInfo(annotation.modid(), c.getName()));
 			}
 		}
@@ -200,6 +201,16 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 
 		if (name.endsWith(".png"))
 			CompatibilityMod.classLoader.addResource(name, data);
+	}
+
+	@Override
+	public void init(FMLInitializationEvent event) {
+
+	}
+
+	@Override
+	public void postInit(FMLPostInitializationEvent event) {
+
 	}
 
 }

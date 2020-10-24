@@ -3,11 +3,12 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.rende
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.tileentity.Compat_TileEntity;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 
-public class Compat_TileEntitySpecialRenderer<T extends TileEntity> {
-	private TileEntitySpecialRenderer<T> original;
+public class Compat_TileEntitySpecialRenderer<T extends Compat_TileEntity> {
+	private TileEntitySpecialRenderer<TileEntity> original;
 	private CompatI_TileEntitySpecialRenderer<T> thisReal;
 
 	// When called from Mod
@@ -20,16 +21,16 @@ public class Compat_TileEntitySpecialRenderer<T extends TileEntity> {
 	}
 
 	// When called from Minecraft
-	public Compat_TileEntitySpecialRenderer(TileEntitySpecialRenderer<T> original) {
+	public Compat_TileEntitySpecialRenderer(TileEntitySpecialRenderer<TileEntity> original) {
 		this.initialize(null, original);
 	}
 
-	protected void initialize(CompatI_TileEntitySpecialRenderer<T> thisReal, TileEntitySpecialRenderer<T> original) {
+	protected void initialize(CompatI_TileEntitySpecialRenderer<T> thisReal, TileEntitySpecialRenderer<TileEntity> original) {
 		this.thisReal = thisReal;
 		this.original = original;
 	}
 
-	public TileEntitySpecialRenderer<T> getReal() {
+	public TileEntitySpecialRenderer<TileEntity> getReal() {
 		return original == null ? thisReal.get() : original;
 	}
 }

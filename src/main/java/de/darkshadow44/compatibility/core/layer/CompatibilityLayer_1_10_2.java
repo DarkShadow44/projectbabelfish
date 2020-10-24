@@ -18,6 +18,7 @@ import de.darkshadow44.compatibility.core.loader.CompatibilityModLoader;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.Compat_Mod;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.Compat_Mod_EventHandler;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.Compat_SidedProxy;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.event.Compat_FMLInitializationEvent;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.event.Compat_FMLPreInitializationEvent;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -25,6 +26,8 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent.Pre;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent.Register;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
@@ -171,6 +174,20 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 	@Override
 	public void registerTextures(Pre evt) {
 
+	}
+
+	@Override
+	public void init(FMLInitializationEvent event) {
+		for (String modId : mods.keySet()) {
+			currentModId = modId;
+			MethodInfo<?> methodInit = new MethodInfo<>(mods.get(modId), Compat_Mod_EventHandler.class, Compat_FMLInitializationEvent.class);
+			methodInit.tryInvoke(new Compat_FMLInitializationEvent(event));
+		}
+	}
+
+	@Override
+	public void postInit(FMLPostInitializationEvent event) {
+		// TODO
 	}
 
 }

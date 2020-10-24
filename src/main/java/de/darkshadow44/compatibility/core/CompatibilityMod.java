@@ -64,7 +64,9 @@ public class CompatibilityMod {
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-
+		for (CompatibilityLayer layer : layers) {
+			layer.init(event);
+		}
 	}
 
 	@SuppressWarnings("deprecation")
