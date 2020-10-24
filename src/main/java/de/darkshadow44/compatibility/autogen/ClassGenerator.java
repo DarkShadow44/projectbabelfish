@@ -356,6 +356,17 @@ public class ClassGenerator {
 
 		generateAbstractWrappers(classNode.methods, classMc, classNode.name);
 
+		Interface iface = classIface.getAnnotation(Interface.class);
+		if (iface != null) {
+			Class<?> clazzIface = iface.value();
+			classNode.interfaces.add(clazzIface.getName().replace(".", "/"));
+
+			for (Method method : clazzIface.getMethods()) {
+				MethodNode methodCreated = generateWrapper(classNode.name, method.getParameters(), method.getName(), method.getReturnType(), null, false);
+				classNode.methods.add(methodCreated);
+			}
+		}
+
 		Class<?> classFake = Class.forName(fakePath.replace("/", "."));
 		generateCallbacks(classNode.methods, classFake, classNode.name, mcPath, classMc);
 
@@ -377,7 +388,7 @@ public class ClassGenerator {
 		ImmutableSet<ClassInfo> classes;
 
 		if (CompatibilityMod.INTELLIJ)
-			classes = classesPath.getTopLevelClassesRecursive(sandbox + "net/");
+			classes = classesPath.getTopLevelClassesRecursive(sandbox + ".net");
 		else
 			classes = classesPath.getTopLevelClassesRecursive(sandbox);
 

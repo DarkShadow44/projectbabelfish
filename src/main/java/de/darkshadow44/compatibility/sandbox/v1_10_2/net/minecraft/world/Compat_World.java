@@ -69,6 +69,9 @@ public class Compat_World implements Compat_IBlockAccess {
 		else
 			tile = original.getTileEntity(pos.getReal());
 
+		if (tile == null)
+			return null;
+
 		return new Compat_TileEntity(tile);
 	}
 

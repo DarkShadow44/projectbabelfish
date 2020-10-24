@@ -9,13 +9,17 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state.C
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state.Compat_IBlockState;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state.Wrapper_IBlockState;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.creativetab.Compat_CreativeTabs;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.tileentity.Compat_TileEntity;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_AxisAlignedBB;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_BlockPos;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_IBlockAccess;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_World;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.registry.Compat_IForgeRegistryEntry_Impl;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
 public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	private Block original;
@@ -134,5 +138,17 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 			return thisReal.isReplaceableSuper(world.getReal(), pos.getReal());
 		else
 			return original.isReplaceable(world.getReal(), pos.getReal());
+	}
+
+	public TileEntity createNewTileEntity(World world, int meta) {
+		if (!(this instanceof Compat_ITileEntityProvider)) {
+			return null;
+		}
+		return Compat_func_149915_a(new Compat_World(world), meta).getReal();
+	}
+
+	public Compat_TileEntity Compat_func_149915_a(Compat_World world, int meta) {
+		// To be overriden
+		throw new RuntimeException();
 	}
 }
