@@ -31,4 +31,11 @@ public class Compat_World implements Compat_IBlockAccess {
 	public World getReal() {
 		return original == null ? thisReal.get() : original;
 	}
+
+	public boolean Compat_get_field_72995_K() {
+		if (original == null)
+			return thisReal.get_isRemote();
+		else
+			return original.isRemote;
+	}
 }

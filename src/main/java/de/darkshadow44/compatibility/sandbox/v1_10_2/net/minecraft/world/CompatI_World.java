@@ -4,4 +4,6 @@ import net.minecraft.world.World;
 
 public interface CompatI_World {
 	public World get();
+
+	public boolean get_isRemote();
 }

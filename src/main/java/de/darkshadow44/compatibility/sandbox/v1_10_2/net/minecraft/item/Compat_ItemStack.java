@@ -89,4 +89,11 @@ public class Compat_ItemStack {
 		else
 			return original.getItemDamage();
 	}
+
+	public boolean Compat_func_77942_o() {
+		if (original == null)
+			return thisReal.hasTagCompoundSuper();
+		else
+			return original.hasTagCompound();
+	}
 }

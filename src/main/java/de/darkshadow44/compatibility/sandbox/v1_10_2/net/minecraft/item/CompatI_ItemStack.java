@@ -15,4 +15,6 @@ public interface CompatI_ItemStack {
 	public ItemStack setStackDisplayNameSuper(String name);
 
 	public int getItemDamageSuper();
+
+	public boolean hasTagCompoundSuper();
 }
