@@ -72,7 +72,7 @@ public class Compat_World implements Compat_IBlockAccess {
 		if (tile == null)
 			return null;
 
-		return new Compat_TileEntity(tile);
+		return Compat_TileEntity.get_fake(tile);
 	}
 
 	public boolean Compat_func_72855_b(Compat_AxisAlignedBB axis) {

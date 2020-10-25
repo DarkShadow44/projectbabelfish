@@ -30,6 +30,13 @@ public class Compat_TileEntity {
 		this.original = original;
 	}
 
+	public static Compat_TileEntity get_fake(TileEntity real) {
+		if (real instanceof CompatI_TileEntity) {
+			return ((CompatI_TileEntity) real).getFake();
+		}
+		return new Compat_TileEntity(real);
+	}
+
 	public TileEntity getReal() {
 		return original == null ? thisReal.get() : original;
 	}
