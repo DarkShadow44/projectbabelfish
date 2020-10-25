@@ -1,5 +1,6 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -25,4 +26,8 @@ public interface CompatI_World {
 	public boolean setBlockStateSuper(BlockPos pos, IBlockState state);
 
 	public void setTileEntitySuper(BlockPos pos, TileEntity tile);
+
+	public void notifyNeighborsOfStateChangeSuper(BlockPos pos, Block block, boolean updateObservers);
+
+	public boolean checkLightSuper(BlockPos pos);
 }

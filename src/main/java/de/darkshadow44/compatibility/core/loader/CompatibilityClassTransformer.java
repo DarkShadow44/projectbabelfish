@@ -77,6 +77,9 @@ public class CompatibilityClassTransformer {
 		if (name.startsWith("com/google/"))
 			return true;
 
+		if (name.startsWith("io/netty/"))
+			return true;
+
 		return false;
 	}
 

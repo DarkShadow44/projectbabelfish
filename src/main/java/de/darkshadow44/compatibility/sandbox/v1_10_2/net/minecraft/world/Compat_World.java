@@ -3,6 +3,7 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world;
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.Compat_Block;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state.Compat_IBlockState;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state.Wrapper_IBlockState;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.entity.player.Compat_EntityPlayer;
@@ -101,5 +102,19 @@ public class Compat_World implements Compat_IBlockAccess {
 			thisReal.setTileEntitySuper(pos.getReal(), tile.getReal());
 		else
 			original.setTileEntity(pos.getReal(), tile.getReal());
+	}
+
+	public void Compat_func_175685_c(Compat_BlockPos pos, Compat_Block block) {
+		if (original == null)
+			thisReal.notifyNeighborsOfStateChangeSuper(pos.getReal(), block.getReal(), true);
+		else
+			original.notifyNeighborsOfStateChange(pos.getReal(), block.getReal(), true);
+	}
+
+	public boolean Compat_func_175664_x(Compat_BlockPos pos) {
+		if (original == null)
+			return thisReal.checkLightSuper(pos.getReal());
+		else
+			return original.checkLight(pos.getReal());
 	}
 }

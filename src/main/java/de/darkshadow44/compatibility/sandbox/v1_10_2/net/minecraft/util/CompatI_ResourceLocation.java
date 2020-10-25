@@ -10,4 +10,6 @@ public interface CompatI_ResourceLocation {
 	public String getResourceDomainSuper();
 
 	public String getResourcePathSuper();
+
+	public String toStringSuper();
 }

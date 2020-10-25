@@ -75,4 +75,11 @@ public class Compat_ResourceLocation implements Comparable<Compat_ResourceLocati
 		else
 			return original.getResourcePath();
 	}
+
+	public String Compat_toString() {
+		if (original == null)
+			return thisReal.toStringSuper();
+		else
+			return original.toString();
+	}
 }
