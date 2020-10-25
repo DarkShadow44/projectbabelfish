@@ -163,6 +163,10 @@ public class CompatibilityClassTransformer {
 			}
 		}
 
+		// Skip Runnable method
+		if (name.equals("run"))
+			return true;
+
 		// Skip lambdas
 		if (name.startsWith("lambda"))
 			return true;

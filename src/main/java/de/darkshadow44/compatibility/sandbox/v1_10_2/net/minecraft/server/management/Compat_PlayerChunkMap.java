@@ -3,6 +3,7 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.server.manag
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.entity.player.Compat_EntityPlayerMP;
 import net.minecraft.server.management.PlayerChunkMap;
 
 public class Compat_PlayerChunkMap {
@@ -30,5 +31,12 @@ public class Compat_PlayerChunkMap {
 
 	public PlayerChunkMap getReal() {
 		return original == null ? thisReal.get() : original;
+	}
+
+	public boolean Compat_func_72694_a(Compat_EntityPlayerMP player, int p1, int p2) {
+		if (original == null)
+			return thisReal.isPlayerWatchingChunkSuper(player.getReal(), p1, p2);
+		else
+			return original.isPlayerWatchingChunk(player.getReal(), p1, p2);
 	}
 }

@@ -144,4 +144,11 @@ public class Compat_World implements Compat_IBlockAccess {
 		}
 		return ret;
 	}
+
+	public void Compat_func_175679_n(Compat_BlockPos pos) {
+		if (original == null)
+			thisReal.notifyLightSetSuper(pos.getReal());
+		else
+			original.notifyLightSet(pos.getReal());
+	}
 }

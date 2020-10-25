@@ -34,4 +34,6 @@ public interface CompatI_World {
 	public boolean checkLightSuper(BlockPos pos);
 
 	public List<EntityPlayer> get_playerEntities();
+
+	public void notifyLightSetSuper(BlockPos pos);
 }

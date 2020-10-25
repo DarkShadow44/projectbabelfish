@@ -11,9 +11,9 @@ public class Compat_BlockPos extends Compat_Vec3i {
 	private CompatI_BlockPos thisReal;
 
 	// When called from Mod
-	public Compat_BlockPos() {
+	public Compat_BlockPos(int x, int y, int z) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockPos.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockPos.class, this, x, y, z), null);
 	}
 
 	// When called from child
