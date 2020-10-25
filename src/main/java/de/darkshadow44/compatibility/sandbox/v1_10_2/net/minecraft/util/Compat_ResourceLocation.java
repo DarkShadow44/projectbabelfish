@@ -2,7 +2,6 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util;
 
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
-import de.darkshadow44.compatibility.core.CompatibilityMod;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.util.ResourceLocation;
 

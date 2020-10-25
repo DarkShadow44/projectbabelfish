@@ -1,5 +1,6 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common;
 
+import de.darkshadow44.compatibility.core.CompatibilityMod;
 import net.minecraftforge.fml.common.ModContainer;
 
 public class Wrapper_ModContainer implements Compat_ModContainer {
@@ -16,6 +17,6 @@ public class Wrapper_ModContainer implements Compat_ModContainer {
 
 	@Override
 	public String Compat_getModId() {
-		return original.getModId();
+		return CompatibilityMod.LAYER_1_10_2.currentModId; //original.getModId();
 	}
 }
