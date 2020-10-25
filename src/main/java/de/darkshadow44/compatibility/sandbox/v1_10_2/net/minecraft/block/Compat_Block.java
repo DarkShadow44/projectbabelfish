@@ -10,6 +10,7 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state.C
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state.Wrapper_IBlockState;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.creativetab.Compat_CreativeTabs;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.tileentity.Compat_TileEntity;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_EnumBlockRenderType;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_AxisAlignedBB;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_BlockPos;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_IBlockAccess;
@@ -19,6 +20,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.world.World;
 
 public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
@@ -150,5 +152,70 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	public Compat_TileEntity Compat_func_149915_a(Compat_World world, int meta) {
 		// To be overriden
 		throw new RuntimeException();
+	}
+
+	@Callback
+	public boolean isFullBlock(IBlockState state) {
+		return Compat_func_149730_j(new Wrapper_IBlockState(state));
+	}
+
+	@SuppressWarnings("deprecation")
+	public boolean Compat_func_149730_j(Compat_IBlockState state) {
+		if (original == null)
+			return thisReal.isFullBlockSuper(state.getReal());
+		else
+			return original.isFullBlock(state.getReal());
+	}
+
+	@Callback
+	public boolean isFullCube(IBlockState state) {
+		return Compat_func_149686_d(new Wrapper_IBlockState(state));
+	}
+
+	@SuppressWarnings("deprecation")
+	public boolean Compat_func_149686_d(Compat_IBlockState state) {
+		if (original == null)
+			return thisReal.isFullCubeSuper(state.getReal());
+		else
+			return original.isFullCube(state.getReal());
+	}
+
+	@Callback(skipDuringConstructor = true)
+	public boolean isOpaqueCube(IBlockState state) {
+		return Compat_func_149662_c(new Wrapper_IBlockState(state));
+	}
+
+	@SuppressWarnings("deprecation")
+	public boolean Compat_func_149662_c(Compat_IBlockState state) {
+		if (original == null)
+			return thisReal.isOpaqueCubeSuper(state.getReal());
+		else
+			return original.isOpaqueCube(state.getReal());
+	}
+
+	@Callback
+	public boolean isBlockNormalCube(IBlockState state) {
+		return Compat_func_149637_q(new Wrapper_IBlockState(state));
+	}
+
+	@SuppressWarnings("deprecation")
+	public boolean Compat_func_149637_q(Compat_IBlockState state) {
+		if (original == null)
+			return thisReal.isBlockNormalCubeSuper(state.getReal());
+		else
+			return original.isBlockNormalCube(state.getReal());
+	}
+
+	@Callback
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return Compat_func_149645_b(new Wrapper_IBlockState(state)).getReal();
+	}
+
+	@SuppressWarnings("deprecation")
+	public Compat_EnumBlockRenderType Compat_func_149645_b(Compat_IBlockState state) {
+		if (original == null)
+			return Compat_EnumBlockRenderType.get_fake(thisReal.getRenderTypeSuper(state.getReal()));
+		else
+			return Compat_EnumBlockRenderType.get_fake(original.getRenderType(state.getReal()));
 	}
 }

@@ -7,6 +7,7 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
@@ -31,4 +32,14 @@ public interface CompatI_Block extends CompatI_IForgeRegistryEntry_Impl<Block> {
 	public int getMetaFromStateSuper(IBlockState state);
 
 	public boolean isReplaceableSuper(IBlockAccess world, BlockPos pos);
+
+	public boolean isFullBlockSuper(IBlockState state);
+
+	public boolean isFullCubeSuper(IBlockState state);
+
+	public boolean isOpaqueCubeSuper(IBlockState state);
+
+	public boolean isBlockNormalCubeSuper(IBlockState state);
+
+	public EnumBlockRenderType getRenderTypeSuper(IBlockState real);
 }
