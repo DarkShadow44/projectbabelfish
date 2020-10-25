@@ -62,4 +62,25 @@ public class Compat_PacketBuffer {
 			original.writeString(value);
 		return this;
 	}
+
+	public <T extends Enum<T>> T Compat_func_179257_a(Class<T> clazz) {
+		if (original == null)
+			return thisReal.readEnumValueSuper(clazz);
+		else
+			return original.readEnumValue(clazz);
+	}
+
+	public boolean Compat_readBoolean() {
+		if (original == null)
+			return thisReal.readBooleanSuper();
+		else
+			return original.readBoolean();
+	}
+
+	public String Compat_func_150789_c(int maxLength) {
+		if (original == null)
+			return thisReal.readStringSuper(maxLength);
+		else
+			return original.readString(maxLength);
+	}
 }

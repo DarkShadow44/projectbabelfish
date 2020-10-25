@@ -13,4 +13,10 @@ public interface CompatI_PacketBuffer {
 	public ByteBuf writeBooleanSuper(boolean value);
 
 	public PacketBuffer writeStringSuper(String value);
+
+	public <T extends Enum<T>> T readEnumValueSuper(Class<T> clazz);
+
+	public boolean readBooleanSuper();
+
+	public String readStringSuper(int maxLength);
 }

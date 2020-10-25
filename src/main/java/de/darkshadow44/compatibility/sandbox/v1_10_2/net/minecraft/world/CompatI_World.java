@@ -36,4 +36,6 @@ public interface CompatI_World {
 	public List<EntityPlayer> get_playerEntities();
 
 	public void notifyLightSetSuper(BlockPos pos);
+
+	public void markBlockRangeForRenderUpdateSuper(BlockPos real, BlockPos real2);
 }

@@ -151,4 +151,11 @@ public class Compat_World implements Compat_IBlockAccess {
 		else
 			original.notifyLightSet(pos.getReal());
 	}
+
+	public void Compat_func_175704_b(Compat_BlockPos pos, Compat_BlockPos pos2) {
+		if (original == null)
+			thisReal.markBlockRangeForRenderUpdateSuper(pos.getReal(), pos2.getReal());
+		else
+			original.markBlockRangeForRenderUpdate(pos.getReal(), pos2.getReal());
+	}
 }
