@@ -34,8 +34,11 @@ public class Compat_Vec3i implements Comparable<Compat_Vec3i> {
 
 	@Override
 	public boolean equals(Object other) {
+		if (other instanceof Compat_Vec3i) {
+			other = ((Compat_Vec3i) other).getReal();
+		}
 		if (original == null)
-			return thisReal.equals(other);
+			return thisReal.equalsSuper(other);
 		else
 			return original.equals(other);
 	}
@@ -43,7 +46,7 @@ public class Compat_Vec3i implements Comparable<Compat_Vec3i> {
 	@Override
 	public int hashCode() {
 		if (original == null)
-			return thisReal.hashCode();
+			return thisReal.hashCodeSuper();
 		else
 			return original.hashCode();
 	}

@@ -12,4 +12,8 @@ public interface CompatI_ResourceLocation {
 	public String getResourcePathSuper();
 
 	public String toStringSuper();
+
+	public boolean equalsSuper(Object other);
+
+	public int hashCodeSuper();
 }

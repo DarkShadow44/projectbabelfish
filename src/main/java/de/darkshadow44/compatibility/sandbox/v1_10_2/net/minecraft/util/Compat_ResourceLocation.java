@@ -39,8 +39,11 @@ public class Compat_ResourceLocation implements Comparable<Compat_ResourceLocati
 
 	@Override
 	public boolean equals(Object other) {
+		if (other instanceof Compat_ResourceLocation) {
+			other = ((Compat_ResourceLocation) other).getReal();
+		}
 		if (original == null)
-			return thisReal.equals(other);
+			return thisReal.equalsSuper(other);
 		else
 			return original.equals(other);
 	}
@@ -48,7 +51,7 @@ public class Compat_ResourceLocation implements Comparable<Compat_ResourceLocati
 	@Override
 	public int hashCode() {
 		if (original == null)
-			return thisReal.hashCode();
+			return thisReal.hashCodeSuper();
 		else
 			return original.hashCode();
 	}

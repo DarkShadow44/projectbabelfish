@@ -12,4 +12,8 @@ public interface CompatI_Vec3i {
 	public int getYSuper();
 
 	public int getZSuper();
+
+	public int hashCodeSuper();
+
+	public boolean equalsSuper(Object other);
 }
