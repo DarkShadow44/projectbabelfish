@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world;
 
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,4 +32,6 @@ public interface CompatI_World {
 	public void notifyNeighborsOfStateChangeSuper(BlockPos pos, Block block, boolean updateObservers);
 
 	public boolean checkLightSuper(BlockPos pos);
+
+	public List<EntityPlayer> get_playerEntities();
 }

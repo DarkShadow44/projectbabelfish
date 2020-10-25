@@ -152,7 +152,8 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 	@Callback
 	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		Compat_ItemStack stack = new Compat_ItemStack(player.getHeldItem(hand));
-		return Compat_func_180614_a(stack, new Compat_EntityPlayer(player), new Compat_World(world), new Compat_BlockPos(pos), Compat_EnumHand.map_real_to_fake(hand), Compat_EnumFacing.map_real_to_fake(facing), hitX, hitY, hitZ).getReal();
+
+		return Compat_func_180614_a(stack, new Compat_EntityPlayer(player), Compat_World.get_fake(world), new Compat_BlockPos(pos), Compat_EnumHand.map_real_to_fake(hand), Compat_EnumFacing.map_real_to_fake(facing), hitX, hitY, hitZ).getReal();
 	}
 
 	public Compat_EnumActionResult Compat_func_180614_a(Compat_ItemStack stack, Compat_EntityPlayer player, Compat_World world, Compat_BlockPos pos, Compat_EnumHand hand, Compat_EnumFacing facing, float hitX, float hitY, float hitZ) {

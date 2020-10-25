@@ -8,6 +8,7 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.item.Compat_I
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_EnumFacing;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_BlockPos;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 
 public class Compat_EntityPlayer extends Compat_EntityLivingBase {
 	private EntityPlayer original;
@@ -45,5 +46,13 @@ public class Compat_EntityPlayer extends Compat_EntityLivingBase {
 			return thisReal.canPlayerEditSuper(pos.getReal(), facing.getReal(), stack.getReal());
 		else
 			return original.canPlayerEdit(pos.getReal(), facing.getReal(), stack.getReal());
+	}
+
+	public static Compat_EntityPlayer get_fake(EntityPlayer real) {
+		if (real instanceof EntityPlayerMP) {
+			return new Compat_EntityPlayerMP((EntityPlayerMP) real);
+		} else {
+			return new Compat_EntityPlayer(real);
+		}
 	}
 }

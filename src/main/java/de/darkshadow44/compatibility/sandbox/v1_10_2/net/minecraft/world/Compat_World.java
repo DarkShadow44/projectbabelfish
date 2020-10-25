@@ -1,5 +1,8 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
@@ -13,8 +16,10 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_S
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_AxisAlignedBB;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_BlockPos;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 
 public class Compat_World implements Compat_IBlockAccess {
 	private World original;
@@ -116,5 +121,27 @@ public class Compat_World implements Compat_IBlockAccess {
 			return thisReal.checkLightSuper(pos.getReal());
 		else
 			return original.checkLight(pos.getReal());
+	}
+
+	public static Compat_World get_fake(World real) {
+		if (real instanceof WorldServer) {
+			return new Compat_WorldServer((WorldServer) real);
+		} else {
+			return new Compat_World(real);
+		}
+	}
+
+	public List<Compat_EntityPlayer> Compat_get_field_73010_i() {
+		List<EntityPlayer> players;
+		if (original == null)
+			players = thisReal.get_playerEntities();
+		else
+			players = original.playerEntities;
+
+		List<Compat_EntityPlayer> ret = new ArrayList<>();
+		for (EntityPlayer player : players) {
+			ret.add(Compat_EntityPlayer.get_fake(player));
+		}
+		return ret;
 	}
 }

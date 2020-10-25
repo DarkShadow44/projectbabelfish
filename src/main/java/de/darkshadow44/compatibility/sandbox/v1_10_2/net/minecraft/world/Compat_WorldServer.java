@@ -3,6 +3,7 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world;
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.server.management.Compat_PlayerChunkMap;
 import net.minecraft.world.WorldServer;
 
 public class Compat_WorldServer extends Compat_World {
@@ -34,5 +35,12 @@ public class Compat_WorldServer extends Compat_World {
 
 	public WorldServer getReal() {
 		return original == null ? thisReal.get() : original;
+	}
+
+	public Compat_PlayerChunkMap Compat_func_184164_w() {
+		if (original == null)
+			return new Compat_PlayerChunkMap(thisReal.getPlayerChunkMapSuper());
+		else
+			return new Compat_PlayerChunkMap(original.getPlayerChunkMap());
 	}
 }

@@ -43,9 +43,9 @@ public class Compat_TileEntity {
 
 	public Compat_World Compat_func_145831_w() {
 		if (original == null)
-			return new Compat_World(thisReal.getWorldSuper());
+			return Compat_World.get_fake(thisReal.getWorldSuper());
 		else
-			return new Compat_World(original.getWorld());
+			return Compat_World.get_fake(original.getWorld());
 	}
 
 	public Compat_BlockPos Compat_func_174877_v() {
