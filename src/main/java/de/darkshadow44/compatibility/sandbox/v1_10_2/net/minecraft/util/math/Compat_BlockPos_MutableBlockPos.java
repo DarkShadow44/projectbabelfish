@@ -35,4 +35,11 @@ public class Compat_BlockPos_MutableBlockPos extends Compat_BlockPos {
 	public MutableBlockPos getReal() {
 		return original == null ? thisReal.get() : original;
 	}
+
+	public Compat_BlockPos_MutableBlockPos Compat_func_181079_c(int p1, int p2, int p3) {
+		if (original == null)
+			return new Compat_BlockPos_MutableBlockPos(thisReal.setPosSuper(p1, p2, p3));
+		else
+			return new Compat_BlockPos_MutableBlockPos(original.setPos(p1, p2, p3));
+	}
 }

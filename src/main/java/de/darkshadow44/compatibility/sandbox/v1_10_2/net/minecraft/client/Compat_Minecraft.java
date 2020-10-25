@@ -2,6 +2,7 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.Compat_BlockRendererDispatcher;
 import net.minecraft.client.Minecraft;
 
 public class Compat_Minecraft {
@@ -22,5 +23,13 @@ public class Compat_Minecraft {
 
 	public ListenableFuture<Object> Compat_func_152344_a(Runnable run) {
 		return original.addScheduledTask(run);
+	}
+
+	public static boolean Compat_func_71379_u() {
+		return Minecraft.isAmbientOcclusionEnabled();
+	}
+
+	public Compat_BlockRendererDispatcher Compat_func_175602_ab() {
+		return new Compat_BlockRendererDispatcher(original.getBlockRendererDispatcher());
 	}
 }

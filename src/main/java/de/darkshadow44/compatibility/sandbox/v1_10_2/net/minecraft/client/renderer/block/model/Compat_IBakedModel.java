@@ -7,16 +7,15 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_E
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.renderer.texture.Compat_TextureAtlasSprite;
 
 public interface Compat_IBakedModel {
+	boolean Compat_isAmbientOcclusion();
 
-	boolean isAmbientOcclusion();
+	boolean Compat_isGui3d();
 
-	boolean isGui3d();
+	boolean Compat_isBuiltInRenderer();
 
-	boolean isBuiltInRenderer();
+	Compat_ItemOverrideList Compat_getOverrides();
 
-	Compat_ItemOverrideList getOverrides();
+	Compat_TextureAtlasSprite Compat_getParticleTexture();
 
-	Compat_TextureAtlasSprite getParticleTexture();
-
-	List<Compat_BakedQuad> getQuads(Compat_IBlockState state, Compat_EnumFacing side, long rand);
+	List<Compat_BakedQuad> Compat_getQuads(Compat_IBlockState state, Compat_EnumFacing side, long rand);
 }
