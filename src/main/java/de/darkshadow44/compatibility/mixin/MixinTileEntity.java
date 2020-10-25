@@ -5,6 +5,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.tileentity.CompatI_TileEntity;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.tileentity.Compat_TileEntity;
 import net.minecraft.tileentity.TileEntity;
 
 @Mixin(TileEntity.class)
@@ -15,5 +16,15 @@ public abstract class MixinTileEntity {
 			obj = ((CompatI_TileEntity) obj).getFake();
 		}
 		return obj.getClass();
+	}
+
+	@Redirect(require = 1, method = "create(Lnet/minecraft/world/World;Lnet/minecraft/nbt/NBTTagCompound;)Lnet/minecraft/tileentity/TileEntity;", at = @At(value = "INVOKE", target = "java.lang.Class.newInstance()Ljava/lang/Object;"))
+	private static Object hook_create_newInstance(Class<?> clazz) throws InstantiationException, IllegalAccessException {
+		Object ret = clazz.newInstance();
+
+		if (ret instanceof Compat_TileEntity) {
+			ret = ((Compat_TileEntity) ret).getReal();
+		}
+		return ret;
 	}
 }

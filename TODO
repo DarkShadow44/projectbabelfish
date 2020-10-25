@@ -20,3 +20,5 @@ Interface methods:
 for entity mapping where witchery registers its entities into a map, maybe subclass HashMap and hande insertions differently...
 
 --tweakClass org.spongepowered.asm.launch.MixinTweaker --mixin mixins.compatibility.json
+
+Sanity check for all "func_" that don't have a method in super class

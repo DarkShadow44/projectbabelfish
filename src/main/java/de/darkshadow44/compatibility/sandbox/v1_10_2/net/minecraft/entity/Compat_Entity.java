@@ -3,6 +3,7 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.entity;
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_World;
 import net.minecraft.entity.Entity;
 
 public class Compat_Entity {
@@ -30,5 +31,12 @@ public class Compat_Entity {
 
 	public Entity getReal() {
 		return original == null ? thisReal.get() : original;
+	}
+
+	public Compat_World Compat_get_field_70170_p() {
+		if (original == null)
+			return Compat_World.get_fake(thisReal.get_world());
+		else
+			return Compat_World.get_fake(original.world);
 	}
 }
