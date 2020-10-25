@@ -23,12 +23,11 @@ public class MemoryClassLoader extends URLClassLoader {
 	}
 
 	public Class<?> addClass(String name, byte[] data) {
-		// System.out.println("Loading class: " + name); // For debugging
-		if (!CompatibilityMod.INTELLIJ)
+		if (!CompatibilityMod.DUMP_CLASSES)
 			return defineClass(name, data, 0, data.length);
 
 		try {
-			File file = new File("/home/fabian/Ramdisk/temp/" + name.replace(".", "/") + ".class");
+			File file = new File("/home/fabian/Programming/Minecraft/Mods/CompatibilityMod/mod/TEMP_CLASSES/" + name.replace(".", "/") + ".class");
 			file.getParentFile().mkdirs();
 			Files.write(data, file);
 		} catch (IOException e) {

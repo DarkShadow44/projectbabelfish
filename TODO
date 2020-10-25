@@ -22,3 +22,10 @@ for entity mapping where witchery registers its entities into a map, maybe subcl
 --tweakClass org.spongepowered.asm.launch.MixinTweaker --mixin mixins.compatibility.json
 
 Sanity check for all "func_" that don't have a method in super class
+
+Sources:
+Eclipse-> Bluild Path-> Add class folder - TEMP_CLASSES
+Eclipse project add new source folder (TEMP_CLASSES).
+Decompile, put next to .class
+start, stop, refresh project explorer
+Debug configurations _> Add both to sources and class path

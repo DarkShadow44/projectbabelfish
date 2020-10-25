@@ -382,6 +382,7 @@ public class CompatibilityClassTransformer {
 		classNode.name = getTransformedClassname(classNode.name);
 		classNode.superName = getTransformedClassname(classNode.superName);
 		classNode.interfaces = transformInterfaces(classNode.interfaces);
+		classNode.sourceFile = "Compat_" + classNode.sourceFile;
 	}
 
 	public byte[] getTransformedData() {

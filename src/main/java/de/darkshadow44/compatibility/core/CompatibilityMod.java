@@ -37,7 +37,7 @@ public class CompatibilityMod {
 	public static final String MODID = "compatibility";
 	public static final String NAME = "Compatibility Mod";
 	public static final String VERSION = "1.0";
-	public static final boolean INTELLIJ = false;
+	public static final boolean DUMP_CLASSES = true;
 
 	private final ResourcePack resourcePack = new ResourcePack();
 
@@ -53,7 +53,7 @@ public class CompatibilityMod {
 	public static MemoryClassLoader classLoader;
 
 	static {
-		File file = new File("/home/fabian/Ramdisk/temp/");
+		File file = new File("/home/fabian/Programming/Minecraft/Mods/CompatibilityMod/mod/TEMP_CLASSES/");
 		URL[] urls = null;
 		try {
 			urls = new URL[] { file.toURI().toURL() };

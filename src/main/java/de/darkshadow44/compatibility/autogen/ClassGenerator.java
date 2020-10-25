@@ -1,6 +1,5 @@
 package de.darkshadow44.compatibility.autogen;
 
-import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -23,7 +22,6 @@ import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
 import com.google.common.collect.ImmutableSet;
-import com.google.common.io.Files;
 import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.ClassPath.ClassInfo;
 
@@ -374,10 +372,6 @@ public class ClassGenerator {
 		classNode.accept(classWriter);
 		byte[] data = classWriter.toByteArray();
 
-		if (className.equals("")) {
-			Files.write(data, new File("/home/fabian/Ramdisk/" + className + ".class"));
-		}
-
 		CompatibilityMod.classLoader.addClass(classNode.name.replace("/", "."), data);
 	}
 
@@ -387,7 +381,7 @@ public class ClassGenerator {
 		sandbox = sandbox.substring(0, sandbox.length() - 1);
 		ImmutableSet<ClassInfo> classes;
 
-		if (CompatibilityMod.INTELLIJ)
+		if (CompatibilityMod.DUMP_CLASSES)
 			classes = classesPath.getTopLevelClassesRecursive(sandbox + ".net");
 		else
 			classes = classesPath.getTopLevelClassesRecursive(sandbox);
