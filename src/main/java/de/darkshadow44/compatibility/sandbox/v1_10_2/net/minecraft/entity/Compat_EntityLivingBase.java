@@ -3,7 +3,9 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.entity;
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.item.Compat_ItemStack;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemStack;
 
 public class Compat_EntityLivingBase extends Compat_Entity {
 	private EntityLivingBase original;
@@ -34,5 +36,23 @@ public class Compat_EntityLivingBase extends Compat_Entity {
 
 	public EntityLivingBase getReal() {
 		return original == null ? thisReal.get() : original;
+	}
+
+	public Compat_ItemStack Compat_func_184614_ca() {
+		ItemStack stack;
+		if (original == null)
+			stack = thisReal.getHeldItemMainhandSuper();
+		else
+			stack = original.getHeldItemMainhand();
+		return stack == null ? null : new Compat_ItemStack(stack);
+	}
+
+	public Compat_ItemStack Compat_func_184592_cb() {
+		ItemStack stack;
+		if (original == null)
+			stack = thisReal.getHeldItemOffhandSuper();
+		else
+			stack = original.getHeldItemOffhand();
+		return stack == null ? null : new Compat_ItemStack(stack);
 	}
 }

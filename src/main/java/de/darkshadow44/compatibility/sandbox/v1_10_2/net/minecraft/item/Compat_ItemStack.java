@@ -5,6 +5,7 @@ import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.Compat_Block;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.nbt.Compat_NBTTagCompound;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -116,5 +117,14 @@ public class Compat_ItemStack {
 			thisReal.setCountSuper(value);
 		else
 			original.setCount(value);
+	}
+
+	public Compat_Item Compat_func_77973_b() {
+		Item item;
+		if (original == null)
+			item = thisReal.getItemSuper();
+		else
+			item = original.getItem();
+		return new Compat_Item(item);
 	}
 }

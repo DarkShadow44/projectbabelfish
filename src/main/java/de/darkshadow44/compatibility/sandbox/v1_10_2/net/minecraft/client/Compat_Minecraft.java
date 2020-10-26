@@ -2,6 +2,8 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.entity.Compat_EntityPlayerSP;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.multiplayer.Compat_WorldClient;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.Compat_BlockRendererDispatcher;
 import net.minecraft.client.Minecraft;
 
@@ -31,5 +33,13 @@ public class Compat_Minecraft {
 
 	public Compat_BlockRendererDispatcher Compat_func_175602_ab() {
 		return new Compat_BlockRendererDispatcher(original.getBlockRendererDispatcher());
+	}
+
+	public Compat_WorldClient Compat_get_field_71441_e() {
+		return original.world == null ? null : new Compat_WorldClient(original.world);
+	}
+
+	public Compat_EntityPlayerSP Compat_get_field_71439_g() {
+		return original.player == null ? null : new Compat_EntityPlayerSP(original.player);
 	}
 }

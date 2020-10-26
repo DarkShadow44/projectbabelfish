@@ -1,5 +1,6 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.item;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -21,4 +22,6 @@ public interface CompatI_ItemStack {
 	public int getCountSuper();
 
 	public void setCountSuper(int value);
+
+	public Item getItemSuper();
 }
