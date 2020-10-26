@@ -13,7 +13,8 @@ public class MethodInfo<T extends Annotation> {
 		for (Method method : mod.getClass().getMethods()) {
 			if (method.getAnnotation(annotationClass) != null) {
 				Parameter[] params = method.getParameters();
-				if (params.length == 1 && params[0].getParameterizedType().getTypeName().equals(eventClass.getTypeName())) {
+				String paramName = params[0].getParameterizedType().getTypeName().replace("$", "_");
+				if (params.length == 1 && paramName.equals(eventClass.getTypeName())) {
 					this.method = method;
 				}
 			}

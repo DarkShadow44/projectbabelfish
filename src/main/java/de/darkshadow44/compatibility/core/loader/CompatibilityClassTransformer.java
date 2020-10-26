@@ -354,6 +354,7 @@ public class CompatibilityClassTransformer {
 		}
 
 		method.instructions = newList;
+		method.signature = null;
 		transformVariables(method.localVariables);
 		transformAnnotations(method.visibleAnnotations);
 		// Skip constructors and special enum methods
