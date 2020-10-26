@@ -33,6 +33,7 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent.Register;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -218,6 +219,11 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 
 	@Override
 	public void onClientTick(ClientTickEvent event) {
+
+	}
+
+	@Override
+	public void onRightclickBlock(RightClickBlock event) {
 
 	}
 

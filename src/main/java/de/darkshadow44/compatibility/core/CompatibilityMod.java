@@ -22,6 +22,7 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -140,6 +141,13 @@ public class CompatibilityMod {
 	public static void onClientTick(TickEvent.ClientTickEvent event) {
 		for (CompatibilityLayer layer : layers) {
 			layer.onClientTick(event);
+		}
+	}
+
+	@SubscribeEvent
+	public static void onRightclickBlock(PlayerInteractEvent.RightClickBlock event) {
+		for (CompatibilityLayer layer : layers) {
+			layer.onRightclickBlock(event);
 		}
 	}
 }

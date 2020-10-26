@@ -14,6 +14,7 @@ import de.darkshadow44.compatibility.core.ModInfo;
 import de.darkshadow44.compatibility.core.RegistrationInfoBlock;
 import de.darkshadow44.compatibility.core.RegistrationInfoItem;
 import de.darkshadow44.compatibility.core.loader.CompatibilityModLoader;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.event.entity.player.Compat_PlayerInteractEvent_RightClickBlock;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.Compat_Mod;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.Compat_Mod_EventHandler;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.Compat_SidedProxy;
@@ -27,6 +28,7 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent.Pre;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent.Register;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -200,6 +202,14 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 		for (ModInfo modInfo : mods) {
 			MethodInfo<?> method = new MethodInfo<>(modInfo.getProxy(), Compat_SubscribeEvent.class, Compat_TickEvent_ClientTickEvent.class);
 			method.tryInvoke(new Compat_TickEvent_ClientTickEvent(event));
+		}
+	}
+
+	@Override
+	public void onRightclickBlock(RightClickBlock event) {
+		for (ModInfo modInfo : mods) {
+			MethodInfo<?> method = new MethodInfo<>(modInfo.getProxy(), Compat_SubscribeEvent.class, Compat_PlayerInteractEvent_RightClickBlock.class);
+			method.tryInvoke(new Compat_PlayerInteractEvent_RightClickBlock(event));
 		}
 	}
 

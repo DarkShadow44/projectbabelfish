@@ -165,4 +165,11 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 		return Compat_EnumActionResult.map_real_to_fake(result);
 	}
 
+	public static Compat_Item get_fake(Item item) {
+		if (item instanceof CompatI_Item) {
+			return ((CompatI_Item) item).getFake();
+		}
+		return new Compat_Item(item);
+	}
+
 }

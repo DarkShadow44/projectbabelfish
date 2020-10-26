@@ -11,6 +11,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent.Pre;
 import net.minecraftforge.event.RegistryEvent.Register;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -89,4 +90,6 @@ public abstract class CompatibilityLayer {
 	public abstract void loadMods(File directoryMods, Side side);
 
 	public abstract void onClientTick(ClientTickEvent event);
+
+	public abstract void onRightclickBlock(RightClickBlock event);
 }

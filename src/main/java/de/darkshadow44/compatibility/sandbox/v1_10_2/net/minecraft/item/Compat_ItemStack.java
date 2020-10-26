@@ -125,6 +125,6 @@ public class Compat_ItemStack {
 			item = thisReal.getItemSuper();
 		else
 			item = original.getItem();
-		return new Compat_Item(item);
+		return Compat_Item.get_fake(item);
 	}
 }

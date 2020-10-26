@@ -5,6 +5,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.entity.Compat_EntityPlayerSP;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.multiplayer.Compat_WorldClient;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.Compat_BlockRendererDispatcher;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_RayTraceResult;
 import net.minecraft.client.Minecraft;
 
 public class Compat_Minecraft {
@@ -41,5 +42,9 @@ public class Compat_Minecraft {
 
 	public Compat_EntityPlayerSP Compat_get_field_71439_g() {
 		return original.player == null ? null : new Compat_EntityPlayerSP(original.player);
+	}
+
+	public Compat_RayTraceResult Compat_get_field_71476_x() {
+		return new Compat_RayTraceResult(original.objectMouseOver);
 	}
 }

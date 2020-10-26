@@ -33,4 +33,6 @@ public interface CompatI_Item extends CompatI_IForgeRegistryEntry_Impl<Item> {
 	public boolean canItemEditBlocksSuper();
 
 	public EnumActionResult onItemUseSuper(EntityPlayer player, World world, BlockPos block, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ);
+
+	public Compat_Item getFake();
 }
