@@ -21,6 +21,8 @@ public class MethodInfo<T extends Annotation> {
 	}
 
 	public void tryInvoke(Object event) {
+		if (method == null)
+			return;
 		try {
 			method.invoke(mod, event);
 		} catch (Exception e) {

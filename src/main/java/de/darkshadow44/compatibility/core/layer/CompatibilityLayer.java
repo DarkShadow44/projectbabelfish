@@ -1,10 +1,11 @@
 package de.darkshadow44.compatibility.core.layer;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.darkshadow44.compatibility.autogen.ClassGenerator;
+import de.darkshadow44.compatibility.core.ModInfo;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -13,6 +14,7 @@ import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
 public abstract class CompatibilityLayer {
@@ -26,7 +28,7 @@ public abstract class CompatibilityLayer {
 	private final String pathSandbox;
 	protected final String version;
 
-	protected final Map<String, Object> mods = new HashMap<>();
+	protected final List<ModInfo> mods = new ArrayList<>();
 
 	public CompatibilityLayer(String version) {
 		this.pathSandbox = "de/darkshadow44/compatibility/sandbox/v" + version.replace(".", "_") + "/";
@@ -85,4 +87,6 @@ public abstract class CompatibilityLayer {
 	public abstract void handleResource(String nameLower, byte[] data);
 
 	public abstract void loadMods(File directoryMods, Side side);
+
+	public abstract void onClientTick(ClientTickEvent event);
 }

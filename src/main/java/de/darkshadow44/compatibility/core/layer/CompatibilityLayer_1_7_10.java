@@ -36,6 +36,7 @@ import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
@@ -95,23 +96,24 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 		CompatibilityModLoader loader = new CompatibilityModLoader(this);
 		List<Class<?>> modClasses = loader.loadAllMods(dir);
 		List<ModInfo> modInfos = findMods(modClasses);
+		mods.addAll(modInfos);
 
 		// Construct mod objects
 		for (ModInfo modInfo : modInfos) {
 			ConstructorInfo ctor = new ConstructorInfo(modInfo.className);
 			Object mod = ctor.tryConstruct();
-			mods.put(modInfo.id, mod);
+			modInfo.setMod(mod);
 		}
 
 		// Fill instances
-		for (Object mod : mods.entrySet()) {
-			FieldInfo<?> instance = new FieldInfo<>(mod, Compat_Mod_Instance.class);
+		for (ModInfo mod : mods) {
+			FieldInfo<?> instance = new FieldInfo<>(mod.getMod(), Compat_Mod_Instance.class);
 			instance.trySetValue(mod);
 		}
 
 		// Fill proxys
-		for (Object mod : mods.entrySet()) {
-			FieldInfo<Compat_SidedProxy> instance = new FieldInfo<>(mod, Compat_SidedProxy.class);
+		for (ModInfo mod : mods) {
+			FieldInfo<Compat_SidedProxy> instance = new FieldInfo<>(mod.getMod(), Compat_SidedProxy.class);
 			if (instance != null) {
 				Compat_SidedProxy sidedProxy = instance.getAnnotation();
 				String className;
@@ -126,14 +128,15 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 				ConstructorInfo ctor = new ConstructorInfo(className);
 				Object proxy = ctor.tryConstruct();
 				instance.trySetValue(proxy);
+				mod.setProxy(proxy);
 			}
 		}
 	}
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-		for (Object mod : mods.entrySet()) {
-			MethodInfo<?> methodPreInit = new MethodInfo<>(mod, Compat_Mod_EventHandler.class, Compat_FMLPreInitializationEvent.class);
+		for (ModInfo mod : mods) {
+			MethodInfo<?> methodPreInit = new MethodInfo<>(mod.getMod(), Compat_Mod_EventHandler.class, Compat_FMLPreInitializationEvent.class);
 			methodPreInit.tryInvoke(new Compat_FMLPreInitializationEvent(event));
 		}
 
@@ -210,6 +213,11 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
+
+	}
+
+	@Override
+	public void onClientTick(ClientTickEvent event) {
 
 	}
 

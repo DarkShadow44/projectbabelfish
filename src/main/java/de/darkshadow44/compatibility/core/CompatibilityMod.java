@@ -30,6 +30,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 @Mod(modid = CompatibilityMod.MODID, name = CompatibilityMod.NAME, version = CompatibilityMod.VERSION)
 @EventBusSubscriber
@@ -133,5 +134,12 @@ public class CompatibilityMod {
 
 		resourcePackList.add(resourcePack);
 		resourcePackMap.put("compat", resourcePack);
+	}
+
+	@SubscribeEvent
+	public static void onClientTick(TickEvent.ClientTickEvent event) {
+		for (CompatibilityLayer layer : layers) {
+			layer.onClientTick(event);
+		}
 	}
 }

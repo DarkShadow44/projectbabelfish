@@ -3,7 +3,6 @@ package de.darkshadow44.compatibility.core.layer;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
 
 import com.google.common.collect.Lists;
 
@@ -20,6 +19,8 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.comm
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.Compat_SidedProxy;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.event.Compat_FMLInitializationEvent;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.event.Compat_FMLPreInitializationEvent;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.eventhandler.Compat_SubscribeEvent;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.gameevent.Compat_TickEvent_ClientTickEvent;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -29,6 +30,7 @@ import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
@@ -65,11 +67,13 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 		// HACK TODO dependencies
 		modInfos = Lists.reverse(modInfos);
 
+		mods.addAll(modInfos);
+
 		// Construct mod objects
 		for (ModInfo modInfo : modInfos) {
 			ConstructorInfo ctor = new ConstructorInfo(modInfo.className);
 			Object mod = ctor.tryConstruct();
-			mods.put(modInfo.id, mod);
+			modInfo.setMod(mod);
 		}
 
 		// Fill instances TODO
@@ -79,8 +83,8 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 		}*/
 
 		// Fill proxys
-		for (Entry<String, Object> mod : mods.entrySet()) {
-			FieldInfo<Compat_SidedProxy> instance = new FieldInfo<>(mod.getValue(), Compat_SidedProxy.class);
+		for (ModInfo mod : mods) {
+			FieldInfo<Compat_SidedProxy> instance = new FieldInfo<>(mod.getMod(), Compat_SidedProxy.class);
 			if (instance != null) {
 				Compat_SidedProxy sidedProxy = instance.getAnnotation();
 				String className;
@@ -95,15 +99,16 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 				ConstructorInfo ctor = new ConstructorInfo(className);
 				Object proxy = ctor.tryConstruct();
 				instance.trySetValue(proxy);
+				mod.setProxy(proxy);
 			}
 		}
 	}
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-		for (String modId : mods.keySet()) {
-			currentModId = modId;
-			MethodInfo<?> methodPreInit = new MethodInfo<>(mods.get(modId), Compat_Mod_EventHandler.class, Compat_FMLPreInitializationEvent.class);
+		for (ModInfo modInfo : mods) {
+			currentModId = modInfo.id;
+			MethodInfo<?> methodPreInit = new MethodInfo<>(modInfo.getMod(), Compat_Mod_EventHandler.class, Compat_FMLPreInitializationEvent.class);
 			methodPreInit.tryInvoke(new Compat_FMLPreInitializationEvent(event));
 		}
 	}
@@ -178,9 +183,9 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 
 	@Override
 	public void init(FMLInitializationEvent event) {
-		for (String modId : mods.keySet()) {
-			currentModId = modId;
-			MethodInfo<?> methodInit = new MethodInfo<>(mods.get(modId), Compat_Mod_EventHandler.class, Compat_FMLInitializationEvent.class);
+		for (ModInfo modInfo : mods) {
+			currentModId = modInfo.id;
+			MethodInfo<?> methodInit = new MethodInfo<>(modInfo.getMod(), Compat_Mod_EventHandler.class, Compat_FMLInitializationEvent.class);
 			methodInit.tryInvoke(new Compat_FMLInitializationEvent(event));
 		}
 	}
@@ -188,6 +193,14 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
 		// TODO
+	}
+
+	@Override
+	public void onClientTick(ClientTickEvent event) {
+		for (ModInfo modInfo : mods) {
+			MethodInfo<?> method = new MethodInfo<>(modInfo.getProxy(), Compat_SubscribeEvent.class, Compat_TickEvent_ClientTickEvent.class);
+			method.tryInvoke(new Compat_TickEvent_ClientTickEvent(event));
+		}
 	}
 
 }
