@@ -1,6 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.tileentity;
 
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.texture.Compat_TextureManager;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_World;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 
 public class Compat_TileEntityRendererDispatcher {
@@ -17,5 +18,9 @@ public class Compat_TileEntityRendererDispatcher {
 
 	public Compat_TextureManager Compat_get_field_147553_e() {
 		return new Compat_TextureManager(original.renderEngine);
+	}
+
+	public Compat_World Compat_get_field_147550_f() {
+		return new Compat_World(original.world);
 	}
 }

@@ -20,4 +20,8 @@ public class Compat_BlockRendererDispatcher {
 	public Compat_IBakedModel Compat_func_184389_a(Compat_IBlockState state) {
 		return new Wrapper2_IBakedModel(original.getModelForState(state.getReal()));
 	}
+
+	public Compat_BlockModelRenderer Compat_func_175019_b() {
+		return new Compat_BlockModelRenderer(original.getBlockModelRenderer());
+	}
 }

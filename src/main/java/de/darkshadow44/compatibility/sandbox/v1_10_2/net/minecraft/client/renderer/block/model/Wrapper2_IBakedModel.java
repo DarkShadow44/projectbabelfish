@@ -18,37 +18,41 @@ public class Wrapper2_IBakedModel implements Compat_IBakedModel {
 	}
 
 	@Override
-	public boolean Compat_isAmbientOcclusion() {
+	public boolean Compat_func_177555_b() {
 		return real.isAmbientOcclusion();
 	}
 
 	@Override
-	public boolean Compat_isGui3d() {
+	public boolean Compat_func_177556_c() {
 		return real.isGui3d();
 	}
 
 	@Override
-	public boolean Compat_isBuiltInRenderer() {
+	public boolean Compat_func_188618_c() {
 		return real.isBuiltInRenderer();
 	}
 
 	@Override
-	public Compat_ItemOverrideList Compat_getOverrides() {
+	public Compat_ItemOverrideList Compat_func_188617_f() {
 		return new Compat_ItemOverrideList(real.getOverrides());
 	}
 
 	@Override
-	public Compat_TextureAtlasSprite Compat_getParticleTexture() {
+	public Compat_TextureAtlasSprite Compat_func_177554_e() {
 		return new Compat_TextureAtlasSprite(real.getParticleTexture());
 	}
 
 	@Override
-	public List<Compat_BakedQuad> Compat_getQuads(Compat_IBlockState state, Compat_EnumFacing side, long rand) {
+	public List<Compat_BakedQuad> Compat_func_188616_a(Compat_IBlockState state, Compat_EnumFacing side, long rand) {
 		List<BakedQuad> quads = real.getQuads(state.getReal(), side.getReal(), rand);
 		List<Compat_BakedQuad> ret = new ArrayList<>();
 		for (BakedQuad quad : quads) {
 			ret.add(new Compat_BakedQuad(quad));
 		}
 		return ret;
+	}
+
+	public IBakedModel getReal() {
+		return real;
 	}
 }

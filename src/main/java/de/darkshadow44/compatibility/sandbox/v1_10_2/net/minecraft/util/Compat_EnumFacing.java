@@ -53,6 +53,9 @@ public enum Compat_EnumFacing implements IStringSerializable {
 	}
 
 	public static Compat_EnumFacing map_real_to_fake(EnumFacing real) {
+		if (real == null) {
+			return null;
+		}
 		switch (real) {
 		case DOWN:
 			return DOWN;

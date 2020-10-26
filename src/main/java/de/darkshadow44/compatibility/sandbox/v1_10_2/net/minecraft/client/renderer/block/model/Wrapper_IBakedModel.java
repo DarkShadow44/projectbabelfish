@@ -22,7 +22,7 @@ public class Wrapper_IBakedModel implements IBakedModel {
 
 	@Override
 	public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
-		List<Compat_BakedQuad> result = fake.Compat_getQuads(new Wrapper_IBlockState(state), Compat_EnumFacing.map_real_to_fake(side), rand);
+		List<Compat_BakedQuad> result = fake.Compat_func_188616_a(new Wrapper_IBlockState(state), Compat_EnumFacing.map_real_to_fake(side), rand);
 
 		List<BakedQuad> ret = new ArrayList<>();
 
@@ -35,27 +35,27 @@ public class Wrapper_IBakedModel implements IBakedModel {
 
 	@Override
 	public boolean isAmbientOcclusion() {
-		return fake.Compat_isAmbientOcclusion();
+		return fake.Compat_func_177555_b();
 	}
 
 	@Override
 	public boolean isGui3d() {
-		return fake.Compat_isGui3d();
+		return fake.Compat_func_177556_c();
 	}
 
 	@Override
 	public boolean isBuiltInRenderer() {
-		return fake.Compat_isBuiltInRenderer();
+		return fake.Compat_func_188618_c();
 	}
 
 	@Override
 	public TextureAtlasSprite getParticleTexture() {
-		return fake.Compat_getParticleTexture().getReal();
+		return fake.Compat_func_177554_e().getReal();
 	}
 
 	@Override
 	public ItemOverrideList getOverrides() {
-		return fake.Compat_getOverrides().getReal();
+		return fake.Compat_func_188617_f().getReal();
 	}
 
 }

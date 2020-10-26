@@ -13,6 +13,7 @@ public class Compat_Blocks {
 	private static final Compat_Block REDSTONE_TORCH = new Compat_Block(Blocks.REDSTONE_TORCH);
 	private static final Compat_Block STONE_BUTTON = new Compat_Block(Blocks.STONE_BUTTON);
 	private static final Compat_BlockPistonBase PISTON = new Compat_BlockPistonBase(Blocks.PISTON);
+	private static final Compat_Block STONE = new Compat_Block(Blocks.STONE);
 
 	public static Compat_Block Compat_get_field_150379_bu() {
 		return REDSTONE_LAMP;
@@ -36,5 +37,9 @@ public class Compat_Blocks {
 
 	public static Compat_BlockPistonBase Compat_get_field_150331_J() {
 		return PISTON;
+	}
+
+	public static Compat_Block Compat_get_field_150348_b() {
+		return STONE;
 	}
 }

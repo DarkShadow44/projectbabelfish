@@ -31,4 +31,8 @@ public class Compat_GlStateManager {
 	public static void Compat_func_179137_b(double x, double y, double z) {
 		GlStateManager.translate(x, y, z);
 	}
+
+	public static void Compat_func_179121_F() {
+		GlStateManager.popMatrix();
+	}
 }
