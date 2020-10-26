@@ -64,6 +64,7 @@ public class CompatibilityMod {
 		classLoader = new MemoryClassLoader(urls, Launch.classLoader);
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		registerTexturePack();
@@ -75,6 +76,7 @@ public class CompatibilityMod {
 			layer.loadMods(directoryMods, event.getSide());
 			layer.preInit(event);
 		}
+		Minecraft.getMinecraft().refreshResources(); // Refresh for models
 	}
 
 	@EventHandler
@@ -87,7 +89,7 @@ public class CompatibilityMod {
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	void postInit(FMLPostInitializationEvent event) {
-		Minecraft.getMinecraft().refreshResources();
+		Minecraft.getMinecraft().refreshResources(); // Refresh to translations
 	}
 
 	@SubscribeEvent
