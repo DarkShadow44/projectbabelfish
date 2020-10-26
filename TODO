@@ -29,3 +29,16 @@ Eclipse project add new source folder (TEMP_CLASSES).
 Decompile, put next to .class
 start, stop, refresh project explorer
 Debug configurations _> Add both to sources and class path
+
+
+one compatibility layer für alle? Try merge 1.7.10 and 1.10... afterwards, rename .de.dark...sandbox to /compatibility/sandbox/
+
+goblins witchery compatibility (java.lang.reflect.Constructor Mixin)
+
+forge tries create mod objects
+-> Mixin append code before return in Contructor.newInstance. When "instanceof Compat_Entity", cast to Compat_Entity and invoke .toReal()
+- Code in mod calls Compat_Constructor.newInstance, might need to call getFake or so.
+
+Think again: Why "Mod_Block -> Wrapper_Block -> MC_Block" nicht möglich?
+
+All mod classes tagged? When usin @Callback, switch on version (CASE V1_7_10 Call_XX, CASE V1_10_2 Call_YY)
