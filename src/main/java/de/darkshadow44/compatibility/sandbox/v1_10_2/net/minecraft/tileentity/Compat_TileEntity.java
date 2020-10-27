@@ -3,9 +3,12 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.tileentity;
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_EnumFacing;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_BlockPos;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_World;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.common.capabilities.Compat_Capability;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 
 public class Compat_TileEntity {
 	private TileEntity original;
@@ -54,4 +57,13 @@ public class Compat_TileEntity {
 		else
 			return new Compat_BlockPos(original.getPos());
 	}
+
+	public boolean Compat_hasCapability(Compat_Capability capability, Compat_EnumFacing facing) {
+		EnumFacing facing2 = facing == null ? null : facing.getReal();
+		if (original == null)
+			return thisReal.hasCapabilitySuper(capability.getReal(), facing2);
+		else
+			return original.hasCapability(capability.getReal(), facing2);
+	}
+
 }

@@ -3,7 +3,7 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.rende
 import java.util.List;
 
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state.Compat_IBlockState;
-import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.Compat_TextureAtlasSprite;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.texture.Compat_TextureAtlasSprite;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_EnumFacing;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 

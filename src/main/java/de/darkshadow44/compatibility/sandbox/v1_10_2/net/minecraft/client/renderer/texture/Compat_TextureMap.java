@@ -17,4 +17,8 @@ public class Compat_TextureMap {
 	public static Compat_ResourceLocation Compat_get_field_110575_b() {
 		return new Compat_ResourceLocation(TextureMap.LOCATION_BLOCKS_TEXTURE);
 	}
+
+	public Compat_TextureAtlasSprite Compat_func_110572_b(String path) {
+		return new Compat_TextureAtlasSprite(original.getAtlasSprite(path));
+	}
 }

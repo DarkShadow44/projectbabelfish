@@ -10,6 +10,7 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_E
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_BlockPos;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_World;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.eventhandler.Compat_Event;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 public class Compat_PlayerInteractEvent extends Compat_Event {
@@ -52,7 +53,8 @@ public class Compat_PlayerInteractEvent extends Compat_Event {
 	}
 
 	public Compat_ItemStack Compat_getItemStack() {
-		return new Compat_ItemStack(original.getItemStack());
+		ItemStack stack = original.getItemStack();
+		return stack == null || stack.isEmpty() ? null : new Compat_ItemStack(stack);
 	}
 
 	public Compat_EntityPlayer Compat_getEntityPlayer() {
