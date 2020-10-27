@@ -1,7 +1,10 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.event;
 
+import java.io.File;
+
 import org.apache.logging.log4j.Logger;
 
+import de.darkshadow44.compatibility.core.CompatibilityMod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class Compat_FMLPreInitializationEvent {
@@ -18,5 +21,11 @@ public class Compat_FMLPreInitializationEvent {
 
 	public Logger Compat_getModLog() {
 		return original.getModLog();
+	}
+
+	public File Compat_getSuggestedConfigurationFile() {
+		File parent = original.getSuggestedConfigurationFile().getParentFile();
+		File folder = new File(parent, "1.10.2");
+		return new File(folder, CompatibilityMod.LAYER_1_10_2.currentModId);
 	}
 }

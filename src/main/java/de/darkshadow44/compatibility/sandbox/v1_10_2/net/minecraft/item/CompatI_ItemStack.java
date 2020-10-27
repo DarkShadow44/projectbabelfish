@@ -24,4 +24,6 @@ public interface CompatI_ItemStack {
 	public void setCountSuper(int value);
 
 	public Item getItemSuper();
+
+	public ItemStack copySuper();
 }

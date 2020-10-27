@@ -27,4 +27,6 @@ public interface CompatI_NBTTagCompound {
 	public NBTTagCompound copySuper();
 
 	public String getStringSuper(String key);
+
+	public float getFloatSuper(String key);
 }

@@ -127,4 +127,17 @@ public class Compat_ItemStack {
 			item = original.getItem();
 		return Compat_Item.get_fake(item);
 	}
+
+	public static Compat_ItemStack Compat_func_77949_a(Compat_NBTTagCompound tag) {
+		return new Compat_ItemStack(new ItemStack(tag.getReal()));
+	}
+
+	public Compat_ItemStack Compat_func_77946_l() {
+		ItemStack stack;
+		if (original == null)
+			stack = thisReal.copySuper();
+		else
+			stack = original.copy();
+		return new Compat_ItemStack(stack);
+	}
 }

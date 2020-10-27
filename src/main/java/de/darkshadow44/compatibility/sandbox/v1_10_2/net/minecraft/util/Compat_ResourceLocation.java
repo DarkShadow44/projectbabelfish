@@ -37,6 +37,10 @@ public class Compat_ResourceLocation implements Comparable<Compat_ResourceLocati
 		return original == null ? thisReal.get() : original;
 	}
 
+	public boolean Compat_equals(Object other) {
+		return equals(other);
+	}
+
 	@Override
 	public boolean equals(Object other) {
 		if (other instanceof Compat_ResourceLocation) {

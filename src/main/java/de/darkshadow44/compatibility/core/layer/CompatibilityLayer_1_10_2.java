@@ -69,7 +69,7 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 		List<ModInfo> modInfos = findMods(modClasses);
 
 		// HACK TODO dependencies
-		modInfos = Lists.reverse(modInfos);
+		//modInfos = Lists.reverse(modInfos);
 
 		mods.addAll(modInfos);
 

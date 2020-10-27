@@ -26,7 +26,7 @@ run
 
 gradle/
 gradlew*
-conf*/
+conf1*/
 
 .factorypath
 logs/

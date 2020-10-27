@@ -103,4 +103,11 @@ public class Compat_NBTTagCompound extends Compat_NBTBase {
 		else
 			return original.getString(key);
 	}
+
+	public float Compat_func_74760_g(String key) {
+		if (original == null)
+			return thisReal.getFloatSuper(key);
+		else
+			return original.getFloat(key);
+	}
 }

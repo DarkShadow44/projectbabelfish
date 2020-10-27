@@ -2,7 +2,6 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft;
 
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.block.model.Compat_IBakedModel;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.block.model.Compat_ModelResourceLocation;
-import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.block.model.Wrapper2_IBakedModel;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.registry.Compat_IRegistry;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
