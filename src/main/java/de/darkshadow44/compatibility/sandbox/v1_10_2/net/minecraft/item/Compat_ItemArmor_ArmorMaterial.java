@@ -7,7 +7,7 @@ public class Compat_ItemArmor_ArmorMaterial {
 
 	private static final Compat_ItemArmor_ArmorMaterial IRON = new Compat_ItemArmor_ArmorMaterial(ArmorMaterial.IRON);
 
-	private ArmorMaterial original;
+	private final ArmorMaterial original;
 
 	public Compat_ItemArmor_ArmorMaterial(ArmorMaterial original) {
 		this.original = original;

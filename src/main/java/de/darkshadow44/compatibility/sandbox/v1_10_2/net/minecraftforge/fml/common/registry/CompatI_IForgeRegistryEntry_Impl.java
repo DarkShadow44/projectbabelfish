@@ -8,5 +8,5 @@ public interface CompatI_IForgeRegistryEntry_Impl<T extends IForgeRegistryEntry<
 
 	public IForgeRegistryEntry<?> setRegistryNameSuper(String name);
 
-	public IForgeRegistryEntry<?>  setRegistryNameSuper(String currentModId, String name);
+	public IForgeRegistryEntry<?> setRegistryNameSuper(String currentModId, String name);
 }

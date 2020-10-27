@@ -8,7 +8,7 @@ public class Compat_MapColor {
 	private static final Compat_MapColor GRASS = new Compat_MapColor(MapColor.GRASS);
 	private static final Compat_MapColor AIR = new Compat_MapColor(MapColor.AIR);
 
-	private MapColor original;
+	private final MapColor original;
 
 	public Compat_MapColor(MapColor original) {
 		this.original = original;

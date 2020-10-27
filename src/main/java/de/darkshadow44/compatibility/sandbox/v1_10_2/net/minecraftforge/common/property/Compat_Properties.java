@@ -7,8 +7,7 @@ import net.minecraftforge.common.property.Properties;
 public class Compat_Properties {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static Compat_IUnlistedProperty<?> Compat_toUnlisted(Compat_IProperty<?> property)
-	{
+	public static Compat_IUnlistedProperty<?> Compat_toUnlisted(Compat_IProperty<?> property) {
 		IUnlistedProperty<?> result = Properties.toUnlisted(property.getReal());
 		return new Wrapper2_IUnlistedProperty(result);
 	}

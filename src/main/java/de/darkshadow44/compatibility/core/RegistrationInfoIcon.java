@@ -1,7 +1,7 @@
 package de.darkshadow44.compatibility.core;
 
 public class RegistrationInfoIcon {
-	private String name;
+	private final String name;
 
 	public RegistrationInfoIcon(String name) {
 		this.name = name;

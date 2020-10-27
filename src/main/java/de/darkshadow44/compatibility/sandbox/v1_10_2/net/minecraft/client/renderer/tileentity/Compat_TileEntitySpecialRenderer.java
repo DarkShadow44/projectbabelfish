@@ -47,8 +47,7 @@ public class Compat_TileEntitySpecialRenderer<T extends Compat_TileEntity> {
 			original.render(te.getReal(), x, y, z, partialTicks, destroyStage, 0);
 	}
 
-	public Compat_TileEntityRendererDispatcher Compat_get_field_147501_a()
-	{
+	public Compat_TileEntityRendererDispatcher Compat_get_field_147501_a() {
 		if (original == null)
 			return new Compat_TileEntityRendererDispatcher(thisReal.get_rendererDispatcher());
 		else

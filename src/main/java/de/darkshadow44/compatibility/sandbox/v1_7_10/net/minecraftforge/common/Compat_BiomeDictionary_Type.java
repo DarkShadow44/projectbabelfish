@@ -20,7 +20,7 @@ public class Compat_BiomeDictionary_Type {
 	private static final Compat_BiomeDictionary_Type MAGICAL = new Compat_BiomeDictionary_Type(Type.MAGICAL);
 	private static final Compat_BiomeDictionary_Type NETHER = new Compat_BiomeDictionary_Type(Type.NETHER);
 
-	private Type original;
+	private final Type original;
 
 	public Compat_BiomeDictionary_Type(Type original) {
 		this.original = original;

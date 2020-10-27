@@ -32,8 +32,7 @@ public class Compat_NBTTagList extends Compat_NBTBase {
 		return original == null ? thisReal.get() : original;
 	}
 
-	public Compat_NBTTagCompound Compat_func_150305_b(int index)
-	{
+	public Compat_NBTTagCompound Compat_func_150305_b(int index) {
 		if (original == null)
 			return new Compat_NBTTagCompound(thisReal.getCompoundTagAtSuper(index));
 		else

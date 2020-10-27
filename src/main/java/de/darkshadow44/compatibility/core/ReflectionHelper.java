@@ -42,8 +42,7 @@ public class ReflectionHelper {
 		return null;
 	}
 
-	public static Object callPrivateMethod(Class<?> c, Object instance, String methodName, Object[] parameter,
-			Class<?>[] classParameters) {
+	public static Object callPrivateMethod(Class<?> c, Object instance, String methodName, Object[] parameter, Class<?>[] classParameters) {
 		try {
 			Method method = c.getDeclaredMethod(methodName, classParameters);
 			method.setAccessible(true);

@@ -4,10 +4,9 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.util.Compat_I
 
 public class Wrapper_IIcon implements Compat_IIcon {
 
-	private String name;
+	private final String name;
 
-	public Wrapper_IIcon(String name)
-	{
+	public Wrapper_IIcon(String name) {
 		this.name = name;
 	}
 

@@ -4,9 +4,9 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 
 public class RegistrationInfoItem {
-	private Item item;
-	private String name;
-	private ResourceLocation location;
+	private final Item item;
+	private final String name;
+	private final ResourceLocation location;
 
 	public RegistrationInfoItem(Item item, String name, ResourceLocation location) {
 		this.item = item;

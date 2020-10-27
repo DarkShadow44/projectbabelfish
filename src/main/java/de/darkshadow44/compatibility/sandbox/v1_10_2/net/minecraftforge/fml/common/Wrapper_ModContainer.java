@@ -17,6 +17,6 @@ public class Wrapper_ModContainer implements Compat_ModContainer {
 
 	@Override
 	public String Compat_getModId() {
-		return CompatibilityMod.LAYER_1_10_2.currentModId; //original.getModId();
+		return CompatibilityMod.LAYER_1_10_2.currentModId; // original.getModId();
 	}
 }

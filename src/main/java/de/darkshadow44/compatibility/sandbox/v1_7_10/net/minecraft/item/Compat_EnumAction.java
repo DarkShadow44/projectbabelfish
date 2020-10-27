@@ -8,7 +8,7 @@ public class Compat_EnumAction {
 	private final static Compat_EnumAction EAT = new Compat_EnumAction(EnumAction.EAT);
 	private final static Compat_EnumAction DRINK = new Compat_EnumAction(EnumAction.DRINK);
 
-	private EnumAction original;
+	private final EnumAction original;
 
 	public Compat_EnumAction(EnumAction original) {
 		this.original = original;

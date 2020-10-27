@@ -34,7 +34,7 @@ public class MemoryClassLoader extends URLClassLoader {
 			e.printStackTrace();
 		}
 		try {
-			//System.out.println("Loading class: " + name);
+			// System.out.println("Loading class: " + name);
 			return loadClass(name, false);
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException(e);

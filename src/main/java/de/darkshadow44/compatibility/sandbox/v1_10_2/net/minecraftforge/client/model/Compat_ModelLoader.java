@@ -12,7 +12,7 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.item.Compat_I
 import net.minecraftforge.client.model.ModelLoader;
 
 public class Compat_ModelLoader extends Compat_ModelBakery {
-	private ModelLoader original;
+	private final ModelLoader original;
 
 	// When called from Minecraft
 	public Compat_ModelLoader(ModelLoader original) {
@@ -29,6 +29,6 @@ public class Compat_ModelLoader extends Compat_ModelBakery {
 	}
 
 	public static void Compat_setCustomModelResourceLocation(Compat_Item item, int metadata, Compat_ModelResourceLocation location) {
-		CompatibilityMod.LAYER_1_10_2.modelLocationInfo.add(new ModelLocationInfo(item.getReal(),  metadata, location.getReal()));
+		CompatibilityMod.LAYER_1_10_2.modelLocationInfo.add(new ModelLocationInfo(item.getReal(), metadata, location.getReal()));
 	}
 }

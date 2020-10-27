@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 
 public class MethodInfo<T extends Annotation> {
-	private Object mod;
+	private final Object mod;
 	private Method method;
 
 	public MethodInfo(Object mod, Class<T> annotationClass, Class<?> eventClass) {

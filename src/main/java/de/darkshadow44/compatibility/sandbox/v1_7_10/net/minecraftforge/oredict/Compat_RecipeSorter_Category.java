@@ -7,7 +7,7 @@ public class Compat_RecipeSorter_Category {
 
 	private static final Compat_RecipeSorter_Category SHAPELESS = new Compat_RecipeSorter_Category(Category.SHAPELESS);
 
-	private Category original;
+	private final Category original;
 
 	public Compat_RecipeSorter_Category(Category original) {
 		this.original = original;

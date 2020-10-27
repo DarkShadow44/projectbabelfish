@@ -6,8 +6,7 @@ import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraftforge.common.util.EnumHelper;
 
 public class Compat_EnumHelper {
-	public static Compat_ItemArmor_ArmorMaterial Compat_addArmorMaterial(String name, String textureName, int durability, int[] reductionAmounts, int enchantability, Compat_SoundEvent soundOnEquip, float toughness)
-	{
+	public static Compat_ItemArmor_ArmorMaterial Compat_addArmorMaterial(String name, String textureName, int durability, int[] reductionAmounts, int enchantability, Compat_SoundEvent soundOnEquip, float toughness) {
 		ArmorMaterial material = EnumHelper.addArmorMaterial(name, textureName, durability, reductionAmounts, enchantability, soundOnEquip.getReal(), toughness);
 		return new Compat_ItemArmor_ArmorMaterial(material);
 	}

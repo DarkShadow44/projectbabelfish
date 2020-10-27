@@ -4,9 +4,9 @@ import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
 
 public class RegistrationInfoBlock {
-	private Block block;
-	private String name;
-	private ResourceLocation location;
+	private final Block block;
+	private final String name;
+	private final ResourceLocation location;
 
 	public RegistrationInfoBlock(Block block, String name, ResourceLocation location) {
 		this.block = block;

@@ -17,7 +17,7 @@ public class Compat_RenderItem {
 	public Compat_RenderItem() {
 	}
 
-	private boolean initialized = false;
+	private final boolean initialized = false;
 
 	@SuppressWarnings("unused")
 	private void tryInit() {

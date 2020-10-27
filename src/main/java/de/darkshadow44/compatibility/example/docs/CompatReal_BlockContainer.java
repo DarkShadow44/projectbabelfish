@@ -9,7 +9,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class CompatReal_BlockContainer extends BlockContainer implements CompatI_BlockContainer {
-	private Compat_BlockContainer thisFake;
+	private final Compat_BlockContainer thisFake;
 
 	public CompatReal_BlockContainer(Compat_BlockContainer thisFake, Material materialIn) {
 		super(materialIn);

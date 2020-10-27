@@ -4,7 +4,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
 public class FieldInfo<T extends Annotation> {
-	private Object mod;
+	private final Object mod;
 	private T annotation;
 	private Field field;
 

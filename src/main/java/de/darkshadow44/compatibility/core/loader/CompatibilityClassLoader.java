@@ -14,7 +14,7 @@ public class CompatibilityClassLoader {
 	private final MemoryClassLoader classLoader;
 	private final CompatibilityLayer layer;
 
-	private HashMap<String, Boolean> loadedClassNames = new HashMap<String, Boolean>();
+	private final HashMap<String, Boolean> loadedClassNames = new HashMap<String, Boolean>();
 
 	public CompatibilityClassLoader(CompatibilityLayer layer, MemoryClassLoader classLoader) {
 		this.layer = layer;

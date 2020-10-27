@@ -8,7 +8,7 @@ import net.minecraft.world.IBlockAccess;
 
 public class CompatReal_Block extends Block implements CompatI_Block {
 
-	private Compat_Block thisFake;
+	private final Compat_Block thisFake;
 
 	public CompatReal_Block(Compat_Block thisFake, Material materialIn) {
 		super(materialIn);

@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 
 public class Wrapper_IWorldGenerator implements IWorldGenerator {
 	@SuppressWarnings("unused")
-	private Compat_IWorldGenerator thisFake;
+	private final Compat_IWorldGenerator thisFake;
 
 	public Wrapper_IWorldGenerator(Compat_IWorldGenerator thisFake) {
 		this.thisFake = thisFake;

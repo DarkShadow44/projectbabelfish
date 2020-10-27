@@ -3,7 +3,7 @@ package de.darkshadow44.compatibility.core;
 import java.lang.reflect.Constructor;
 
 public class ConstructorInfo {
-	private String className;
+	private final String className;
 
 	public ConstructorInfo(String className) {
 		this.className = className;

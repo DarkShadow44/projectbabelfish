@@ -4,9 +4,9 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item.Compat_I
 
 public class Compat_FluidContainerRegistry_FluidContainerData {
 
-	private Compat_FluidStack stack;
-	private Compat_ItemStack filledContainer;
-	private Compat_ItemStack emptyContainer;
+	private final Compat_FluidStack stack;
+	private final Compat_ItemStack filledContainer;
+	private final Compat_ItemStack emptyContainer;
 
 	public Compat_FluidContainerRegistry_FluidContainerData(Compat_FluidStack stack, Compat_ItemStack filledContainer, Compat_ItemStack emptyContainer) {
 		this.stack = stack;

@@ -7,7 +7,7 @@ public class Compat_Side {
 	private final static Compat_Side CLIENT = new Compat_Side(Side.CLIENT);
 	private final static Compat_Side SERVER = new Compat_Side(Side.SERVER);
 
-	private Side original;
+	private final Side original;
 
 	public Compat_Side(Side original) {
 		this.original = original;

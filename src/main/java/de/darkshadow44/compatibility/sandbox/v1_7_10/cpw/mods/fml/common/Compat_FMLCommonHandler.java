@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class Compat_FMLCommonHandler {
 
-	private FMLCommonHandler original;
+	private final FMLCommonHandler original;
 
 	public Compat_FMLCommonHandler(FMLCommonHandler original) {
 		this.original = original;

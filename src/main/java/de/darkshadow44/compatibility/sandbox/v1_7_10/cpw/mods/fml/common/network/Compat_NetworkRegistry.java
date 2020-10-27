@@ -4,7 +4,7 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.cpw.mods.fml.common.network
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 public class Compat_NetworkRegistry {
-	private NetworkRegistry original;
+	private final NetworkRegistry original;
 
 	public Compat_NetworkRegistry(NetworkRegistry original) {
 		this.original = original;

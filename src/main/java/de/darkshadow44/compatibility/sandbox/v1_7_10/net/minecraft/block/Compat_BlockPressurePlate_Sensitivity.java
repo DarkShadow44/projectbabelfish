@@ -7,7 +7,7 @@ public class Compat_BlockPressurePlate_Sensitivity {
 	private static final Compat_BlockPressurePlate_Sensitivity EVERYTHING = new Compat_BlockPressurePlate_Sensitivity(Sensitivity.EVERYTHING);
 	private static final Compat_BlockPressurePlate_Sensitivity MOBS = new Compat_BlockPressurePlate_Sensitivity(Sensitivity.MOBS);
 
-	private Sensitivity original;
+	private final Sensitivity original;
 
 	public Compat_BlockPressurePlate_Sensitivity(Sensitivity original) {
 		this.original = original;

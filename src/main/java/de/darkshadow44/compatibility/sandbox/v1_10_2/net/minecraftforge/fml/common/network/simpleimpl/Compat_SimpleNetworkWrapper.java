@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 
 public class Compat_SimpleNetworkWrapper {
 
-	private SimpleNetworkWrapper original;
+	private final SimpleNetworkWrapper original;
 
 	public Compat_SimpleNetworkWrapper(SimpleNetworkWrapper original) {
 		this.original = original;

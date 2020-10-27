@@ -6,7 +6,7 @@ public class Compat_EntityEquipmentSlot {
 
 	private static final Compat_EntityEquipmentSlot HEAD = new Compat_EntityEquipmentSlot(EntityEquipmentSlot.HEAD);
 
-	private EntityEquipmentSlot original;
+	private final EntityEquipmentSlot original;
 
 	public Compat_EntityEquipmentSlot(EntityEquipmentSlot original) {
 		this.original = original;

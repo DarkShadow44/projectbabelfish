@@ -30,7 +30,7 @@ import de.darkshadow44.compatibility.core.layer.CompatibilityLayer;
 
 public class ClassGenerator {
 
-	private CompatibilityLayer layer;
+	private final CompatibilityLayer layer;
 
 	public ClassGenerator(CompatibilityLayer layer) {
 		this.layer = layer;

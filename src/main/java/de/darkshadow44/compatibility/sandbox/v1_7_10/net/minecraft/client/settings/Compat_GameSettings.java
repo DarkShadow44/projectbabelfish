@@ -7,7 +7,7 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
 
 public class Compat_GameSettings {
-	private GameSettings original;
+	private final GameSettings original;
 
 	public Compat_GameSettings(GameSettings original) {
 		this.original = original;

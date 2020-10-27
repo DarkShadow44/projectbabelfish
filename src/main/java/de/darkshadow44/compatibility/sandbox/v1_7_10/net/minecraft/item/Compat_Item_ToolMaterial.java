@@ -10,7 +10,7 @@ public class Compat_Item_ToolMaterial {
 	private static final Compat_Item_ToolMaterial STONE = new Compat_Item_ToolMaterial(ToolMaterial.STONE);
 	private static final Compat_Item_ToolMaterial EMERALD = new Compat_Item_ToolMaterial(ToolMaterial.DIAMOND);
 
-	private ToolMaterial original;
+	private final ToolMaterial original;
 
 	public Compat_Item_ToolMaterial(ToolMaterial original) {
 		this.original = original;

@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class Compat_FMLPreInitializationEvent {
 
-	private FMLPreInitializationEvent original;
+	private final FMLPreInitializationEvent original;
 
 	public Compat_FMLPreInitializationEvent(FMLPreInitializationEvent original) {
 		this.original = original;
