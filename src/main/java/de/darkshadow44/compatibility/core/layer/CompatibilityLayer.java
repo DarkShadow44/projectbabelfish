@@ -8,6 +8,7 @@ import de.darkshadow44.compatibility.autogen.ClassGenerator;
 import de.darkshadow44.compatibility.core.ModInfo;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent.Pre;
 import net.minecraftforge.event.RegistryEvent.Register;
@@ -92,4 +93,6 @@ public abstract class CompatibilityLayer {
 	public abstract void onClientTick(ClientTickEvent event);
 
 	public abstract void onRightclickBlock(RightClickBlock event);
+
+	public abstract void onModelBake(ModelBakeEvent event);
 }

@@ -13,6 +13,8 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.tileentity.Co
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_EnumBlockRenderType;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_AxisAlignedBB;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_BlockPos;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.registry.Compat_RegistryNamespacedDefaultedByKey;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.registry.Compat_RegistryNamespacedDefaultedByKey_Block;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_IBlockAccess;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_World;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.registry.Compat_IForgeRegistryEntry_Impl;
@@ -217,5 +219,9 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 			return Compat_EnumBlockRenderType.get_fake(thisReal.getRenderTypeSuper(state.getReal()));
 		else
 			return Compat_EnumBlockRenderType.get_fake(original.getRenderType(state.getReal()));
+	}
+
+	public static Compat_RegistryNamespacedDefaultedByKey Compat_get_field_149771_c() {
+		return new Compat_RegistryNamespacedDefaultedByKey_Block(Block.REGISTRY);
 	}
 }

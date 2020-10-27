@@ -1,10 +1,18 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import com.google.common.collect.ImmutableMap;
+
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.Compat_Block;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.properties.Compat_IProperty;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.properties.Wrapper_IProperty;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_EnumFacing;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_BlockPos;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_IBlockAccess;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 
@@ -42,5 +50,17 @@ public class Wrapper_IBlockState implements Compat_IBlockState {
 	@Override
 	public Compat_Block Compat_func_177230_c() {
 		return new Compat_Block(original.getBlock());
+	}
+
+	public ImmutableMap<Compat_IProperty<?>, Comparable<?>> Compat_func_177228_b() {
+		ImmutableMap<IProperty<?>, Comparable<?>> properties = original.getProperties();
+
+		Map<Compat_IProperty<?>, Comparable<?>> ret = new HashMap<>();
+
+		for (Entry<IProperty<?>, Comparable<?>> property : properties.entrySet()) {
+			ret.put(new Wrapper_IProperty<>(property.getKey()), property.getValue());
+		}
+
+		return ImmutableMap.copyOf(ret);
 	}
 }

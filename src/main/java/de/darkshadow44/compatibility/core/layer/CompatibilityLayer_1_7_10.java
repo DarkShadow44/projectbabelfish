@@ -29,6 +29,7 @@ import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -224,6 +225,11 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 
 	@Override
 	public void onRightclickBlock(RightClickBlock event) {
+
+	}
+
+	@Override
+	public void onModelBake(ModelBakeEvent event) {
 
 	}
 

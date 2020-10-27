@@ -18,6 +18,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.item.Item;
 import net.minecraft.launchwrapper.Launch;
+import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
@@ -148,6 +149,13 @@ public class CompatibilityMod {
 	public static void onRightclickBlock(PlayerInteractEvent.RightClickBlock event) {
 		for (CompatibilityLayer layer : layers) {
 			layer.onRightclickBlock(event);
+		}
+	}
+
+	@SubscribeEvent
+	public static void onModelBake(ModelBakeEvent event) {
+		for (CompatibilityLayer layer : layers) {
+			layer.onModelBake(event);
 		}
 	}
 }

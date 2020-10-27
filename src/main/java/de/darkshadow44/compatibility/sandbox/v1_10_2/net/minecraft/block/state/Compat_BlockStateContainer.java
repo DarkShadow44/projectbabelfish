@@ -1,5 +1,10 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.common.collect.ImmutableList;
+
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
@@ -7,6 +12,7 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.Compat_
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.properties.Compat_IProperty;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
 
 public class Compat_BlockStateContainer {
 	private BlockStateContainer original;
@@ -37,5 +43,21 @@ public class Compat_BlockStateContainer {
 
 	public BlockStateContainer getReal() {
 		return original == null ? thisReal.get() : original;
+	}
+
+	public ImmutableList<Compat_IBlockState> Compat_func_177619_a() {
+		ImmutableList<IBlockState> states;
+		if (original == null)
+			states = thisReal.getValidStatesSuper();
+		else
+			states = original.getValidStates();
+
+		List<Compat_IBlockState> ret = new ArrayList<>();
+
+		for (IBlockState state : states) {
+			ret.add(new Wrapper_IBlockState(state));
+		}
+
+		return ImmutableList.copyOf(ret);
 	}
 }
