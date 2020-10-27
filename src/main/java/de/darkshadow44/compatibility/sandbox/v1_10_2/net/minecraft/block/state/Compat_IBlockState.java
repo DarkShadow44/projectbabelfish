@@ -3,6 +3,7 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state;
 import com.google.common.collect.ImmutableMap;
 
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.Compat_Block;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.material.Compat_Material;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.properties.Compat_IProperty;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_EnumFacing;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_BlockPos;
@@ -21,4 +22,6 @@ public interface Compat_IBlockState {
 	public Compat_Block Compat_func_177230_c();
 
 	ImmutableMap<Compat_IProperty<?>, Comparable<?>> Compat_func_177228_b();
+
+	Compat_Material Compat_func_185904_a();
 }

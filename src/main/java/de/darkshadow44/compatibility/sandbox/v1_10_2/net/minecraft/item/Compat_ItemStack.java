@@ -140,4 +140,11 @@ public class Compat_ItemStack {
 			stack = original.copy();
 		return new Compat_ItemStack(stack);
 	}
+
+	public int Compat_func_77960_j() {
+		if (original == null)
+			return thisReal.getMetadataSuper();
+		else
+			return original.getMetadata();
+	}
 }

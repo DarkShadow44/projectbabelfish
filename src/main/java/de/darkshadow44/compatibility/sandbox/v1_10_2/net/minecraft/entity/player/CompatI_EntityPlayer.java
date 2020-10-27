@@ -10,4 +10,6 @@ public interface CompatI_EntityPlayer extends CompatI_EntityLivingBase {
 	public EntityPlayer get();
 
 	public boolean canPlayerEditSuper(BlockPos pos, EnumFacing facing, ItemStack stack);
+
+	public boolean isCreativeSuper();
 }

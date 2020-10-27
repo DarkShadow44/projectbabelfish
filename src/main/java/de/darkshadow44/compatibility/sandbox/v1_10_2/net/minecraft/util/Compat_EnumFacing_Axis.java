@@ -27,4 +27,17 @@ public enum Compat_EnumFacing_Axis {
 	public static Compat_EnumFacing_Axis Compat_get_Z() {
 		return Z;
 	}
+
+	static Compat_EnumFacing_Axis getFake(Axis real) {
+		switch (real) {
+		case X:
+			return X;
+		case Y:
+			return Y;
+		case Z:
+			return Z;
+		default:
+			throw new RuntimeException();
+		}
+	}
 }

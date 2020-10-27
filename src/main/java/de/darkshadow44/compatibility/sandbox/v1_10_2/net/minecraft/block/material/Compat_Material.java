@@ -39,4 +39,11 @@ public class Compat_Material {
 	public static Compat_Material Compat_get_field_151576_e() {
 		return new Compat_Material(Material.ROCK);
 	}
+
+	public boolean Compat_func_76222_j() {
+		if (original == null)
+			return thisReal.isReplaceableSuper();
+		else
+			return original.isReplaceable();
+	}
 }

@@ -72,6 +72,15 @@ public abstract class CompatibilityLayer {
 		classGenerator.tryGenerateRealClasses();
 	}
 
+	public ModInfo getModById(String id) {
+		for (ModInfo mod : mods) {
+			if (mod.id.equals(id)) {
+				return mod;
+			}
+		}
+		return null;
+	}
+
 	public abstract void preInit(FMLPreInitializationEvent event);
 
 	public abstract void init(FMLInitializationEvent event);

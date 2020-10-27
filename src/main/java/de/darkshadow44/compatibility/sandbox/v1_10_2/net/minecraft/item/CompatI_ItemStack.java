@@ -26,4 +26,6 @@ public interface CompatI_ItemStack {
 	public Item getItemSuper();
 
 	public ItemStack copySuper();
+
+	public int getMetadataSuper();
 }

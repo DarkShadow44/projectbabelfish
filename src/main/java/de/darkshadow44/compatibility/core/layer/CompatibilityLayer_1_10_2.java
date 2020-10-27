@@ -67,7 +67,7 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 		List<ModInfo> modInfos = findMods(modClasses);
 
 		// HACK TODO dependencies
-		//modInfos = Lists.reverse(modInfos);
+		// modInfos = Lists.reverse(modInfos);
 
 		mods.addAll(modInfos);
 
@@ -208,8 +208,10 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 	@Override
 	public void onRightclickBlock(RightClickBlock event) {
 		for (ModInfo modInfo : mods) {
-			MethodInfo<?> method = new MethodInfo<>(modInfo.getProxy(), Compat_SubscribeEvent.class, Compat_PlayerInteractEvent_RightClickBlock.class);
-			method.tryInvoke(new Compat_PlayerInteractEvent_RightClickBlock(event));
+			for (Object eventObj : modInfo.eventObjects) {
+				MethodInfo<?> method = new MethodInfo<>(eventObj, Compat_SubscribeEvent.class, Compat_PlayerInteractEvent_RightClickBlock.class);
+				method.tryInvoke(new Compat_PlayerInteractEvent_RightClickBlock(event));
+			}
 		}
 	}
 

@@ -1,31 +1,43 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.event.entity.player;
 
-import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.item.Compat_ItemStack;
-import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_EnumHand;
-import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_World;
+import de.darkshadow44.compatibility.autogen.Factory;
+import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
+import de.darkshadow44.compatibility.core.ParentSelector;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_Vec3d;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 
-public class Compat_PlayerInteractEvent_RightClickBlock {
-	private final RightClickBlock original;
+public class Compat_PlayerInteractEvent_RightClickBlock extends Compat_PlayerInteractEvent {
+	private RightClickBlock original;
+	private CompatI_PlayerInteractEvent_RightClickBlock thisReal;
 
+	// When called from Mod
+	public Compat_PlayerInteractEvent_RightClickBlock() {
+		super(ParentSelector.NULL);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_PlayerInteractEvent_RightClickBlock.class, this), null);
+	}
+
+	// When called from child
+	protected Compat_PlayerInteractEvent_RightClickBlock(ParentSelector s) {
+		super(ParentSelector.NULL);
+	}
+
+	// When called from Minecraft
 	public Compat_PlayerInteractEvent_RightClickBlock(RightClickBlock original) {
+		super(ParentSelector.NULL);
+		this.initialize(null, original);
+	}
+
+	protected void initialize(CompatI_PlayerInteractEvent_RightClickBlock thisReal, RightClickBlock original) {
+		super.initialize(thisReal, original);
+		this.thisReal = thisReal;
 		this.original = original;
 	}
 
 	public RightClickBlock getReal() {
-		return original;
+		return original == null ? thisReal.get() : original;
 	}
 
-	public Compat_World Compat_getWorld() {
-		return Compat_World.get_fake(original.getWorld());
+	public Compat_Vec3d Compat_getHitVec() {
+		return new Compat_Vec3d(original.getHitVec());
 	}
-
-	public Compat_EnumHand Compat_getHand() {
-		return Compat_EnumHand.map_real_to_fake(original.getHand());
-	}
-
-	public Compat_ItemStack Compat_getItemStack() {
-		return new Compat_ItemStack(original.getItemStack());
-	}
-
 }

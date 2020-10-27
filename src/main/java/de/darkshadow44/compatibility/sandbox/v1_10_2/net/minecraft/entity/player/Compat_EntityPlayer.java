@@ -55,4 +55,11 @@ public class Compat_EntityPlayer extends Compat_EntityLivingBase {
 			return new Compat_EntityPlayer(real);
 		}
 	}
+
+	public boolean Compat_func_184812_l_() {
+		if (original == null)
+			return thisReal.isCreativeSuper();
+		else
+			return original.isCreative();
+	}
 }

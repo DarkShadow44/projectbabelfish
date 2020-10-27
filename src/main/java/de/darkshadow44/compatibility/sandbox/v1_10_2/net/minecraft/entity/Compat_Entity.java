@@ -3,8 +3,10 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.entity;
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_EnumFacing;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_World;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.EnumFacing;
 
 public class Compat_Entity {
 	private Entity original;
@@ -38,5 +40,21 @@ public class Compat_Entity {
 			return Compat_World.get_fake(thisReal.get_world());
 		else
 			return Compat_World.get_fake(original.world);
+	}
+
+	public boolean Compat_func_70093_af() {
+		if (original == null)
+			return thisReal.isSneakingSuper();
+		else
+			return original.isSneaking();
+	}
+
+	public Compat_EnumFacing Compat_func_174811_aO() {
+		EnumFacing ret;
+		if (original == null)
+			ret = thisReal.getHorizontalFacingSuper();
+		else
+			ret = original.getHorizontalFacing();
+		return Compat_EnumFacing.map_real_to_fake(ret);
 	}
 }

@@ -4,4 +4,6 @@ import net.minecraft.block.material.Material;
 
 public interface CompatI_Material {
 	public Material get();
+
+	public boolean isReplaceableSuper();
 }

@@ -105,4 +105,8 @@ public enum Compat_EnumFacing implements IStringSerializable {
 	public Compat_EnumFacing Compat_func_176734_d() {
 		return map_real_to_fake(original.getOpposite());
 	}
+
+	public Compat_EnumFacing_Axis Compat_func_176740_k() {
+		return Compat_EnumFacing_Axis.getFake(original.getAxis());
+	}
 }

@@ -1,5 +1,6 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.eventhandler;
 
+import de.darkshadow44.compatibility.core.CompatibilityMod;
 import net.minecraftforge.fml.common.eventhandler.EventBus;
 
 public class Compat_EventBus {
@@ -15,7 +16,7 @@ public class Compat_EventBus {
 	}
 
 	public void Compat_register(Object obj) {
-		// TODO
+		CompatibilityMod.LAYER_1_10_2.getModById(CompatibilityMod.LAYER_1_10_2.currentModId).addEventObject(obj);
 	}
 
 	public boolean Compat_post(Compat_Event event) {

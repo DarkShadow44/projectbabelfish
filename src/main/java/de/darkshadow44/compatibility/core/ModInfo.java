@@ -1,8 +1,12 @@
 package de.darkshadow44.compatibility.core;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ModInfo {
 	public final String id;
 	public final String className;
+	public final List<Object> eventObjects = new ArrayList<>();
 	private Object mod;
 	private Object proxy;
 
@@ -17,6 +21,7 @@ public class ModInfo {
 
 	public void setMod(Object mod) {
 		this.mod = mod;
+		eventObjects.add(mod);
 	}
 
 	public Object getProxy() {
@@ -25,5 +30,10 @@ public class ModInfo {
 
 	public void setProxy(Object proxy) {
 		this.proxy = proxy;
+		eventObjects.add(proxy);
+	}
+
+	public void addEventObject(Object obj) {
+		eventObjects.add(obj);
 	}
 }

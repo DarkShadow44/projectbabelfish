@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import com.google.common.collect.ImmutableMap;
 
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.Compat_Block;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.material.Compat_Material;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.properties.Compat_IProperty;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.properties.Wrapper_IProperty;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_EnumFacing;
@@ -62,5 +63,10 @@ public class Wrapper_IBlockState implements Compat_IBlockState {
 		}
 
 		return ImmutableMap.copyOf(ret);
+	}
+
+	@Override
+	public Compat_Material Compat_func_185904_a() {
+		return new Compat_Material(original.getMaterial());
 	}
 }
