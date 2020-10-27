@@ -46,4 +46,8 @@ public class Compat_Material {
 		else
 			return original.isReplaceable();
 	}
+
+	public static Compat_Material Compat_get_field_151579_a() {
+		return new Compat_Material(Material.AIR);
+	}
 }

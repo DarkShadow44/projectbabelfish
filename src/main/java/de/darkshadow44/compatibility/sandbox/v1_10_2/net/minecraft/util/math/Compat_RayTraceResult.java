@@ -4,6 +4,7 @@ import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.RayTraceResult.Type;
 
 public class Compat_RayTraceResult {
 	private RayTraceResult original;
@@ -30,5 +31,21 @@ public class Compat_RayTraceResult {
 
 	public RayTraceResult getReal() {
 		return original == null ? thisReal.get() : original;
+	}
+
+	public Compat_RayTraceResult_Type Compat_get_field_72313_a() {
+		Type type;
+		if (original == null)
+			type = thisReal.get_typeOfHit();
+		else
+			type = original.typeOfHit;
+		return Compat_RayTraceResult_Type.getFake(type);
+	}
+
+	public Compat_BlockPos Compat_func_178782_a() {
+		if (original == null)
+			return new Compat_BlockPos(thisReal.getBlockPosSuper());
+		else
+			return new Compat_BlockPos(original.getBlockPos());
 	}
 }

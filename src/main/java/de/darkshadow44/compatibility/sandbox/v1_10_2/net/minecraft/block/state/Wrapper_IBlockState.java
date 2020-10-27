@@ -11,8 +11,10 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.materia
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.properties.Compat_IProperty;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.properties.Wrapper_IProperty;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_EnumFacing;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_AxisAlignedBB;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_BlockPos;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_IBlockAccess;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_World;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
@@ -68,5 +70,10 @@ public class Wrapper_IBlockState implements Compat_IBlockState {
 	@Override
 	public Compat_Material Compat_func_185904_a() {
 		return new Compat_Material(original.getMaterial());
+	}
+
+	@Override
+	public Compat_AxisAlignedBB Compat_func_185918_c(Compat_World world, Compat_BlockPos pos) {
+		return new Compat_AxisAlignedBB(original.getSelectedBoundingBox(world.getReal(), pos.getReal()));
 	}
 }

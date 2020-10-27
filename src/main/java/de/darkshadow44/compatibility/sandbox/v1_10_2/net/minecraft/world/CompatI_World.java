@@ -11,6 +11,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.border.WorldBorder;
 
 public interface CompatI_World {
 	public World get();
@@ -38,4 +39,6 @@ public interface CompatI_World {
 	public void notifyLightSetSuper(BlockPos pos);
 
 	public void markBlockRangeForRenderUpdateSuper(BlockPos real, BlockPos real2);
+
+	public WorldBorder getWorldBorderSuper();
 }

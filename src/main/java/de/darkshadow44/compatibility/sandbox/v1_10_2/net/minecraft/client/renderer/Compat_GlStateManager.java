@@ -35,4 +35,32 @@ public class Compat_GlStateManager {
 	public static void Compat_func_179121_F() {
 		GlStateManager.popMatrix();
 	}
+
+	public static void Compat_func_187428_a(Compat_GlStateManager_SourceFactor src, Compat_GlStateManager_DestFactor dst, Compat_GlStateManager_SourceFactor src2, Compat_GlStateManager_DestFactor dst2) {
+		GlStateManager.tryBlendFuncSeparate(src.getReal(), dst.getReal(), src2.getReal(), dst2.getReal());
+	}
+
+	public static void Compat_func_179131_c(float r, float g, float b, float a) {
+		GlStateManager.color(r, g, b, a);
+	}
+
+	public static void Compat_func_187441_d(float width) {
+		GlStateManager.glLineWidth(width);
+	}
+
+	public static void Compat_func_179090_x() {
+		GlStateManager.disableTexture2D();
+	}
+
+	public static void Compat_func_179132_a(boolean p1) {
+		GlStateManager.depthMask(p1);
+	}
+
+	public static void Compat_func_179098_w() {
+		GlStateManager.enableTexture2D();
+	}
+
+	public static void Compat_func_179084_k() {
+		GlStateManager.disableBlend();
+	}
 }

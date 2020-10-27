@@ -12,6 +12,7 @@ import de.darkshadow44.compatibility.core.ModInfo;
 import de.darkshadow44.compatibility.core.RegistrationInfoBlock;
 import de.darkshadow44.compatibility.core.RegistrationInfoItem;
 import de.darkshadow44.compatibility.core.loader.CompatibilityModLoader;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.client.event.Compat_DrawBlockHighlightEvent;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.client.event.Compat_ModelBakeEvent;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.event.entity.player.Compat_PlayerInteractEvent_RightClickBlock;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.Compat_Mod;
@@ -23,6 +24,7 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.comm
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.gameevent.Compat_TickEvent_ClientTickEvent;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent.Pre;
@@ -218,8 +220,20 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 	@Override
 	public void onModelBake(ModelBakeEvent event) {
 		for (ModInfo modInfo : mods) {
-			MethodInfo<?> method = new MethodInfo<>(modInfo.getProxy(), Compat_SubscribeEvent.class, Compat_ModelBakeEvent.class);
-			method.tryInvoke(new Compat_ModelBakeEvent(event));
+			for (Object eventObj : modInfo.eventObjects) {
+				MethodInfo<?> method = new MethodInfo<>(eventObj, Compat_SubscribeEvent.class, Compat_ModelBakeEvent.class);
+				method.tryInvoke(new Compat_ModelBakeEvent(event));
+			}
+		}
+	}
+
+	@Override
+	public void onDrawBlockHighlight(DrawBlockHighlightEvent event) {
+		for (ModInfo modInfo : mods) {
+			for (Object eventObj : modInfo.eventObjects) {
+				MethodInfo<?> method = new MethodInfo<>(eventObj, Compat_SubscribeEvent.class, Compat_DrawBlockHighlightEvent.class);
+				method.tryInvoke(new Compat_DrawBlockHighlightEvent(event));
+			}
 		}
 	}
 

@@ -6,8 +6,10 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.Compat_
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.material.Compat_Material;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.properties.Compat_IProperty;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_EnumFacing;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_AxisAlignedBB;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_BlockPos;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_IBlockAccess;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_World;
 import net.minecraft.block.state.IBlockState;
 
 public interface Compat_IBlockState {
@@ -24,4 +26,6 @@ public interface Compat_IBlockState {
 	ImmutableMap<Compat_IProperty<?>, Comparable<?>> Compat_func_177228_b();
 
 	Compat_Material Compat_func_185904_a();
+
+	Compat_AxisAlignedBB Compat_func_185918_c(Compat_World world, Compat_BlockPos pos);
 }

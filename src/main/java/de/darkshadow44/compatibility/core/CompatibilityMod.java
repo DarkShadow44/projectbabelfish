@@ -18,6 +18,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.item.Item;
 import net.minecraft.launchwrapper.Launch;
+import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -156,6 +157,13 @@ public class CompatibilityMod {
 	public static void onModelBake(ModelBakeEvent event) {
 		for (CompatibilityLayer layer : layers) {
 			layer.onModelBake(event);
+		}
+	}
+
+	@SubscribeEvent
+	public static void onDrawBlockHighlight(DrawBlockHighlightEvent event) {
+		for (CompatibilityLayer layer : layers) {
+			layer.onDrawBlockHighlight(event);
 		}
 	}
 }

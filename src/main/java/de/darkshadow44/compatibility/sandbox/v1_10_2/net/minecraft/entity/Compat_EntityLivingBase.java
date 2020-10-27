@@ -44,7 +44,7 @@ public class Compat_EntityLivingBase extends Compat_Entity {
 			stack = thisReal.getHeldItemMainhandSuper();
 		else
 			stack = original.getHeldItemMainhand();
-		return stack == null ? null : new Compat_ItemStack(stack);
+		return stack == null || stack.isEmpty() ? null : new Compat_ItemStack(stack);
 	}
 
 	public Compat_ItemStack Compat_func_184592_cb() {
@@ -53,6 +53,6 @@ public class Compat_EntityLivingBase extends Compat_Entity {
 			stack = thisReal.getHeldItemOffhandSuper();
 		else
 			stack = original.getHeldItemOffhand();
-		return stack == null ? null : new Compat_ItemStack(stack);
+		return stack == null || stack.isEmpty() ? null : new Compat_ItemStack(stack);
 	}
 }

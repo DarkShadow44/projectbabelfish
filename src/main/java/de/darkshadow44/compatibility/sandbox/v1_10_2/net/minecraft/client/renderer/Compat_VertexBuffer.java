@@ -22,4 +22,13 @@ public class Compat_VertexBuffer {
 	public void Compat_func_178969_c(double x, double y, double z) {
 		original.setTranslation(x, y, z);
 	}
+
+	public Compat_VertexBuffer Compat_func_181662_b(double x, double y, double z) {
+		original.pos(x, y, z);
+		return this;
+	}
+
+	public void Compat_func_181675_d() {
+		original.endVertex();
+	}
 }

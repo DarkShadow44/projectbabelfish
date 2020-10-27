@@ -89,4 +89,13 @@ public class Compat_AxisAlignedBB {
 			axis = original.offset(x, y, z);
 		return new Compat_AxisAlignedBB(axis);
 	}
+
+	public Compat_AxisAlignedBB Compat_func_186662_g(double p1) {
+		AxisAlignedBB axis;
+		if (original == null)
+			axis = thisReal.growSuper(p1);
+		else
+			axis = original.grow(p1);
+		return new Compat_AxisAlignedBB(axis);
+	}
 }

@@ -12,4 +12,18 @@ public interface CompatI_Entity {
 	public boolean isSneakingSuper();
 
 	public EnumFacing getHorizontalFacingSuper();
+
+	public World getEntityWorldSuper();
+
+	public double get_lastTickPosX();
+
+	public double get_lastTickPosY();
+
+	public double get_lastTickPosZ();
+
+	public double get_posX();
+
+	public double get_posY();
+
+	public double get_posZ();
 }

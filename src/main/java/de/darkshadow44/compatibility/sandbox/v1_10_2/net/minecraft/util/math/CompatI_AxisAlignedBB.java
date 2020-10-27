@@ -20,4 +20,6 @@ public interface CompatI_AxisAlignedBB {
 	public boolean intersectsSuper(AxisAlignedBB other);
 
 	public AxisAlignedBB offsetSuper(double x, double y, double z);
+
+	public AxisAlignedBB growSuper(double p1);
 }

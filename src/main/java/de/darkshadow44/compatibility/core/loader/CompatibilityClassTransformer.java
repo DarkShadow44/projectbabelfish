@@ -168,7 +168,7 @@ public class CompatibilityClassTransformer {
 			return true;
 
 		// Skip lambdas
-		if (name.startsWith("lambda"))
+		if (name.startsWith("lambda") || name.startsWith("test"))
 			return true;
 
 		// Skip stream methods?

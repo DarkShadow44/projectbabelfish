@@ -15,11 +15,13 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_S
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_SoundEvent;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_AxisAlignedBB;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_BlockPos;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.border.Compat_WorldBorder;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraft.world.border.WorldBorder;
 
 public class Compat_World implements Compat_IBlockAccess {
 	private World original;
@@ -157,5 +159,15 @@ public class Compat_World implements Compat_IBlockAccess {
 			thisReal.markBlockRangeForRenderUpdateSuper(pos.getReal(), pos2.getReal());
 		else
 			original.markBlockRangeForRenderUpdate(pos.getReal(), pos2.getReal());
+	}
+
+	public Compat_WorldBorder Compat_func_175723_af() {
+		WorldBorder ret;
+		if (original == null)
+			ret = thisReal.getWorldBorderSuper();
+		else
+			ret = original.getWorldBorder();
+
+		return new Compat_WorldBorder(ret);
 	}
 }
