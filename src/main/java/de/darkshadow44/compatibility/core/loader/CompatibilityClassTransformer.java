@@ -15,7 +15,9 @@ import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.FieldInsnNode;
 import org.objectweb.asm.tree.FieldNode;
 import org.objectweb.asm.tree.InsnList;
+import org.objectweb.asm.tree.InsnNode;
 import org.objectweb.asm.tree.InvokeDynamicInsnNode;
+import org.objectweb.asm.tree.LabelNode;
 import org.objectweb.asm.tree.LdcInsnNode;
 import org.objectweb.asm.tree.LocalVariableNode;
 import org.objectweb.asm.tree.MethodInsnNode;
@@ -336,6 +338,12 @@ public class CompatibilityClassTransformer {
 		}
 	}
 
+	InsnList createExceptionOverrides() {
+		InsnList ret = new InsnList();
+		ret.add(new InsnNode(Opcodes.ATHROW));
+		return ret;
+	}
+
 	private void transformMethod(MethodNode method, Map<String, LoadClassInfo> classesToLoad) {
 		InsnList newList = new InsnList();
 		for (int i = 0; i < method.instructions.size(); i++) {
@@ -349,6 +357,7 @@ public class CompatibilityClassTransformer {
 			for (TryCatchBlockNode block : method.tryCatchBlocks) {
 				if (block.type != null) {
 					block.type = getTransformedClassname(block.type);
+					newList.insert(block.handler, createExceptionOverrides());
 				}
 			}
 		}
