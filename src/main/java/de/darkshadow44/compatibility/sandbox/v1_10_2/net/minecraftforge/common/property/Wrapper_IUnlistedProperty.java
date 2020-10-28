@@ -29,4 +29,24 @@ public class Wrapper_IUnlistedProperty<T> implements IUnlistedProperty<T> {
 	public String valueToString(T value) {
 		return fake.Compat_valueToString(value);
 	}
+
+	public static String getId(Object obj) {
+		if (obj instanceof IUnlistedProperty)
+			return ((IUnlistedProperty<?>) obj).getName();
+
+		if (obj instanceof Compat_IUnlistedProperty)
+			return ((Compat_IUnlistedProperty<?>) obj).Compat_getName();
+
+		return null;
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		return getId(this).equals(getId(other));
+	}
+
+	@Override
+	public int hashCode() {
+		return getId(this).hashCode();
+	}
 }

@@ -60,4 +60,13 @@ public class Compat_BlockStateContainer {
 
 		return ImmutableList.copyOf(ret);
 	}
+
+	public Compat_IBlockState Compat_func_177621_b() {
+		IBlockState state;
+		if (original == null)
+			state = thisReal.getBaseStateSuper();
+		else
+			state = original.getBaseState();
+		return Compat_IBlockState.getFake(state);
+	}
 }

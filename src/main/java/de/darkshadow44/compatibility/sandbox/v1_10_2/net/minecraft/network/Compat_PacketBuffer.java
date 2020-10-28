@@ -1,9 +1,13 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.network;
 
+import java.io.IOException;
+
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.item.Compat_ItemStack;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 
 public class Compat_PacketBuffer {
@@ -83,4 +87,50 @@ public class Compat_PacketBuffer {
 		else
 			return original.readString(maxLength);
 	}
+
+	public ByteBuf Compat_writeFloat(float value) {
+		if (original == null)
+			return thisReal.writeFloatSuper(value);
+		else
+			return original.writeFloat(value);
+	}
+
+	public ByteBuf Compat_writeInt(int value) {
+		if (original == null)
+			return thisReal.writeIntSuper(value);
+		else
+			return original.writeInt(value);
+	}
+
+	public Compat_PacketBuffer Compat_func_150788_a(Compat_ItemStack stack) {
+		if (original == null)
+			thisReal.writeItemStackSuper(stack.getReal());
+		else
+			original.writeItemStack(stack.getReal());
+		return this;
+	}
+
+	public float Compat_readFloat() {
+		if (original == null)
+			return thisReal.readFloatSuper();
+		else
+			return original.readFloat();
+	}
+
+	public int Compat_readInt() {
+		if (original == null)
+			return thisReal.readIntSuper();
+		else
+			return original.readInt();
+	}
+
+	public Compat_ItemStack Compat_func_150791_c() throws IOException {
+		ItemStack stack;
+		if (original == null)
+			stack = thisReal.readItemStackSuper();
+		else
+			stack = original.readItemStack();
+		return new Compat_ItemStack(stack);
+	}
+
 }

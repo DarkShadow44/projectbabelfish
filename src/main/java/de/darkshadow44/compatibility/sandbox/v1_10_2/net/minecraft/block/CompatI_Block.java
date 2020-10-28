@@ -42,4 +42,6 @@ public interface CompatI_Block extends CompatI_IForgeRegistryEntry_Impl<Block> {
 	public boolean isBlockNormalCubeSuper(IBlockState state);
 
 	public EnumBlockRenderType getRenderTypeSuper(IBlockState real);
+
+	public IBlockState getExtendedStateSuper(IBlockState state, IBlockAccess world, BlockPos pos);
 }

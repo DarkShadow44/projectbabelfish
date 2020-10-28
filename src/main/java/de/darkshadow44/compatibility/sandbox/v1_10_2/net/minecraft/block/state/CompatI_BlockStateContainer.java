@@ -9,4 +9,6 @@ public interface CompatI_BlockStateContainer {
 	public BlockStateContainer get();
 
 	public ImmutableList<IBlockState> getValidStatesSuper();
+
+	public IBlockState getBaseStateSuper();
 }

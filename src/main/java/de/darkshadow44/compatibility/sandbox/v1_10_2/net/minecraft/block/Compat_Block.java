@@ -17,12 +17,15 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.registry
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.registry.Compat_RegistryNamespacedDefaultedByKey_Block;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_IBlockAccess;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_World;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Wrapper_IBlockAccess;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.registry.Compat_IForgeRegistryEntry_Impl;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
@@ -223,5 +226,22 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 
 	public static Compat_RegistryNamespacedDefaultedByKey Compat_get_field_149771_c() {
 		return new Compat_RegistryNamespacedDefaultedByKey_Block(Block.REGISTRY);
+	}
+
+	@Callback
+	public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
+		Compat_IBlockState ret = Compat_getExtendedState(Compat_IBlockState.getFake(state), new Wrapper_IBlockAccess(world), new Compat_BlockPos(pos));
+		return ret.getReal();
+	}
+
+	public Compat_IBlockState Compat_getExtendedState(Compat_IBlockState state, Compat_IBlockAccess world, Compat_BlockPos pos) {
+		IBlockState ret;
+
+		if (original == null)
+			ret = thisReal.getExtendedStateSuper(state.getReal(), world.getReal(), pos.getReal());
+		else
+			ret = original.getExtendedState(state.getReal(), world.getReal(), pos.getReal());
+
+		return new Wrapper_IBlockState(ret);
 	}
 }

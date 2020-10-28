@@ -10,7 +10,9 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Com
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_BlockPos;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_IBlockAccess;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_World;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.common.property.Wrapper_IExtendedBlockState;
 import net.minecraft.block.state.IBlockState;
+import net.minecraftforge.common.property.IExtendedBlockState;
 
 public interface Compat_IBlockState {
 	<T extends Comparable<T>, V extends T> Compat_IBlockState Compat_func_177226_a(Compat_IProperty<T> var1, V var2);
@@ -28,4 +30,11 @@ public interface Compat_IBlockState {
 	Compat_Material Compat_func_185904_a();
 
 	Compat_AxisAlignedBB Compat_func_185918_c(Compat_World world, Compat_BlockPos pos);
+
+	public static Compat_IBlockState getFake(IBlockState state) {
+		if (state instanceof IExtendedBlockState) {
+			return new Wrapper_IExtendedBlockState((IExtendedBlockState) state);
+		}
+		return new Wrapper_IBlockState(state);
+	}
 }

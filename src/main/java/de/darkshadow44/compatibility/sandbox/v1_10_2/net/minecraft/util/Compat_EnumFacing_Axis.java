@@ -40,4 +40,8 @@ public enum Compat_EnumFacing_Axis {
 			throw new RuntimeException();
 		}
 	}
+
+	public int Compat_ordinal() {
+		return original.ordinal();
+	}
 }
