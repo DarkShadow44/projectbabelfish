@@ -24,4 +24,8 @@ public class Compat_BlockRendererDispatcher {
 	public Compat_BlockModelRenderer Compat_func_175019_b() {
 		return new Compat_BlockModelRenderer(original.getBlockModelRenderer());
 	}
+
+	public Compat_BlockModelShapes Compat_func_175023_a() {
+		return new Compat_BlockModelShapes(original.getBlockModelShapes());
+	}
 }

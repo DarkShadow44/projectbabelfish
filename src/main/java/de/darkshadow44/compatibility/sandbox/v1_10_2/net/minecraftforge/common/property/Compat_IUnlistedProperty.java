@@ -17,4 +17,8 @@ public interface Compat_IUnlistedProperty<T> {
 		}
 		throw new RuntimeException();
 	}
+
+	public static IUnlistedProperty<?> getReal(Compat_IUnlistedProperty<?> property) {
+		return new Wrapper_IUnlistedProperty<>(property);
+	}
 }

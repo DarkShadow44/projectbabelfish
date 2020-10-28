@@ -40,4 +40,10 @@ public class Wrapper_IExtendedBlockState extends Wrapper_IBlockState implements 
 		}
 		return ImmutableMap.copyOf(ret);
 	}
+
+	@Override
+	public Object Compat_getValue(Compat_IUnlistedProperty<?> property) {
+		Object ret = original.getValue(Compat_IUnlistedProperty.getReal(property));
+		return ret;
+	}
 }

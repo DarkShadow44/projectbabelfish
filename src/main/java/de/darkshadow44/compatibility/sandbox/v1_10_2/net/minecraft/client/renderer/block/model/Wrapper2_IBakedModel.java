@@ -8,6 +8,7 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.render
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_EnumFacing;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.util.EnumFacing;
 
 public class Wrapper2_IBakedModel implements Compat_IBakedModel {
 
@@ -44,7 +45,8 @@ public class Wrapper2_IBakedModel implements Compat_IBakedModel {
 
 	@Override
 	public List<Compat_BakedQuad> Compat_func_188616_a(Compat_IBlockState state, Compat_EnumFacing side, long rand) {
-		List<BakedQuad> quads = real.getQuads(state.getReal(), side.getReal(), rand);
+		EnumFacing side2 = side == null ? null : side.getReal();
+		List<BakedQuad> quads = real.getQuads(state.getReal(), side2, rand);
 		List<Compat_BakedQuad> ret = new ArrayList<>();
 		for (BakedQuad quad : quads) {
 			ret.add(new Compat_BakedQuad(quad));
