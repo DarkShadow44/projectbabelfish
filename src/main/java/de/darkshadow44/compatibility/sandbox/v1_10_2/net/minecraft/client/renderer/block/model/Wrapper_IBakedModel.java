@@ -3,6 +3,7 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.rende
 import java.util.ArrayList;
 import java.util.List;
 
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state.Compat_IBlockState;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state.Wrapper_IBlockState;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_EnumFacing;
 import net.minecraft.block.state.IBlockState;
@@ -22,7 +23,7 @@ public class Wrapper_IBakedModel implements IBakedModel {
 
 	@Override
 	public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
-		List<Compat_BakedQuad> result = fake.Compat_func_188616_a(new Wrapper_IBlockState(state), Compat_EnumFacing.map_real_to_fake(side), rand);
+		List<Compat_BakedQuad> result = fake.Compat_func_188616_a(Compat_IBlockState.getFake(state), Compat_EnumFacing.map_real_to_fake(side), rand);
 
 		List<BakedQuad> ret = new ArrayList<>();
 

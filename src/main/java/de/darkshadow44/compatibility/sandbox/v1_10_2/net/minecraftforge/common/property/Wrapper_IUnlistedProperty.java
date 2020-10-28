@@ -10,6 +10,10 @@ public class Wrapper_IUnlistedProperty<T> implements IUnlistedProperty<T> {
 		this.fake = fake;
 	}
 
+	public Compat_IUnlistedProperty<T> getFake() {
+		return fake;
+	}
+
 	@Override
 	public String getName() {
 		return fake.Compat_getName();
