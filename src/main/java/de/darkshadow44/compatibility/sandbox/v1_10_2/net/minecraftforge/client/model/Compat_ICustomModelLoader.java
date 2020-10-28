@@ -7,7 +7,7 @@ public interface Compat_ICustomModelLoader {
 
 	public void Compat_func_110549_a(Compat_IResourceManager resourceManager);
 
-	public boolean Compat_accepts(Compat_ResourceLocation compat_ResourceLocation);
+	public boolean Compat_accepts(Compat_ResourceLocation location);
 
-	public Compat_IModel loadModel(Compat_ResourceLocation compat_ResourceLocation);
+	public Compat_IModel loadModel(Compat_ResourceLocation location);
 }
