@@ -31,4 +31,46 @@ public class Compat_TextureAtlasSprite {
 	public TextureAtlasSprite getReal() {
 		return original == null ? thisReal.get() : original;
 	}
+
+	public int[][] Compat_func_147965_a(int p1) {
+		if (original == null)
+			return thisReal.getFrameTextureDataSuper(p1);
+		else
+			return original.getFrameTextureData(p1);
+	}
+
+	public int Compat_func_94216_b() {
+		if (original == null)
+			return thisReal.getIconHeightSuper();
+		else
+			return original.getIconHeight();
+	}
+
+	public int Compat_func_94211_a() {
+		if (original == null)
+			return thisReal.getIconWidthSuper();
+		else
+			return original.getIconWidth();
+	}
+
+	public String Compat_func_94215_i() {
+		if (original == null)
+			return thisReal.getIconNameSuper();
+		else
+			return original.getIconName();
+	}
+
+	public float Compat_func_94214_a(double p1) {
+		if (original == null)
+			return thisReal.getInterpolatedUSuper(p1);
+		else
+			return original.getInterpolatedU(p1);
+	}
+
+	public float Compat_func_94207_b(double p1) {
+		if (original == null)
+			return thisReal.getInterpolatedVSuper(p1);
+		else
+			return original.getInterpolatedV(p1);
+	}
 }

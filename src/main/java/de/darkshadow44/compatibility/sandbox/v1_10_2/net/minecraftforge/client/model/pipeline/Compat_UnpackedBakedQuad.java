@@ -4,6 +4,10 @@ import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.block.model.Compat_BakedQuad;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.texture.Compat_TextureAtlasSprite;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.vertex.Compat_VertexFormat;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_EnumFacing;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad;
 
 public class Compat_UnpackedBakedQuad extends Compat_BakedQuad {
@@ -11,9 +15,10 @@ public class Compat_UnpackedBakedQuad extends Compat_BakedQuad {
 	private CompatI_UnpackedBakedQuad thisReal;
 
 	// When called from Mod
-	public Compat_UnpackedBakedQuad() {
+	public Compat_UnpackedBakedQuad(float[][][] data, int tint, Compat_EnumFacing facing, Compat_TextureAtlasSprite sprite, boolean diffuseLighting, Compat_VertexFormat format) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_UnpackedBakedQuad.class, this), null);
+		EnumFacing facing2 = facing == null ? null : facing.getReal();
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_UnpackedBakedQuad.class, this, data, tint, facing2, sprite.getReal(), diffuseLighting, format.getReal()), null);
 	}
 
 	// When called from child

@@ -52,4 +52,11 @@ public class Compat_Vec3d {
 		else
 			return original.z;
 	}
+
+	public Compat_Vec3d Compat_func_72441_c(double x, double y, double z) {
+		if (original == null)
+			return new Compat_Vec3d(thisReal.addVectorSuper(x, y, z));
+		else
+			return new Compat_Vec3d(original.addVector(x, y, z));
+	}
 }

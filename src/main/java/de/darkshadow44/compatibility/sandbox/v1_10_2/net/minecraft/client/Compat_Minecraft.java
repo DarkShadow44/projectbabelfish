@@ -5,6 +5,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.entity.Compat_EntityPlayerSP;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.multiplayer.Compat_WorldClient;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.Compat_BlockRendererDispatcher;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.Compat_RenderItem;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.texture.Compat_TextureMap;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_RayTraceResult;
 import net.minecraft.client.Minecraft;
@@ -51,5 +52,9 @@ public class Compat_Minecraft {
 
 	public Compat_TextureMap Compat_func_147117_R() {
 		return new Compat_TextureMap(original.getTextureMapBlocks());
+	}
+
+	public Compat_RenderItem Compat_func_175599_af() {
+		return new Compat_RenderItem(original.getRenderItem());
 	}
 }
