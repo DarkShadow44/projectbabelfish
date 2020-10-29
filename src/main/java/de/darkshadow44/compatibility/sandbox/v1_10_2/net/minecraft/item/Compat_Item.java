@@ -1,7 +1,9 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.item;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.darkshadow44.compatibility.autogen.Callback;
 import de.darkshadow44.compatibility.autogen.Factory;
@@ -165,11 +167,21 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 		return Compat_EnumActionResult.map_real_to_fake(result);
 	}
 
+	// Item objects are unique and can only exist once.
+	private static Map<Item, Compat_Item> cacheToFake = new HashMap<>();
+
 	public static Compat_Item get_fake(Item item) {
 		if (item instanceof CompatI_Item) {
 			return ((CompatI_Item) item).getFake();
 		}
-		return new Compat_Item(item);
+		if (!cacheToFake.containsKey(item)) {
+			cacheToFake.put(item, new Compat_Item(item));
+		}
+		return cacheToFake.get(item);
+	}
+
+	public static int Compat_func_150891_b(Compat_Item item) {
+		return Item.getIdFromItem(item.getReal());
 	}
 
 }

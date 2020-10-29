@@ -158,7 +158,7 @@ public class CompatibilityClassTransformer {
 		if (name.equals("values") || name.equals("valueOf") || name.equals("clone"))
 			return true;
 
-		if (name.equals("ordinal") || name.equals("name")) {
+		if (name.equals("ordinal") || name.equals("name") || name.equals("hashCode") || name.equals("equals")) {
 			if (!isMcClass(targetClassName)) {
 				return true;
 			}
