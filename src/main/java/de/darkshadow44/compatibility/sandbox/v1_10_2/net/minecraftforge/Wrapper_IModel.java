@@ -1,6 +1,6 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge;
 
-import java.util.function.Function;
+import com.google.common.base.Function;
 
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.block.model.Compat_IBakedModel;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.block.model.Wrapper_IBakedModel;
@@ -26,12 +26,12 @@ public class Wrapper_IModel implements IModel {
 	}
 
 	@Override
-	public IBakedModel bake(IModelState state, VertexFormat format, final Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+	public IBakedModel bake(IModelState state, VertexFormat format, final java.util.function.Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
 		Function<Compat_ResourceLocation, Compat_TextureAtlasSprite> bakedTextureGetter2 = location -> new Compat_TextureAtlasSprite(bakedTextureGetter.apply(location.getReal()));
 
 		Compat_IModelState state2 = new Wrapper_IModelState(state);
 		Compat_VertexFormat format2 = new Compat_VertexFormat(format);
-		Compat_IBakedModel model = fake.bake(state2, format2, bakedTextureGetter2);
+		Compat_IBakedModel model = fake.Compat_bake(state2, format2, bakedTextureGetter2);
 		return new Wrapper_IBakedModel(model);
 	}
 

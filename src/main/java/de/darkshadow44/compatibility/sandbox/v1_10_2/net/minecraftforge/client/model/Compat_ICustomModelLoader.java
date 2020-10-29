@@ -9,5 +9,5 @@ public interface Compat_ICustomModelLoader {
 
 	public boolean Compat_accepts(Compat_ResourceLocation location);
 
-	public Compat_IModel loadModel(Compat_ResourceLocation location);
+	public Compat_IModel Compat_loadModel(Compat_ResourceLocation location);
 }

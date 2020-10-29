@@ -28,7 +28,7 @@ public class Wrapper_ICustomModelLoader implements ICustomModelLoader {
 
 	@Override
 	public IModel loadModel(ResourceLocation modelLocation) throws Exception {
-		Compat_IModel model = fake.loadModel(new Compat_ResourceLocation(modelLocation));
+		Compat_IModel model = fake.Compat_loadModel(new Compat_ResourceLocation(modelLocation));
 		return new Wrapper_IModel(model);
 	}
 
