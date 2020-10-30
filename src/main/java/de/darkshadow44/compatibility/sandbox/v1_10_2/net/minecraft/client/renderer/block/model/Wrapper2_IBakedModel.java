@@ -57,4 +57,9 @@ public class Wrapper2_IBakedModel implements Compat_IBakedModel {
 	public IBakedModel getReal() {
 		return real;
 	}
+
+	@Override
+	public Compat_ItemCameraTransforms Compat_func_177552_f() {
+		throw new RuntimeException();
+	}
 }

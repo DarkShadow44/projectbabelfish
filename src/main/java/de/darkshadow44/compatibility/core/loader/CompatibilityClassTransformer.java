@@ -78,9 +78,6 @@ public class CompatibilityClassTransformer {
 		if (name.startsWith("com/google/"))
 			return true;
 
-		if (name.startsWith("io/netty/"))
-			return true;
-
 		return false;
 	}
 
@@ -145,7 +142,8 @@ public class CompatibilityClassTransformer {
 		return doesClassContainField(classesToLoad, classInfo.parentName, fieldName);
 	}
 
-	private static boolean isMcClass(String name) {
+	public static boolean isMcClass(String name) {
+		name = name.replace(".", "/");
 		return name.startsWith("net/minecraft/") || name.startsWith("net/minecraftforge/");
 	}
 

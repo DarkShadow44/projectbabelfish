@@ -68,6 +68,8 @@ public class CompatibilityClassLoader {
 		List<Class<?>> loadedClasses = new ArrayList<Class<?>>();
 		int target = loadedClassNames.size() + classesToLoad.size();
 
+		MissingOverrideChecker overrideChecker = new MissingOverrideChecker(layer);
+
 		while (loadedClassNames.size() < target) {
 			int sizeBefore = loadedClassNames.size();
 
@@ -78,6 +80,7 @@ public class CompatibilityClassLoader {
 					String name = clazz.transformer.getThisClass();
 					byte[] data = clazz.transformer.getTransformedData();
 					Class<?> c = classLoader.addClass(name.replace('/', '.'), data);
+					overrideChecker.checkClass(c);
 					loadedClasses.add(c);
 				}
 			}
@@ -98,6 +101,8 @@ public class CompatibilityClassLoader {
 				break;
 			}
 		}
+
+		overrideChecker.printWarning();
 
 		return loadedClasses;
 	}
