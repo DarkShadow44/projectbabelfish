@@ -7,7 +7,6 @@ import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.io.netty.buffer.Compat_ByteBuf;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.item.Compat_ItemStack;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 
@@ -16,20 +15,24 @@ public class Compat_PacketBuffer extends Compat_ByteBuf {
 	private CompatI_PacketBuffer thisReal;
 
 	// When called from Mod
-	public Compat_PacketBuffer(ByteBuf p1) {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_PacketBuffer.class, this, p1), null);
+	public Compat_PacketBuffer(Compat_ByteBuf p1) {
+		super(ParentSelector.NULL);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_PacketBuffer.class, this, p1.getReal()), null);
 	}
 
 	// When called from child
 	protected Compat_PacketBuffer(ParentSelector s) {
+		super(ParentSelector.NULL);
 	}
 
 	// When called from Minecraft
 	public Compat_PacketBuffer(PacketBuffer original) {
+		super(ParentSelector.NULL);
 		this.initialize(null, original);
 	}
 
 	protected void initialize(CompatI_PacketBuffer thisReal, PacketBuffer original) {
+		super.initialize(thisReal, original);
 		this.thisReal = thisReal;
 		this.original = original;
 	}
@@ -38,26 +41,12 @@ public class Compat_PacketBuffer extends Compat_ByteBuf {
 		return original == null ? thisReal.get() : original;
 	}
 
-	public byte[] Compat_array() {
-		if (original == null)
-			return thisReal.arraySuper();
-		else
-			return original.array();
-	}
-
 	public Compat_PacketBuffer Compat_func_179249_a(Enum<?> value) {
 		if (original == null)
 			thisReal.writeEnumValueSuper(value);
 		else
 			original.writeEnumValue(value);
 		return this;
-	}
-
-	public ByteBuf Compat_writeBoolean(boolean value) {
-		if (original == null)
-			return thisReal.writeBooleanSuper(value);
-		else
-			return original.writeBoolean(value);
 	}
 
 	public Compat_PacketBuffer Compat_func_180714_a(String value) {
@@ -75,32 +64,11 @@ public class Compat_PacketBuffer extends Compat_ByteBuf {
 			return original.readEnumValue(clazz);
 	}
 
-	public boolean Compat_readBoolean() {
-		if (original == null)
-			return thisReal.readBooleanSuper();
-		else
-			return original.readBoolean();
-	}
-
 	public String Compat_func_150789_c(int maxLength) {
 		if (original == null)
 			return thisReal.readStringSuper(maxLength);
 		else
 			return original.readString(maxLength);
-	}
-
-	public ByteBuf Compat_writeFloat(float value) {
-		if (original == null)
-			return thisReal.writeFloatSuper(value);
-		else
-			return original.writeFloat(value);
-	}
-
-	public ByteBuf Compat_writeInt(int value) {
-		if (original == null)
-			return thisReal.writeIntSuper(value);
-		else
-			return original.writeInt(value);
 	}
 
 	public Compat_PacketBuffer Compat_func_150788_a(Compat_ItemStack stack) {
@@ -109,20 +77,6 @@ public class Compat_PacketBuffer extends Compat_ByteBuf {
 		else
 			original.writeItemStack(stack.getReal());
 		return this;
-	}
-
-	public float Compat_readFloat() {
-		if (original == null)
-			return thisReal.readFloatSuper();
-		else
-			return original.readFloat();
-	}
-
-	public int Compat_readInt() {
-		if (original == null)
-			return thisReal.readIntSuper();
-		else
-			return original.readInt();
 	}
 
 	public Compat_ItemStack Compat_func_150791_c() throws IOException {

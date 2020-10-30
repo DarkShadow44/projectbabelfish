@@ -10,7 +10,7 @@ public interface Compat_IInteractionObject {
 
 	public boolean Compat_func_145818_k_();
 
-	public Compat_ITextComponent func_145748_c_();
+	public Compat_ITextComponent Compat_func_145748_c_();
 
 	public Compat_Container Compat_func_174876_a(Compat_InventoryPlayer inventory, Compat_EntityPlayer entity);
 
