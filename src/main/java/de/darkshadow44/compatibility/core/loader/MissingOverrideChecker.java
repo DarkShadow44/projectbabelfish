@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.objectweb.asm.Type;
 
+import de.darkshadow44.compatibility.core.CompatibilityMod;
 import de.darkshadow44.compatibility.core.layer.CompatibilityLayer;
 
 public class MissingOverrideChecker {
@@ -29,54 +30,76 @@ public class MissingOverrideChecker {
 		return !CompatibilityClassTransformer.isMcClass(name);
 	}
 
-	private void getMethodsForClassUnconditionally(List<String> ret, Class<?> clazz) {
+	private void getMethodsForClassUnconditionally(List<String> ret, Class<?> clazz, boolean withDescriptor) {
 		for (Method method : clazz.getDeclaredMethods()) {
 			String name = method.getName();
-			if (name.startsWith(layer.getPrefixFake() + "func_")) {
+			if (withDescriptor) {
 				ret.add(name + Type.getMethodDescriptor(method));
+			} else {
+				ret.add(name);
 			}
 		}
 	}
 
-	private void getMethodsForClassAndParents(List<String> ret, Class<?> clazz) {
+	private void getMethodsForClassAndParents(List<String> ret, Class<?> clazz, boolean withDescriptor) {
 		if (clazz == null || clazz == Object.class)
 			return;
 
-		getMethodsForClassUnconditionally(ret, clazz);
+		getMethodsForClassUnconditionally(ret, clazz, withDescriptor);
 
 		if (isModClass(clazz) && !isModClass(clazz.getSuperclass()))
 			return;
-		getMethodsForClassAndParents(ret, clazz.getSuperclass());
+		getMethodsForClassAndParents(ret, clazz.getSuperclass(), withDescriptor);
 	}
 
 	public void checkClass(Class<?> classMod) {
-		Class<?> mcParent = classMod.getSuperclass();
+		Class<?> parentCompat = classMod.getSuperclass();
 
 		List<String> methodsMod = new ArrayList<>();
+		List<String> methodsCompat = new ArrayList<>();
 		List<String> methodsMc = new ArrayList<>();
 
-		while (isModClass(mcParent)) {
-			for (Class<?> classIface : mcParent.getInterfaces()) {
-				getMethodsForClassUnconditionally(methodsMc, classIface);
+		while (isModClass(parentCompat)) {
+			for (Class<?> classIface : parentCompat.getInterfaces()) {
+				getMethodsForClassUnconditionally(methodsCompat, classIface, true);
 			}
-			mcParent = mcParent.getSuperclass();
+			parentCompat = parentCompat.getSuperclass();
 		}
-		if (mcParent == null)
+		if (parentCompat == null)
 			return;
 
+		if (parentCompat != Object.class && parentCompat != Enum.class) {
+			String nameMc = parentCompat.getName().substring(layer.getPathSandbox().length()).replace("Compat_", "");
+
+			try {
+				Class<?> classMc = Class.forName(nameMc, false, CompatibilityMod.classLoader);
+				getMethodsForClassAndParents(methodsMc, classMc, false);
+			} catch (Exception e) {
+				// Ignore errors
+			}
+		}
+
 		try {
-			getMethodsForClassAndParents(methodsMod, classMod);
-			getMethodsForClassAndParents(methodsMc, mcParent);
+			getMethodsForClassAndParents(methodsMod, classMod, true);
+			getMethodsForClassAndParents(methodsCompat, parentCompat, true);
 			for (Class<?> classIface : classMod.getInterfaces()) {
-				getMethodsForClassUnconditionally(methodsMc, classIface);
+				getMethodsForClassUnconditionally(methodsCompat, classIface, true);
 			}
 		} catch (Throwable e) {
-			throw new RuntimeException("Checking class: \n" + classMod.getName() + "\n" + mcParent.getName(), e);
+			throw new RuntimeException("Checking class: \n" + classMod.getName() + "\n" + parentCompat.getName(), e);
 		}
 
 		for (String method : methodsMod) {
-			if (!methodsMc.contains(method)) {
-				methods.add(mcParent.getSimpleName() + "." + method);
+			if (!methodsCompat.contains(method)) {
+				if (method.startsWith(layer.getPrefixFake() + "func_")) {
+					methods.add(parentCompat.getSimpleName() + "." + method);
+				} else {
+					String mcName = method.replace(layer.getPrefixFake(), "");
+					mcName = mcName.substring(0, mcName.indexOf("("));
+					if (methodsMc.contains(mcName)) {
+						methods.add(parentCompat.getSimpleName() + "." + method);
+					}
+				}
 			}
 		}
 
