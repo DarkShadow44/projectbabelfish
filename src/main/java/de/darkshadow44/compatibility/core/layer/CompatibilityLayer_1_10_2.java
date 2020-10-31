@@ -23,6 +23,7 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.client.e
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.common.capabilities.Compat_Capability;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.common.capabilities.Compat_CapabilityInject;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.common.capabilities.Compat_CapabilityManager;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.event.Compat_AttachCapabilitiesEvent_TileEntity;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.event.entity.player.Compat_PlayerInteractEvent_RightClickBlock;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.Compat_Mod;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.Compat_Mod_EventHandler;
@@ -33,11 +34,13 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.comm
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.gameevent.Compat_TickEvent_ClientTickEvent;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent.Pre;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -270,6 +273,16 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 			for (Object eventObj : modInfo.eventObjects) {
 				MethodInfo<?> method = new MethodInfo<>(eventObj, Compat_SubscribeEvent.class, Compat_DrawBlockHighlightEvent.class);
 				method.tryInvoke(new Compat_DrawBlockHighlightEvent(event));
+			}
+		}
+	}
+
+	@Override
+	public void onAttachCapabilities(AttachCapabilitiesEvent<TileEntity> event) {
+		for (ModInfo modInfo : mods) {
+			for (Object eventObj : modInfo.eventObjects) {
+				MethodInfo<?> method = new MethodInfo<>(eventObj, Compat_SubscribeEvent.class, Compat_AttachCapabilitiesEvent_TileEntity.class);
+				method.tryInvoke(new Compat_AttachCapabilitiesEvent_TileEntity(event));
 			}
 		}
 	}

@@ -46,3 +46,5 @@ All mod classes tagged? When usin @Callback, switch on version (CASE V1_7_10 Cal
 no new Compat_Item allowed!
 
 CapabilityInject
+
+instanceof abfangen oder doublewrap verhinern...?

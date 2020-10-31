@@ -11,4 +11,6 @@ public interface CompatI_AttachCapabilitiesEvent<T> extends CompatI_GenericEvent
 	public AttachCapabilitiesEvent<T> get();
 
 	public Map<ResourceLocation, ICapabilityProvider> getCapabilitiesSuper();
+
+	public T getObjectSuper();
 }

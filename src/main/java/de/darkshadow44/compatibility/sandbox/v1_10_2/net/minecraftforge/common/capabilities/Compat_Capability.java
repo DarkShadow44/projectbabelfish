@@ -8,8 +8,8 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraftforge.common.capabilities.Capability;
 
 public class Compat_Capability<T> {
-	private Capability<?> original;
-	private CompatI_Capability thisReal;
+	private Capability<T> original;
+	private CompatI_Capability<T> thisReal;
 
 	// When called from Mod
 	public Compat_Capability(String name, Compat_Capability_IStorage<T> storage, Callable<? extends T> factory) {
@@ -21,16 +21,25 @@ public class Compat_Capability<T> {
 	}
 
 	// When called from Minecraft
-	public Compat_Capability(Capability<?> original) {
+	public Compat_Capability(Capability<T> original) {
 		this.initialize(null, original);
 	}
 
-	protected void initialize(CompatI_Capability thisReal, Capability<?> original) {
+	protected void initialize(CompatI_Capability<T> thisReal, Capability<T> original) {
 		this.thisReal = thisReal;
 		this.original = original;
 	}
 
 	public Capability<?> getReal() {
 		return original == null ? thisReal.get() : original;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <T> Compat_Capability<T> getFake(Capability<T> real) {
+		if (real instanceof CompatI_Capability) {
+			return ((CompatI_Capability<T>) real).getFake();
+		}
+		return new Compat_Capability<T>(real);
+
 	}
 }

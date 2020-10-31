@@ -18,11 +18,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.item.Item;
 import net.minecraft.launchwrapper.Launch;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.client.FMLClientHandler;
@@ -164,6 +166,13 @@ public class CompatibilityMod {
 	public static void onDrawBlockHighlight(DrawBlockHighlightEvent event) {
 		for (CompatibilityLayer layer : layers) {
 			layer.onDrawBlockHighlight(event);
+		}
+	}
+
+	@SubscribeEvent
+	public static void onAttachCapabilities(AttachCapabilitiesEvent<TileEntity> event) {
+		for (CompatibilityLayer layer : layers) {
+			layer.onAttachCapabilities(event);
 		}
 	}
 }

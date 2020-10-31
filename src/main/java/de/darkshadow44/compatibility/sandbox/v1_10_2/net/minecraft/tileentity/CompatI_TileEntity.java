@@ -16,4 +16,6 @@ public interface CompatI_TileEntity {
 	public BlockPos getPosSuper();
 
 	public boolean hasCapabilitySuper(Capability<?> capability, EnumFacing facing);
+
+	public Object getCapabilitySuper(Capability<?> real, EnumFacing facing2);
 }

@@ -8,10 +8,12 @@ import de.darkshadow44.compatibility.autogen.ClassGenerator;
 import de.darkshadow44.compatibility.core.ModInfo;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent.Pre;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -107,4 +109,6 @@ public abstract class CompatibilityLayer {
 	public abstract void onModelBake(ModelBakeEvent event);
 
 	public abstract void onDrawBlockHighlight(DrawBlockHighlightEvent event);
+
+	public abstract void onAttachCapabilities(AttachCapabilitiesEvent<TileEntity> event);
 }

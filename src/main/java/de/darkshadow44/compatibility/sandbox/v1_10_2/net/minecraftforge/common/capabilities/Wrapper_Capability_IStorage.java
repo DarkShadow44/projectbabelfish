@@ -19,12 +19,12 @@ public class Wrapper_Capability_IStorage<T> implements IStorage<T> {
 
 	@Override
 	public void readNBT(Capability<T> capability, T value, EnumFacing facing, NBTBase tag) {
-		original.Compat_readNBT(new Compat_Capability<T>(capability), value, Compat_EnumFacing.map_real_to_fake(facing), new Compat_NBTTagCompound((NBTTagCompound) tag));
+		original.Compat_readNBT(Compat_Capability.getFake(capability), value, Compat_EnumFacing.map_real_to_fake(facing), new Compat_NBTTagCompound((NBTTagCompound) tag));
 	}
 
 	@Override
 	public NBTBase writeNBT(Capability<T> capability, T value, EnumFacing facing) {
-		Compat_NBTBase tag = original.Compat_writeNBT(new Compat_Capability<T>(capability), value, Compat_EnumFacing.map_real_to_fake(facing));
+		Compat_NBTBase tag = original.Compat_writeNBT(Compat_Capability.getFake(capability), value, Compat_EnumFacing.map_real_to_fake(facing));
 		return ((Compat_NBTTagCompound) tag).getReal();
 	}
 }
