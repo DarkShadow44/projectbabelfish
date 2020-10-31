@@ -8,6 +8,7 @@ import java.util.Map;
 import de.darkshadow44.compatibility.autogen.Callback;
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
+import de.darkshadow44.compatibility.autogen.HasCallback;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.creativetab.Compat_CreativeTabs;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.entity.Compat_Entity;
@@ -144,6 +145,7 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 		return Compat_func_82788_x();
 	}
 
+	@HasCallback
 	public boolean Compat_func_82788_x() {
 		if (original == null)
 			return thisReal.canItemEditBlocksSuper();
@@ -158,6 +160,7 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 		return Compat_func_180614_a(stack, new Compat_EntityPlayer(player), Compat_World.get_fake(world), new Compat_BlockPos(pos), Compat_EnumHand.map_real_to_fake(hand), Compat_EnumFacing.map_real_to_fake(facing), hitX, hitY, hitZ).getReal();
 	}
 
+	@HasCallback
 	public Compat_EnumActionResult Compat_func_180614_a(Compat_ItemStack stack, Compat_EntityPlayer player, Compat_World world, Compat_BlockPos pos, Compat_EnumHand hand, Compat_EnumFacing facing, float hitX, float hitY, float hitZ) {
 		EnumActionResult result;
 		if (original == null)

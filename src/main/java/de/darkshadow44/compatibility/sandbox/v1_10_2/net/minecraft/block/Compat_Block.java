@@ -3,6 +3,7 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block;
 import de.darkshadow44.compatibility.autogen.Callback;
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
+import de.darkshadow44.compatibility.autogen.HasCallback;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.material.Compat_Material;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state.Compat_BlockStateContainer;
@@ -90,6 +91,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_func_180661_e().getReal();
 	}
 
+	@HasCallback
 	public Compat_BlockStateContainer Compat_func_180661_e() {
 		if (original == null)
 			return new Compat_BlockStateContainer(thisReal.createBlockStateSuper());
@@ -133,6 +135,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_func_176201_c(new Wrapper_IBlockState(state));
 	}
 
+	@HasCallback
 	public int Compat_func_176201_c(Compat_IBlockState state) {
 		if (original == null)
 			return thisReal.getMetaFromStateSuper(state.getReal());
@@ -147,6 +150,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 			return original.isReplaceable(world.getReal(), pos.getReal());
 	}
 
+	// From ITileEnttiyProvider
 	public TileEntity createNewTileEntity(World world, int meta) {
 		if (!(this instanceof Compat_ITileEntityProvider)) {
 			return null;
@@ -154,6 +158,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_func_149915_a(new Compat_World(world), meta).getReal();
 	}
 
+	@HasCallback
 	public Compat_TileEntity Compat_func_149915_a(Compat_World world, int meta) {
 		// To be overriden
 		throw new RuntimeException();
@@ -165,6 +170,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	}
 
 	@SuppressWarnings("deprecation")
+	@HasCallback
 	public boolean Compat_func_149730_j(Compat_IBlockState state) {
 		if (original == null)
 			return thisReal.isFullBlockSuper(state.getReal());
@@ -178,6 +184,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	}
 
 	@SuppressWarnings("deprecation")
+	@HasCallback
 	public boolean Compat_func_149686_d(Compat_IBlockState state) {
 		if (original == null)
 			return thisReal.isFullCubeSuper(state.getReal());
@@ -191,6 +198,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	}
 
 	@SuppressWarnings("deprecation")
+	@HasCallback
 	public boolean Compat_func_149662_c(Compat_IBlockState state) {
 		if (original == null)
 			return thisReal.isOpaqueCubeSuper(state.getReal());
@@ -204,6 +212,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	}
 
 	@SuppressWarnings("deprecation")
+	@HasCallback
 	public boolean Compat_func_149637_q(Compat_IBlockState state) {
 		if (original == null)
 			return thisReal.isBlockNormalCubeSuper(state.getReal());
@@ -217,6 +226,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	}
 
 	@SuppressWarnings("deprecation")
+	@HasCallback
 	public Compat_EnumBlockRenderType Compat_func_149645_b(Compat_IBlockState state) {
 		if (original == null)
 			return Compat_EnumBlockRenderType.get_fake(thisReal.getRenderTypeSuper(state.getReal()));
@@ -234,6 +244,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return ret.getReal();
 	}
 
+	@HasCallback
 	public Compat_IBlockState Compat_getExtendedState(Compat_IBlockState state, Compat_IBlockAccess world, Compat_BlockPos pos) {
 		IBlockState ret;
 

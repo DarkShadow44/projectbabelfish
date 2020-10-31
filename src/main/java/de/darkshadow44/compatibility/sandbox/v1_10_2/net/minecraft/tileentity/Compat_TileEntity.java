@@ -3,6 +3,7 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.tileentity;
 import de.darkshadow44.compatibility.autogen.Callback;
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
+import de.darkshadow44.compatibility.autogen.HasCallback;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.nbt.Compat_NBTTagCompound;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.network.Compat_NetworkManager;
@@ -105,6 +106,7 @@ public class Compat_TileEntity {
 		return compound;
 	}
 
+	@HasCallback
 	public Compat_NBTTagCompound Compat_func_189515_b(Compat_NBTTagCompound tag) {
 		if (original == null)
 			thisReal.writeToNBTSuper(tag.getReal());
@@ -118,6 +120,7 @@ public class Compat_TileEntity {
 		Compat_func_145839_a(new Compat_NBTTagCompound(compound));
 	}
 
+	@HasCallback
 	public void Compat_func_145839_a(Compat_NBTTagCompound tag) {
 		if (original == null)
 			thisReal.readFromNBTSuper(tag.getReal());
@@ -130,6 +133,7 @@ public class Compat_TileEntity {
 		return Compat_func_189517_E_().getReal();
 	}
 
+	@HasCallback
 	public Compat_NBTTagCompound Compat_func_189517_E_() {
 		NBTTagCompound result;
 		if (original == null)
@@ -144,6 +148,7 @@ public class Compat_TileEntity {
 		return Compat_func_189518_D_().getReal();
 	}
 
+	@HasCallback
 	public Compat_SPacketUpdateTileEntity Compat_func_189518_D_() {
 		SPacketUpdateTileEntity result;
 		if (original == null)
@@ -158,6 +163,7 @@ public class Compat_TileEntity {
 		Compat_onDataPacket(new Compat_NetworkManager(manager), new Compat_SPacketUpdateTileEntity(packet));
 	}
 
+	@HasCallback
 	public void Compat_onDataPacket(Compat_NetworkManager manager, Compat_SPacketUpdateTileEntity packet) {
 		if (original == null)
 			thisReal.onDataPacketSuper(manager.getReal(), packet.getReal());
@@ -170,6 +176,7 @@ public class Compat_TileEntity {
 		Compat_handleUpdateTag(new Compat_NBTTagCompound(tag));
 	}
 
+	@HasCallback
 	public void Compat_handleUpdateTag(Compat_NBTTagCompound tag) {
 		if (original == null)
 			thisReal.handleUpdateTagSuper(tag.getReal());

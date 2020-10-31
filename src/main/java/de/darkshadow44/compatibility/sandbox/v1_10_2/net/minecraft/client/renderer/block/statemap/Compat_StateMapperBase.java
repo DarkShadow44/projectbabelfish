@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import de.darkshadow44.compatibility.autogen.Callback;
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
+import de.darkshadow44.compatibility.autogen.HasCallback;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.Compat_Block;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.properties.Compat_IProperty;
@@ -59,6 +60,7 @@ public class Compat_StateMapperBase implements Compat_IStateMapper {
 	}
 
 	@Override
+	@HasCallback
 	public Map<Compat_IBlockState, Compat_ModelResourceLocation> Compat_func_178130_a(Compat_Block block) {
 		Map<IBlockState, ModelResourceLocation> map;
 		if (original == null)

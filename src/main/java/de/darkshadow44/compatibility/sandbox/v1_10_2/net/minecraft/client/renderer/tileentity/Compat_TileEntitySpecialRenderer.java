@@ -3,6 +3,7 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.rende
 import de.darkshadow44.compatibility.autogen.Callback;
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
+import de.darkshadow44.compatibility.autogen.HasCallback;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.tileentity.Compat_TileEntity;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -40,6 +41,7 @@ public class Compat_TileEntitySpecialRenderer<T extends Compat_TileEntity> {
 		Compat_func_180535_a(Compat_TileEntity.get_fake(te), x, y, z, partialTicks, destroyStage);
 	}
 
+	@HasCallback
 	public void Compat_func_180535_a(Compat_TileEntity te, double x, double y, double z, float partialTicks, int destroyStage) {
 		if (original == null)
 			thisReal.renderSuper(te.getReal(), x, y, z, partialTicks, destroyStage, 0);
