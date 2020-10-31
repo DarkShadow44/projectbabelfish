@@ -58,7 +58,7 @@ public class Compat_TileEntity {
 			return new Compat_BlockPos(original.getPos());
 	}
 
-	public boolean Compat_hasCapability(Compat_Capability capability, Compat_EnumFacing facing) {
+	public boolean Compat_hasCapability(Compat_Capability<?> capability, Compat_EnumFacing facing) {
 		EnumFacing facing2 = facing == null ? null : facing.getReal();
 		if (original == null)
 			return thisReal.hasCapabilitySuper(capability.getReal(), facing2);

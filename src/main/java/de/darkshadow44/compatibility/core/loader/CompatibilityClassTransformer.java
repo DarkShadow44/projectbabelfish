@@ -315,6 +315,22 @@ public class CompatibilityClassTransformer {
 			return;
 		for (AnnotationNode annotation : annotations) {
 			annotation.desc = transformDescriptor(annotation.desc);
+
+			if (annotation.values == null)
+				continue;
+
+			for (int i = 0; i < annotation.values.size(); i++) {
+				Object value = annotation.values.get(i);
+				if (value instanceof Type) {
+					String className = ((Type) value).getInternalName();
+					className = getTransformedClassname(className);
+					Type newType = Type.getObjectType(className);
+					annotation.values.set(i, newType);
+				}
+				if (value instanceof String[]) {
+					// TODO
+				}
+			}
 		}
 	}
 

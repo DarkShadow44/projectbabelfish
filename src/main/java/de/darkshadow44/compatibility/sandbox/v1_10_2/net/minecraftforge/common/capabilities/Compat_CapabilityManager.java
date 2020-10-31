@@ -1,5 +1,9 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.common.capabilities;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.Callable;
+
 import net.minecraftforge.common.capabilities.CapabilityManager;
 
 public class Compat_CapabilityManager {
@@ -18,8 +22,24 @@ public class Compat_CapabilityManager {
 		return new Compat_CapabilityManager(CapabilityManager.INSTANCE);
 	}
 
-	@SuppressWarnings({ "deprecation" })
-	public <T> void Compat_register(Class<T> type, Compat_Capability_IStorage storage, Class<T> impl) {
-		original.register(type, new Wrapper_Capability_IStorage<T>(storage), impl); // TODO classes?
+	private static Map<String, Compat_Capability<?>> capabilities = new HashMap<>();
+
+	public static Compat_Capability<?> getCapability(String name) {
+		Compat_Capability<?> ret = capabilities.get(name);
+		if (ret == null) {
+			throw new RuntimeException();
+		}
+		return ret;
+	}
+
+	public <T> void Compat_register(Class<T> type, Compat_Capability_IStorage<T> storage, Callable<? extends T> impl) {
+		Compat_Capability<T> capabiltiy = new Compat_Capability<T>(type.getName(), storage, impl);
+		capabilities.put(type.getName(), capabiltiy);
+	}
+
+	public <T> void Compat_register(Class<T> type, Compat_Capability_IStorage<T> storage, Class<T> impl) {
+		Callable<? extends T> factory = () -> impl.newInstance();
+
+		Compat_register(type, storage, factory);
 	}
 }

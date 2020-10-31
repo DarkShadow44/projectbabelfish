@@ -1,17 +1,19 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.common.capabilities;
 
+import java.util.concurrent.Callable;
+
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraftforge.common.capabilities.Capability;
 
-public class Compat_Capability {
+public class Compat_Capability<T> {
 	private Capability<?> original;
 	private CompatI_Capability thisReal;
 
 	// When called from Mod
-	public Compat_Capability() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_Capability.class, this), null);
+	public Compat_Capability(String name, Compat_Capability_IStorage<T> storage, Callable<? extends T> factory) {
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Capability.class, this, name, new Wrapper_Capability_IStorage<>(storage), factory), null);
 	}
 
 	// When called from child

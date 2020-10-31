@@ -1,9 +1,15 @@
 package de.darkshadow44.compatibility.core.layer;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.collect.ImmutableSet;
+import com.google.common.reflect.ClassPath;
+import com.google.common.reflect.ClassPath.ClassInfo;
+
+import de.darkshadow44.compatibility.autogen.ClassGenerator;
 import de.darkshadow44.compatibility.core.CompatibilityMod;
 import de.darkshadow44.compatibility.core.ConstructorInfo;
 import de.darkshadow44.compatibility.core.FieldInfo;
@@ -14,6 +20,9 @@ import de.darkshadow44.compatibility.core.RegistrationInfoItem;
 import de.darkshadow44.compatibility.core.loader.CompatibilityModLoader;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.client.event.Compat_DrawBlockHighlightEvent;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.client.event.Compat_ModelBakeEvent;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.common.capabilities.Compat_Capability;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.common.capabilities.Compat_CapabilityInject;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.common.capabilities.Compat_CapabilityManager;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.event.entity.player.Compat_PlayerInteractEvent_RightClickBlock;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.Compat_Mod;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.Compat_Mod_EventHandler;
@@ -108,12 +117,40 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 		}
 	}
 
+	private void fillCapabilities() throws Exception {
+		ClassPath classesPath = ClassPath.from(ClassGenerator.class.getClassLoader());
+
+		String sandbox = getPathSandbox().replace("/", ".");
+		sandbox = sandbox.substring(0, sandbox.length() - 1);
+		ImmutableSet<ClassInfo> classInfos = classesPath.getTopLevelClassesRecursive(sandbox);
+
+		for (ClassInfo classInfo : classInfos) {
+			Class<?> clazz = Class.forName(classInfo.getName(), false, CompatibilityMod.classLoader);
+
+			for (Field field : clazz.getDeclaredFields()) {
+				Compat_CapabilityInject annotation = field.getAnnotation(Compat_CapabilityInject.class);
+				if (annotation != null) {
+					String capabilityName = annotation.value().getName();
+					Compat_Capability<?> capability = Compat_CapabilityManager.getCapability(capabilityName);
+					field.set(null, capability);
+				}
+			}
+		}
+	}
+
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		for (ModInfo modInfo : mods) {
 			currentModId = modInfo.id;
 			MethodInfo<?> methodPreInit = new MethodInfo<>(modInfo.getMod(), Compat_Mod_EventHandler.class, Compat_FMLPreInitializationEvent.class);
 			methodPreInit.tryInvoke(new Compat_FMLPreInitializationEvent(event));
+		}
+
+		// Fill capabilities
+		try {
+			fillCapabilities();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
 	}
 
