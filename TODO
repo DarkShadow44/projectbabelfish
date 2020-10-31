@@ -1,11 +1,9 @@
-Enable all exceptions in eclipse, some exceptions are "swallowed" by Witchery, e.g. in preInit.
 all in net.minecraft are 3-part-classes, minecraft forge and cpw.mods.fml can be different
 load world automatically on start?
 all todo to throw exception?
-autogenerate real blocks?
 
 how does intermediary work? how handles 1.7.10 method/event to 1.2.5 block?
-in CompatReal_ classes, somehow force classes to override methods like isNormalBlock. Runtime reflection check, for each "super" method, there must be a normal one
+
 
 
 no abstract "real" classes!
@@ -21,7 +19,6 @@ for entity mapping where witchery registers its entities into a map, maybe subcl
 
 --tweakClass org.spongepowered.asm.launch.MixinTweaker --mixin mixins.compatibility.json
 
-Sanity check for all "func_" that don't have a method in super class
 
 Sources:
 Eclipse-> Bluild Path-> Add class folder - TEMP_CLASSES
@@ -45,8 +42,5 @@ All mod classes tagged? When usin @Callback, switch on version (CASE V1_7_10 Cal
 
 no new Compat_Item allowed!
 
-CapabilityInject
-
 instanceof abfangen oder doublewrap verhinern...?
 
-find forge methods
