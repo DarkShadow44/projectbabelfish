@@ -2,6 +2,7 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.nbt;
 
 import java.util.Set;
 
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
@@ -29,4 +30,16 @@ public interface CompatI_NBTTagCompound {
 	public String getStringSuper(String key);
 
 	public float getFloatSuper(String key);
+
+	public void setStringSuper(String key, String value);
+
+	public void setFloatSuper(String key, float value);
+
+	public void setTagSuper(String key, NBTBase value);
+
+	public byte getIdSuper();
+
+	public void setByteArraySuper(String key, byte[] value);
+
+	public byte[] getByteArraySuper(String key);
 }

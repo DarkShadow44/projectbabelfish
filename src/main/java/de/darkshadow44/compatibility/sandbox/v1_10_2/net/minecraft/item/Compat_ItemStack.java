@@ -129,7 +129,15 @@ public class Compat_ItemStack {
 	}
 
 	public static Compat_ItemStack Compat_func_77949_a(Compat_NBTTagCompound tag) {
-		return new Compat_ItemStack(new ItemStack(tag.getReal()));
+		if (tag.getReal().hasNoTags()) {
+			return null;
+		}
+
+		ItemStack result = new ItemStack(tag.getReal());
+		if (result.isEmpty())
+			return null;
+
+		return new Compat_ItemStack(result);
 	}
 
 	public Compat_ItemStack Compat_func_77946_l() {
@@ -146,5 +154,13 @@ public class Compat_ItemStack {
 			return thisReal.getMetadataSuper();
 		else
 			return original.getMetadata();
+	}
+
+	public Compat_NBTTagCompound Compat_func_77955_b(Compat_NBTTagCompound tag) {
+		if (original == null)
+			thisReal.writeToNBTSuper(tag.getReal());
+		else
+			original.writeToNBT(tag.getReal());
+		return tag;
 	}
 }

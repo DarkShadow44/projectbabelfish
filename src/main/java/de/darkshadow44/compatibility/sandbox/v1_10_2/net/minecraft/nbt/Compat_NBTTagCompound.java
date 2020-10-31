@@ -110,4 +110,47 @@ public class Compat_NBTTagCompound extends Compat_NBTBase {
 		else
 			return original.getFloat(key);
 	}
+
+	public void Compat_func_74778_a(String key, String value) {
+		if (original == null)
+			thisReal.setStringSuper(key, value);
+		else
+			original.setString(key, value);
+	}
+
+	public void Compat_func_74776_a(String key, float value) {
+		if (original == null)
+			thisReal.setFloatSuper(key, value);
+		else
+			original.setFloat(key, value);
+	}
+
+	public void Compat_func_74782_a(String key, Compat_NBTBase value) {
+		if (original == null)
+			thisReal.setTagSuper(key, value.getReal());
+		else
+			original.setTag(key, value.getReal());
+	}
+
+	public byte Compat_func_74732_a() {
+		if (original == null)
+			return thisReal.getIdSuper();
+		else
+			return original.getId();
+	}
+
+	public void Compat_func_74773_a(String key, byte[] value) {
+		if (original == null)
+			thisReal.setByteArraySuper(key, value);
+		else
+			original.setByteArray(key, value);
+	}
+
+	public byte[] Compat_func_74770_j(String key) {
+		if (original == null)
+			return thisReal.getByteArraySuper(key);
+		else
+			return original.getByteArray(key);
+	}
+
 }

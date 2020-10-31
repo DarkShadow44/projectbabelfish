@@ -1,5 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.nbt;
 
-public class Compat_NBTBase {
+import net.minecraft.nbt.NBTBase;
 
+public abstract class Compat_NBTBase {
+	public abstract NBTBase getReal();
 }

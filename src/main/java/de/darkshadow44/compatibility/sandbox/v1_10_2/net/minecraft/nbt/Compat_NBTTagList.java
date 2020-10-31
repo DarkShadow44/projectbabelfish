@@ -38,4 +38,18 @@ public class Compat_NBTTagList extends Compat_NBTBase {
 		else
 			return new Compat_NBTTagCompound(original.getCompoundTagAt(index));
 	}
+
+	public void Compat_func_74742_a(Compat_NBTBase tag) {
+		if (original == null)
+			thisReal.appendTagSuper(tag.getReal());
+		else
+			original.appendTag(tag.getReal());
+	}
+
+	public int Compat_func_74745_c() {
+		if (original == null)
+			return thisReal.tagCountSuper();
+		else
+			return original.tagCount();
+	}
 }
