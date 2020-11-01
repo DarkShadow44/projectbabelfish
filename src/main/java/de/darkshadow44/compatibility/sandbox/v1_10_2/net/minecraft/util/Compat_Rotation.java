@@ -4,7 +4,10 @@ import net.minecraft.util.Rotation;
 
 public enum Compat_Rotation {
 
-	NONE(Rotation.NONE), CLOCKWISE_90(Rotation.CLOCKWISE_90), CLOCKWISE_180(Rotation.CLOCKWISE_180), COUNTERCLOCKWISE_90(Rotation.COUNTERCLOCKWISE_90);
+	NONE(Rotation.NONE),
+	CLOCKWISE_90(Rotation.CLOCKWISE_90),
+	CLOCKWISE_180(Rotation.CLOCKWISE_180),
+	COUNTERCLOCKWISE_90(Rotation.COUNTERCLOCKWISE_90);
 
 	private Rotation original;
 

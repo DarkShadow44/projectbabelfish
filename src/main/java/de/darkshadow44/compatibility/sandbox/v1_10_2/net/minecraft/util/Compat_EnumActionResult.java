@@ -4,7 +4,9 @@ import net.minecraft.util.EnumActionResult;
 
 public enum Compat_EnumActionResult {
 
-	SUCCESS(EnumActionResult.SUCCESS), PASS(EnumActionResult.PASS), FAIL(EnumActionResult.FAIL);
+	SUCCESS(EnumActionResult.SUCCESS),
+	PASS(EnumActionResult.PASS),
+	FAIL(EnumActionResult.FAIL);
 
 	private EnumActionResult original;
 

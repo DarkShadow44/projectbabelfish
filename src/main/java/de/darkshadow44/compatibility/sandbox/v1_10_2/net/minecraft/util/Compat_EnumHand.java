@@ -4,7 +4,8 @@ import net.minecraft.util.EnumHand;
 
 public enum Compat_EnumHand {
 
-	MAIN_HAND(EnumHand.MAIN_HAND), OFF_HAND(EnumHand.OFF_HAND);
+	MAIN_HAND(EnumHand.MAIN_HAND),
+	OFF_HAND(EnumHand.OFF_HAND);
 
 	private EnumHand original;
 

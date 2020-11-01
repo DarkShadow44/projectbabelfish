@@ -4,7 +4,8 @@ import net.minecraft.item.EnumDyeColor;
 
 public enum Compat_EnumDyeColor {
 
-	BLUE(EnumDyeColor.BLUE), RED(EnumDyeColor.RED);
+	BLUE(EnumDyeColor.BLUE),
+	RED(EnumDyeColor.RED);
 
 	private EnumDyeColor original;
 

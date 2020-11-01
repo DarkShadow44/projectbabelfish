@@ -4,7 +4,8 @@ import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 
 public enum Compat_GlStateManager_SourceFactor {
 
-	SRC_ALPHA(SourceFactor.SRC_ALPHA), ONE(SourceFactor.ONE);
+	SRC_ALPHA(SourceFactor.SRC_ALPHA),
+	ONE(SourceFactor.ONE);
 
 	private SourceFactor original;
 

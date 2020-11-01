@@ -4,7 +4,8 @@ import net.minecraft.client.renderer.GlStateManager.DestFactor;
 
 public enum Compat_GlStateManager_DestFactor {
 
-	ONE_MINUS_SRC_ALPHA(DestFactor.ONE_MINUS_SRC_ALPHA), ZERO(DestFactor.ZERO);
+	ONE_MINUS_SRC_ALPHA(DestFactor.ONE_MINUS_SRC_ALPHA),
+	ZERO(DestFactor.ZERO);
 
 	private DestFactor original;
 

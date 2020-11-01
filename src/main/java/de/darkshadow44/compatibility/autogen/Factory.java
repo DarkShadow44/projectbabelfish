@@ -13,7 +13,12 @@ import de.darkshadow44.compatibility.core.CompatibilityMod;
 public class Factory {
 
 	public static enum CtorPos {
-		POS1, POS2, POS3, POS4, POS5, POS6;
+		POS1,
+		POS2,
+		POS3,
+		POS4,
+		POS5,
+		POS6;
 	}
 
 	@SuppressWarnings("unused")

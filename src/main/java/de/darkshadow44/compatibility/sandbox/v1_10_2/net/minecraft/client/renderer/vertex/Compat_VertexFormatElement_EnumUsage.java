@@ -4,7 +4,12 @@ import net.minecraft.client.renderer.vertex.VertexFormatElement.EnumUsage;
 
 public enum Compat_VertexFormatElement_EnumUsage {
 
-	NORMAL(EnumUsage.NORMAL), POSITION(EnumUsage.POSITION), COLOR(EnumUsage.COLOR), UV(EnumUsage.UV), PADDING(EnumUsage.PADDING), GENERIC(EnumUsage.GENERIC);
+	NORMAL(EnumUsage.NORMAL),
+	POSITION(EnumUsage.POSITION),
+	COLOR(EnumUsage.COLOR),
+	UV(EnumUsage.UV),
+	PADDING(EnumUsage.PADDING),
+	GENERIC(EnumUsage.GENERIC);
 
 	private EnumUsage original;
 

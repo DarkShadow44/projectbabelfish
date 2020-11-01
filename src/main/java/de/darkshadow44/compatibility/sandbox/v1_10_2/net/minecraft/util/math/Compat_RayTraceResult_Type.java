@@ -4,7 +4,9 @@ import net.minecraft.util.math.RayTraceResult.Type;
 
 public enum Compat_RayTraceResult_Type {
 
-	BLOCK(Type.BLOCK), ENTITY(Type.ENTITY), MISS(Type.MISS);
+	BLOCK(Type.BLOCK),
+	ENTITY(Type.ENTITY),
+	MISS(Type.MISS);
 
 	private Type original;
 

@@ -3,7 +3,8 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.rel
 import net.minecraftforge.fml.relauncher.Side;
 
 public enum Compat_Side {
-	CLIENT(Side.CLIENT), SERVER(Side.SERVER);
+	CLIENT(Side.CLIENT),
+	SERVER(Side.SERVER);
 
 	private Side original;
 

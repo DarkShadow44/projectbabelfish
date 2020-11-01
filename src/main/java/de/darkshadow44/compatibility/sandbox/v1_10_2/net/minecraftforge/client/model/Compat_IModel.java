@@ -1,6 +1,5 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.client.model;
 
-
 import com.google.common.base.Function;
 
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.block.model.Compat_IBakedModel;

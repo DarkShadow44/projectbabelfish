@@ -4,7 +4,9 @@ import net.minecraft.util.EnumFacing.Axis;
 
 public enum Compat_EnumFacing_Axis {
 
-	X(Axis.X), Y(Axis.Y), Z(Axis.Z);
+	X(Axis.X),
+	Y(Axis.Y),
+	Z(Axis.Z);
 
 	private Axis original;
 

@@ -5,7 +5,12 @@ import net.minecraft.util.IStringSerializable;
 
 public enum Compat_EnumFacing implements IStringSerializable {
 
-	UP(EnumFacing.UP), DOWN(EnumFacing.DOWN), EAST(EnumFacing.EAST), WEST(EnumFacing.WEST), SOUTH(EnumFacing.SOUTH), NORTH(EnumFacing.NORTH);
+	UP(EnumFacing.UP),
+	DOWN(EnumFacing.DOWN),
+	EAST(EnumFacing.EAST),
+	WEST(EnumFacing.WEST),
+	SOUTH(EnumFacing.SOUTH),
+	NORTH(EnumFacing.NORTH);
 
 	static Compat_EnumFacing[] VALUES = new Compat_EnumFacing[6];
 

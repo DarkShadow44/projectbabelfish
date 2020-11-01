@@ -37,7 +37,8 @@ public class Compat_VertexFormat {
 		return original == null ? thisReal.get() : original;
 	}
 
-	// TODO: Some mods from 1.10.2. *really* doesn't like when they get EnumUsage.PADDING. Strip them and hope it doesn't break anything.
+	// TODO: Some mods from 1.10.2. *really* doesn't like when they get
+	// EnumUsage.PADDING. Strip them and hope it doesn't break anything.
 	List<VertexFormatElement> getElements() {
 		int count;
 		if (original == null)

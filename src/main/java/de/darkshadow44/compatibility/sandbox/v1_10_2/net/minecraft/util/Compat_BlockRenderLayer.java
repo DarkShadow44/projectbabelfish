@@ -4,7 +4,10 @@ import net.minecraft.util.BlockRenderLayer;
 
 public enum Compat_BlockRenderLayer {
 
-	SOLID(BlockRenderLayer.SOLID), CUTOUT_MIPPED(BlockRenderLayer.CUTOUT_MIPPED), CUTOUT(BlockRenderLayer.CUTOUT), TRANSLUCENT(BlockRenderLayer.TRANSLUCENT);
+	SOLID(BlockRenderLayer.SOLID),
+	CUTOUT_MIPPED(BlockRenderLayer.CUTOUT_MIPPED),
+	CUTOUT(BlockRenderLayer.CUTOUT),
+	TRANSLUCENT(BlockRenderLayer.TRANSLUCENT);
 
 	private BlockRenderLayer original;
 
