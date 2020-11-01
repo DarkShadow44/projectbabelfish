@@ -22,4 +22,6 @@ public interface CompatI_AxisAlignedBB {
 	public AxisAlignedBB offsetSuper(double x, double y, double z);
 
 	public AxisAlignedBB growSuper(double p1);
+
+	public AxisAlignedBB unionSuper(AxisAlignedBB bb);
 }

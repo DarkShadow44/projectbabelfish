@@ -10,6 +10,7 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.network.Compa
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.network.play.server.Compat_SPacketUpdateTileEntity;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_EnumFacing;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_ITickable;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_AxisAlignedBB;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_BlockPos;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_World;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.common.capabilities.Compat_Capability;
@@ -18,6 +19,8 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraftforge.common.capabilities.Capability;
 
 public class Compat_TileEntity {
 	private TileEntity original;
@@ -67,6 +70,12 @@ public class Compat_TileEntity {
 			return new Compat_BlockPos(original.getPos());
 	}
 
+	@Callback
+	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+		return Compat_hasCapability(Compat_Capability.getFake(capability), Compat_EnumFacing.map_real_to_fake(facing));
+	}
+
+	@HasCallback
 	public boolean Compat_hasCapability(Compat_Capability<?> capability, Compat_EnumFacing facing) {
 		if (thisReal == null && original == null) {
 			// Must be a call during constructor
@@ -86,6 +95,13 @@ public class Compat_TileEntity {
 		return new Compat_TileEntity(real);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Callback
+	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+		return (T) Compat_getCapability(Compat_Capability.getFake(capability), Compat_EnumFacing.map_real_to_fake(facing));
+	}
+
+	@HasCallback
 	public Object Compat_getCapability(Compat_Capability<?> capability, Compat_EnumFacing facing) {
 		EnumFacing facing2 = facing == null ? null : facing.getReal();
 		if (original == null)
@@ -182,6 +198,87 @@ public class Compat_TileEntity {
 			thisReal.handleUpdateTagSuper(tag.getReal());
 		else
 			original.handleUpdateTag(tag.getReal());
+	}
+
+	@Callback
+	public AxisAlignedBB getRenderBoundingBox() {
+		return Compat_getRenderBoundingBox().getReal();
+	}
+
+	@HasCallback
+	public Compat_AxisAlignedBB Compat_getRenderBoundingBox() {
+		AxisAlignedBB result;
+		if (original == null)
+			result = thisReal.getRenderBoundingBoxSuper();
+		else
+			result = original.getRenderBoundingBox();
+		return new Compat_AxisAlignedBB(result);
+	}
+
+	@Callback
+	public boolean shouldRenderInPass(int pass) {
+		return Compat_shouldRenderInPass(pass);
+	}
+
+	@HasCallback
+	public boolean Compat_shouldRenderInPass(int pass) {
+		if (original == null)
+			return thisReal.shouldRenderInPassSuper(pass);
+		else
+			return original.shouldRenderInPass(pass);
+	}
+
+	@Callback
+	public boolean hasFastRenderer() {
+		return Compat_hasFastRenderer();
+	}
+
+	@HasCallback
+	public boolean Compat_hasFastRenderer() {
+		if (original == null)
+			return thisReal.hasFastRendererSuper();
+		else
+			return original.hasFastRenderer();
+	}
+
+	@Callback
+	public void onLoad() {
+		Compat_onLoad();
+	}
+
+	@HasCallback
+	public void Compat_onLoad() {
+		if (original == null)
+			thisReal.onLoadSuper();
+		else
+			original.onLoad();
+	}
+
+	@Callback
+	public void onChunkUnload() {
+		Compat_onChunkUnload();
+	}
+
+	@HasCallback
+	public void Compat_onChunkUnload() {
+		if (original == null)
+			thisReal.onChunkUnloadSuper();
+		else
+			original.onChunkUnload();
+	}
+
+	@Callback
+	public boolean canRenderBreaking() {
+		return Compat_canRenderBreaking();
+	}
+
+	@HasCallback
+	public boolean Compat_canRenderBreaking() {
+		if (original == null)
+			return thisReal.canRenderBreakingSuper();
+		else
+			return original.canRenderBreaking();
+
 	}
 
 }

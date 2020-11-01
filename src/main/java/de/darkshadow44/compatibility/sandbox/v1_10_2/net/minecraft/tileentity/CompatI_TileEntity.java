@@ -7,6 +7,7 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
@@ -36,4 +37,16 @@ public interface CompatI_TileEntity {
 	public void onDataPacketSuper(NetworkManager manager, SPacketUpdateTileEntity packet);
 
 	public void handleUpdateTagSuper(NBTTagCompound tag);
+
+	public AxisAlignedBB getRenderBoundingBoxSuper();
+
+	public boolean shouldRenderInPassSuper(int pass);
+
+	public boolean hasFastRendererSuper();
+
+	public void onLoadSuper();
+
+	public void onChunkUnloadSuper();
+
+	public boolean canRenderBreakingSuper();
 }

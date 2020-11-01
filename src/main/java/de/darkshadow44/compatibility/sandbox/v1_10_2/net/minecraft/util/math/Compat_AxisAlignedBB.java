@@ -98,4 +98,13 @@ public class Compat_AxisAlignedBB {
 			axis = original.grow(p1);
 		return new Compat_AxisAlignedBB(axis);
 	}
+
+	public Compat_AxisAlignedBB Compat_func_111270_a(Compat_AxisAlignedBB bb) {
+		AxisAlignedBB axis;
+		if (original == null)
+			axis = thisReal.unionSuper(bb.getReal());
+		else
+			axis = original.union(bb.getReal());
+		return new Compat_AxisAlignedBB(axis);
+	}
 }
