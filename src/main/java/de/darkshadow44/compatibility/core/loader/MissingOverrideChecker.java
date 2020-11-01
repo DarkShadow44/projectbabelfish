@@ -17,7 +17,6 @@ public class MissingOverrideChecker {
 	}
 
 	public void checkClass(Class<?> classMod) {
-
 		OverrideMethodInfo methodsMod = new OverrideMethodInfo(layer);
 		OverrideMethodInfo methodsCompat = new OverrideMethodInfo(layer);
 		OverrideMethodInfo methodsMc = new OverrideMethodInfo(layer);

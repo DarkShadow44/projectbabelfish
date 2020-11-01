@@ -42,4 +42,11 @@ public class Compat_ModelResourceLocation extends Compat_ResourceLocation {
 	public ModelResourceLocation getReal() {
 		return original == null ? thisReal.get() : original;
 	}
+
+	public String Compat_func_177518_c() {
+		if (original == null)
+			return thisReal.getVariantSuper();
+		else
+			return original.getVariant();
+	}
 }

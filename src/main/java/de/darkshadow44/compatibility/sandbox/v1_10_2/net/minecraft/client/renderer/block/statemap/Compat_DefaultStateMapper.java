@@ -3,6 +3,9 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.rende
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state.Compat_IBlockState;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.block.model.Compat_ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 
 public class Compat_DefaultStateMapper extends Compat_StateMapperBase {
@@ -35,4 +38,14 @@ public class Compat_DefaultStateMapper extends Compat_StateMapperBase {
 	public DefaultStateMapper getReal() {
 		return original == null ? thisReal.get() : original;
 	}
+
+	public Compat_ModelResourceLocation Compat_func_178132_a(Compat_IBlockState state) {
+		ModelResourceLocation result;
+		if (original == null)
+			result = thisReal.getModelResourceLocationSuper(state.getReal());
+		else
+			throw new RuntimeException();
+		return result == null ? null : new Compat_ModelResourceLocation(result);
+	}
+
 }

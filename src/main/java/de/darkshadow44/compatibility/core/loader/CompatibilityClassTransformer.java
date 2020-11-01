@@ -167,11 +167,11 @@ public class CompatibilityClassTransformer {
 			return true;
 
 		// Skip lambdas
-		if (name.startsWith("lambda") || name.startsWith("test"))
+		if (name.startsWith("lambda") || name.equals("test"))
 			return true;
 
 		// Skip stream methods?
-		if (name.startsWith("apply"))
+		if (name.equals("apply")  || name.equals("accept"))
 			return true;
 
 		return false;

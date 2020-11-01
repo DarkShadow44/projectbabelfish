@@ -73,14 +73,13 @@ public class OverrideMethodInfo {
 	}
 
 	public void getMethodsForMc(Class<?> parentCompat) {
-		if (parentCompat != Object.class && parentCompat != Enum.class) {
+		if (!parentCompat.getName().startsWith("java.lang.")) {
 			String nameMc = parentCompat.getName().substring(layer.getPathSandbox().length()).replace("Compat_", "");
-
 			try {
 				Class<?> classMc = Class.forName(nameMc, false, CompatibilityMod.classLoader);
 				getMethodsForClassAndParents(classMc, false);
 			} catch (Exception e) {
-				// Ignore errors
+				// Ignore Exceptions
 			}
 		}
 	}
