@@ -22,7 +22,13 @@ public class MissingOverrideChecker {
 		OverrideMethodInfo methodsCompat = new OverrideMethodInfo(layer);
 		OverrideMethodInfo methodsMc = new OverrideMethodInfo(layer);
 
-		Class<?> parentCompat = methodsCompat.getModSuperClass(classMod.getSuperclass());
+		Class<?> parentCompat = classMod.getSuperclass();
+
+		methodsCompat.addFromImplementedInterfaces(classMod);
+		while (methodsCompat.isModClass(parentCompat)) {
+			methodsCompat.addFromImplementedInterfaces(parentCompat);
+			parentCompat = parentCompat.getSuperclass();
+		}
 
 		if (parentCompat == null)
 			return;
@@ -32,9 +38,6 @@ public class MissingOverrideChecker {
 		try {
 			methodsMod.getMethodsForClassAndParents(classMod, false);
 			methodsCompat.getMethodsForClassAndParents(parentCompat, true);
-			for (Class<?> classIface : classMod.getInterfaces()) {
-				methodsCompat.getMethodsForClassUnconditionally(classIface, false);
-			}
 		} catch (Throwable e) {
 			throw new RuntimeException("Checking class: \n" + classMod.getName() + "\n" + parentCompat.getName(), e);
 		}
@@ -46,7 +49,7 @@ public class MissingOverrideChecker {
 				} else {
 					String mcName = method.name.replace(layer.getPrefixFake(), "");
 					if (methodsMc.containsName(mcName)) {
-						methods.add("Missing method: " + parentCompat.getSimpleName() + "." + method.name);
+						methods.add("Missing method: " + parentCompat.getSimpleName() + "." + method.desc);
 					}
 				}
 			} else if (!methodsCompat.getByDesc(method.desc).hasCallback) {

@@ -30,8 +30,8 @@ public class OverrideMethodInfo {
 		this.layer = layer;
 	}
 
-	private boolean isModClass(Class<?> c) {
-		if (c == null || c == Object.class || c == Enum.class)
+	public boolean isModClass(Class<?> c) {
+		if (c == null || c.getName().startsWith("java.") || c.getName().startsWith("com.google."))
 			return false;
 
 		if (c.getName().length() < layer.getPathSandbox().length()) {
@@ -64,14 +64,12 @@ public class OverrideMethodInfo {
 		getMethodsForClassAndParents(clazz.getSuperclass(), checkCallback);
 	}
 
-	public Class<?> getModSuperClass(Class<?> parentCompat) {
-		while (isModClass(parentCompat)) {
-			for (Class<?> classIface : parentCompat.getInterfaces()) {
+	public void addFromImplementedInterfaces(Class<?> clazz) {
+		for (Class<?> classIface : clazz.getInterfaces()) {
+			if (!isModClass(classIface)) {
 				getMethodsForClassUnconditionally(classIface, false);
 			}
-			parentCompat = parentCompat.getSuperclass();
 		}
-		return parentCompat;
 	}
 
 	public void getMethodsForMc(Class<?> parentCompat) {
