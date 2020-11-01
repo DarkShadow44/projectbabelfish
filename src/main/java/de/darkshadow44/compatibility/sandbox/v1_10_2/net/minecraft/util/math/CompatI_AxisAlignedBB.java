@@ -1,6 +1,9 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math;
 
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 
 public interface CompatI_AxisAlignedBB {
 	public AxisAlignedBB get();
@@ -24,4 +27,8 @@ public interface CompatI_AxisAlignedBB {
 	public AxisAlignedBB growSuper(double p1);
 
 	public AxisAlignedBB unionSuper(AxisAlignedBB bb);
+
+	public AxisAlignedBB offsetSuper(BlockPos pos);
+
+	public RayTraceResult calculateInterceptSuper(Vec3d start, Vec3d end);
 }

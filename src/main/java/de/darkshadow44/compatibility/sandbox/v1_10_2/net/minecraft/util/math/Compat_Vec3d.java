@@ -59,4 +59,11 @@ public class Compat_Vec3d {
 		else
 			return new Compat_Vec3d(original.addVector(x, y, z));
 	}
+
+	public double Compat_func_72436_e(Compat_Vec3d vec) {
+		if (original == null)
+			return thisReal.squareDistanceToSuper(vec.getReal());
+		else
+			return original.squareDistanceTo(vec.getReal());
+	}
 }

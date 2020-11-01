@@ -1,5 +1,8 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.darkshadow44.compatibility.autogen.Callback;
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
@@ -10,10 +13,13 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state.C
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state.Compat_IBlockState;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state.Wrapper_IBlockState;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.creativetab.Compat_CreativeTabs;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.entity.Compat_Entity;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.tileentity.Compat_TileEntity;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_EnumBlockRenderType;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_AxisAlignedBB;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_BlockPos;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_RayTraceResult;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_Vec3d;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.registry.Compat_RegistryNamespacedDefaultedByKey;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.registry.Compat_RegistryNamespacedDefaultedByKey_Block;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_IBlockAccess;
@@ -23,9 +29,13 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.comm
 import net.minecraft.block.Block;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -255,4 +265,74 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 
 		return new Wrapper_IBlockState(ret);
 	}
+
+	@Callback
+	public RayTraceResult collisionRayTrace(IBlockState state, World world, BlockPos pos, Vec3d start, Vec3d end) {
+		Compat_RayTraceResult result = Compat_func_180636_a(new Wrapper_IBlockState(state), Compat_World.get_fake(world), new Compat_BlockPos(pos), new Compat_Vec3d(start), new Compat_Vec3d(end));
+		return result == null ? null : result.getReal();
+	}
+
+	@SuppressWarnings("deprecation")
+	@HasCallback
+	public Compat_RayTraceResult Compat_func_180636_a(Compat_IBlockState state, Compat_World world, Compat_BlockPos pos, Compat_Vec3d start, Compat_Vec3d end) {
+		RayTraceResult result;
+		if (original == null)
+			result = thisReal.collisionRayTraceSuper(state.getReal(), world.getReal(), pos.getReal(), start.getReal(), end.getReal());
+		else
+			result = original.collisionRayTrace(state.getReal(), world.getReal(), pos.getReal(), start.getReal(), end.getReal());
+		return result == null ? null : new Compat_RayTraceResult(result);
+	}
+
+	@Callback
+	public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World world, BlockPos pos) {
+		return Compat_func_180640_a(new Wrapper_IBlockState(state), Compat_World.get_fake(world), new Compat_BlockPos(pos)).getReal();
+	}
+
+	@SuppressWarnings("deprecation")
+	@HasCallback
+	public Compat_AxisAlignedBB Compat_func_180640_a(Compat_IBlockState state, Compat_World world, Compat_BlockPos pos) {
+		AxisAlignedBB result;
+		if (original == null)
+			result = thisReal.getSelectedBoundingBoxSuper(state.getReal(), world.getReal(), pos.getReal());
+		else
+			result = original.getSelectedBoundingBox(state.getReal(), world.getReal(), pos.getReal());
+		return new Compat_AxisAlignedBB(result);
+	}
+
+	@Callback
+	public void addCollisionBoxToList(IBlockState state, World world, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> boxes, Entity entity, boolean isActualState) {
+		List<Compat_AxisAlignedBB> list2 = new ArrayList<>();
+
+		for (AxisAlignedBB box : boxes) {
+			list2.add(new Compat_AxisAlignedBB(box));
+		}
+
+		Compat_func_185477_a(new Wrapper_IBlockState(state), Compat_World.get_fake(world), new Compat_BlockPos(pos), new Compat_AxisAlignedBB(entityBox), list2, new Compat_Entity(entity));
+
+		boxes.clear();
+		for (Compat_AxisAlignedBB box : list2) {
+			boxes.add(box.getReal());
+		}
+	}
+
+	@SuppressWarnings("deprecation")
+	@HasCallback
+	public void Compat_func_185477_a(Compat_IBlockState state, Compat_World world, Compat_BlockPos pos, Compat_AxisAlignedBB entityBox, List<Compat_AxisAlignedBB> boxes, Compat_Entity entity) {
+		List<AxisAlignedBB> list2 = new ArrayList<>();
+
+		for (Compat_AxisAlignedBB box : boxes) {
+			list2.add(box.getReal());
+		}
+
+		if (original == null)
+			thisReal.addCollisionBoxToListSuper(state.getReal(), world.getReal(), pos.getReal(), entityBox.getReal(), list2, entity.getReal(), true);
+		else
+			original.addCollisionBoxToList(state.getReal(), world.getReal(), pos.getReal(), entityBox.getReal(), list2, entity.getReal(), true);
+
+		boxes.clear();
+		for (AxisAlignedBB box : list2) {
+			boxes.add(new Compat_AxisAlignedBB(box));
+		}
+	}
+
 }

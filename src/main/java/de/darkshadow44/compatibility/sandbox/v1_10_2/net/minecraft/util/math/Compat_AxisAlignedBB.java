@@ -4,6 +4,7 @@ import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.RayTraceResult;
 
 public class Compat_AxisAlignedBB {
 	private AxisAlignedBB original;
@@ -107,4 +108,23 @@ public class Compat_AxisAlignedBB {
 			axis = original.union(bb.getReal());
 		return new Compat_AxisAlignedBB(axis);
 	}
+
+	public Compat_AxisAlignedBB Compat_func_186670_a(Compat_BlockPos pos) {
+		AxisAlignedBB axis;
+		if (original == null)
+			axis = thisReal.offsetSuper(pos.getReal());
+		else
+			axis = original.offset(pos.getReal());
+		return new Compat_AxisAlignedBB(axis);
+	}
+
+	public Compat_RayTraceResult Compat_func_72327_a(Compat_Vec3d start, Compat_Vec3d end) {
+		RayTraceResult result;
+		if (original == null)
+			result = thisReal.calculateInterceptSuper(start.getReal(), end.getReal());
+		else
+			result = original.calculateIntercept(start.getReal(), end.getReal());
+		return result == null ? null : new Compat_RayTraceResult(result);
+	}
+
 }

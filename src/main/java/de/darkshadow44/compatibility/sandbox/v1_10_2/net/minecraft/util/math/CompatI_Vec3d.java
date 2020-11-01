@@ -12,4 +12,6 @@ public interface CompatI_Vec3d {
 	public double get_z();
 
 	public Vec3d addVectorSuper(double x, double y, double z);
+
+	public double squareDistanceToSuper(Vec3d vec);
 }
