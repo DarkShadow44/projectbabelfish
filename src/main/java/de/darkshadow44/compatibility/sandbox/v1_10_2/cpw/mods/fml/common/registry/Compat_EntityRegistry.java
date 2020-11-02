@@ -3,9 +3,9 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.cpw.mods.fml.common.regist
 import java.util.ArrayList;
 import java.util.List;
 
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.biome.Compat_BiomeGenBase;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.entity.Compat_Entity;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.entity.Compat_EnumCreatureType;
-import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.world.biome.Compat_BiomeGenBase;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.world.biome.Biome;
 

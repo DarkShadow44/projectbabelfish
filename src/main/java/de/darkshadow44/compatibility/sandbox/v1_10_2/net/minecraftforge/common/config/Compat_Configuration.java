@@ -47,4 +47,25 @@ public class Compat_Configuration {
 	public boolean Compat_getBoolean(String name, String category, boolean standard, String comment) {
 		return wrapper.getBooleanSuper(name, category, standard, comment);
 	}
+
+	public Compat_Property Compat_get(String category, String key, boolean defaultValue) {
+		return new Compat_Property(wrapper.getSuper(category, key, defaultValue));
+	}
+
+	public Compat_Property Compat_get(String category, String key, int defaultValue) {
+		return new Compat_Property(wrapper.getSuper(category, key, defaultValue));
+	}
+
+	public Compat_Property Compat_get(String category, String key, String[] defaultValues) {
+		return new Compat_Property(wrapper.getSuper(category, key, defaultValues));
+	}
+
+	public Compat_Property Compat_get(String category, String key, double defaultValue) {
+		return new Compat_Property(wrapper.getSuper(category, key, defaultValue));
+	}
+
+	public boolean Compat_hasChanged() {
+		return wrapper.hasChangedSuper();
+	}
+
 }

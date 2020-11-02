@@ -3,8 +3,8 @@ package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.entity.passi
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_World;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.entity.Compat_EntityAgeable;
-import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.world.Compat_World;
 import net.minecraft.entity.passive.EntityAnimal;
 
 public class Compat_EntityAnimal extends Compat_EntityAgeable {
