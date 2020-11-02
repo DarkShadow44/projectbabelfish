@@ -134,7 +134,9 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 				if (annotation != null) {
 					String capabilityName = annotation.value().getName();
 					Compat_Capability<?> capability = Compat_CapabilityManager.getCapability(capabilityName);
-					field.set(null, capability);
+					if (capability != null) { // Some mods are broken
+						field.set(null, capability);
+					}
 				}
 			}
 		}

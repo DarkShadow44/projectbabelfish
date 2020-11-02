@@ -26,9 +26,6 @@ public class Compat_CapabilityManager {
 
 	public static Compat_Capability<?> getCapability(String name) {
 		Compat_Capability<?> ret = capabilities.get(name);
-		if (ret == null) {
-			throw new RuntimeException();
-		}
 		return ret;
 	}
 
