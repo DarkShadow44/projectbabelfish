@@ -32,26 +32,29 @@ public class ClassGenerator {
 
 	private final Class<?> classIface;
 	private final String pathIface;
-	private final String nameIface;
 	private final Class<?> classMc;
 	private final String pathMc;
+	private final String descMc;
 	private final String pathFake;
 	private final String descFake;
 	private final Class<?> classFake;
 	private final String pathReal;
+	private final String pathWrapper;
 
-	private ClassGenerator(Class<?> classIface, String pathIface, String nameIface) throws Exception {
+	private ClassGenerator(Class<?> classIface, String pathIface) throws Exception {
 		this.classIface = classIface;
 		this.pathIface = pathIface;
-		this.nameIface = nameIface;
 		this.pathReal = pathIface.replace("CompatI_", "CompatReal_");
 		this.pathFake = pathIface.replace("CompatI_", "Compat_");
+		this.pathWrapper = pathIface.replace("CompatI_", "CompatWrapper_");
 		this.descFake = "L" + pathFake + ";";
+
 		this.classFake = Class.forName(pathFake.replace("/", "."));
 
 		Method methodGet = classIface.getMethod("get");
-		classMc = methodGet.getReturnType();
-		pathMc = classMc.getName().replace(".", "/");
+		this.classMc = methodGet.getReturnType();
+		this.pathMc = classMc.getName().replace(".", "/");
+		this.descMc = "L" + pathMc + ";";
 	}
 
 	private void generateLoadParams(InsnList instructions, Parameter[] params, int offset) {
@@ -80,72 +83,67 @@ public class ClassGenerator {
 		return desc;
 	}
 
-	private MethodNode generateConstructor(String realPath, Parameter[] params, String mcPath) {
-		String thisFakeDesc = "L" + realPath.replace("/CompatReal_", "/Compat_") + ";";
-
+	private MethodNode generateConstructor(Parameter[] params) {
 		MethodNode method = new MethodNode();
 		method.name = "<init>";
 		method.access = Opcodes.ACC_PUBLIC;
 		method.exceptions = new ArrayList<>();
 
-		method.desc = "(" + thisFakeDesc + makeParamDesc(params) + ")V";
+		method.desc = "(" + descFake + makeParamDesc(params) + ")V";
 
 		method.instructions = new InsnList();
 
 		// this.thisFake = thisFake;
 		method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
 		method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 1));
-		method.instructions.add(new FieldInsnNode(Opcodes.PUTFIELD, realPath, "thisFake", thisFakeDesc));
+		method.instructions.add(new FieldInsnNode(Opcodes.PUTFIELD, pathReal, "thisFake", descFake));
 
 		// this.inInit = true;
 		method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
 		method.instructions.add(new InsnNode(Opcodes.ICONST_1));
-		method.instructions.add(new FieldInsnNode(Opcodes.PUTFIELD, realPath, "inInit", "Z"));
+		method.instructions.add(new FieldInsnNode(Opcodes.PUTFIELD, pathReal, "inInit", "Z"));
 
 		// super(...);
 		method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
 		generateLoadParams(method.instructions, params, 1);
 		String superDesc = "(" + makeParamDesc(params) + ")V";
-		method.instructions.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, mcPath, "<init>", superDesc, false));
+		method.instructions.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, pathMc, "<init>", superDesc, false));
 
 		// this.inInit = false;
 		method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
 		method.instructions.add(new InsnNode(Opcodes.ICONST_0));
-		method.instructions.add(new FieldInsnNode(Opcodes.PUTFIELD, realPath, "inInit", "Z"));
+		method.instructions.add(new FieldInsnNode(Opcodes.PUTFIELD, pathReal, "inInit", "Z"));
 
 		method.instructions.add(new InsnNode(Opcodes.RETURN));
 
 		return method;
 	}
 
-	private MethodNode generateConstructorWrapper(String realPath, String mcPath) {
-		String originalDesc = "L" + mcPath + ";";
-		realPath = realPath.replace("CompatReal_", "CompatWrapper_");
-
+	private MethodNode generateConstructorWrapper() {
 		MethodNode method = new MethodNode();
 		method.name = "<init>";
 		method.access = Opcodes.ACC_PUBLIC;
 		method.exceptions = new ArrayList<>();
 
-		method.desc = "(" + originalDesc + ")V";
+		method.desc = "(" + descMc + ")V";
 
 		method.instructions = new InsnList();
 
 		// this.thisFake = thisFake;
 		method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
 		method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 1));
-		method.instructions.add(new FieldInsnNode(Opcodes.PUTFIELD, realPath, "original", originalDesc));
+		method.instructions.add(new FieldInsnNode(Opcodes.PUTFIELD, pathWrapper, "original", descMc));
 
 		return method;
 	}
 
-	private MethodNode generateGet(String mcPath) {
+	private MethodNode generateGet() {
 		MethodNode method = new MethodNode();
 		method.name = "get";
 		method.access = Opcodes.ACC_PUBLIC;
 		method.exceptions = new ArrayList<>();
 
-		method.desc = "()L" + mcPath + ";";
+		method.desc = "()" + descMc;
 
 		method.instructions = new InsnList();
 		method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
@@ -154,8 +152,23 @@ public class ClassGenerator {
 		return method;
 	}
 
-	private MethodNode generateGetFake(String realPath, Class<?> type) {
-		String thisFakeDesc = "L" + realPath.replace("/CompatReal_", "/Compat_") + ";";
+	private MethodNode generateGetWrapper() {
+		MethodNode method = new MethodNode();
+		method.name = "get";
+		method.access = Opcodes.ACC_PUBLIC;
+		method.exceptions = new ArrayList<>();
+
+		method.desc = "()" + descMc;
+
+		method.instructions = new InsnList();
+		method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+		method.instructions.add(new FieldInsnNode(Opcodes.GETFIELD, pathWrapper, "original", descMc));
+		method.instructions.add(new InsnNode(Opcodes.ARETURN));
+
+		return method;
+	}
+
+	private MethodNode generateGetFake(Class<?> type) {
 		MethodNode method = new MethodNode();
 		method.name = "getFake";
 		method.access = Opcodes.ACC_PUBLIC;
@@ -165,13 +178,13 @@ public class ClassGenerator {
 
 		method.instructions = new InsnList();
 		method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
-		method.instructions.add(new FieldInsnNode(Opcodes.GETFIELD, realPath, "thisFake", thisFakeDesc));
+		method.instructions.add(new FieldInsnNode(Opcodes.GETFIELD, pathReal, "thisFake", descFake));
 		method.instructions.add(new InsnNode(Opcodes.ARETURN));
 
 		return method;
 	}
 
-	private MethodNode generateSuper(String realPath, String mcPath, Parameter[] params, String methodName, Class<?> returnType, boolean isWrapper) {
+	private MethodNode generateSuper(Parameter[] params, String methodName, Class<?> returnType, boolean isWrapper) {
 		MethodNode method = new MethodNode();
 		method.name = methodName;
 		method.access = Opcodes.ACC_PUBLIC;
@@ -187,13 +200,13 @@ public class ClassGenerator {
 
 		String methodNameMc = methodName.substring(0, methodName.length() - "Super".length());
 
-		method.instructions.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, mcPath, methodNameMc, superDesc, false));
+		method.instructions.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, pathMc, methodNameMc, superDesc, false));
 		generateReturn(method.instructions, returnType);
 
 		return method;
 	}
 
-	private MethodNode generateGet(String mcPath, String methodName, Class<?> type) {
+	private MethodNode generatePropertyGet(String methodName, Class<?> type) {
 		MethodNode method = new MethodNode();
 		method.name = methodName;
 		method.access = Opcodes.ACC_PUBLIC;
@@ -208,13 +221,13 @@ public class ClassGenerator {
 		String name = methodName.substring("get_".length());
 		String desc = Type.getDescriptor(type);
 
-		method.instructions.add(new FieldInsnNode(Opcodes.GETFIELD, mcPath, name, desc));
+		method.instructions.add(new FieldInsnNode(Opcodes.GETFIELD, pathMc, name, desc));
 		generateReturn(method.instructions, type);
 
 		return method;
 	}
 
-	private MethodNode generateSet(String mcPath, String methodName, Class<?> type) {
+	private MethodNode generatePropertySet(String mcPath, String methodName, Class<?> type) {
 		MethodNode method = new MethodNode();
 		method.name = methodName;
 		method.access = Opcodes.ACC_PUBLIC;
@@ -239,8 +252,7 @@ public class ClassGenerator {
 		return method;
 	}
 
-	private MethodNode generateWrapper(String realPath, Parameter[] params, String methodName, Class<?> returnType, String mcPath, boolean skipDuringConstructor) {
-		String thisFakeDesc = "L" + realPath.replace("/CompatReal_", "/Compat_") + ";";
+	private MethodNode generateWrapper(Parameter[] params, String methodName, Class<?> returnType, boolean skipDuringConstructor) {
 		MethodNode method = new MethodNode();
 		method.name = methodName;
 		method.access = Opcodes.ACC_PUBLIC;
@@ -249,63 +261,62 @@ public class ClassGenerator {
 		method.desc = "(" + makeParamDesc(params) + ")" + Type.getDescriptor(returnType);
 
 		String superDesc = "(" + makeParamDesc(params) + ")" + Type.getDescriptor(returnType);
-		String containingClassName = realPath.replace("CompatReal_", "Compat_");
 
 		method.instructions = new InsnList();
 
 		if (skipDuringConstructor) {
 			LabelNode labelNoSkip = new LabelNode();
 			method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
-			method.instructions.add(new FieldInsnNode(Opcodes.GETFIELD, realPath, "inInit", "Z"));
+			method.instructions.add(new FieldInsnNode(Opcodes.GETFIELD, pathReal, "inInit", "Z"));
 			method.instructions.add(new InsnNode(Opcodes.ICONST_0));
 			method.instructions.add(new JumpInsnNode(Opcodes.IF_ICMPEQ, labelNoSkip));
 			method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
 			generateLoadParams(method.instructions, params, 0);
-			method.instructions.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, mcPath, methodName, superDesc, false));
+			method.instructions.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, pathMc, methodName, superDesc, false));
 			generateReturn(method.instructions, returnType);
 			method.instructions.add(labelNoSkip);
 		}
 
 		method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
-		method.instructions.add(new FieldInsnNode(Opcodes.GETFIELD, realPath, "thisFake", thisFakeDesc));
+		method.instructions.add(new FieldInsnNode(Opcodes.GETFIELD, pathReal, "thisFake", descFake));
 		generateLoadParams(method.instructions, params, 0);
-		method.instructions.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, containingClassName, methodName, superDesc, false));
+		method.instructions.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, pathFake, methodName, superDesc, false));
 		generateReturn(method.instructions, returnType);
 
 		return method;
 	}
 
-	private void generateMethodsForIface(List<MethodNode> methods, Class<?> classIface, String realPath, String mcPath, Class<?> classMc, boolean isWrapper) {
+	private void generateMethodsForIface(List<MethodNode> methods, boolean isWrapper) {
 		for (Method method : classIface.getMethods()) {
 			if (method.getName().equals("get")) {
 				continue;
 			}
 			if (method.getName().equals("getFake")) {
-				methods.add(generateGetFake(realPath, method.getReturnType()));
+				methods.add(generateGetFake(method.getReturnType()));
 				continue;
 			}
 			if (method.getName().startsWith("get_")) {
-				MethodNode methodCreated = generateGet(mcPath, method.getName(), method.getReturnType());
+				MethodNode methodCreated = generatePropertyGet(method.getName(), method.getReturnType());
 				methods.add(methodCreated);
 				continue;
 			}
 			if (method.getName().startsWith("set_")) {
-				MethodNode methodCreated = generateSet(mcPath, method.getName(), method.getParameters()[0].getType());
+				MethodNode methodCreated = generatePropertySet(pathMc, method.getName(), method.getParameters()[0].getType());
 				methods.add(methodCreated);
 				continue;
 			}
 			if (!methodExistsInClass(classMc, method, true)) {
-				throw new RuntimeException("Can't find method \"" + method.getName() + "\" in class " + mcPath);
+				throw new RuntimeException("Can't find method \"" + method.getName() + "\" in class " + pathMc);
 			}
-			MethodNode methodCreated = generateSuper(realPath, mcPath, method.getParameters(), method.getName(), method.getReturnType(), isWrapper);
+			MethodNode methodCreated = generateSuper(method.getParameters(), method.getName(), method.getReturnType(), isWrapper);
 			methods.add(methodCreated);
 		}
 	}
 
-	private void generateAbstractWrappers(List<MethodNode> methods, Class<?> classMc, String realPath) {
+	private void generateAbstractWrappers(List<MethodNode> methods) {
 		for (Method method : classMc.getDeclaredMethods()) {
 			if (Modifier.isAbstract(method.getModifiers())) {
-				MethodNode methodCreated = generateWrapper(realPath, method.getParameters(), method.getName(), method.getReturnType(), null, false);
+				MethodNode methodCreated = generateWrapper(method.getParameters(), method.getName(), method.getReturnType(), false);
 				methods.add(methodCreated);
 			}
 		}
@@ -337,27 +348,27 @@ public class ClassGenerator {
 		return true;
 	}
 
-	private boolean methodExistsInClass(Class<?> classMc, Method methodSearch, boolean isSuper) {
-		for (Method method : classMc.getDeclaredMethods()) {
+	private boolean methodExistsInClass(Class<?> clazz, Method methodSearch, boolean isSuper) {
+		for (Method method : clazz.getDeclaredMethods()) {
 			if (methodsMatch(method, methodSearch, isSuper))
 				return true;
 		}
 
-		if (classMc.getSuperclass() != null) {
-			return methodExistsInClass(classMc.getSuperclass(), methodSearch, isSuper);
+		if (clazz.getSuperclass() != null) {
+			return methodExistsInClass(clazz.getSuperclass(), methodSearch, isSuper);
 		}
 
 		return false;
 	}
 
-	private void generateCallbacks(List<MethodNode> methods, Class<?> classFake, String realPath, String mcPath, Class<?> classMc) {
+	private void generateCallbacks(List<MethodNode> methods) {
 		for (Method method : classFake.getMethods()) {
 			Callback callback = method.getAnnotation(Callback.class);
 			if (callback != null) {
 				if (!methodExistsInClass(classMc, method, false)) {
-					throw new RuntimeException("Can't find method \"" + method.getName() + "\" in class " + mcPath);
+					throw new RuntimeException("Can't find method \"" + method.getName() + "\" in class " + pathMc);
 				}
-				MethodNode methodCreated = generateWrapper(realPath, method.getParameters(), method.getName(), method.getReturnType(), mcPath, callback.skipDuringConstructor());
+				MethodNode methodCreated = generateWrapper(method.getParameters(), method.getName(), method.getReturnType(), callback.skipDuringConstructor());
 				methods.add(methodCreated);
 			}
 		}
@@ -369,21 +380,17 @@ public class ClassGenerator {
 
 		ClassNode classNode = new ClassNode();
 		classNode.access = Opcodes.ACC_PUBLIC;
-		String className = ifaceName.replace("CompatI_", "CompatWrapper_");
-		classNode.name = path + className;
+		classNode.name = pathWrapper;
 		classNode.version = 52;
 
-		String mcPath = classMc.getName().replace(".", "/");
+		classNode.fields.add(new FieldNode(Opcodes.ACC_PRIVATE, "original", descMc, null, null));
 
-		String originalDesc = "L" + mcPath + ";";
-		classNode.fields.add(new FieldNode(Opcodes.ACC_PRIVATE, "original", originalDesc, null, null));
+		classNode.methods.add(generateGetWrapper());
 
-		classNode.methods.add(generateGet(mcPath));
-
-		MethodNode method = generateConstructorWrapper(classNode.name, mcPath);
+		MethodNode method = generateConstructorWrapper();
 		classNode.methods.add(method);
 
-		generateMethodsForIface(classNode.methods, classIface, classNode.name, mcPath, classMc, true);
+		generateMethodsForIface(classNode.methods, true);
 
 		ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
 		classNode.accept(classWriter);
@@ -397,24 +404,22 @@ public class ClassGenerator {
 		classNode.access = Opcodes.ACC_PUBLIC;
 		classNode.interfaces.add(pathIface);
 		classNode.name = pathReal;
-		classNode.superName = classMc.getName().replace(".", "/");
+		classNode.superName = pathMc;
 		classNode.version = 52;
 
 		classNode.fields.add(new FieldNode(Opcodes.ACC_PRIVATE, "thisFake", descFake, null, null));
 		classNode.fields.add(new FieldNode(Opcodes.ACC_PRIVATE, "inInit", "Z", null, null));
 
-		String mcPath = classMc.getName().replace(".", "/");
-
-		classNode.methods.add(generateGet(mcPath));
+		classNode.methods.add(generateGet());
 
 		for (Constructor<?> constructor : classMc.getDeclaredConstructors()) {
-			MethodNode method = generateConstructor(classNode.name, constructor.getParameters(), mcPath);
+			MethodNode method = generateConstructor(constructor.getParameters());
 			classNode.methods.add(method);
 		}
 
-		generateMethodsForIface(classNode.methods, classIface, classNode.name, mcPath, classMc, false);
+		generateMethodsForIface(classNode.methods, false);
 
-		generateAbstractWrappers(classNode.methods, classMc, classNode.name);
+		generateAbstractWrappers(classNode.methods);
 
 		Interface iface = classIface.getAnnotation(Interface.class);
 		if (iface != null) {
@@ -422,12 +427,12 @@ public class ClassGenerator {
 			classNode.interfaces.add(clazzIface.getName().replace(".", "/"));
 
 			for (Method method : clazzIface.getMethods()) {
-				MethodNode methodCreated = generateWrapper(classNode.name, method.getParameters(), method.getName(), method.getReturnType(), null, false);
+				MethodNode methodCreated = generateWrapper(method.getParameters(), method.getName(), method.getReturnType(), false);
 				classNode.methods.add(methodCreated);
 			}
 		}
 
-		generateCallbacks(classNode.methods, classFake, classNode.name, mcPath, classMc);
+		generateCallbacks(classNode.methods);
 
 		ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
 		classNode.accept(classWriter);
@@ -454,7 +459,7 @@ public class ClassGenerator {
 			Class<?> clazz = Class.forName(clazzInfo.getName());
 
 			if (clazz.isInterface() && className.startsWith("CompatI_")) {
-				ClassGenerator generator = new ClassGenerator(clazz, classFullName, className);
+				ClassGenerator generator = new ClassGenerator(clazz, classFullName);
 				generator.generateClass();
 				// generateClassWrapper(clazz, classPath, className);
 			}
