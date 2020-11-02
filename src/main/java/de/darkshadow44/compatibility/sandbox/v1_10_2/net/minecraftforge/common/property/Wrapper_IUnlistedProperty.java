@@ -51,6 +51,6 @@ public class Wrapper_IUnlistedProperty<T> implements IUnlistedProperty<T> {
 
 	@Override
 	public int hashCode() {
-		return getId(this).hashCode();
+		return fake.hashCode();
 	}
 }

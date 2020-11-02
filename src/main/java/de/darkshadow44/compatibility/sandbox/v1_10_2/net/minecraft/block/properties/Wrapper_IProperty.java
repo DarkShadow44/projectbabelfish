@@ -14,4 +14,9 @@ public class Wrapper_IProperty<T extends Comparable<T>> implements Compat_IPrope
 	public IProperty<T> getReal() {
 		return original;
 	}
+
+	@Override
+	public int hashCode() {
+		return original.hashCode();
+	};
 }

@@ -1,6 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.block.statemap;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -78,7 +79,7 @@ public class Compat_StateMapperBase implements Compat_IStateMapper {
 	}
 
 	public String Compat_func_178131_a(Map<Compat_IProperty<?>, Comparable<?>> map) {
-		Map<IProperty<?>, Comparable<?>> map2 = new HashMap<>();
+		Map<IProperty<?>, Comparable<?>> map2 = new LinkedHashMap<>();
 
 		for (Entry<Compat_IProperty<?>, Comparable<?>> property : map.entrySet()) {
 			map2.put(property.getKey().getReal(), property.getValue());

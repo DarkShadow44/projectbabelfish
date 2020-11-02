@@ -1,6 +1,6 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -64,7 +64,7 @@ public class Wrapper_IBlockState implements Compat_IBlockState {
 	public ImmutableMap<Compat_IProperty<?>, Comparable<?>> Compat_func_177228_b() {
 		ImmutableMap<IProperty<?>, Comparable<?>> properties = original.getProperties();
 
-		Map<Compat_IProperty<?>, Comparable<?>> ret = new HashMap<>();
+		Map<Compat_IProperty<?>, Comparable<?>> ret = new LinkedHashMap<>();
 
 		for (Entry<IProperty<?>, Comparable<?>> property : properties.entrySet()) {
 			ret.put(new Wrapper_IProperty<>(property.getKey()), property.getValue());

@@ -2,6 +2,7 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft;
 
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.block.model.Compat_IBakedModel;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.block.model.Compat_ModelResourceLocation;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.block.model.Wrapper2_IBakedModel;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.registry.Compat_IRegistry;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -30,10 +31,9 @@ public class Wrapper_IRegistry_Model implements Compat_IRegistry<ModelResourceLo
 	public Object Compat_func_82594_a(Object key) {
 		Compat_ModelResourceLocation location = (Compat_ModelResourceLocation) key;
 		IBakedModel model = (IBakedModel) original.getObject(location.getReal());
-		for (ModelResourceLocation k : original.getKeys()) {
-			System.out.println(k.toString());
+		if (model == null) {
+			throw new RuntimeException();
 		}
-		throw new RuntimeException("Model must not be null // TODO variants are missing... must be registered properly");
-		// return new Wrapper2_IBakedModel(model);
+		return new Wrapper2_IBakedModel(model);
 	}
 }
