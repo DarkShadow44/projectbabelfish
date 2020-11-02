@@ -38,8 +38,23 @@ forge tries create mod objects
 
 Think again: Why "Mod_Block -> Wrapper_Block -> MC_Block" nicht möglich?
 
-All mod classes tagged? When usin @Callback, switch on version (CASE V1_7_10 Call_XX, CASE V1_10_2 Call_YY)
+
 
 no new Compat_Item allowed!
 
 instanceof abfangen oder doublewrap verhinern...?
+
+
+
+
+All mod classes tagged? When usin @Callback, switch on version (CASE V1_7_10 Call_XX, CASE V1_10_2 Call_YY). in constructor, get and save version.
+CompatWrapper_XXX um original Implements CompatI_XXX
+factory checks if child, if yes, creates wrapper.
+if this.getClass != Compat_XXX.class then is child
+HasCallback with MC Versions, to know it is called for version XXX
+find all called methods, like overrides
+
+1. merge methods, with CompatWrapper
+2. version tagging
+3. factory create wrapper if not child
+4. big merge
