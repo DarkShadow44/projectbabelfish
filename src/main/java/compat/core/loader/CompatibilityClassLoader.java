@@ -36,7 +36,7 @@ public class CompatibilityClassLoader {
 
 		try {
 			name = layer.getPrefixedClassname(name);
-			Class.forName(name.replace('/', '.'), true, CompatibilityMod.classLoader);
+			Class.forName(name.replace('/', '.'), false, CompatibilityMod.classLoader);
 			return true;
 		} catch (ClassNotFoundException | NoClassDefFoundError e) {
 			return false;

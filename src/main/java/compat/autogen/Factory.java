@@ -138,7 +138,7 @@ public class Factory {
 		String targetName = classIface.getName().replace("CompatI_", "CompatWrapper_");
 
 		try {
-			Class<?> classReal = Class.forName(targetName, true, CompatibilityMod.classLoader);
+			Class<?> classReal = Class.forName(targetName, false, CompatibilityMod.classLoader);
 			Constructor<?> constructor = findConstructor(classReal, new Object[] { param });
 			cacheWrapper.put(classIface, constructor);
 			if (constructor == null) {

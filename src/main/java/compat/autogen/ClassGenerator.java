@@ -476,7 +476,7 @@ public class ClassGenerator {
 			String classFullName = clazzInfo.getName().replace(".", "/");
 			String[] classNameSplit = classFullName.split("\\/");
 			String className = classNameSplit[classNameSplit.length - 1];
-			Class<?> clazz = Class.forName(clazzInfo.getName());
+			Class<?> clazz = Class.forName(clazzInfo.getName(), false, CompatibilityMod.classLoader);
 
 			if (clazz.isInterface() && className.startsWith("CompatI_")) {
 				ClassGenerator generator = new ClassGenerator(clazz, classFullName);
