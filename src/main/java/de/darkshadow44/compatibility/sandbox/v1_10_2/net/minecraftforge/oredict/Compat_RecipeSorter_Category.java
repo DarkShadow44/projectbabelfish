@@ -1,15 +1,16 @@
-package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraftforge.oredict;
+package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.oredict;
 
 import net.minecraftforge.oredict.RecipeSorter.Category;
 
 @SuppressWarnings("deprecation")
-public class Compat_RecipeSorter_Category {
+public enum Compat_RecipeSorter_Category {
 
-	private static final Compat_RecipeSorter_Category SHAPELESS = new Compat_RecipeSorter_Category(Category.SHAPELESS);
+	SHAPELESS(Category.SHAPELESS),
+	SHAPED(Category.SHAPED);
 
 	private final Category original;
 
-	public Compat_RecipeSorter_Category(Category original) {
+	private Compat_RecipeSorter_Category(Category original) {
 		this.original = original;
 	}
 

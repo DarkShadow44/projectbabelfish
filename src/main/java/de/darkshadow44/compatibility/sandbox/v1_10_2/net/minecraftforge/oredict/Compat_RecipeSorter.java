@@ -1,4 +1,4 @@
-package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraftforge.oredict;
+package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.oredict;
 
 import net.minecraftforge.oredict.RecipeSorter;
 

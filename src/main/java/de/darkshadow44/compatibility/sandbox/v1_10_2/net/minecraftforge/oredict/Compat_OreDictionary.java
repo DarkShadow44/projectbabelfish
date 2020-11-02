@@ -25,4 +25,8 @@ public class Compat_OreDictionary {
 		}
 		return ret;
 	}
+
+	public static void Compat_registerOre(String name, Compat_ItemStack ore) {
+		OreDictionary.registerOre(name, ore.getReal());
+	}
 }
