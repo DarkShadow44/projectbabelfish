@@ -24,4 +24,6 @@ public interface CompatI_RayTraceResult {
 	public int get_subHit();
 
 	public Object get_hitInfo();
+
+	public Compat_RayTraceResult getFake();
 }

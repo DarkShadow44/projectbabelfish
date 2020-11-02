@@ -259,7 +259,9 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 			list2.add(new Compat_AxisAlignedBB(box));
 		}
 
-		Compat_func_185477_a(new Wrapper_IBlockState(state), Compat_World.get_fake(world), new Compat_BlockPos(pos), new Compat_AxisAlignedBB(entityBox), list2, new Compat_Entity(entity));
+		Compat_Entity entity2 = entity == null ? null : new Compat_Entity(entity);
+
+		Compat_func_185477_a(new Wrapper_IBlockState(state), Compat_World.get_fake(world), new Compat_BlockPos(pos), new Compat_AxisAlignedBB(entityBox), list2, entity2);
 
 		boxes.clear();
 		for (Compat_AxisAlignedBB box : list2) {
@@ -406,6 +408,13 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	@HasCallback
 	public boolean Compat_func_180639_a(Compat_World world, Compat_BlockPos pos, Compat_IBlockState state, Compat_EntityPlayer player, Compat_EnumHand hand, Compat_ItemStack stack, Compat_EnumFacing facing, float x, float y, float z) {
 		return wrapper.onBlockActivatedSuper(world.getReal(), pos.getReal(), state.getReal(), player.getReal(), hand.getReal(), facing.getReal(), x, y, z);
+	}
+
+	public static Compat_Block getFake(Block block) {
+		if (block instanceof CompatI_Block) {
+			return ((CompatI_Block) block).getFake();
+		}
+		return new Compat_Block(block);
 	}
 
 }

@@ -35,6 +35,13 @@ public class Compat_BlockPos_MutableBlockPos extends Compat_BlockPos {
 	}
 
 	public Compat_BlockPos_MutableBlockPos Compat_func_181079_c(int p1, int p2, int p3) {
-		return new Compat_BlockPos_MutableBlockPos(wrapper.setPosSuper(p1, p2, p3));
+		return Compat_BlockPos_MutableBlockPos.getFake(wrapper.setPosSuper(p1, p2, p3));
+	}
+
+	private static Compat_BlockPos_MutableBlockPos getFake(MutableBlockPos pos) {
+		if (pos instanceof CompatI_BlockPos_MutableBlockPos) {
+			return ((CompatI_BlockPos_MutableBlockPos) pos).getFake();
+		}
+		return new Compat_BlockPos_MutableBlockPos(pos);
 	}
 }

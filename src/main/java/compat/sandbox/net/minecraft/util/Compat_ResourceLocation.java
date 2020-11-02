@@ -68,4 +68,11 @@ public class Compat_ResourceLocation implements Comparable<Compat_ResourceLocati
 	public String Compat_toString() {
 		return wrapper.toStringSuper();
 	}
+
+	public static Compat_ResourceLocation getFake(ResourceLocation location) {
+		if (location instanceof CompatI_ResourceLocation) {
+			return ((CompatI_ResourceLocation)location).getFake();
+		}
+		return new Compat_ResourceLocation(location);
+	}
 }

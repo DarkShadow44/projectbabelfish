@@ -41,4 +41,11 @@ public class Compat_NBTTagList extends Compat_NBTBase {
 	public int Compat_func_74745_c() {
 		return wrapper.tagCountSuper();
 	}
+
+	public static Compat_NBTTagList getFake(NBTTagList tag) {
+		if (tag instanceof CompatI_NBTTagList) {
+			return ((CompatI_NBTTagList) tag).getFake();
+		}
+		return new Compat_NBTTagList(tag);
+	}
 }

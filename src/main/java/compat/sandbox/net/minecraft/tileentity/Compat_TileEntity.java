@@ -59,7 +59,7 @@ public class Compat_TileEntity {
 	}
 
 	public Compat_BlockPos Compat_func_174877_v() {
-		return new Compat_BlockPos(wrapper.getPosSuper());
+		return Compat_BlockPos.getFake(wrapper.getPosSuper());
 	}
 
 	@Callback
@@ -148,7 +148,7 @@ public class Compat_TileEntity {
 
 	@Callback
 	public void onDataPacket(NetworkManager manager, SPacketUpdateTileEntity packet) {
-		Compat_onDataPacket(new Compat_NetworkManager(manager), new Compat_SPacketUpdateTileEntity(packet));
+		Compat_onDataPacket(new Compat_NetworkManager(manager), Compat_SPacketUpdateTileEntity.getFake(packet));
 	}
 
 	@HasCallback

@@ -21,7 +21,7 @@ public class Wrapper_IStateMapper implements IStateMapper {
 
 	@Override
 	public Map<IBlockState, ModelResourceLocation> putStateModelLocations(Block block) {
-		Map<Compat_IBlockState, Compat_ModelResourceLocation> results = fake.Compat_func_178130_a(new Compat_Block(block));
+		Map<Compat_IBlockState, Compat_ModelResourceLocation> results = fake.Compat_func_178130_a(Compat_Block.getFake(block));
 
 		Map<IBlockState, ModelResourceLocation> ret = new HashMap<>();
 

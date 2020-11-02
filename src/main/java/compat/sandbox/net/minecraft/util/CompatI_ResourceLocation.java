@@ -16,4 +16,6 @@ public interface CompatI_ResourceLocation {
 	public boolean equalsSuper(Object other);
 
 	public int hashCodeSuper();
+
+	public Compat_ResourceLocation getFake();
 }

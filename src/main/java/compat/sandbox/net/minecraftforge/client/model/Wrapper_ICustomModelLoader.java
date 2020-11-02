@@ -23,7 +23,7 @@ public class Wrapper_ICustomModelLoader implements ICustomModelLoader {
 
 	@Override
 	public boolean accepts(ResourceLocation modelLocation) {
-		return fake.Compat_accepts(new Compat_ResourceLocation(modelLocation));
+		return fake.Compat_accepts(Compat_ResourceLocation.getFake(modelLocation));
 	}
 
 	@Override

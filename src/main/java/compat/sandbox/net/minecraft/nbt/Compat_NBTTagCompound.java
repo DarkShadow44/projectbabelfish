@@ -45,7 +45,7 @@ public class Compat_NBTTagCompound extends Compat_NBTBase {
 	}
 
 	public Compat_NBTTagList Compat_func_150295_c(String key, int type) {
-		return new Compat_NBTTagList(wrapper.getTagListSuper(key, type));
+		return Compat_NBTTagList.getFake(wrapper.getTagListSuper(key, type));
 	}
 
 	public boolean Compat_func_74764_b(String key) {

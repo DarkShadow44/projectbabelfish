@@ -46,7 +46,7 @@ public class Compat_RayTraceResult {
 	}
 
 	public Compat_BlockPos Compat_func_178782_a() {
-		return new Compat_BlockPos(wrapper.getBlockPosSuper());
+		return Compat_BlockPos.getFake(wrapper.getBlockPosSuper());
 	}
 
 	public Compat_Vec3d Compat_get_field_72307_f() {
@@ -73,5 +73,12 @@ public class Compat_RayTraceResult {
 
 	public Object Compat_get_hitInfo() {
 		return wrapper.get_hitInfo();
+	}
+
+	public static Compat_RayTraceResult getFake(RayTraceResult objectMouseOver) {
+		if (objectMouseOver instanceof CompatI_RayTraceResult) {
+			return ((CompatI_RayTraceResult) objectMouseOver).getFake();
+		}
+		return new Compat_RayTraceResult(objectMouseOver);
 	}
 }

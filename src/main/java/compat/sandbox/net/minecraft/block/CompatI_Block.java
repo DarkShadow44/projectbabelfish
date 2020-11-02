@@ -91,4 +91,6 @@ public interface CompatI_Block extends CompatI_IForgeRegistryEntry_Impl<Block> {
 	public void onBlockClickedSuper(World world, BlockPos pos, EntityPlayer player);
 
 	public boolean onBlockActivatedSuper(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float x, float y, float z);
+
+	public Compat_Block getFake();
 }

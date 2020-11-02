@@ -47,7 +47,7 @@ public class Compat_Minecraft {
 	}
 
 	public Compat_RayTraceResult Compat_get_field_71476_x() {
-		return new Compat_RayTraceResult(original.objectMouseOver);
+		return Compat_RayTraceResult.getFake(original.objectMouseOver);
 	}
 
 	public Compat_TextureMap Compat_func_147117_R() {

@@ -41,6 +41,13 @@ public class Compat_CreativeTabs {
 		return null;
 	}
 
+	public static Compat_CreativeTabs getFake(CreativeTabs tab) {
+		if (tab instanceof CompatI_CreativeTabs) {
+			return ((CompatI_CreativeTabs) tab).getFake();
+		}
+		return new Compat_CreativeTabs(tab);
+	}
+
 	/* TODO 1.7.10
 	 * public Compat_ItemStack Compat_func_151244_d() {
 		// Must be original, method is abstract

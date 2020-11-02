@@ -122,4 +122,11 @@ public class Compat_ItemStack {
 		wrapper.writeToNBTSuper(tag.getReal());
 		return tag;
 	}
+
+	public static Compat_ItemStack getFake(ItemStack stack) {
+		if (stack instanceof CompatI_ItemStack) {
+			return ((CompatI_ItemStack) stack).getFake();
+		}
+		return new Compat_ItemStack(stack);
+	}
 }

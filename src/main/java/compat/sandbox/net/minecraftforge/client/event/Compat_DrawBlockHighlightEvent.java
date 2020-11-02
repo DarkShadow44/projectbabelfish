@@ -18,7 +18,7 @@ public class Compat_DrawBlockHighlightEvent {
 	}
 
 	public Compat_RayTraceResult Compat_getTarget() {
-		return new Compat_RayTraceResult(original.getTarget());
+		return Compat_RayTraceResult.getFake(original.getTarget());
 	}
 
 	public Compat_EntityPlayer Compat_getPlayer() {

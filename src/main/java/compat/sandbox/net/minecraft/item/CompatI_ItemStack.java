@@ -30,4 +30,6 @@ public interface CompatI_ItemStack {
 	public int getMetadataSuper();
 
 	public NBTTagCompound writeToNBTSuper(NBTTagCompound real);
+
+	public Compat_ItemStack getFake();
 }

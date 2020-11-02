@@ -86,7 +86,7 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 
 	@Callback
 	public String getUnlocalizedName(ItemStack stack) {
-		return Compat_func_77667_c(new Compat_ItemStack(stack));
+		return Compat_func_77667_c(Compat_ItemStack.getFake(stack));
 	}
 
 	public String Compat_func_77667_c(Compat_ItemStack stack) {
@@ -96,7 +96,7 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 	@Callback
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
 		List<Compat_ItemStack> list = new ArrayList<>();
-		Compat_func_150895_a(this, new Compat_CreativeTabs(tab), list);
+		Compat_func_150895_a(this, Compat_CreativeTabs.getFake(tab), list);
 
 		for (Compat_ItemStack stack : list) {
 			items.add(stack.getReal());
@@ -220,7 +220,7 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 
 	@Callback
 	public String getItemStackDisplayName(ItemStack stack) {
-		return Compat_func_77653_i(new Compat_ItemStack(stack));
+		return Compat_func_77653_i(Compat_ItemStack.getFake(stack));
 	}
 
 	public String Compat_func_77653_i(Compat_ItemStack itemstack) {

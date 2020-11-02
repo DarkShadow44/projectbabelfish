@@ -7,4 +7,6 @@ public interface CompatI_SPacketUpdateTileEntity {
 	public SPacketUpdateTileEntity get();
 
 	public NBTTagCompound getNbtCompoundSuper();
+
+	public Compat_SPacketUpdateTileEntity getFake();
 }

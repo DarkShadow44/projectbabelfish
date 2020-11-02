@@ -12,4 +12,6 @@ public interface CompatI_BlockPos extends CompatI_Vec3i {
 	public BlockPos addSuper(Vec3i vec);
 
 	public double distanceSqSuper(Vec3i vec);
+
+	public Compat_BlockPos getFake();
 }

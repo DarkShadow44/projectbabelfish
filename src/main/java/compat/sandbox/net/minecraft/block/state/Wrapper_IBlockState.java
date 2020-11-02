@@ -58,7 +58,7 @@ public class Wrapper_IBlockState implements Compat_IBlockState {
 
 	@Override
 	public Compat_Block Compat_func_177230_c() {
-		return new Compat_Block(original.getBlock());
+		return Compat_Block.getFake(original.getBlock());
 	}
 
 	public ImmutableMap<Compat_IProperty<?>, Comparable<?>> Compat_func_177228_b() {

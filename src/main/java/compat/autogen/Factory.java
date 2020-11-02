@@ -123,6 +123,11 @@ public class Factory {
 
 	@SuppressWarnings("unchecked")
 	public static <T> T createWrapper(Class<?> classIface, Object param) {
+
+		if (classIface.isAssignableFrom(param.getClass())) {
+			throw new RuntimeException("Double wrap!");
+		}
+
 		Constructor<?> ctor = cacheWrapper.get(classIface);
 		if (ctor != null) {
 			try {

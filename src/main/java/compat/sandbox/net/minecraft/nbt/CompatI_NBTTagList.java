@@ -12,4 +12,6 @@ public interface CompatI_NBTTagList {
 	public void appendTagSuper(NBTBase tag);
 
 	public int tagCountSuper();
+
+	public Compat_NBTTagList getFake();
 }

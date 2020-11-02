@@ -37,4 +37,11 @@ public class Compat_SPacketUpdateTileEntity {
 		NBTTagCompound result = wrapper.getNbtCompoundSuper();
 		return new Compat_NBTTagCompound(result);
 	}
+
+	public static Compat_SPacketUpdateTileEntity getFake(SPacketUpdateTileEntity packet) {
+		if (packet instanceof CompatI_SPacketUpdateTileEntity) {
+			return ((CompatI_SPacketUpdateTileEntity) packet).getFake();
+		}
+		return new Compat_SPacketUpdateTileEntity(packet);
+	}
 }

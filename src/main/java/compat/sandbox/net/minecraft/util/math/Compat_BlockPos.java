@@ -51,4 +51,11 @@ public class Compat_BlockPos extends Compat_Vec3i {
 	public double Compat_func_177951_i(Compat_Vec3i vec) {
 		return wrapper.distanceSqSuper(vec.getReal());
 	}
+
+	public static Compat_BlockPos getFake(BlockPos pos) {
+		if (pos instanceof CompatI_BlockPos) {
+			return ((CompatI_BlockPos) pos).getFake();
+		}
+		return new Compat_BlockPos(pos);
+	}
 }
