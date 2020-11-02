@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import compat.autogen.ClassGenerator;
 import compat.core.ModInfo;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -30,13 +29,12 @@ public abstract class CompatibilityLayer {
 	static final String prefixGet = "Compat_get_";
 	static final String prefixSet = "Compat_set_";
 
-	private final String pathSandbox;
+	public static final String pathSandbox = "compat/sandbox/";
 	protected final String version;
 
 	protected final List<ModInfo> mods = new ArrayList<>();
 
 	public CompatibilityLayer(String version) {
-		this.pathSandbox = "compat/sandbox/";
 		this.version = version;
 	}
 
@@ -68,10 +66,6 @@ public abstract class CompatibilityLayer {
 
 	public String getPrefixSet() {
 		return prefixSet;
-	}
-
-	public void generateClasses() {
-		ClassGenerator.tryGenerateRealClasses(this);
 	}
 
 	public ModInfo getModById(String id) {

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import compat.autogen.ClassGenerator;
 import compat.core.layer.CompatibilityLayer;
 import compat.core.layer.CompatibilityLayer_1_10_2;
 import compat.core.layer.CompatibilityLayer_1_7_10;
@@ -75,10 +76,11 @@ public class CompatibilityMod {
 	public void preInit(FMLPreInitializationEvent event) {
 		registerTexturePack();
 
+		ClassGenerator.tryGenerateRealClasses();
+
 		File directoryMods = new File(event.getModConfigurationDirectory().getParentFile(), "mods");
 
 		for (CompatibilityLayer layer : layers) {
-			layer.generateClasses();
 			layer.loadMods(directoryMods, event.getSide());
 			layer.preInit(event);
 		}

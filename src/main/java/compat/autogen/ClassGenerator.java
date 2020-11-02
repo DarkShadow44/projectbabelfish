@@ -50,7 +50,7 @@ public class ClassGenerator {
 		this.pathWrapper = pathIface.replace("CompatI_", "CompatWrapper_");
 		this.descFake = "L" + pathFake + ";";
 
-		this.classFake = Class.forName(pathFake.replace("/", "."));
+		this.classFake = Class.forName(pathFake.replace("/", "."), false, CompatibilityMod.classLoader);
 
 		Method methodGet = classIface.getMethod("get");
 		this.classMc = methodGet.getReturnType();
@@ -460,9 +460,9 @@ public class ClassGenerator {
 		CompatibilityMod.classLoader.addClass(classNode.name.replace("/", "."), data);
 	}
 
-	private static void generateRealClasses(CompatibilityLayer layer) throws Exception {
+	private static void generateRealClasses() throws Exception {
 		ClassPath classesPath = ClassPath.from(ClassGenerator.class.getClassLoader());
-		String sandbox = layer.getPathSandbox().replace("/", ".");
+		String sandbox = CompatibilityLayer.pathSandbox.replace("/", ".");
 		sandbox = sandbox.substring(0, sandbox.length() - 1);
 		Set<ClassInfo> classes = new HashSet<>();
 
@@ -480,15 +480,15 @@ public class ClassGenerator {
 
 			if (clazz.isInterface() && className.startsWith("CompatI_")) {
 				ClassGenerator generator = new ClassGenerator(clazz, classFullName);
-				generator.generateClass();
 				generator.generateClassWrapper();
+				generator.generateClass();
 			}
 		}
 	}
 
-	public static void tryGenerateRealClasses(CompatibilityLayer layer) {
+	public static void tryGenerateRealClasses() {
 		try {
-			generateRealClasses(layer);
+			generateRealClasses();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
