@@ -3,7 +3,6 @@ package de.darkshadow44.compatibility.autogen;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Parameter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.objectweb.asm.Type;
@@ -21,8 +20,8 @@ public class Factory {
 		POS6;
 	}
 
-	@SuppressWarnings("unused")
-	private static Map<String, List<Constructor<?>>> cache = new HashMap<>();
+	private static Map<Class<?>, Constructor<?>[]> cache = new HashMap<>();
+	private static Map<Class<?>, Constructor<?>> cacheWrapper = new HashMap<>();
 
 	private static Class<?> boxPrimitive(Class<?> clazz) {
 		if (!clazz.isPrimitive())
@@ -88,6 +87,22 @@ public class Factory {
 	// TODO: Don't allow duplicate ctor pos
 	@SuppressWarnings("unchecked")
 	public static <T> T create(CtorPos pos, Class<?> classIface, Object... params) {
+
+		Constructor<?>[] cached = cache.get(classIface);
+		if (cached == null) {
+			cached = new Constructor<?>[10];
+			cache.put(classIface, cached);
+		} else {
+			Constructor<?> ctor = cached[pos.ordinal()];
+			if (ctor != null) {
+				try {
+					return (T) ctor.newInstance(params);
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+			}
+		}
+
 		if (!classIface.getName().contains(".CompatI_")) {
 			throw new RuntimeException("Not an interface: " + classIface.getName());
 		}
@@ -96,6 +111,7 @@ public class Factory {
 		try {
 			Class<?> classReal = Class.forName(targetName, true, CompatibilityMod.classLoader);
 			Constructor<?> constructor = findConstructor(classReal, params);
+			cached[pos.ordinal()] = constructor;
 			if (constructor == null) {
 				throw new RuntimeException("Can't find constructor! desc: " + makeParamDesc(params));
 			}
@@ -107,6 +123,15 @@ public class Factory {
 
 	@SuppressWarnings("unchecked")
 	public static <T> T createWrapper(Class<?> classIface, Object param) {
+		Constructor<?> ctor = cacheWrapper.get(classIface);
+		if (ctor != null) {
+			try {
+				return (T) ctor.newInstance(param);
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+
 		if (!classIface.getName().contains(".CompatI_")) {
 			throw new RuntimeException("Not an interface: " + classIface.getName());
 		}
@@ -115,6 +140,7 @@ public class Factory {
 		try {
 			Class<?> classReal = Class.forName(targetName, true, CompatibilityMod.classLoader);
 			Constructor<?> constructor = findConstructor(classReal, new Object[] { param });
+			cacheWrapper.put(classIface, constructor);
 			if (constructor == null) {
 				throw new RuntimeException("Can't find constructor! desc: " + param);
 			}
