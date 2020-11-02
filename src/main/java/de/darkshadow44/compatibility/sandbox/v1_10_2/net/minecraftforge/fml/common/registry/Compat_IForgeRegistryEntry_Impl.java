@@ -8,12 +8,11 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.IForgeRegistryEntry.Impl;
 
 public class Compat_IForgeRegistryEntry_Impl<T extends IForgeRegistryEntry<T>> implements Compat_IForgeRegistryEntry<T> {
-	private Impl<T> original;
-	private CompatI_IForgeRegistryEntry_Impl<T> thisReal;
+	private CompatI_IForgeRegistryEntry_Impl<T> wrapper;
 
 	// When called from Mod
 	public Compat_IForgeRegistryEntry_Impl() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_IForgeRegistryEntry_Impl.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_IForgeRegistryEntry_Impl.class, this));
 	}
 
 	// When called from child
@@ -22,23 +21,19 @@ public class Compat_IForgeRegistryEntry_Impl<T extends IForgeRegistryEntry<T>> i
 
 	// When called from Minecraft
 	public Compat_IForgeRegistryEntry_Impl(Impl<T> original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_IForgeRegistryEntry_Impl.class, original));
 	}
 
-	protected void initialize(CompatI_IForgeRegistryEntry_Impl<T> thisReal, Impl<T> original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_IForgeRegistryEntry_Impl<T> wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public Impl<T> getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public Compat_IForgeRegistryEntry<T> Compat_setRegistryName(String name) {
-		if (this.original == null)
-			thisReal.setRegistryNameSuper(CompatibilityMod.LAYER_1_10_2.currentModId, name);
-		else
-			this.original.setRegistryName(CompatibilityMod.LAYER_1_10_2.currentModId, name);
+		wrapper.setRegistryNameSuper(CompatibilityMod.LAYER_1_10_2.currentModId, name);
 		return this;
 	}
 }

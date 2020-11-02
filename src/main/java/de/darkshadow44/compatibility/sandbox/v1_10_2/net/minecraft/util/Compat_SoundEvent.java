@@ -6,12 +6,11 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.util.SoundEvent;
 
 public class Compat_SoundEvent {
-	private SoundEvent original;
-	private CompatI_SoundEvent thisReal;
+	private CompatI_SoundEvent wrapper;
 
 	// When called from Mod
 	public Compat_SoundEvent(Compat_ResourceLocation location) {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_SoundEvent.class, this, location.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_SoundEvent.class, this, location.getReal()));
 	}
 
 	// When called from child
@@ -20,15 +19,14 @@ public class Compat_SoundEvent {
 
 	// When called from Minecraft
 	public Compat_SoundEvent(SoundEvent original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_SoundEvent.class, original));
 	}
 
-	protected void initialize(CompatI_SoundEvent thisReal, SoundEvent original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_SoundEvent wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public SoundEvent getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

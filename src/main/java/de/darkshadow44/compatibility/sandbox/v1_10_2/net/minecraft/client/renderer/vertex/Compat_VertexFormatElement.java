@@ -8,12 +8,11 @@ import net.minecraft.client.renderer.vertex.VertexFormatElement.EnumType;
 import net.minecraft.client.renderer.vertex.VertexFormatElement.EnumUsage;
 
 public class Compat_VertexFormatElement {
-	private VertexFormatElement original;
-	private CompatI_VertexFormatElement thisReal;
+	private CompatI_VertexFormatElement wrapper;
 
 	// When called from Mod
 	public Compat_VertexFormatElement() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_VertexFormatElement.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_VertexFormatElement.class, this));
 	}
 
 	// When called from child
@@ -22,40 +21,28 @@ public class Compat_VertexFormatElement {
 
 	// When called from Minecraft
 	public Compat_VertexFormatElement(VertexFormatElement original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_VertexFormatElement.class, original));
 	}
 
-	protected void initialize(CompatI_VertexFormatElement thisReal, VertexFormatElement original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_VertexFormatElement wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public VertexFormatElement getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public Compat_VertexFormatElement_EnumUsage Compat_func_177375_c() {
-		EnumUsage result;
-		if (original == null)
-			result = thisReal.getUsageSuper();
-		else
-			result = original.getUsage();
+		EnumUsage result = wrapper.getUsageSuper();
 		return Compat_VertexFormatElement_EnumUsage.getFake(result);
 	}
 
 	public int Compat_func_177369_e() {
-		if (original == null)
-			return thisReal.getIndexSuper();
-		else
-			return original.getIndex();
+		return wrapper.getIndexSuper();
 	}
 
 	public Compat_VertexFormatElement_EnumType Compat_func_177367_b() {
-		EnumType result;
-		if (original == null)
-			result = thisReal.getTypeSuper();
-		else
-			result = original.getType();
+		EnumType result = wrapper.getTypeSuper();
 		return Compat_VertexFormatElement_EnumType.getFake(result);
 	}
 }

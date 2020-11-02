@@ -6,12 +6,11 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.command.CommandBase;
 
 public class Compat_CommandBase {
-	private CommandBase original;
-	private CompatI_CommandBase thisReal;
+	private CompatI_CommandBase wrapper;
 
 	// When called from Mod
 	public Compat_CommandBase() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_CommandBase.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_CommandBase.class, this));
 	}
 
 	// When called from child
@@ -20,15 +19,14 @@ public class Compat_CommandBase {
 
 	// When called from Minecraft
 	public Compat_CommandBase(CommandBase original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_CommandBase.class, original));
 	}
 
-	protected void initialize(CompatI_CommandBase thisReal, CommandBase original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_CommandBase wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public CommandBase getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

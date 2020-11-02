@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraftforge.event.world.BlockEvent.NeighborNotifyEvent;
 
 public class Compat_BlockEvent_NeighborNotifyEvent extends Compat_BlockEvent {
-	private NeighborNotifyEvent original;
-	private CompatI_BlockEvent_NeighborNotifyEvent thisReal;
+	private CompatI_BlockEvent_NeighborNotifyEvent wrapper;
 
 	// When called from Mod
 	public Compat_BlockEvent_NeighborNotifyEvent() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockEvent_NeighborNotifyEvent.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockEvent_NeighborNotifyEvent.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,15 @@ public class Compat_BlockEvent_NeighborNotifyEvent extends Compat_BlockEvent {
 	// When called from Minecraft
 	public Compat_BlockEvent_NeighborNotifyEvent(NeighborNotifyEvent original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockEvent_NeighborNotifyEvent.class, original));
 	}
 
-	protected void initialize(CompatI_BlockEvent_NeighborNotifyEvent thisReal, NeighborNotifyEvent original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockEvent_NeighborNotifyEvent wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public NeighborNotifyEvent getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

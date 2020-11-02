@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraftforge.client.event.TextureStitchEvent.Post;
 
 public class Compat_TextureStitchEvent_Post extends Compat_TextureStitchEvent {
-	private Post original;
-	private CompatI_TextureStitchEvent_Post thisReal;
+	private CompatI_TextureStitchEvent_Post wrapper;
 
 	// When called from Mod
 	public Compat_TextureStitchEvent_Post() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_TextureStitchEvent_Post.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_TextureStitchEvent_Post.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,15 @@ public class Compat_TextureStitchEvent_Post extends Compat_TextureStitchEvent {
 	// When called from Minecraft
 	public Compat_TextureStitchEvent_Post(Post original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_TextureStitchEvent_Post.class, original));
 	}
 
-	protected void initialize(CompatI_TextureStitchEvent_Post thisReal, Post original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_TextureStitchEvent_Post wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public Post getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

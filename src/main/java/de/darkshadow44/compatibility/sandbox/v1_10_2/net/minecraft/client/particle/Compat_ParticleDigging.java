@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.client.particle.ParticleDigging;
 
 public class Compat_ParticleDigging extends Compat_Particle {
-	private ParticleDigging original;
-	private CompatI_ParticleDigging thisReal;
+	private CompatI_ParticleDigging wrapper;
 
 	// When called from Mod
 	public Compat_ParticleDigging() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ParticleDigging.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ParticleDigging.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,15 @@ public class Compat_ParticleDigging extends Compat_Particle {
 	// When called from Minecraft
 	public Compat_ParticleDigging(ParticleDigging original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ParticleDigging.class, original));
 	}
 
-	protected void initialize(CompatI_ParticleDigging thisReal, ParticleDigging original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ParticleDigging wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public ParticleDigging getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

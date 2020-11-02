@@ -11,13 +11,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 
 public class Compat_PacketBuffer extends Compat_ByteBuf {
-	private PacketBuffer original;
-	private CompatI_PacketBuffer thisReal;
+	private CompatI_PacketBuffer wrapper;
 
 	// When called from Mod
 	public Compat_PacketBuffer(Compat_ByteBuf p1) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_PacketBuffer.class, this, p1.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_PacketBuffer.class, this, p1.getReal()));
 	}
 
 	// When called from child
@@ -28,64 +27,44 @@ public class Compat_PacketBuffer extends Compat_ByteBuf {
 	// When called from Minecraft
 	public Compat_PacketBuffer(PacketBuffer original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_PacketBuffer.class, original));
 	}
 
-	protected void initialize(CompatI_PacketBuffer thisReal, PacketBuffer original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_PacketBuffer wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public PacketBuffer getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public Compat_PacketBuffer Compat_func_179249_a(Enum<?> value) {
-		if (original == null)
-			thisReal.writeEnumValueSuper(value);
-		else
-			original.writeEnumValue(value);
+		wrapper.writeEnumValueSuper(value);
 		return this;
 	}
 
 	public Compat_PacketBuffer Compat_func_180714_a(String value) {
-		if (original == null)
-			thisReal.writeStringSuper(value);
-		else
-			original.writeString(value);
+		wrapper.writeStringSuper(value);
 		return this;
 	}
 
 	public <T extends Enum<T>> T Compat_func_179257_a(Class<T> clazz) {
-		if (original == null)
-			return thisReal.readEnumValueSuper(clazz);
-		else
-			return original.readEnumValue(clazz);
+		return wrapper.readEnumValueSuper(clazz);
 	}
 
 	public String Compat_func_150789_c(int maxLength) {
-		if (original == null)
-			return thisReal.readStringSuper(maxLength);
-		else
-			return original.readString(maxLength);
+		return wrapper.readStringSuper(maxLength);
 	}
 
 	public Compat_PacketBuffer Compat_func_150788_a(Compat_ItemStack stack) {
-		if (original == null)
-			thisReal.writeItemStackSuper(stack.getReal());
-		else
-			original.writeItemStack(stack.getReal());
+		wrapper.writeItemStackSuper(stack.getReal());
 		return this;
 	}
 
 	public Compat_ItemStack Compat_func_150791_c() throws IOException {
-		ItemStack stack;
-		if (original == null)
-			stack = thisReal.readItemStackSuper();
-		else
-			stack = original.readItemStack();
-		return new Compat_ItemStack(stack);
+		ItemStack result = wrapper.readItemStackSuper();
+		return new Compat_ItemStack(result);
 	}
 
 }

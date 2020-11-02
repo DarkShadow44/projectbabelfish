@@ -7,13 +7,12 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.comm
 import net.minecraftforge.client.event.FOVUpdateEvent;
 
 public class Compat_FOVUpdateEvent extends Compat_Event {
-	private FOVUpdateEvent original;
-	private CompatI_FOVUpdateEvent thisReal;
+	private CompatI_FOVUpdateEvent wrapper;
 
 	// When called from Mod
 	public Compat_FOVUpdateEvent() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_FOVUpdateEvent.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_FOVUpdateEvent.class, this));
 	}
 
 	// When called from child
@@ -24,16 +23,15 @@ public class Compat_FOVUpdateEvent extends Compat_Event {
 	// When called from Minecraft
 	public Compat_FOVUpdateEvent(FOVUpdateEvent original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_FOVUpdateEvent.class, original));
 	}
 
-	protected void initialize(CompatI_FOVUpdateEvent thisReal, FOVUpdateEvent original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_FOVUpdateEvent wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public FOVUpdateEvent getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

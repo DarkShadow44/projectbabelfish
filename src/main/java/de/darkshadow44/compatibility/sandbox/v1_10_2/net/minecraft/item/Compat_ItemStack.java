@@ -10,32 +10,31 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class Compat_ItemStack {
-	private ItemStack original;
-	private CompatI_ItemStack thisReal;
+	private CompatI_ItemStack wrapper;
 
 	// When called from Mod
 	public Compat_ItemStack(Compat_Item item, int p1, int p2) {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemStack.class, this, item.getReal(), p1, p2), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemStack.class, this, item.getReal(), p1, p2));
 	}
 
 	// When called from Mod
 	public Compat_ItemStack(Compat_Block block) {
-		this.initialize(Factory.create(CtorPos.POS2, CompatI_ItemStack.class, this, block.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS2, CompatI_ItemStack.class, this, block.getReal()));
 	}
 
 	// When called from Mod
 	public Compat_ItemStack(Compat_Item item) {
-		this.initialize(Factory.create(CtorPos.POS3, CompatI_ItemStack.class, this, item.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS3, CompatI_ItemStack.class, this, item.getReal()));
 	}
 
 	// When called from Mod
 	public Compat_ItemStack(Compat_Block block, int p1, int p2) {
-		this.initialize(Factory.create(CtorPos.POS4, CompatI_ItemStack.class, this, block.getReal(), p1, p2), null);
+		this.initialize(Factory.create(CtorPos.POS4, CompatI_ItemStack.class, this, block.getReal(), p1, p2));
 	}
 
 	// When called from Mod
 	public Compat_ItemStack(Compat_Item item, int p1) {
-		this.initialize(Factory.create(CtorPos.POS5, CompatI_ItemStack.class, this, item.getReal(), p1), null);
+		this.initialize(Factory.create(CtorPos.POS5, CompatI_ItemStack.class, this, item.getReal(), p1));
 	}
 
 	// When called from child
@@ -44,88 +43,58 @@ public class Compat_ItemStack {
 
 	// When called from Minecraft
 	public Compat_ItemStack(ItemStack original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ItemStack.class, original));
 	}
 
-	protected void initialize(CompatI_ItemStack thisReal, ItemStack original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ItemStack wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public ItemStack getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public void Compat_func_77982_d(Compat_NBTTagCompound nbt) {
-		if (original == null)
-			thisReal.setTagCompoundSuper(nbt.getReal());
-		else
-			original.setTagCompound(nbt.getReal());
+		wrapper.setTagCompoundSuper(nbt.getReal());
 	}
 
 	public Compat_NBTTagCompound Compat_func_77978_p() {
-		NBTTagCompound tag;
-		if (original == null)
-			tag = thisReal.getTagCompoundSuper();
-		else
-			tag = original.getTagCompound();
+		NBTTagCompound result = wrapper.getTagCompoundSuper();
 
-		if (tag == null)
+		if (result == null)
 			return null;
 
-		return new Compat_NBTTagCompound(tag);
+		return new Compat_NBTTagCompound(result);
 	}
 
 	public String Compat_func_82833_r() {
-		if (original == null)
-			return thisReal.getDisplayNameSuper();
-		else
-			return original.getDisplayName();
+		return wrapper.getDisplayNameSuper();
 	}
 
 	public Compat_ItemStack Compat_func_151001_c(String name) {
-		if (original == null)
-			thisReal.setStackDisplayNameSuper(name);
-		else
-			original.setStackDisplayName(name);
+		wrapper.setStackDisplayNameSuper(name);
 		return this;
 	}
 
 	public int Compat_func_77952_i() {
-		if (original == null)
-			return thisReal.getItemDamageSuper();
-		else
-			return original.getItemDamage();
+		return wrapper.getItemDamageSuper();
 	}
 
 	public boolean Compat_func_77942_o() {
-		if (original == null)
-			return thisReal.hasTagCompoundSuper();
-		else
-			return original.hasTagCompound();
+		return wrapper.hasTagCompoundSuper();
 	}
 
 	public int Compat_get_field_77994_a() {
-		if (original == null)
-			return thisReal.getCountSuper();
-		else
-			return original.getCount();
+		return wrapper.getCountSuper();
 	}
 
 	public void Compat_set_field_77994_a(int value) {
-		if (original == null)
-			thisReal.setCountSuper(value);
-		else
-			original.setCount(value);
+		wrapper.setCountSuper(value);
 	}
 
 	public Compat_Item Compat_func_77973_b() {
-		Item item;
-		if (original == null)
-			item = thisReal.getItemSuper();
-		else
-			item = original.getItem();
-		return Compat_Item.get_fake(item);
+		Item result = wrapper.getItemSuper();
+		return Compat_Item.get_fake(result);
 	}
 
 	public static Compat_ItemStack Compat_func_77949_a(Compat_NBTTagCompound tag) {
@@ -141,26 +110,16 @@ public class Compat_ItemStack {
 	}
 
 	public Compat_ItemStack Compat_func_77946_l() {
-		ItemStack stack;
-		if (original == null)
-			stack = thisReal.copySuper();
-		else
-			stack = original.copy();
-		return new Compat_ItemStack(stack);
+		ItemStack result = wrapper.copySuper();
+		return new Compat_ItemStack(result);
 	}
 
 	public int Compat_func_77960_j() {
-		if (original == null)
-			return thisReal.getMetadataSuper();
-		else
-			return original.getMetadata();
+		return wrapper.getMetadataSuper();
 	}
 
 	public Compat_NBTTagCompound Compat_func_77955_b(Compat_NBTTagCompound tag) {
-		if (original == null)
-			thisReal.writeToNBTSuper(tag.getReal());
-		else
-			original.writeToNBT(tag.getReal());
+		wrapper.writeToNBTSuper(tag.getReal());
 		return tag;
 	}
 }

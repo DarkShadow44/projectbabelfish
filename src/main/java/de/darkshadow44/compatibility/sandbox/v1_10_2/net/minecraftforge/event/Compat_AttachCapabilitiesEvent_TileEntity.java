@@ -11,13 +11,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 
 public class Compat_AttachCapabilitiesEvent_TileEntity extends Compat_AttachCapabilitiesEvent<TileEntity> {
-	private AttachCapabilitiesEvent<TileEntity> original;
-	private CompatI_AttachCapabilitiesEvent_TileEntity thisReal;
+	private CompatI_AttachCapabilitiesEvent_TileEntity wrapper;
 
 	// When called from Mod
 	public Compat_AttachCapabilitiesEvent_TileEntity() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_AttachCapabilitiesEvent_TileEntity.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_AttachCapabilitiesEvent_TileEntity.class, this));
 	}
 
 	// When called from child
@@ -28,33 +27,25 @@ public class Compat_AttachCapabilitiesEvent_TileEntity extends Compat_AttachCapa
 	// When called from Minecraft
 	public Compat_AttachCapabilitiesEvent_TileEntity(AttachCapabilitiesEvent<TileEntity> original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_AttachCapabilitiesEvent_TileEntity.class, original));
 	}
 
-	protected void initialize(CompatI_AttachCapabilitiesEvent_TileEntity thisReal, AttachCapabilitiesEvent<TileEntity> original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_AttachCapabilitiesEvent_TileEntity wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public AttachCapabilitiesEvent<TileEntity> getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public Compat_TileEntity Compat_getTileEntity() {
-		TileEntity result;
-		if (original == null)
-			result = thisReal.getObjectSuper();
-		else
-			result = original.getObject();
+		TileEntity result = wrapper.getObjectSuper();
 
 		return Compat_TileEntity.get_fake(result);
 	}
 
 	public void Compat_addCapability(Compat_ResourceLocation location, Compat_ICapabilityProvider provider) {
-		if (original == null)
-			thisReal.addCapabilitySuper(location.getReal(), new Wrapper2_ICapabilityProvider(provider));
-		else
-			original.addCapability(location.getReal(), new Wrapper2_ICapabilityProvider(provider));
+		wrapper.addCapabilitySuper(location.getReal(), new Wrapper2_ICapabilityProvider(provider));
 	}
 }

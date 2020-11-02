@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.block.BlockSlab;
 
 public class Compat_BlockSlab extends Compat_Block {
-	private BlockSlab original;
-	private CompatI_BlockSlab thisReal;
+	private CompatI_BlockSlab wrapper;
 
 	// When called from Mod
 	public Compat_BlockSlab() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockSlab.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockSlab.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,15 @@ public class Compat_BlockSlab extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockSlab(BlockSlab original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockSlab.class, original));
 	}
 
-	protected void initialize(CompatI_BlockSlab thisReal, BlockSlab original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockSlab wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public BlockSlab getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

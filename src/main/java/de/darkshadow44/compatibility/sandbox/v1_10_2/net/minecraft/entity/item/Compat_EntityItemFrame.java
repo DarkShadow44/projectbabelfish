@@ -7,13 +7,12 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.entity.Compat
 import net.minecraft.entity.item.EntityItemFrame;
 
 public class Compat_EntityItemFrame extends Compat_EntityHanging {
-	private EntityItemFrame original;
-	private CompatI_EntityItemFrame thisReal;
+	private CompatI_EntityItemFrame wrapper;
 
 	// When called from Mod
 	public Compat_EntityItemFrame() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityItemFrame.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityItemFrame.class, this));
 	}
 
 	// When called from child
@@ -24,16 +23,15 @@ public class Compat_EntityItemFrame extends Compat_EntityHanging {
 	// When called from Minecraft
 	public Compat_EntityItemFrame(EntityItemFrame original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityItemFrame.class, original));
 	}
 
-	protected void initialize(CompatI_EntityItemFrame thisReal, EntityItemFrame original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityItemFrame wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public EntityItemFrame getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

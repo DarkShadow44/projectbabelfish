@@ -7,13 +7,12 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.util.EnumFacing;
 
 public class Compat_PropertyDirection extends Compat_PropertyEnum<EnumFacing> {
-	private PropertyDirection original;
-	private CompatI_PropertyDirection thisReal;
+	private CompatI_PropertyDirection wrapper;
 
 	// When called from Mod
 	public Compat_PropertyDirection() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_PropertyDirection.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_PropertyDirection.class, this));
 	}
 
 	// When called from child
@@ -24,16 +23,15 @@ public class Compat_PropertyDirection extends Compat_PropertyEnum<EnumFacing> {
 	// When called from Minecraft
 	public Compat_PropertyDirection(PropertyDirection original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_PropertyDirection.class, original));
 	}
 
-	protected void initialize(CompatI_PropertyDirection thisReal, PropertyDirection original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_PropertyDirection wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public PropertyDirection getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

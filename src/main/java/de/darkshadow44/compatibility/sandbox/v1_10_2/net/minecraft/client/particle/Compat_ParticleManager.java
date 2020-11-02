@@ -6,12 +6,11 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.client.particle.ParticleManager;
 
 public class Compat_ParticleManager {
-	private ParticleManager original;
-	private CompatI_ParticleManager thisReal;
+	private CompatI_ParticleManager wrapper;
 
 	// When called from Mod
 	public Compat_ParticleManager() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ParticleManager.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ParticleManager.class, this));
 	}
 
 	// When called from child
@@ -20,15 +19,14 @@ public class Compat_ParticleManager {
 
 	// When called from Minecraft
 	public Compat_ParticleManager(ParticleManager original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ParticleManager.class, original));
 	}
 
-	protected void initialize(CompatI_ParticleManager thisReal, ParticleManager original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ParticleManager wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public ParticleManager getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

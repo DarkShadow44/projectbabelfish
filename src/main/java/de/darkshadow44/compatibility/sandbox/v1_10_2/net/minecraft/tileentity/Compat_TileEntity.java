@@ -23,12 +23,11 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.common.capabilities.Capability;
 
 public class Compat_TileEntity {
-	private TileEntity original;
-	private CompatI_TileEntity thisReal;
+	private CompatI_TileEntity wrapper;
 
 	// When called from Mod
 	public Compat_TileEntity() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_TileEntity.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_TileEntity.class, this));
 	}
 
 	// When called from child
@@ -37,12 +36,11 @@ public class Compat_TileEntity {
 
 	// When called from Minecraft
 	public Compat_TileEntity(TileEntity original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_TileEntity.class, original));
 	}
 
-	protected void initialize(CompatI_TileEntity thisReal, TileEntity original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_TileEntity wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public static Compat_TileEntity get_fake(TileEntity real) {
@@ -53,21 +51,15 @@ public class Compat_TileEntity {
 	}
 
 	public TileEntity getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public Compat_World Compat_func_145831_w() {
-		if (original == null)
-			return Compat_World.get_fake(thisReal.getWorldSuper());
-		else
-			return Compat_World.get_fake(original.getWorld());
+		return Compat_World.get_fake(wrapper.getWorldSuper());
 	}
 
 	public Compat_BlockPos Compat_func_174877_v() {
-		if (original == null)
-			return new Compat_BlockPos(thisReal.getPosSuper());
-		else
-			return new Compat_BlockPos(original.getPos());
+		return new Compat_BlockPos(wrapper.getPosSuper());
 	}
 
 	@Callback
@@ -77,15 +69,12 @@ public class Compat_TileEntity {
 
 	@HasCallback
 	public boolean Compat_hasCapability(Compat_Capability<?> capability, Compat_EnumFacing facing) {
-		if (thisReal == null && original == null) {
+		if (wrapper == null) {
 			// Must be a call during constructor
 			return false;
 		}
 		EnumFacing facing2 = facing == null ? null : facing.getReal();
-		if (original == null)
-			return thisReal.hasCapabilitySuper(capability.getReal(), facing2);
-		else
-			return original.hasCapability(capability.getReal(), facing2);
+		return wrapper.hasCapabilitySuper(capability.getReal(), facing2);
 	}
 
 	public static Compat_TileEntity getFake(TileEntity real) {
@@ -104,10 +93,7 @@ public class Compat_TileEntity {
 	@HasCallback
 	public Object Compat_getCapability(Compat_Capability<?> capability, Compat_EnumFacing facing) {
 		EnumFacing facing2 = facing == null ? null : facing.getReal();
-		if (original == null)
-			return thisReal.getCapabilitySuper(capability.getReal(), facing2);
-		else
-			return original.getCapability(capability.getReal(), facing2);
+		return wrapper.getCapabilitySuper(capability.getReal(), facing2);
 	}
 
 	public void update() {
@@ -124,10 +110,7 @@ public class Compat_TileEntity {
 
 	@HasCallback
 	public Compat_NBTTagCompound Compat_func_189515_b(Compat_NBTTagCompound tag) {
-		if (original == null)
-			thisReal.writeToNBTSuper(tag.getReal());
-		else
-			original.writeToNBT(tag.getReal());
+		wrapper.writeToNBTSuper(tag.getReal());
 		return tag;
 	}
 
@@ -138,10 +121,7 @@ public class Compat_TileEntity {
 
 	@HasCallback
 	public void Compat_func_145839_a(Compat_NBTTagCompound tag) {
-		if (original == null)
-			thisReal.readFromNBTSuper(tag.getReal());
-		else
-			original.readFromNBT(tag.getReal());
+		wrapper.readFromNBTSuper(tag.getReal());
 	}
 
 	@Callback
@@ -151,11 +131,7 @@ public class Compat_TileEntity {
 
 	@HasCallback
 	public Compat_NBTTagCompound Compat_func_189517_E_() {
-		NBTTagCompound result;
-		if (original == null)
-			result = thisReal.getUpdateTagSuper();
-		else
-			result = original.getUpdateTag();
+		NBTTagCompound result = wrapper.getUpdateTagSuper();
 		return new Compat_NBTTagCompound(result);
 	}
 
@@ -166,11 +142,7 @@ public class Compat_TileEntity {
 
 	@HasCallback
 	public Compat_SPacketUpdateTileEntity Compat_func_189518_D_() {
-		SPacketUpdateTileEntity result;
-		if (original == null)
-			result = thisReal.getUpdatePacketSuper();
-		else
-			result = original.getUpdatePacket();
+		SPacketUpdateTileEntity result = wrapper.getUpdatePacketSuper();
 		return new Compat_SPacketUpdateTileEntity(result);
 	}
 
@@ -181,10 +153,7 @@ public class Compat_TileEntity {
 
 	@HasCallback
 	public void Compat_onDataPacket(Compat_NetworkManager manager, Compat_SPacketUpdateTileEntity packet) {
-		if (original == null)
-			thisReal.onDataPacketSuper(manager.getReal(), packet.getReal());
-		else
-			original.onDataPacket(manager.getReal(), packet.getReal());
+		wrapper.onDataPacketSuper(manager.getReal(), packet.getReal());
 	}
 
 	@Callback
@@ -194,10 +163,7 @@ public class Compat_TileEntity {
 
 	@HasCallback
 	public void Compat_handleUpdateTag(Compat_NBTTagCompound tag) {
-		if (original == null)
-			thisReal.handleUpdateTagSuper(tag.getReal());
-		else
-			original.handleUpdateTag(tag.getReal());
+		wrapper.handleUpdateTagSuper(tag.getReal());
 	}
 
 	@Callback
@@ -207,11 +173,7 @@ public class Compat_TileEntity {
 
 	@HasCallback
 	public Compat_AxisAlignedBB Compat_getRenderBoundingBox() {
-		AxisAlignedBB result;
-		if (original == null)
-			result = thisReal.getRenderBoundingBoxSuper();
-		else
-			result = original.getRenderBoundingBox();
+		AxisAlignedBB result = wrapper.getRenderBoundingBoxSuper();
 		return new Compat_AxisAlignedBB(result);
 	}
 
@@ -222,10 +184,7 @@ public class Compat_TileEntity {
 
 	@HasCallback
 	public boolean Compat_shouldRenderInPass(int pass) {
-		if (original == null)
-			return thisReal.shouldRenderInPassSuper(pass);
-		else
-			return original.shouldRenderInPass(pass);
+		return wrapper.shouldRenderInPassSuper(pass);
 	}
 
 	@Callback
@@ -235,10 +194,7 @@ public class Compat_TileEntity {
 
 	@HasCallback
 	public boolean Compat_hasFastRenderer() {
-		if (original == null)
-			return thisReal.hasFastRendererSuper();
-		else
-			return original.hasFastRenderer();
+		return wrapper.hasFastRendererSuper();
 	}
 
 	@Callback
@@ -248,10 +204,7 @@ public class Compat_TileEntity {
 
 	@HasCallback
 	public void Compat_onLoad() {
-		if (original == null)
-			thisReal.onLoadSuper();
-		else
-			original.onLoad();
+		wrapper.onLoadSuper();
 	}
 
 	@Callback
@@ -261,10 +214,7 @@ public class Compat_TileEntity {
 
 	@HasCallback
 	public void Compat_onChunkUnload() {
-		if (original == null)
-			thisReal.onChunkUnloadSuper();
-		else
-			original.onChunkUnload();
+		wrapper.onChunkUnloadSuper();
 	}
 
 	@Callback
@@ -274,10 +224,7 @@ public class Compat_TileEntity {
 
 	@HasCallback
 	public boolean Compat_canRenderBreaking() {
-		if (original == null)
-			return thisReal.canRenderBreakingSuper();
-		else
-			return original.canRenderBreaking();
+		return wrapper.canRenderBreakingSuper();
 
 	}
 

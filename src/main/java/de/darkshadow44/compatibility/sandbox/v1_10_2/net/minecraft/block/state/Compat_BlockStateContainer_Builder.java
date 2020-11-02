@@ -12,12 +12,11 @@ import net.minecraft.block.state.BlockStateContainer.Builder;
 import net.minecraftforge.common.property.IUnlistedProperty;
 
 public class Compat_BlockStateContainer_Builder {
-	private Builder original;
-	private CompatI_BlockStateContainer_Builder thisReal;
+	private CompatI_BlockStateContainer_Builder wrapper;
 
 	// When called from Mod
 	public Compat_BlockStateContainer_Builder(Compat_Block block) {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockStateContainer_Builder.class, this, block.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockStateContainer_Builder.class, this, block.getReal()));
 	}
 
 	// When called from child
@@ -26,16 +25,15 @@ public class Compat_BlockStateContainer_Builder {
 
 	// When called from Minecraft
 	public Compat_BlockStateContainer_Builder(Builder original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockStateContainer_Builder.class, original));
 	}
 
-	protected void initialize(CompatI_BlockStateContainer_Builder thisReal, Builder original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockStateContainer_Builder wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public Builder getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public Compat_BlockStateContainer_Builder Compat_add(Compat_IProperty<?>[] properties) {
@@ -44,10 +42,7 @@ public class Compat_BlockStateContainer_Builder {
 			propertiesConverted[i] = properties[i].getReal();
 		}
 
-		if (original == null)
-			thisReal.addSuper(propertiesConverted);
-		else
-			original.add(propertiesConverted);
+		wrapper.addSuper(propertiesConverted);
 		return this;
 	}
 
@@ -58,17 +53,11 @@ public class Compat_BlockStateContainer_Builder {
 			propertiesConverted[i] = new Wrapper_IUnlistedProperty(properties[i]);
 		}
 
-		if (original == null)
-			thisReal.addSuper(propertiesConverted);
-		else
-			original.add(propertiesConverted);
+		wrapper.addSuper(propertiesConverted);
 		return this;
 	}
 
 	public Compat_BlockStateContainer Compat_build() {
-		if (original == null)
-			return new Compat_BlockStateContainer(thisReal.buildSuper());
-		else
-			return new Compat_BlockStateContainer(original.build());
+		return new Compat_BlockStateContainer(wrapper.buildSuper());
 	}
 }

@@ -7,12 +7,11 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 
 public class Compat_AxisAlignedBB {
-	private AxisAlignedBB original;
-	private CompatI_AxisAlignedBB thisReal;
+	private CompatI_AxisAlignedBB wrapper;
 
 	// When called from Mod
 	public Compat_AxisAlignedBB(double p1, double p2, double p3, double p4, double p5, double p6) {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_AxisAlignedBB.class, this, p1, p2, p3, p4, p5, p6), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_AxisAlignedBB.class, this, p1, p2, p3, p4, p5, p6));
 	}
 
 	// When called from child
@@ -21,109 +20,67 @@ public class Compat_AxisAlignedBB {
 
 	// When called from Minecraft
 	public Compat_AxisAlignedBB(AxisAlignedBB original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_AxisAlignedBB.class, original));
 	}
 
-	protected void initialize(CompatI_AxisAlignedBB thisReal, AxisAlignedBB original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_AxisAlignedBB wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public AxisAlignedBB getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public double Compat_get_field_72340_a() {
-		if (original == null)
-			return thisReal.get_minX();
-		else
-			return original.minX;
+		return wrapper.get_minX();
 	}
 
 	public double Compat_get_field_72338_b() {
-		if (original == null)
-			return thisReal.get_minY();
-		else
-			return original.minY;
+		return wrapper.get_minY();
 	}
 
 	public double Compat_get_field_72339_c() {
-		if (original == null)
-			return thisReal.get_minZ();
-		else
-			return original.minZ;
+		return wrapper.get_minZ();
 	}
 
 	public double Compat_get_field_72336_d() {
-		if (original == null)
-			return thisReal.get_maxX();
-		else
-			return original.maxX;
+		return wrapper.get_maxX();
 	}
 
 	public double Compat_get_field_72337_e() {
-		if (original == null)
-			return thisReal.get_maxY();
-		else
-			return original.maxY;
+		return wrapper.get_maxY();
 	}
 
 	public double Compat_get_field_72334_f() {
-		if (original == null)
-			return thisReal.get_maxZ();
-		else
-			return original.maxZ;
+		return wrapper.get_maxZ();
 	}
 
 	public boolean Compat_func_72326_a(Compat_AxisAlignedBB other) {
-		if (original == null)
-			return thisReal.intersectsSuper(other.getReal());
-		else
-			return original.intersects(other.getReal());
+		return wrapper.intersectsSuper(other.getReal());
 	}
 
 	public Compat_AxisAlignedBB Compat_func_72317_d(double x, double y, double z) {
-		AxisAlignedBB axis;
-		if (original == null)
-			axis = thisReal.offsetSuper(x, y, z);
-		else
-			axis = original.offset(x, y, z);
-		return new Compat_AxisAlignedBB(axis);
+		AxisAlignedBB result = wrapper.offsetSuper(x, y, z);
+		return new Compat_AxisAlignedBB(result);
 	}
 
 	public Compat_AxisAlignedBB Compat_func_186662_g(double p1) {
-		AxisAlignedBB axis;
-		if (original == null)
-			axis = thisReal.growSuper(p1);
-		else
-			axis = original.grow(p1);
-		return new Compat_AxisAlignedBB(axis);
+		AxisAlignedBB result = wrapper.growSuper(p1);
+		return new Compat_AxisAlignedBB(result);
 	}
 
 	public Compat_AxisAlignedBB Compat_func_111270_a(Compat_AxisAlignedBB bb) {
-		AxisAlignedBB axis;
-		if (original == null)
-			axis = thisReal.unionSuper(bb.getReal());
-		else
-			axis = original.union(bb.getReal());
-		return new Compat_AxisAlignedBB(axis);
+		AxisAlignedBB result = wrapper.unionSuper(bb.getReal());
+		return new Compat_AxisAlignedBB(result);
 	}
 
 	public Compat_AxisAlignedBB Compat_func_186670_a(Compat_BlockPos pos) {
-		AxisAlignedBB axis;
-		if (original == null)
-			axis = thisReal.offsetSuper(pos.getReal());
-		else
-			axis = original.offset(pos.getReal());
-		return new Compat_AxisAlignedBB(axis);
+		AxisAlignedBB result = wrapper.offsetSuper(pos.getReal());
+		return new Compat_AxisAlignedBB(result);
 	}
 
 	public Compat_RayTraceResult Compat_func_72327_a(Compat_Vec3d start, Compat_Vec3d end) {
-		RayTraceResult result;
-		if (original == null)
-			result = thisReal.calculateInterceptSuper(start.getReal(), end.getReal());
-		else
-			result = original.calculateIntercept(start.getReal(), end.getReal());
+		RayTraceResult result = wrapper.calculateInterceptSuper(start.getReal(), end.getReal());
 		return result == null ? null : new Compat_RayTraceResult(result);
 	}
 

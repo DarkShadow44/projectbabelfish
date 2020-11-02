@@ -6,12 +6,11 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.item.crafting.Ingredient;
 
 public class Compat_Ingredient {
-	private Ingredient original;
-	private CompatI_Ingredient thisReal;
+	private CompatI_Ingredient wrapper;
 
 	// When called from Mod
 	public Compat_Ingredient() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_Ingredient.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Ingredient.class, this));
 	}
 
 	// When called from child
@@ -20,15 +19,14 @@ public class Compat_Ingredient {
 
 	// When called from Minecraft
 	public Compat_Ingredient(Ingredient original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_Ingredient.class, original));
 	}
 
-	protected void initialize(CompatI_Ingredient thisReal, Ingredient original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_Ingredient wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public Ingredient getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

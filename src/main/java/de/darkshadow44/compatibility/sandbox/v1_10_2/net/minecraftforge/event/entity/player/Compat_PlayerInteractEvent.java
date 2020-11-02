@@ -14,13 +14,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 public class Compat_PlayerInteractEvent extends Compat_Event {
-	private PlayerInteractEvent original;
-	private CompatI_PlayerInteractEvent thisReal;
+	private CompatI_PlayerInteractEvent wrapper;
 
 	// When called from Mod
 	public Compat_PlayerInteractEvent() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_PlayerInteractEvent.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_PlayerInteractEvent.class, this));
 	}
 
 	// When called from child
@@ -31,41 +30,40 @@ public class Compat_PlayerInteractEvent extends Compat_Event {
 	// When called from Minecraft
 	public Compat_PlayerInteractEvent(PlayerInteractEvent original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_PlayerInteractEvent.class, original));
 	}
 
-	protected void initialize(CompatI_PlayerInteractEvent thisReal, PlayerInteractEvent original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_PlayerInteractEvent wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public PlayerInteractEvent getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public Compat_World Compat_getWorld() {
-		return Compat_World.get_fake(original.getWorld());
+		return Compat_World.get_fake(wrapper.getWorldSuper());
 	}
 
 	public Compat_EnumHand Compat_getHand() {
-		return Compat_EnumHand.map_real_to_fake(original.getHand());
+		return Compat_EnumHand.map_real_to_fake(wrapper.getHandSuper());
 	}
 
 	public Compat_ItemStack Compat_getItemStack() {
-		ItemStack stack = original.getItemStack();
+		ItemStack stack = wrapper.getItemStackSuper();
 		return stack == null || stack.isEmpty() ? null : new Compat_ItemStack(stack);
 	}
 
 	public Compat_EntityPlayer Compat_getEntityPlayer() {
-		return new Compat_EntityPlayer(original.getEntityPlayer());
+		return new Compat_EntityPlayer(wrapper.getEntityPlayerSuper());
 	}
 
 	public Compat_BlockPos Compat_getPos() {
-		return new Compat_BlockPos(original.getPos());
+		return new Compat_BlockPos(wrapper.getPosSuper());
 	}
 
 	public Compat_EnumFacing Compat_getFace() {
-		return Compat_EnumFacing.map_real_to_fake(original.getFace());
+		return Compat_EnumFacing.map_real_to_fake(wrapper.getFaceSuper());
 	}
 }

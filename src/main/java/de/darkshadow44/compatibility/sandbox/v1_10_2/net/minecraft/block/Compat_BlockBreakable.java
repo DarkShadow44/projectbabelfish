@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.block.BlockBreakable;
 
 public class Compat_BlockBreakable extends Compat_Block {
-	private BlockBreakable original;
-	private CompatI_BlockBreakable thisReal;
+	private CompatI_BlockBreakable wrapper;
 
 	// When called from Mod
 	public Compat_BlockBreakable() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockBreakable.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockBreakable.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,15 @@ public class Compat_BlockBreakable extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockBreakable(BlockBreakable original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockBreakable.class, original));
 	}
 
-	protected void initialize(CompatI_BlockBreakable thisReal, BlockBreakable original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockBreakable wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public BlockBreakable getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

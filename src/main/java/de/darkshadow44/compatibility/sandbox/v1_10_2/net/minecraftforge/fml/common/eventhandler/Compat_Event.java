@@ -6,12 +6,11 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
 public class Compat_Event {
-	private Event original;
-	private CompatI_Event thisReal;
+	private CompatI_Event wrapper;
 
 	// When called from Mod
 	public Compat_Event() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_Event.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Event.class, this));
 	}
 
 	// When called from child
@@ -20,15 +19,14 @@ public class Compat_Event {
 
 	// When called from Minecraft
 	public Compat_Event(Event original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_Event.class, original));
 	}
 
-	protected void initialize(CompatI_Event thisReal, Event original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_Event wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public Event getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

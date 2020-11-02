@@ -6,12 +6,11 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.block.properties.PropertyHelper;
 
 public class Compat_PropertyHelper<T extends Comparable<T>> implements Compat_IProperty<T> {
-	private PropertyHelper<T> original;
-	private CompatI_PropertyHelper<T> thisReal;
+	private CompatI_PropertyHelper<T> wrapper;
 
 	// When called from Mod
 	public Compat_PropertyHelper() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_PropertyHelper.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_PropertyHelper.class, this));
 	}
 
 	// When called from child
@@ -20,15 +19,14 @@ public class Compat_PropertyHelper<T extends Comparable<T>> implements Compat_IP
 
 	// When called from Minecraft
 	public Compat_PropertyHelper(PropertyHelper<T> original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_PropertyHelper.class, original));
 	}
 
-	protected void initialize(CompatI_PropertyHelper<T> thisReal, PropertyHelper<T> original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_PropertyHelper<T> wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public PropertyHelper<T> getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

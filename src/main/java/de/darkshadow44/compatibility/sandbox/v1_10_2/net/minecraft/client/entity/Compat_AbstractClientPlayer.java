@@ -7,13 +7,12 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.entity.player
 import net.minecraft.client.entity.AbstractClientPlayer;
 
 public class Compat_AbstractClientPlayer extends Compat_EntityPlayer {
-	private AbstractClientPlayer original;
-	private CompatI_AbstractClientPlayer thisReal;
+	private CompatI_AbstractClientPlayer wrapper;
 
 	// When called from Mod
 	public Compat_AbstractClientPlayer() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_AbstractClientPlayer.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_AbstractClientPlayer.class, this));
 	}
 
 	// When called from child
@@ -24,16 +23,15 @@ public class Compat_AbstractClientPlayer extends Compat_EntityPlayer {
 	// When called from Minecraft
 	public Compat_AbstractClientPlayer(AbstractClientPlayer original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_AbstractClientPlayer.class, original));
 	}
 
-	protected void initialize(CompatI_AbstractClientPlayer thisReal, AbstractClientPlayer original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_AbstractClientPlayer wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public AbstractClientPlayer getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

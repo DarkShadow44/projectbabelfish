@@ -6,12 +6,11 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 
 public class Compat_ModelBakery {
-	private ModelBakery original;
-	private CompatI_ModelBakery thisReal;
+	private CompatI_ModelBakery wrapper;
 
 	// When called from Mod
 	public Compat_ModelBakery() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ModelBakery.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ModelBakery.class, this));
 	}
 
 	// When called from child
@@ -20,15 +19,14 @@ public class Compat_ModelBakery {
 
 	// When called from Minecraft
 	public Compat_ModelBakery(ModelBakery original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ModelBakery.class, original));
 	}
 
-	protected void initialize(CompatI_ModelBakery thisReal, ModelBakery original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ModelBakery wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public ModelBakery getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

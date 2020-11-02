@@ -7,13 +7,12 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.command.Compa
 import net.minecraftforge.server.command.CommandTreeBase;
 
 public class Compat_CommandTreeBase extends Compat_CommandBase {
-	private CommandTreeBase original;
-	private CompatI_CommandTreeBase thisReal;
+	private CompatI_CommandTreeBase wrapper;
 
 	// When called from Mod
 	public Compat_CommandTreeBase() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_CommandTreeBase.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_CommandTreeBase.class, this));
 	}
 
 	// When called from child
@@ -24,16 +23,15 @@ public class Compat_CommandTreeBase extends Compat_CommandBase {
 	// When called from Minecraft
 	public Compat_CommandTreeBase(CommandTreeBase original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_CommandTreeBase.class, original));
 	}
 
-	protected void initialize(CompatI_CommandTreeBase thisReal, CommandTreeBase original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_CommandTreeBase wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public CommandTreeBase getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

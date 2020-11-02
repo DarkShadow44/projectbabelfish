@@ -7,13 +7,12 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.server.manage
 import net.minecraft.world.WorldServer;
 
 public class Compat_WorldServer extends Compat_World {
-	private WorldServer original;
-	private CompatI_WorldServer thisReal;
+	private CompatI_WorldServer wrapper;
 
 	// When called from Mod
 	public Compat_WorldServer() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_WorldServer.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_WorldServer.class, this));
 	}
 
 	// When called from child
@@ -24,23 +23,19 @@ public class Compat_WorldServer extends Compat_World {
 	// When called from Minecraft
 	public Compat_WorldServer(WorldServer original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_WorldServer.class, original));
 	}
 
-	protected void initialize(CompatI_WorldServer thisReal, WorldServer original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_WorldServer wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public WorldServer getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public Compat_PlayerChunkMap Compat_func_184164_w() {
-		if (original == null)
-			return new Compat_PlayerChunkMap(thisReal.getPlayerChunkMapSuper());
-		else
-			return new Compat_PlayerChunkMap(original.getPlayerChunkMap());
+		return new Compat_PlayerChunkMap(wrapper.getPlayerChunkMapSuper());
 	}
 }

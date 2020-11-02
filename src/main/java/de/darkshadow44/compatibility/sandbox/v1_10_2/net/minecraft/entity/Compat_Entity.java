@@ -10,12 +10,11 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 public class Compat_Entity {
-	private Entity original;
-	private CompatI_Entity thisReal;
+	private CompatI_Entity wrapper;
 
 	// When called from Mod
 	public Compat_Entity() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_Entity.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Entity.class, this));
 	}
 
 	// When called from child
@@ -24,89 +23,56 @@ public class Compat_Entity {
 
 	// When called from Minecraft
 	public Compat_Entity(Entity original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_Entity.class, original));
 	}
 
-	protected void initialize(CompatI_Entity thisReal, Entity original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_Entity wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public Entity getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public Compat_World Compat_get_field_70170_p() {
-		if (original == null)
-			return Compat_World.get_fake(thisReal.get_world());
-		else
-			return Compat_World.get_fake(original.world);
+		return Compat_World.get_fake(wrapper.get_world());
 	}
 
 	public boolean Compat_func_70093_af() {
-		if (original == null)
-			return thisReal.isSneakingSuper();
-		else
-			return original.isSneaking();
+		return wrapper.isSneakingSuper();
 	}
 
 	public Compat_EnumFacing Compat_func_174811_aO() {
-		EnumFacing ret;
-		if (original == null)
-			ret = thisReal.getHorizontalFacingSuper();
-		else
-			ret = original.getHorizontalFacing();
-		return Compat_EnumFacing.map_real_to_fake(ret);
+		EnumFacing result = wrapper.getHorizontalFacingSuper();
+		return Compat_EnumFacing.map_real_to_fake(result);
 	}
 
 	public Compat_World Compat_func_130014_f_() {
-		World ret;
-		if (original == null)
-			ret = thisReal.getEntityWorldSuper();
-		else
-			ret = original.getEntityWorld();
-		return Compat_World.get_fake(ret);
+		World result = wrapper.getEntityWorldSuper();
+		return Compat_World.get_fake(result);
 	}
 
 	public double Compat_get_field_70142_S() {
-		if (original == null)
-			return thisReal.get_lastTickPosX();
-		else
-			return original.lastTickPosX;
+		return wrapper.get_lastTickPosX();
 	}
 
 	public double Compat_get_field_70137_T() {
-		if (original == null)
-			return thisReal.get_lastTickPosY();
-		else
-			return original.lastTickPosY;
+		return wrapper.get_lastTickPosY();
 	}
 
 	public double Compat_get_field_70136_U() {
-		if (original == null)
-			return thisReal.get_lastTickPosZ();
-		else
-			return original.lastTickPosZ;
+		return wrapper.get_lastTickPosZ();
 	}
 
 	public double Compat_get_field_70165_t() {
-		if (original == null)
-			return thisReal.get_posX();
-		else
-			return original.posX;
+		return wrapper.get_posX();
 	}
 
 	public double Compat_get_field_70163_u() {
-		if (original == null)
-			return thisReal.get_posY();
-		else
-			return original.posY;
+		return wrapper.get_posY();
 	}
 
 	public double Compat_get_field_70161_v() {
-		if (original == null)
-			return thisReal.get_posZ();
-		else
-			return original.posZ;
+		return wrapper.get_posZ();
 	}
 }

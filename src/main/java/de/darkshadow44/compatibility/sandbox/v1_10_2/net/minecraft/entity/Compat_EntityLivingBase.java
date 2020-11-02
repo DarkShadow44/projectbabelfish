@@ -8,13 +8,12 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 
 public class Compat_EntityLivingBase extends Compat_Entity {
-	private EntityLivingBase original;
-	private CompatI_EntityLivingBase thisReal;
+	private CompatI_EntityLivingBase wrapper;
 
 	// When called from Mod
 	public Compat_EntityLivingBase() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityLivingBase.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityLivingBase.class, this));
 	}
 
 	// When called from child
@@ -25,34 +24,25 @@ public class Compat_EntityLivingBase extends Compat_Entity {
 	// When called from Minecraft
 	public Compat_EntityLivingBase(EntityLivingBase original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityLivingBase.class, original));
 	}
 
-	protected void initialize(CompatI_EntityLivingBase thisReal, EntityLivingBase original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityLivingBase wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public EntityLivingBase getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public Compat_ItemStack Compat_func_184614_ca() {
-		ItemStack stack;
-		if (original == null)
-			stack = thisReal.getHeldItemMainhandSuper();
-		else
-			stack = original.getHeldItemMainhand();
-		return stack == null || stack.isEmpty() ? null : new Compat_ItemStack(stack);
+		ItemStack result = wrapper.getHeldItemMainhandSuper();
+		return result == null || result.isEmpty() ? null : new Compat_ItemStack(result);
 	}
 
 	public Compat_ItemStack Compat_func_184592_cb() {
-		ItemStack stack;
-		if (original == null)
-			stack = thisReal.getHeldItemOffhandSuper();
-		else
-			stack = original.getHeldItemOffhand();
-		return stack == null || stack.isEmpty() ? null : new Compat_ItemStack(stack);
+		ItemStack result = wrapper.getHeldItemOffhandSuper();
+		return result == null || result.isEmpty() ? null : new Compat_ItemStack(result);
 	}
 }

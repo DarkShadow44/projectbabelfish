@@ -6,12 +6,11 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.inventory.InventoryCrafting;
 
 public class Compat_InventoryCrafting {
-	private InventoryCrafting original;
-	private CompatI_InventoryCrafting thisReal;
+	private CompatI_InventoryCrafting wrapper;
 
 	// When called from Mod
 	public Compat_InventoryCrafting() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_InventoryCrafting.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_InventoryCrafting.class, this));
 	}
 
 	// When called from child
@@ -20,15 +19,14 @@ public class Compat_InventoryCrafting {
 
 	// When called from Minecraft
 	public Compat_InventoryCrafting(InventoryCrafting original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_InventoryCrafting.class, original));
 	}
 
-	protected void initialize(CompatI_InventoryCrafting thisReal, InventoryCrafting original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_InventoryCrafting wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public InventoryCrafting getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

@@ -8,12 +8,11 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraftforge.common.capabilities.Capability;
 
 public class Compat_Capability<T> {
-	private Capability<T> original;
-	private CompatI_Capability<T> thisReal;
+	private CompatI_Capability<T> wrapper;
 
 	// When called from Mod
 	public Compat_Capability(String name, Compat_Capability_IStorage<T> storage, Callable<? extends T> factory) {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_Capability.class, this, name, new Wrapper_Capability_IStorage<>(storage), factory), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Capability.class, this, name, new Wrapper_Capability_IStorage<>(storage), factory));
 	}
 
 	// When called from child
@@ -22,16 +21,15 @@ public class Compat_Capability<T> {
 
 	// When called from Minecraft
 	public Compat_Capability(Capability<T> original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_Capability.class, original));
 	}
 
-	protected void initialize(CompatI_Capability<T> thisReal, Capability<T> original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_Capability<T> wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public Capability<?> getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	@SuppressWarnings("unchecked")

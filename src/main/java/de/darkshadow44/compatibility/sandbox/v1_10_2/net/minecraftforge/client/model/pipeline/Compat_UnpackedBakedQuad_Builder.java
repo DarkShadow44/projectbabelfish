@@ -12,12 +12,11 @@ import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad;
 import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad.Builder;
 
 public class Compat_UnpackedBakedQuad_Builder implements Compat_IVertexConsumer {
-	private Builder original;
-	private CompatI_UnpackedBakedQuad_Builder thisReal;
+	private CompatI_UnpackedBakedQuad_Builder wrapper;
 
 	// When called from Mod
 	public Compat_UnpackedBakedQuad_Builder(Compat_VertexFormat format) {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_UnpackedBakedQuad_Builder.class, this, format.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_UnpackedBakedQuad_Builder.class, this, format.getReal()));
 	}
 
 	// When called from child
@@ -26,73 +25,49 @@ public class Compat_UnpackedBakedQuad_Builder implements Compat_IVertexConsumer 
 
 	// When called from Minecraft
 	public Compat_UnpackedBakedQuad_Builder(Builder original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_UnpackedBakedQuad_Builder.class, original));
 	}
 
-	protected void initialize(CompatI_UnpackedBakedQuad_Builder thisReal, Builder original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_UnpackedBakedQuad_Builder wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public Builder getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public void Compat_setQuadTint(int tint) {
-		if (original == null)
-			thisReal.setQuadTintSuper(tint);
-		else
-			original.setQuadTint(tint);
+		wrapper.setQuadTintSuper(tint);
 	}
 
 	public void Compat_setQuadOrientation(Compat_EnumFacing facing) {
 		EnumFacing facing2 = facing == null ? null : facing.getReal();
-		if (original == null)
-			thisReal.setQuadOrientationSuper(facing2);
-		else
-			original.setQuadOrientation(facing2);
+		wrapper.setQuadOrientationSuper(facing2);
 	}
 
 	@Override
 	public Compat_VertexFormat Compat_getVertexFormat() {
-		VertexFormat result;
-		if (original == null)
-			result = thisReal.getVertexFormatSuper();
-		else
-			result = original.getVertexFormat();
+		VertexFormat result = wrapper.getVertexFormatSuper();
 		return new Compat_VertexFormat(result);
 	}
 
 	@Override
 	public void Compat_setApplyDiffuseLighting(boolean diffuse) {
-		if (original == null)
-			thisReal.setApplyDiffuseLightingSuper(diffuse);
-		else
-			original.setApplyDiffuseLighting(diffuse);
+		wrapper.setApplyDiffuseLightingSuper(diffuse);
 	}
 
 	@Override
 	public void Compat_setTexture(Compat_TextureAtlasSprite texture) {
-		if (original == null)
-			thisReal.setTextureSuper(texture.getReal());
-		else
-			original.setTexture(texture.getReal());
+		wrapper.setTextureSuper(texture.getReal());
 	}
 
 	@Override
 	public void Compat_put(int element, float... data) {
-		if (original == null)
-			thisReal.putSuper(element, data);
-		else
-			original.put(element, data);
+		wrapper.putSuper(element, data);
 	}
 
 	public Compat_UnpackedBakedQuad Compat_build() {
-		UnpackedBakedQuad result;
-		if (original == null)
-			result = thisReal.buildSuper();
-		else
-			result = original.build();
+		UnpackedBakedQuad result = wrapper.buildSuper();
 		return new Compat_UnpackedBakedQuad(result);
 	}
 }

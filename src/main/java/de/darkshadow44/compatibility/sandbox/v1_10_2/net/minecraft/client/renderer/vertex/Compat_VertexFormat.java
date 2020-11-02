@@ -11,12 +11,11 @@ import net.minecraft.client.renderer.vertex.VertexFormatElement;
 import net.minecraft.client.renderer.vertex.VertexFormatElement.EnumUsage;
 
 public class Compat_VertexFormat {
-	private VertexFormat original;
-	private CompatI_VertexFormat thisReal;
+	private CompatI_VertexFormat wrapper;
 
 	// When called from Mod
 	public Compat_VertexFormat() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_VertexFormat.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_VertexFormat.class, this));
 	}
 
 	// When called from child
@@ -25,35 +24,26 @@ public class Compat_VertexFormat {
 
 	// When called from Minecraft
 	public Compat_VertexFormat(VertexFormat original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_VertexFormat.class, original));
 	}
 
-	protected void initialize(CompatI_VertexFormat thisReal, VertexFormat original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_VertexFormat wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public VertexFormat getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	// TODO: Some mods from 1.10.2. *really* doesn't like when they get
 	// EnumUsage.PADDING. Strip them and hope it doesn't break anything.
 	List<VertexFormatElement> getElements() {
-		int count;
-		if (original == null)
-			count = thisReal.getElementCountSuper();
-		else
-			count = original.getElementCount();
+		int count = wrapper.getElementCountSuper();
 
 		List<VertexFormatElement> ret = new ArrayList<>();
 
 		for (int i = 0; i < count; i++) {
-			VertexFormatElement element;
-			if (original == null)
-				element = thisReal.getElementSuper(i);
-			else
-				element = original.getElement(i);
+			VertexFormatElement element = wrapper.getElementSuper(i);
 
 			if (element.getUsage() != EnumUsage.PADDING) {
 				ret.add(element);

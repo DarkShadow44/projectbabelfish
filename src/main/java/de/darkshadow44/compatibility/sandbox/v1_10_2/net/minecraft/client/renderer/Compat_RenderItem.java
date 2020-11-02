@@ -15,12 +15,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class Compat_RenderItem {
-	private RenderItem original;
-	private CompatI_RenderItem thisReal;
+	private CompatI_RenderItem wrapper;
 
 	// When called from Mod
 	public Compat_RenderItem() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_RenderItem.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_RenderItem.class, this));
 	}
 
 	// When called from child
@@ -29,27 +28,22 @@ public class Compat_RenderItem {
 
 	// When called from Minecraft
 	public Compat_RenderItem(RenderItem original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_RenderItem.class, original));
 	}
 
-	protected void initialize(CompatI_RenderItem thisReal, RenderItem original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_RenderItem wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public RenderItem getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public Compat_IBakedModel Compat_func_184393_a(Compat_ItemStack stack, Compat_World world, Compat_EntityLivingBase entity) {
 		ItemStack stack2 = stack == null ? null : stack.getReal();
 		World world2 = world == null ? null : world.getReal();
 		EntityLivingBase entity2 = entity == null ? null : entity.getReal();
-		IBakedModel model;
-		if (original == null)
-			model = thisReal.getItemModelWithOverridesSuper(stack2, world2, entity2);
-		else
-			model = original.getItemModelWithOverrides(stack2, world2, entity2);
-		return new Wrapper2_IBakedModel(model);
+		IBakedModel result = wrapper.getItemModelWithOverridesSuper(stack2, world2, entity2);
+		return new Wrapper2_IBakedModel(result);
 	}
 }

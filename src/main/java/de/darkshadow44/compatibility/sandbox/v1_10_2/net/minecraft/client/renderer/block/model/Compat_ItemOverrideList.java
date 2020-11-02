@@ -6,12 +6,11 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;
 
 public class Compat_ItemOverrideList {
-	private ItemOverrideList original;
-	private CompatI_ItemOverrideList thisReal;
+	private CompatI_ItemOverrideList wrapper;
 
 	// When called from Mod
 	public Compat_ItemOverrideList() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemOverrideList.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemOverrideList.class, this));
 	}
 
 	// When called from child
@@ -20,15 +19,14 @@ public class Compat_ItemOverrideList {
 
 	// When called from Minecraft
 	public Compat_ItemOverrideList(ItemOverrideList original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ItemOverrideList.class, original));
 	}
 
-	protected void initialize(CompatI_ItemOverrideList thisReal, ItemOverrideList original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ItemOverrideList wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public ItemOverrideList getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

@@ -24,12 +24,11 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.border.WorldBorder;
 
 public class Compat_World implements Compat_IBlockAccess {
-	private World original;
-	private CompatI_World thisReal;
+	private CompatI_World wrapper;
 
 	// When called from Mod
 	public Compat_World() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_World.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_World.class, this));
 	}
 
 	// When called from child
@@ -38,91 +37,59 @@ public class Compat_World implements Compat_IBlockAccess {
 
 	// When called from Minecraft
 	public Compat_World(World original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_World.class, original));
 	}
 
-	protected void initialize(CompatI_World thisReal, World original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_World wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public World getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public boolean Compat_get_field_72995_K() {
-		if (original == null)
-			return thisReal.get_isRemote();
-		else
-			return original.isRemote;
+		return wrapper.get_isRemote();
 	}
 
 	public Compat_IBlockState Compat_func_180495_p(Compat_BlockPos pos) {
-		IBlockState state;
+		IBlockState result = wrapper.getBlockStateSuper(pos.getReal());
 
-		if (original == null)
-			state = thisReal.getBlockStateSuper(pos.getReal());
-		else
-			state = original.getBlockState(pos.getReal());
-
-		return new Wrapper_IBlockState(state);
+		return new Wrapper_IBlockState(result);
 	}
 
 	@Override
 	public Compat_TileEntity Compat_func_175625_s(Compat_BlockPos pos) {
-		TileEntity tile;
+		TileEntity result = wrapper.getTileEntitySuper(pos.getReal());
 
-		if (original == null)
-			tile = thisReal.getTileEntitySuper(pos.getReal());
-		else
-			tile = original.getTileEntity(pos.getReal());
-
-		if (tile == null)
+		if (result == null)
 			return null;
 
-		return Compat_TileEntity.get_fake(tile);
+		return Compat_TileEntity.get_fake(result);
 	}
 
 	public boolean Compat_func_72855_b(Compat_AxisAlignedBB axis) {
-		if (original == null)
-			return thisReal.checkNoEntityCollisionSuper(axis.getReal());
-		else
-			return original.checkNoEntityCollision(axis.getReal());
+		return wrapper.checkNoEntityCollisionSuper(axis.getReal());
 	}
 
 	public void Compat_func_184133_a(Compat_EntityPlayer player, Compat_BlockPos pos, Compat_SoundEvent sound, Compat_SoundCategory category, float volume, float pitch) {
-		if (original == null)
-			thisReal.playSoundSuper(player.getReal(), pos.getReal(), sound.getReal(), category.getReal(), volume, pitch);
-		else
-			original.playSound(player.getReal(), pos.getReal(), sound.getReal(), category.getReal(), volume, pitch);
+		wrapper.playSoundSuper(player.getReal(), pos.getReal(), sound.getReal(), category.getReal(), volume, pitch);
 	}
 
 	public boolean Compat_func_175656_a(Compat_BlockPos pos, Compat_IBlockState state) {
-		if (original == null)
-			return thisReal.setBlockStateSuper(pos.getReal(), state.getReal());
-		else
-			return original.setBlockState(pos.getReal(), state.getReal());
+		return wrapper.setBlockStateSuper(pos.getReal(), state.getReal());
 	}
 
 	public void Compat_func_175690_a(Compat_BlockPos pos, Compat_TileEntity tile) {
-		if (original == null)
-			thisReal.setTileEntitySuper(pos.getReal(), tile.getReal());
-		else
-			original.setTileEntity(pos.getReal(), tile.getReal());
+		wrapper.setTileEntitySuper(pos.getReal(), tile.getReal());
 	}
 
 	public void Compat_func_175685_c(Compat_BlockPos pos, Compat_Block block) {
-		if (original == null)
-			thisReal.notifyNeighborsOfStateChangeSuper(pos.getReal(), block.getReal(), true);
-		else
-			original.notifyNeighborsOfStateChange(pos.getReal(), block.getReal(), true);
+		wrapper.notifyNeighborsOfStateChangeSuper(pos.getReal(), block.getReal(), true);
 	}
 
 	public boolean Compat_func_175664_x(Compat_BlockPos pos) {
-		if (original == null)
-			return thisReal.checkLightSuper(pos.getReal());
-		else
-			return original.checkLight(pos.getReal());
+		return wrapper.checkLightSuper(pos.getReal());
 	}
 
 	public static Compat_World get_fake(World real) {
@@ -134,54 +101,34 @@ public class Compat_World implements Compat_IBlockAccess {
 	}
 
 	public List<Compat_EntityPlayer> Compat_get_field_73010_i() {
-		List<EntityPlayer> players;
-		if (original == null)
-			players = thisReal.get_playerEntities();
-		else
-			players = original.playerEntities;
+		List<EntityPlayer> result = wrapper.get_playerEntities();
 
 		List<Compat_EntityPlayer> ret = new ArrayList<>();
-		for (EntityPlayer player : players) {
+		for (EntityPlayer player : result) {
 			ret.add(Compat_EntityPlayer.get_fake(player));
 		}
 		return ret;
 	}
 
 	public void Compat_func_175679_n(Compat_BlockPos pos) {
-		if (original == null)
-			thisReal.notifyLightSetSuper(pos.getReal());
-		else
-			original.notifyLightSet(pos.getReal());
+		wrapper.notifyLightSetSuper(pos.getReal());
 	}
 
 	public void Compat_func_175704_b(Compat_BlockPos pos, Compat_BlockPos pos2) {
-		if (original == null)
-			thisReal.markBlockRangeForRenderUpdateSuper(pos.getReal(), pos2.getReal());
-		else
-			original.markBlockRangeForRenderUpdate(pos.getReal(), pos2.getReal());
+		wrapper.markBlockRangeForRenderUpdateSuper(pos.getReal(), pos2.getReal());
 	}
 
 	public Compat_WorldBorder Compat_func_175723_af() {
-		WorldBorder ret;
-		if (original == null)
-			ret = thisReal.getWorldBorderSuper();
-		else
-			ret = original.getWorldBorder();
+		WorldBorder result = wrapper.getWorldBorderSuper();
 
-		return new Compat_WorldBorder(ret);
+		return new Compat_WorldBorder(result);
 	}
 
 	public long Compat_func_82737_E() {
-		if (original == null)
-			return thisReal.getTotalWorldTimeSuper();
-		else
-			return original.getTotalWorldTime();
+		return wrapper.getTotalWorldTimeSuper();
 	}
 
 	public boolean Compat_func_175698_g(Compat_BlockPos pos) {
-		if (original == null)
-			return thisReal.setBlockToAirSuper(pos.getReal());
-		else
-			return original.setBlockToAir(pos.getReal());
+		return wrapper.setBlockToAirSuper(pos.getReal());
 	}
 }

@@ -22,12 +22,11 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 
 public class Compat_StateMapperBase implements Compat_IStateMapper {
-	private StateMapperBase original;
-	private CompatI_StateMapperBase thisReal;
+	private CompatI_StateMapperBase wrapper;
 
 	// When called from Mod
 	public Compat_StateMapperBase() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_StateMapperBase.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_StateMapperBase.class, this));
 	}
 
 	// When called from child
@@ -36,16 +35,15 @@ public class Compat_StateMapperBase implements Compat_IStateMapper {
 
 	// When called from Minecraft
 	public Compat_StateMapperBase(StateMapperBase original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_StateMapperBase.class, original));
 	}
 
-	protected void initialize(CompatI_StateMapperBase thisReal, StateMapperBase original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_StateMapperBase wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public StateMapperBase getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	@Callback
@@ -63,15 +61,11 @@ public class Compat_StateMapperBase implements Compat_IStateMapper {
 	@Override
 	@HasCallback
 	public Map<Compat_IBlockState, Compat_ModelResourceLocation> Compat_func_178130_a(Compat_Block block) {
-		Map<IBlockState, ModelResourceLocation> map;
-		if (original == null)
-			map = thisReal.putStateModelLocationsSuper(block.getReal());
-		else
-			map = original.putStateModelLocations(block.getReal());
+		Map<IBlockState, ModelResourceLocation> result = wrapper.putStateModelLocationsSuper(block.getReal());
 
 		Map<Compat_IBlockState, Compat_ModelResourceLocation> ret = new HashMap<>();
 
-		for (Entry<IBlockState, ModelResourceLocation> entry : map.entrySet()) {
+		for (Entry<IBlockState, ModelResourceLocation> entry : result.entrySet()) {
 			ret.put(new Wrapper_IBlockState(entry.getKey()), new Compat_ModelResourceLocation(entry.getValue()));
 		}
 
@@ -85,9 +79,6 @@ public class Compat_StateMapperBase implements Compat_IStateMapper {
 			map2.put(property.getKey().getReal(), property.getValue());
 		}
 
-		if (original == null)
-			return thisReal.getPropertyStringSuper(map2);
-		else
-			return original.getPropertyString(map2);
+		return wrapper.getPropertyStringSuper(map2);
 	}
 }

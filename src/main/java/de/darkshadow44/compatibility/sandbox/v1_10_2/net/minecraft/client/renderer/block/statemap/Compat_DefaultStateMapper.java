@@ -9,13 +9,12 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 
 public class Compat_DefaultStateMapper extends Compat_StateMapperBase {
-	private DefaultStateMapper original;
-	private CompatI_DefaultStateMapper thisReal;
+	private CompatI_DefaultStateMapper wrapper;
 
 	// When called from Mod
 	public Compat_DefaultStateMapper() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_DefaultStateMapper.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_DefaultStateMapper.class, this));
 	}
 
 	// When called from child
@@ -26,25 +25,20 @@ public class Compat_DefaultStateMapper extends Compat_StateMapperBase {
 	// When called from Minecraft
 	public Compat_DefaultStateMapper(DefaultStateMapper original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_DefaultStateMapper.class, original));
 	}
 
-	protected void initialize(CompatI_DefaultStateMapper thisReal, DefaultStateMapper original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_DefaultStateMapper wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public DefaultStateMapper getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public Compat_ModelResourceLocation Compat_func_178132_a(Compat_IBlockState state) {
-		ModelResourceLocation result;
-		if (original == null)
-			result = thisReal.getModelResourceLocationSuper(state.getReal());
-		else
-			throw new RuntimeException();
+		ModelResourceLocation result = wrapper.getModelResourceLocationSuper(state.getReal());
 		return result == null ? null : new Compat_ModelResourceLocation(result);
 	}
 

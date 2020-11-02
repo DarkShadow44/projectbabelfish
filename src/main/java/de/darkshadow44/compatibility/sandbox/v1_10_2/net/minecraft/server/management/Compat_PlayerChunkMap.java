@@ -7,12 +7,11 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.entity.player
 import net.minecraft.server.management.PlayerChunkMap;
 
 public class Compat_PlayerChunkMap {
-	private PlayerChunkMap original;
-	private CompatI_PlayerChunkMap thisReal;
+	private CompatI_PlayerChunkMap wrapper;
 
 	// When called from Mod
 	public Compat_PlayerChunkMap() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_PlayerChunkMap.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_PlayerChunkMap.class, this));
 	}
 
 	// When called from child
@@ -21,22 +20,18 @@ public class Compat_PlayerChunkMap {
 
 	// When called from Minecraft
 	public Compat_PlayerChunkMap(PlayerChunkMap original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_PlayerChunkMap.class, original));
 	}
 
-	protected void initialize(CompatI_PlayerChunkMap thisReal, PlayerChunkMap original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_PlayerChunkMap wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public PlayerChunkMap getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public boolean Compat_func_72694_a(Compat_EntityPlayerMP player, int p1, int p2) {
-		if (original == null)
-			return thisReal.isPlayerWatchingChunkSuper(player.getReal(), p1, p2);
-		else
-			return original.isPlayerWatchingChunk(player.getReal(), p1, p2);
+		return wrapper.isPlayerWatchingChunkSuper(player.getReal(), p1, p2);
 	}
 }

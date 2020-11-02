@@ -7,12 +7,11 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.rela
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class Compat_MessageContext {
-	private MessageContext original;
-	private CompatI_MessageContext thisReal;
+	private CompatI_MessageContext wrapper;
 
 	// When called from Mod
 	public Compat_MessageContext() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_MessageContext.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_MessageContext.class, this));
 	}
 
 	// When called from child
@@ -21,22 +20,18 @@ public class Compat_MessageContext {
 
 	// When called from Minecraft
 	public Compat_MessageContext(MessageContext original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_MessageContext.class, original));
 	}
 
-	protected void initialize(CompatI_MessageContext thisReal, MessageContext original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_MessageContext wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public MessageContext getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public Compat_Side Compat_get_side() {
-		if (original == null)
-			return Compat_Side.fromReal(thisReal.get_side());
-		else
-			return Compat_Side.fromReal(original.side);
+		return Compat_Side.fromReal(wrapper.get_side());
 	}
 }

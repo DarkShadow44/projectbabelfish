@@ -10,18 +10,17 @@ import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.util.math.Vec3d;
 
 public class Compat_RayTraceResult {
-	private RayTraceResult original;
-	private CompatI_RayTraceResult thisReal;
+	private CompatI_RayTraceResult wrapper;
 
 	// When called from Mod
 	public Compat_RayTraceResult(Compat_RayTraceResult_Type type, Compat_Vec3d vec, Compat_EnumFacing facing, Compat_BlockPos pos) {
 		EnumFacing facing2 = facing == null ? null : facing.getReal();
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_RayTraceResult.class, this, type.getReal(), vec.getReal(), facing2, pos.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_RayTraceResult.class, this, type.getReal(), vec.getReal(), facing2, pos.getReal()));
 	}
 
 	public Compat_RayTraceResult(Compat_Vec3d vec, Compat_EnumFacing facing, Compat_BlockPos pos) {
 		EnumFacing facing2 = facing == null ? null : facing.getReal();
-		this.initialize(Factory.create(CtorPos.POS2, CompatI_RayTraceResult.class, this, vec.getReal(), facing2, pos.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS2, CompatI_RayTraceResult.class, this, vec.getReal(), facing2, pos.getReal()));
 	}
 
 	// When called from child
@@ -30,77 +29,49 @@ public class Compat_RayTraceResult {
 
 	// When called from Minecraft
 	public Compat_RayTraceResult(RayTraceResult original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_RayTraceResult.class, original));
 	}
 
-	protected void initialize(CompatI_RayTraceResult thisReal, RayTraceResult original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_RayTraceResult wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public RayTraceResult getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public Compat_RayTraceResult_Type Compat_get_field_72313_a() {
-		Type type;
-		if (original == null)
-			type = thisReal.get_typeOfHit();
-		else
-			type = original.typeOfHit;
-		return Compat_RayTraceResult_Type.getFake(type);
+		Type result = wrapper.get_typeOfHit();
+		return Compat_RayTraceResult_Type.getFake(result);
 	}
 
 	public Compat_BlockPos Compat_func_178782_a() {
-		if (original == null)
-			return new Compat_BlockPos(thisReal.getBlockPosSuper());
-		else
-			return new Compat_BlockPos(original.getBlockPos());
+		return new Compat_BlockPos(wrapper.getBlockPosSuper());
 	}
 
 	public Compat_Vec3d Compat_get_field_72307_f() {
-		Vec3d result;
-		if (original == null)
-			result = thisReal.get_hitVec();
-		else
-			result = original.hitVec;
+		Vec3d result = wrapper.get_hitVec();
 		return new Compat_Vec3d(result);
 	}
 
 	public Compat_EnumFacing Compat_get_field_178784_b() {
-		EnumFacing result;
-		if (original == null)
-			result = thisReal.get_sideHit();
-		else
-			result = original.sideHit;
+		EnumFacing result = wrapper.get_sideHit();
 		return Compat_EnumFacing.map_real_to_fake(result);
 	}
 
 	public void Compat_set_subHit(int value) {
-		if (original == null)
-			thisReal.set_subHit(value);
-		else
-			original.subHit = value;
+		wrapper.set_subHit(value);
 	}
 
 	public void Compat_set_hitInfo(Object value) {
-		if (original == null)
-			thisReal.set_hitInfo(value);
-		else
-			original.hitInfo = value;
+		wrapper.set_hitInfo(value);
 	}
 
 	public int Compat_get_subHit() {
-		if (original == null)
-			return thisReal.get_subHit();
-		else
-			return original.subHit;
+		return wrapper.get_subHit();
 	}
 
 	public Object Compat_get_hitInfo() {
-		if (original == null)
-			return thisReal.get_hitInfo();
-		else
-			return original.hitInfo;
+		return wrapper.get_hitInfo();
 	}
 }

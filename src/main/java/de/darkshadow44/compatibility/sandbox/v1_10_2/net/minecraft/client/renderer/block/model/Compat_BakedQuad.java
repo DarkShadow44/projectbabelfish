@@ -10,12 +10,11 @@ import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.util.EnumFacing;
 
 public class Compat_BakedQuad {
-	private BakedQuad original;
-	private CompatI_BakedQuad thisReal;
+	private CompatI_BakedQuad wrapper;
 
 	// When called from Mod
 	public Compat_BakedQuad() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BakedQuad.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BakedQuad.class, this));
 	}
 
 	// When called from child
@@ -24,47 +23,32 @@ public class Compat_BakedQuad {
 
 	// When called from Minecraft
 	public Compat_BakedQuad(BakedQuad original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BakedQuad.class, original));
 	}
 
-	protected void initialize(CompatI_BakedQuad thisReal, BakedQuad original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BakedQuad wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public BakedQuad getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public Compat_VertexFormat Compat_getFormat() {
-		VertexFormat result;
-		if (original == null)
-			result = thisReal.getFormatSuper();
-		else
-			result = original.getFormat();
+		VertexFormat result = wrapper.getFormatSuper();
 		return new Compat_VertexFormat(result);
 	}
 
 	public boolean Compat_func_178212_b() {
-		if (original == null)
-			return thisReal.hasTintIndexSuper();
-		else
-			return original.hasTintIndex();
+		return wrapper.hasTintIndexSuper();
 	}
 
 	public int Compat_func_178211_c() {
-		if (original == null)
-			return thisReal.getTintIndexSuper();
-		else
-			return original.getTintIndex();
+		return wrapper.getTintIndexSuper();
 	}
 
 	public Compat_EnumFacing Compat_func_178210_d() {
-		EnumFacing result;
-		if (original == null)
-			result = thisReal.getFaceSuper();
-		else
-			result = original.getFace();
+		EnumFacing result = wrapper.getFaceSuper();
 		return Compat_EnumFacing.map_real_to_fake(result);
 	}
 }

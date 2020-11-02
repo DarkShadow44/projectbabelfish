@@ -5,7 +5,9 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
@@ -21,7 +23,6 @@ import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
-import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.ClassPath.ClassInfo;
 
@@ -64,7 +65,7 @@ public class ClassGenerator {
 			instructions.add(new VarInsnNode(opcode, offset++));
 
 			// Some types take two slots...
-			if (opcode == Opcodes.DLOAD) {
+			if (opcode == Opcodes.DLOAD || opcode == Opcodes.LLOAD) {
 				offset++;
 			}
 		}
@@ -463,11 +464,12 @@ public class ClassGenerator {
 		ClassPath classesPath = ClassPath.from(ClassGenerator.class.getClassLoader());
 		String sandbox = layer.getPathSandbox().replace("/", ".");
 		sandbox = sandbox.substring(0, sandbox.length() - 1);
-		ImmutableSet<ClassInfo> classes;
+		Set<ClassInfo> classes = new HashSet<>();
 
-		if (CompatibilityMod.DUMP_CLASSES)
-			classes = classesPath.getTopLevelClassesRecursive(sandbox + ".net");
-		else
+		if (CompatibilityMod.DUMP_CLASSES) {
+			classes.addAll(classesPath.getTopLevelClassesRecursive(sandbox + ".net"));
+			classes.addAll(classesPath.getTopLevelClassesRecursive(sandbox + ".io.netty"));
+		} else
 			classes = classesPath.getTopLevelClassesRecursive(sandbox);
 
 		for (ClassInfo clazzInfo : classes) {

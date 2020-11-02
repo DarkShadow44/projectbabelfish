@@ -15,13 +15,12 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 
 public class Compat_AttachCapabilitiesEvent<T> extends Compat_GenericEvent<T> {
-	private AttachCapabilitiesEvent<T> original;
-	private CompatI_AttachCapabilitiesEvent<T> thisReal;
+	private CompatI_AttachCapabilitiesEvent<T> wrapper;
 
 	// When called from Mod
 	public Compat_AttachCapabilitiesEvent(Object obj) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_AttachCapabilitiesEvent.class, this, obj.getClass(), obj), null); // TODO right class?
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_AttachCapabilitiesEvent.class, this, obj.getClass(), obj)); // TODO right class?
 	}
 
 	// When called from child
@@ -32,26 +31,20 @@ public class Compat_AttachCapabilitiesEvent<T> extends Compat_GenericEvent<T> {
 	// When called from Minecraft
 	public Compat_AttachCapabilitiesEvent(AttachCapabilitiesEvent<T> original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_AttachCapabilitiesEvent.class, original));
 	}
 
-	protected void initialize(CompatI_AttachCapabilitiesEvent<T> thisReal, AttachCapabilitiesEvent<T> original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_AttachCapabilitiesEvent<T> wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public AttachCapabilitiesEvent<T> getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public Map<Compat_ResourceLocation, Compat_ICapabilityProvider> Compat_getCapabilities() {
-		Map<ResourceLocation, ICapabilityProvider> capabilities;
-
-		if (original == null)
-			capabilities = thisReal.getCapabilitiesSuper();
-		else
-			capabilities = original.getCapabilities();
+		Map<ResourceLocation, ICapabilityProvider> capabilities = wrapper.getCapabilitiesSuper();
 
 		Map<Compat_ResourceLocation, Compat_ICapabilityProvider> ret = new HashMap<>();
 

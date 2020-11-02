@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.inventory.ContainerWorkbench;
 
 public class Compat_ContainerWorkbench extends Compat_Container {
-	private ContainerWorkbench original;
-	private CompatI_ContainerWorkbench thisReal;
+	private CompatI_ContainerWorkbench wrapper;
 
 	// When called from Mod
 	public Compat_ContainerWorkbench() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ContainerWorkbench.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ContainerWorkbench.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,15 @@ public class Compat_ContainerWorkbench extends Compat_Container {
 	// When called from Minecraft
 	public Compat_ContainerWorkbench(ContainerWorkbench original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ContainerWorkbench.class, original));
 	}
 
-	protected void initialize(CompatI_ContainerWorkbench thisReal, ContainerWorkbench original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ContainerWorkbench wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public ContainerWorkbench getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

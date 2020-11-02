@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.block.properties.PropertyInteger;
 
 public class Compat_PropertyInteger extends Compat_PropertyHelper<Integer> {
-	private PropertyInteger original;
-	private CompatI_PropertyInteger thisReal;
+	private CompatI_PropertyInteger wrapper;
 
 	// When called from Mod
 	public Compat_PropertyInteger() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_PropertyInteger.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_PropertyInteger.class, this));
 	}
 
 	// When called from child
@@ -23,17 +22,16 @@ public class Compat_PropertyInteger extends Compat_PropertyHelper<Integer> {
 	// When called from Minecraft
 	public Compat_PropertyInteger(PropertyInteger original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_PropertyInteger.class, original));
 	}
 
-	protected void initialize(CompatI_PropertyInteger thisReal, PropertyInteger original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_PropertyInteger wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public PropertyInteger getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public static Compat_PropertyInteger Compat_func_177719_a(String p1, int p2, int p3) {

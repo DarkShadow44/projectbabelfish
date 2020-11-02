@@ -6,12 +6,11 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.network.NetworkManager;
 
 public class Compat_NetworkManager {
-	private NetworkManager original;
-	private CompatI_NetworkManager thisReal;
+	private CompatI_NetworkManager wrapper;
 
 	// When called from Mod
 	public Compat_NetworkManager() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_NetworkManager.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_NetworkManager.class, this));
 	}
 
 	// When called from child
@@ -20,15 +19,14 @@ public class Compat_NetworkManager {
 
 	// When called from Minecraft
 	public Compat_NetworkManager(NetworkManager original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_NetworkManager.class, original));
 	}
 
-	protected void initialize(CompatI_NetworkManager thisReal, NetworkManager original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_NetworkManager wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public NetworkManager getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

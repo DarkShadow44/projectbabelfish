@@ -7,13 +7,12 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.comm
 import net.minecraftforge.event.world.BlockEvent;
 
 public class Compat_BlockEvent extends Compat_Event {
-	private BlockEvent original;
-	private CompatI_BlockEvent thisReal;
+	private CompatI_BlockEvent wrapper;
 
 	// When called from Mod
 	public Compat_BlockEvent() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockEvent.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockEvent.class, this));
 	}
 
 	// When called from child
@@ -24,16 +23,15 @@ public class Compat_BlockEvent extends Compat_Event {
 	// When called from Minecraft
 	public Compat_BlockEvent(BlockEvent original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockEvent.class, original));
 	}
 
-	protected void initialize(CompatI_BlockEvent thisReal, BlockEvent original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockEvent wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public BlockEvent getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

@@ -7,13 +7,12 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.util.IStringSerializable;
 
 public class Compat_PropertyEnum<T extends Enum<T> & IStringSerializable> extends Compat_PropertyHelper<T> {
-	private PropertyEnum<T> original;
-	private CompatI_PropertyEnum<T> thisReal;
+	private CompatI_PropertyEnum<T> wrapper;
 
 	// When called from Mod
 	public Compat_PropertyEnum() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_PropertyEnum.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_PropertyEnum.class, this));
 	}
 
 	// When called from child
@@ -24,17 +23,16 @@ public class Compat_PropertyEnum<T extends Enum<T> & IStringSerializable> extend
 	// When called from Minecraft
 	public Compat_PropertyEnum(PropertyEnum<T> original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_PropertyEnum.class, original));
 	}
 
-	protected void initialize(CompatI_PropertyEnum<T> thisReal, PropertyEnum<T> original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_PropertyEnum<T> wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public PropertyEnum<T> getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public static <T extends Enum<T> & IStringSerializable> Compat_PropertyEnum<T> Compat_func_177709_a(String p1, Class<T> p2) {

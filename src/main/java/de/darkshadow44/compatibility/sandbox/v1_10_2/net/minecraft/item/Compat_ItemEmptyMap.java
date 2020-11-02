@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.item.ItemEmptyMap;
 
 public class Compat_ItemEmptyMap extends Compat_ItemMapBase {
-	private ItemEmptyMap original;
-	private CompatI_ItemEmptyMap thisReal;
+	private CompatI_ItemEmptyMap wrapper;
 
 	// When called from Mod
 	public Compat_ItemEmptyMap() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemEmptyMap.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemEmptyMap.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,15 @@ public class Compat_ItemEmptyMap extends Compat_ItemMapBase {
 	// When called from Minecraft
 	public Compat_ItemEmptyMap(ItemEmptyMap original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ItemEmptyMap.class, original));
 	}
 
-	protected void initialize(CompatI_ItemEmptyMap thisReal, ItemEmptyMap original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ItemEmptyMap wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public ItemEmptyMap getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

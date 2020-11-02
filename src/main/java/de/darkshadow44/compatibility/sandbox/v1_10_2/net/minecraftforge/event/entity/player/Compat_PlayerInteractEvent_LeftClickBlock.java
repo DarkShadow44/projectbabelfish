@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.LeftClickBlock;
 
 public class Compat_PlayerInteractEvent_LeftClickBlock extends Compat_PlayerInteractEvent {
-	private LeftClickBlock original;
-	private CompatI_PlayerInteractEvent_LeftClickBlock thisReal;
+	private CompatI_PlayerInteractEvent_LeftClickBlock wrapper;
 
 	// When called from Mod
 	public Compat_PlayerInteractEvent_LeftClickBlock() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_PlayerInteractEvent_LeftClickBlock.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_PlayerInteractEvent_LeftClickBlock.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,15 @@ public class Compat_PlayerInteractEvent_LeftClickBlock extends Compat_PlayerInte
 	// When called from Minecraft
 	public Compat_PlayerInteractEvent_LeftClickBlock(LeftClickBlock original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_PlayerInteractEvent_LeftClickBlock.class, original));
 	}
 
-	protected void initialize(CompatI_PlayerInteractEvent_LeftClickBlock thisReal, LeftClickBlock original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_PlayerInteractEvent_LeftClickBlock wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public LeftClickBlock getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

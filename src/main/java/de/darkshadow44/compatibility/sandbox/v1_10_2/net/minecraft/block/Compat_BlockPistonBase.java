@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.block.BlockPistonBase;
 
 public class Compat_BlockPistonBase extends Compat_BlockDirectional {
-	private BlockPistonBase original;
-	private CompatI_BlockPistonBase thisReal;
+	private CompatI_BlockPistonBase wrapper;
 
 	// When called from Mod
 	public Compat_BlockPistonBase() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockPistonBase.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockPistonBase.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,15 @@ public class Compat_BlockPistonBase extends Compat_BlockDirectional {
 	// When called from Minecraft
 	public Compat_BlockPistonBase(BlockPistonBase original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockPistonBase.class, original));
 	}
 
-	protected void initialize(CompatI_BlockPistonBase thisReal, BlockPistonBase original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockPistonBase wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public BlockPistonBase getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

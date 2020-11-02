@@ -42,24 +42,23 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
-	private Block original;
-	private CompatI_Block thisReal;
+	private CompatI_Block wrapper;
 
 	// When called from Mod
 	public Compat_Block(Compat_Material material) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_Block.class, this, material.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Block.class, this, material.getReal()));
 
 		workaround_init();
 	}
 
 	protected void workaround_init() {
 		// Workaround, since we need skipDuringConstructor
-		Block block = (Block) thisReal;
+		Block block = (Block) wrapper;
 		block.blockState = this.createBlockState();
-		thisReal.setDefaultStateSuper(block.blockState.getBaseState());
+		wrapper.setDefaultStateSuper(block.blockState.getBaseState());
 		boolean fullBlock = block.getDefaultState().isOpaqueCube();
-		thisReal.set_fullBlock(fullBlock);
+		wrapper.set_fullBlock(fullBlock);
 		block.setLightOpacity(fullBlock ? 255 : 0);
 	}
 
@@ -71,17 +70,16 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	// When called from Minecraft
 	public Compat_Block(Block original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_Block.class, original));
 	}
 
-	protected void initialize(CompatI_Block thisReal, Block original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_Block wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public Block getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public static Compat_AxisAlignedBB Compat_get_field_185505_j() {
@@ -89,13 +87,9 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	}
 
 	public Compat_IBlockState Compat_func_176223_P() {
-		IBlockState state;
-		if (original == null)
-			state = thisReal.getDefaultStateSuper();
-		else
-			state = original.getDefaultState();
+		IBlockState result = wrapper.getDefaultStateSuper();
 
-		return new Wrapper_IBlockState(state);
+		return new Wrapper_IBlockState(result);
 	}
 
 	@Callback(skipDuringConstructor = true)
@@ -105,40 +99,25 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 
 	@HasCallback
 	public Compat_BlockStateContainer Compat_func_180661_e() {
-		if (original == null)
-			return new Compat_BlockStateContainer(thisReal.createBlockStateSuper());
-		else
-			throw new RuntimeException("Should not happen");
+		return new Compat_BlockStateContainer(wrapper.createBlockStateSuper());
 	}
 
 	public void Compat_func_180632_j(Compat_IBlockState state) {
-		if (original == null)
-			thisReal.setDefaultStateSuper(state.getReal());
-		else
-			throw new RuntimeException("Should not happen");
+		wrapper.setDefaultStateSuper(state.getReal());
 	}
 
 	public Compat_Block Compat_func_149711_c(float hardness) {
-		if (original == null)
-			thisReal.setHardnessSuper(hardness);
-		else
-			original.setHardness(hardness);
+		wrapper.setHardnessSuper(hardness);
 		return this;
 	}
 
 	public Compat_Block Compat_func_149663_c(String name) {
-		if (original == null)
-			thisReal.setUnlocalizedNameSuper(name);
-		else
-			original.setUnlocalizedName(name);
+		wrapper.setUnlocalizedNameSuper(name);
 		return this;
 	}
 
 	public Compat_Block Compat_func_149647_a(Compat_CreativeTabs tabs) {
-		if (original == null)
-			thisReal.setCreativeTabSuper(tabs.getReal());
-		else
-			original.setCreativeTab(tabs.getReal());
+		wrapper.setCreativeTabSuper(tabs.getReal());
 		return this;
 	}
 
@@ -149,17 +128,11 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 
 	@HasCallback
 	public int Compat_func_176201_c(Compat_IBlockState state) {
-		if (original == null)
-			return thisReal.getMetaFromStateSuper(state.getReal());
-		else
-			return original.getMetaFromState(state.getReal());
+		return wrapper.getMetaFromStateSuper(state.getReal());
 	}
 
 	public boolean Compat_func_176200_f(Compat_IBlockAccess world, Compat_BlockPos pos) {
-		if (original == null)
-			return thisReal.isReplaceableSuper(world.getReal(), pos.getReal());
-		else
-			return original.isReplaceable(world.getReal(), pos.getReal());
+		return wrapper.isReplaceableSuper(world.getReal(), pos.getReal());
 	}
 
 	// From ITileEnttiyProvider
@@ -181,13 +154,9 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_func_149730_j(new Wrapper_IBlockState(state));
 	}
 
-	@SuppressWarnings("deprecation")
 	@HasCallback
 	public boolean Compat_func_149730_j(Compat_IBlockState state) {
-		if (original == null)
-			return thisReal.isFullBlockSuper(state.getReal());
-		else
-			return original.isFullBlock(state.getReal());
+		return wrapper.isFullBlockSuper(state.getReal());
 	}
 
 	@Callback
@@ -195,13 +164,9 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_func_149686_d(new Wrapper_IBlockState(state));
 	}
 
-	@SuppressWarnings("deprecation")
 	@HasCallback
 	public boolean Compat_func_149686_d(Compat_IBlockState state) {
-		if (original == null)
-			return thisReal.isFullCubeSuper(state.getReal());
-		else
-			return original.isFullCube(state.getReal());
+		return wrapper.isFullCubeSuper(state.getReal());
 	}
 
 	@Callback(skipDuringConstructor = true)
@@ -209,13 +174,9 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_func_149662_c(new Wrapper_IBlockState(state));
 	}
 
-	@SuppressWarnings("deprecation")
 	@HasCallback
 	public boolean Compat_func_149662_c(Compat_IBlockState state) {
-		if (original == null)
-			return thisReal.isOpaqueCubeSuper(state.getReal());
-		else
-			return original.isOpaqueCube(state.getReal());
+		return wrapper.isOpaqueCubeSuper(state.getReal());
 	}
 
 	@Callback
@@ -223,13 +184,9 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_func_149637_q(new Wrapper_IBlockState(state));
 	}
 
-	@SuppressWarnings("deprecation")
 	@HasCallback
 	public boolean Compat_func_149637_q(Compat_IBlockState state) {
-		if (original == null)
-			return thisReal.isBlockNormalCubeSuper(state.getReal());
-		else
-			return original.isBlockNormalCube(state.getReal());
+		return wrapper.isBlockNormalCubeSuper(state.getReal());
 	}
 
 	@Callback
@@ -237,13 +194,9 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_func_149645_b(new Wrapper_IBlockState(state)).getReal();
 	}
 
-	@SuppressWarnings("deprecation")
 	@HasCallback
 	public Compat_EnumBlockRenderType Compat_func_149645_b(Compat_IBlockState state) {
-		if (original == null)
-			return Compat_EnumBlockRenderType.get_fake(thisReal.getRenderTypeSuper(state.getReal()));
-		else
-			return Compat_EnumBlockRenderType.get_fake(original.getRenderType(state.getReal()));
+		return Compat_EnumBlockRenderType.get_fake(wrapper.getRenderTypeSuper(state.getReal()));
 	}
 
 	public static Compat_RegistryNamespacedDefaultedByKey Compat_get_field_149771_c() {
@@ -252,20 +205,15 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 
 	@Callback
 	public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
-		Compat_IBlockState ret = Compat_getExtendedState(Compat_IBlockState.getFake(state), new Wrapper_IBlockAccess(world), new Compat_BlockPos(pos));
-		return ret.getReal();
+		Compat_IBlockState result = Compat_getExtendedState(Compat_IBlockState.getFake(state), new Wrapper_IBlockAccess(world), new Compat_BlockPos(pos));
+		return result.getReal();
 	}
 
 	@HasCallback
 	public Compat_IBlockState Compat_getExtendedState(Compat_IBlockState state, Compat_IBlockAccess world, Compat_BlockPos pos) {
-		IBlockState ret;
+		IBlockState result = wrapper.getExtendedStateSuper(state.getReal(), world.getReal(), pos.getReal());
 
-		if (original == null)
-			ret = thisReal.getExtendedStateSuper(state.getReal(), world.getReal(), pos.getReal());
-		else
-			ret = original.getExtendedState(state.getReal(), world.getReal(), pos.getReal());
-
-		return new Wrapper_IBlockState(ret);
+		return new Wrapper_IBlockState(result);
 	}
 
 	@Callback
@@ -274,14 +222,9 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return result == null ? null : result.getReal();
 	}
 
-	@SuppressWarnings("deprecation")
 	@HasCallback
 	public Compat_RayTraceResult Compat_func_180636_a(Compat_IBlockState state, Compat_World world, Compat_BlockPos pos, Compat_Vec3d start, Compat_Vec3d end) {
-		RayTraceResult result;
-		if (original == null)
-			result = thisReal.collisionRayTraceSuper(state.getReal(), world.getReal(), pos.getReal(), start.getReal(), end.getReal());
-		else
-			result = original.collisionRayTrace(state.getReal(), world.getReal(), pos.getReal(), start.getReal(), end.getReal());
+		RayTraceResult result = wrapper.collisionRayTraceSuper(state.getReal(), world.getReal(), pos.getReal(), start.getReal(), end.getReal());
 		return result == null ? null : new Compat_RayTraceResult(result);
 	}
 
@@ -290,14 +233,9 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_func_180640_a(new Wrapper_IBlockState(state), Compat_World.get_fake(world), new Compat_BlockPos(pos)).getReal();
 	}
 
-	@SuppressWarnings("deprecation")
 	@HasCallback
 	public Compat_AxisAlignedBB Compat_func_180640_a(Compat_IBlockState state, Compat_World world, Compat_BlockPos pos) {
-		AxisAlignedBB result;
-		if (original == null)
-			result = thisReal.getSelectedBoundingBoxSuper(state.getReal(), world.getReal(), pos.getReal());
-		else
-			result = original.getSelectedBoundingBox(state.getReal(), world.getReal(), pos.getReal());
+		AxisAlignedBB result = wrapper.getSelectedBoundingBoxSuper(state.getReal(), world.getReal(), pos.getReal());
 		return new Compat_AxisAlignedBB(result);
 	}
 
@@ -317,7 +255,6 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	@HasCallback
 	public void Compat_func_185477_a(Compat_IBlockState state, Compat_World world, Compat_BlockPos pos, Compat_AxisAlignedBB entityBox, List<Compat_AxisAlignedBB> boxes, Compat_Entity entity) {
 		List<AxisAlignedBB> list2 = new ArrayList<>();
@@ -326,10 +263,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 			list2.add(box.getReal());
 		}
 
-		if (original == null)
-			thisReal.addCollisionBoxToListSuper(state.getReal(), world.getReal(), pos.getReal(), entityBox.getReal(), list2, entity.getReal(), true);
-		else
-			original.addCollisionBoxToList(state.getReal(), world.getReal(), pos.getReal(), entityBox.getReal(), list2, entity.getReal(), true);
+		wrapper.addCollisionBoxToListSuper(state.getReal(), world.getReal(), pos.getReal(), entityBox.getReal(), list2, entity.getReal(), true);
 
 		boxes.clear();
 		for (AxisAlignedBB box : list2) {
@@ -344,10 +278,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 
 	@HasCallback
 	public boolean Compat_canRenderInLayer(Compat_BlockRenderLayer layer) {
-		if (original == null)
-			return thisReal.canRenderInLayerSuper(null, layer.getReal());
-		else
-			return original.canRenderInLayer(null, layer.getReal());
+		return wrapper.canRenderInLayerSuper(null, layer.getReal());
 	}
 
 	@HasCallback

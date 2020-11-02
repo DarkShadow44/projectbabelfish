@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.entity.EntityHanging;
 
 public class Compat_EntityHanging extends Compat_Entity {
-	private EntityHanging original;
-	private CompatI_EntityHanging thisReal;
+	private CompatI_EntityHanging wrapper;
 
 	// When called from Mod
 	public Compat_EntityHanging() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityHanging.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityHanging.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,15 @@ public class Compat_EntityHanging extends Compat_Entity {
 	// When called from Minecraft
 	public Compat_EntityHanging(EntityHanging original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityHanging.class, original));
 	}
 
-	protected void initialize(CompatI_EntityHanging thisReal, EntityHanging original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityHanging wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public EntityHanging getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

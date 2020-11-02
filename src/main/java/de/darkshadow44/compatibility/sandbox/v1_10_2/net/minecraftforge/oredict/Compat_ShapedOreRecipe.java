@@ -10,15 +10,14 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class Compat_ShapedOreRecipe extends Compat_IForgeRegistryEntry_Impl<IRecipe> {
-	private ShapedOreRecipe original;
-	private CompatI_ShapedOreRecipe thisReal;
+	private CompatI_ShapedOreRecipe wrapper;
 
 	// When called from Mod
 	public Compat_ShapedOreRecipe(Compat_ItemStack stack, Object[] objects) {
 		super(ParentSelector.NULL);
 		ResourceLocation group = new ResourceLocation("dummy");
 		Object[] objectsConverted = RecipeHelper.convertIngredientObjects(objects);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ShapedOreRecipe.class, this, group, stack.getReal(), objectsConverted), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ShapedOreRecipe.class, this, group, stack.getReal(), objectsConverted));
 	}
 
 	// When called from child
@@ -29,16 +28,15 @@ public class Compat_ShapedOreRecipe extends Compat_IForgeRegistryEntry_Impl<IRec
 	// When called from Minecraft
 	public Compat_ShapedOreRecipe(ShapedOreRecipe original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ShapedOreRecipe.class, original));
 	}
 
-	protected void initialize(CompatI_ShapedOreRecipe thisReal, ShapedOreRecipe original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ShapedOreRecipe wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public ShapedOreRecipe getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

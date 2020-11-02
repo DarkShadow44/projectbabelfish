@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.client.entity.EntityPlayerSP;
 
 public class Compat_EntityPlayerSP extends Compat_AbstractClientPlayer {
-	private EntityPlayerSP original;
-	private CompatI_EntityPlayerSP thisReal;
+	private CompatI_EntityPlayerSP wrapper;
 
 	// When called from Mod
 	public Compat_EntityPlayerSP() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityPlayerSP.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityPlayerSP.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,15 @@ public class Compat_EntityPlayerSP extends Compat_AbstractClientPlayer {
 	// When called from Minecraft
 	public Compat_EntityPlayerSP(EntityPlayerSP original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityPlayerSP.class, original));
 	}
 
-	protected void initialize(CompatI_EntityPlayerSP thisReal, EntityPlayerSP original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityPlayerSP wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public EntityPlayerSP getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

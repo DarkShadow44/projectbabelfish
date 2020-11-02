@@ -11,8 +11,7 @@ import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 
 public class Compat_ExtendedBlockState extends Compat_BlockStateContainer {
-	private ExtendedBlockState original;
-	private CompatI_ExtendedBlockState thisReal;
+	private CompatI_ExtendedBlockState wrapper;
 
 	// When called from Mod
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -30,7 +29,7 @@ public class Compat_ExtendedBlockState extends Compat_BlockStateContainer {
 			unlistedPropertiesConverted[i] = new Wrapper_IUnlistedProperty(unlistedProperties[i]);
 		}
 
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ExtendedBlockState.class, this, block.getReal(), propertiesConverted, unlistedPropertiesConverted), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ExtendedBlockState.class, this, block.getReal(), propertiesConverted, unlistedPropertiesConverted));
 	}
 
 	// When called from child
@@ -41,16 +40,15 @@ public class Compat_ExtendedBlockState extends Compat_BlockStateContainer {
 	// When called from Minecraft
 	public Compat_ExtendedBlockState(ExtendedBlockState original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ExtendedBlockState.class, original));
 	}
 
-	protected void initialize(CompatI_ExtendedBlockState thisReal, ExtendedBlockState original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ExtendedBlockState wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public ExtendedBlockState getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

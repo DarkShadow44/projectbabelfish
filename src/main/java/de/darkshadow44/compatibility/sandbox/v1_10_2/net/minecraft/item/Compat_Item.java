@@ -32,13 +32,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
-	private Item original;
-	private CompatI_Item thisReal;
+	private CompatI_Item wrapper;
 
 	// When called from Mod
 	public Compat_Item() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_Item.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Item.class, this));
 	}
 
 	// When called from child
@@ -49,48 +48,35 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 	// When called from Minecraft
 	public Compat_Item(Item original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_Item.class, original));
 	}
 
-	protected void initialize(CompatI_Item thisReal, Item original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_Item wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public Item getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public Compat_Item Compat_func_77655_b(String name) {
-		if (this.original == null)
-			thisReal.setUnlocalizedNameSuper(name);
-		else
-			this.original.setUnlocalizedName(name);
+		wrapper.setUnlocalizedNameSuper(name);
 		return this;
 	}
 
 	public Compat_Item Compat_func_77625_d(int size) {
-		if (this.original == null)
-			thisReal.setMaxStackSizeSuper(size);
-		else
-			this.original.setMaxStackSize(size);
+		wrapper.setMaxStackSizeSuper(size);
 		return this;
 	}
 
 	public Compat_Item Compat_func_77656_e(int damage) {
-		if (this.original == null)
-			thisReal.setMaxDamageSuper(damage);
-		else
-			this.original.setMaxDamage(damage);
+		wrapper.setMaxDamageSuper(damage);
 		return this;
 	}
 
 	public Compat_Item Compat_func_77637_a(Compat_CreativeTabs tab) {
-		if (this.original == null)
-			thisReal.setCreativeTabSuper(tab.getReal());
-		else
-			this.original.setCreativeTab(tab.getReal());
+		wrapper.setCreativeTabSuper(tab.getReal());
 		return this;
 	}
 
@@ -100,10 +86,7 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 	}
 
 	public String Compat_func_77667_c(Compat_ItemStack stack) {
-		if (this.original == null)
-			return thisReal.getUnlocalizedNameSuper(stack.getReal());
-		else
-			return this.original.getUnlocalizedName(stack.getReal());
+		return wrapper.getUnlocalizedNameSuper(stack.getReal());
 	}
 
 	@Callback
@@ -118,10 +101,7 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 
 	public void Compat_func_150895_a(Compat_Item item, Compat_CreativeTabs tab, List<Compat_ItemStack> list) {
 		NonNullList<ItemStack> list2 = NonNullList.create();
-		if (original == null)
-			thisReal.getSubItemsSuper(tab.getReal(), list2);
-		else
-			original.getSubItems(tab.getReal(), list2);
+		wrapper.getSubItemsSuper(tab.getReal(), list2);
 
 		for (ItemStack stack : list2) {
 			list.add(new Compat_ItemStack(stack));
@@ -134,10 +114,7 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 	}
 
 	public void Compat_func_77663_a(Compat_ItemStack stack, Compat_World world, Compat_Entity entity, int itemSlot, boolean isSelected) {
-		if (original == null)
-			thisReal.onUpdateSuper(stack.getReal(), world.getReal(), entity.getReal(), itemSlot, isSelected);
-		else
-			original.onUpdate(stack.getReal(), world.getReal(), entity.getReal(), itemSlot, isSelected);
+		wrapper.onUpdateSuper(stack.getReal(), world.getReal(), entity.getReal(), itemSlot, isSelected);
 	}
 
 	@Callback
@@ -147,10 +124,7 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 
 	@HasCallback
 	public boolean Compat_func_82788_x() {
-		if (original == null)
-			return thisReal.canItemEditBlocksSuper();
-		else
-			return original.canItemEditBlocks();
+		return wrapper.canItemEditBlocksSuper();
 	}
 
 	@Callback
@@ -162,11 +136,7 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 
 	@HasCallback
 	public Compat_EnumActionResult Compat_func_180614_a(Compat_ItemStack stack, Compat_EntityPlayer player, Compat_World world, Compat_BlockPos pos, Compat_EnumHand hand, Compat_EnumFacing facing, float hitX, float hitY, float hitZ) {
-		EnumActionResult result;
-		if (original == null)
-			result = thisReal.onItemUseSuper(player.getReal(), world.getReal(), pos.getReal(), hand.getReal(), facing.getReal(), hitX, hitY, hitZ);
-		else
-			result = original.onItemUse(player.getReal(), world.getReal(), pos.getReal(), hand.getReal(), facing.getReal(), hitX, hitY, hitZ);
+		EnumActionResult result = wrapper.onItemUseSuper(player.getReal(), world.getReal(), pos.getReal(), hand.getReal(), facing.getReal(), hitX, hitY, hitZ);
 		return Compat_EnumActionResult.map_real_to_fake(result);
 	}
 

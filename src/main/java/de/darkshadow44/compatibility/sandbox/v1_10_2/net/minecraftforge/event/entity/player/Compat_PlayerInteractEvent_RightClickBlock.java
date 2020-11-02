@@ -7,13 +7,12 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Com
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 
 public class Compat_PlayerInteractEvent_RightClickBlock extends Compat_PlayerInteractEvent {
-	private RightClickBlock original;
-	private CompatI_PlayerInteractEvent_RightClickBlock thisReal;
+	private CompatI_PlayerInteractEvent_RightClickBlock wrapper;
 
 	// When called from Mod
 	public Compat_PlayerInteractEvent_RightClickBlock() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_PlayerInteractEvent_RightClickBlock.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_PlayerInteractEvent_RightClickBlock.class, this));
 	}
 
 	// When called from child
@@ -24,20 +23,19 @@ public class Compat_PlayerInteractEvent_RightClickBlock extends Compat_PlayerInt
 	// When called from Minecraft
 	public Compat_PlayerInteractEvent_RightClickBlock(RightClickBlock original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_PlayerInteractEvent_RightClickBlock.class, original));
 	}
 
-	protected void initialize(CompatI_PlayerInteractEvent_RightClickBlock thisReal, RightClickBlock original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_PlayerInteractEvent_RightClickBlock wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public RightClickBlock getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public Compat_Vec3d Compat_getHitVec() {
-		return new Compat_Vec3d(original.getHitVec());
+		return new Compat_Vec3d(wrapper.getHitVecSuper());
 	}
 }

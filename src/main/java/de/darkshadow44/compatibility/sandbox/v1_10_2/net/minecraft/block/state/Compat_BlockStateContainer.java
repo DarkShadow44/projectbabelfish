@@ -15,8 +15,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 
 public class Compat_BlockStateContainer {
-	private BlockStateContainer original;
-	private CompatI_BlockStateContainer thisReal;
+	private CompatI_BlockStateContainer wrapper;
 
 	// When called from Mod
 	public Compat_BlockStateContainer(Compat_Block block, Compat_IProperty<?>[] properties) {
@@ -24,7 +23,7 @@ public class Compat_BlockStateContainer {
 		for (int i = 0; i < properties.length; i++) {
 			propertiesConverted[i] = properties[i].getReal();
 		}
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockStateContainer.class, this, block.getReal(), propertiesConverted), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockStateContainer.class, this, block.getReal(), propertiesConverted));
 	}
 
 	// When called from child
@@ -33,28 +32,23 @@ public class Compat_BlockStateContainer {
 
 	// When called from Minecraft
 	public Compat_BlockStateContainer(BlockStateContainer original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockStateContainer.class, original));
 	}
 
-	protected void initialize(CompatI_BlockStateContainer thisReal, BlockStateContainer original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockStateContainer wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public BlockStateContainer getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public ImmutableList<Compat_IBlockState> Compat_func_177619_a() {
-		ImmutableList<IBlockState> states;
-		if (original == null)
-			states = thisReal.getValidStatesSuper();
-		else
-			states = original.getValidStates();
+		ImmutableList<IBlockState> result = wrapper.getValidStatesSuper();
 
 		List<Compat_IBlockState> ret = new ArrayList<>();
 
-		for (IBlockState state : states) {
+		for (IBlockState state : result) {
 			ret.add(new Wrapper_IBlockState(state));
 		}
 
@@ -62,11 +56,7 @@ public class Compat_BlockStateContainer {
 	}
 
 	public Compat_IBlockState Compat_func_177621_b() {
-		IBlockState state;
-		if (original == null)
-			state = thisReal.getBaseStateSuper();
-		else
-			state = original.getBaseState();
-		return Compat_IBlockState.getFake(state);
+		IBlockState result = wrapper.getBaseStateSuper();
+		return Compat_IBlockState.getFake(result);
 	}
 }

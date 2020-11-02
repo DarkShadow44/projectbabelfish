@@ -8,12 +8,11 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 
 public class Compat_CreativeTabs {
-	private CreativeTabs original;
-	private CompatI_CreativeTabs thisReal;
+	private CompatI_CreativeTabs wrapper;
 
 	// When called from Mod
 	public Compat_CreativeTabs(String label) {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_CreativeTabs.class, this, label), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_CreativeTabs.class, this, label));
 	}
 
 	// When called from child
@@ -22,16 +21,15 @@ public class Compat_CreativeTabs {
 
 	// When called from Minecraft
 	public Compat_CreativeTabs(CreativeTabs original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_CreativeTabs.class, original));
 	}
 
-	protected void initialize(CompatI_CreativeTabs thisReal, CreativeTabs original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_CreativeTabs wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public CreativeTabs getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public ItemStack getTabIconItem() {

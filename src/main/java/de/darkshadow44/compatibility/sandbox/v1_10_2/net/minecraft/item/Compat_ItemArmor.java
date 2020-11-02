@@ -7,13 +7,12 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.inventory.Com
 import net.minecraft.item.ItemArmor;
 
 public class Compat_ItemArmor extends Compat_Item {
-	private ItemArmor original;
-	private CompatI_ItemArmor thisReal;
+	private CompatI_ItemArmor wrapper;
 
 	// When called from Mod
 	public Compat_ItemArmor(Compat_ItemArmor_ArmorMaterial material, int renderIndex, Compat_EntityEquipmentSlot slot) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemArmor.class, this, material.getReal(), renderIndex, slot.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemArmor.class, this, material.getReal(), renderIndex, slot.getReal()));
 	}
 
 	// When called from child
@@ -24,16 +23,15 @@ public class Compat_ItemArmor extends Compat_Item {
 	// When called from Minecraft
 	public Compat_ItemArmor(ItemArmor original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ItemArmor.class, original));
 	}
 
-	protected void initialize(CompatI_ItemArmor thisReal, ItemArmor original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ItemArmor wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public ItemArmor getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

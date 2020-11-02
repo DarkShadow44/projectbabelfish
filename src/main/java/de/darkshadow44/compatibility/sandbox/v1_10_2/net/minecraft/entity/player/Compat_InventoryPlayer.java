@@ -6,12 +6,11 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.entity.player.InventoryPlayer;
 
 public class Compat_InventoryPlayer {
-	private InventoryPlayer original;
-	private CompatI_InventoryPlayer thisReal;
+	private CompatI_InventoryPlayer wrapper;
 
 	// When called from Mod
 	public Compat_InventoryPlayer() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_InventoryPlayer.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_InventoryPlayer.class, this));
 	}
 
 	// When called from child
@@ -20,15 +19,14 @@ public class Compat_InventoryPlayer {
 
 	// When called from Minecraft
 	public Compat_InventoryPlayer(InventoryPlayer original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_InventoryPlayer.class, original));
 	}
 
-	protected void initialize(CompatI_InventoryPlayer thisReal, InventoryPlayer original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_InventoryPlayer wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public InventoryPlayer getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

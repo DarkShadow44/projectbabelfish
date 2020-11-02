@@ -9,12 +9,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 
 public class Compat_SPacketUpdateTileEntity {
-	private SPacketUpdateTileEntity original;
-	private CompatI_SPacketUpdateTileEntity thisReal;
+	private CompatI_SPacketUpdateTileEntity wrapper;
 
 	// When called from Mod
 	public Compat_SPacketUpdateTileEntity(Compat_BlockPos pos, int p1, Compat_NBTTagCompound tag) {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_SPacketUpdateTileEntity.class, this, pos.getReal(), p1, tag.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_SPacketUpdateTileEntity.class, this, pos.getReal(), p1, tag.getReal()));
 	}
 
 	// When called from child
@@ -23,24 +22,19 @@ public class Compat_SPacketUpdateTileEntity {
 
 	// When called from Minecraft
 	public Compat_SPacketUpdateTileEntity(SPacketUpdateTileEntity original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_SPacketUpdateTileEntity.class, original));
 	}
 
-	protected void initialize(CompatI_SPacketUpdateTileEntity thisReal, SPacketUpdateTileEntity original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_SPacketUpdateTileEntity wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public SPacketUpdateTileEntity getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public Compat_NBTTagCompound Compat_func_148857_g() {
-		NBTTagCompound result;
-		if (original == null)
-			result = thisReal.getNbtCompoundSuper();
-		else
-			result = original.getNbtCompound();
+		NBTTagCompound result = wrapper.getNbtCompoundSuper();
 		return new Compat_NBTTagCompound(result);
 	}
 }

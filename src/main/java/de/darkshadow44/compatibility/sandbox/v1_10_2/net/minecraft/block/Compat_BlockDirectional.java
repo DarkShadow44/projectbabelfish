@@ -8,15 +8,14 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.propert
 import net.minecraft.block.BlockDirectional;
 
 public class Compat_BlockDirectional extends Compat_Block {
-	private BlockDirectional original;
-	private CompatI_BlockDirectional thisReal;
+	private CompatI_BlockDirectional wrapper;
 
 	private static final Compat_PropertyDirection FACING = new Compat_PropertyDirection(BlockDirectional.FACING);
 
 	// When called from Mod
 	public Compat_BlockDirectional(Compat_Material material) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockDirectional.class, this, material.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockDirectional.class, this, material.getReal()));
 
 		workaround_init();
 	}
@@ -29,17 +28,16 @@ public class Compat_BlockDirectional extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockDirectional(BlockDirectional original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockDirectional.class, original));
 	}
 
-	protected void initialize(CompatI_BlockDirectional thisReal, BlockDirectional original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockDirectional wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public BlockDirectional getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public static Compat_PropertyDirection Compat_get_field_176387_N() {

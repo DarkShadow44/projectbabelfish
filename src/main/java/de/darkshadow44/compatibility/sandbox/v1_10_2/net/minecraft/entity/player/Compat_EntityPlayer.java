@@ -11,13 +11,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 
 public class Compat_EntityPlayer extends Compat_EntityLivingBase {
-	private EntityPlayer original;
-	private CompatI_EntityPlayer thisReal;
+	private CompatI_EntityPlayer wrapper;
 
 	// When called from Mod
 	public Compat_EntityPlayer() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityPlayer.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityPlayer.class, this));
 	}
 
 	// When called from child
@@ -28,24 +27,20 @@ public class Compat_EntityPlayer extends Compat_EntityLivingBase {
 	// When called from Minecraft
 	public Compat_EntityPlayer(EntityPlayer original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityPlayer.class, original));
 	}
 
-	protected void initialize(CompatI_EntityPlayer thisReal, EntityPlayer original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityPlayer wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public EntityPlayer getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public boolean Compat_func_175151_a(Compat_BlockPos pos, Compat_EnumFacing facing, Compat_ItemStack stack) {
-		if (original == null)
-			return thisReal.canPlayerEditSuper(pos.getReal(), facing.getReal(), stack.getReal());
-		else
-			return original.canPlayerEdit(pos.getReal(), facing.getReal(), stack.getReal());
+		return wrapper.canPlayerEditSuper(pos.getReal(), facing.getReal(), stack.getReal());
 	}
 
 	public static Compat_EntityPlayer get_fake(EntityPlayer real) {
@@ -57,9 +52,6 @@ public class Compat_EntityPlayer extends Compat_EntityLivingBase {
 	}
 
 	public boolean Compat_func_184812_l_() {
-		if (original == null)
-			return thisReal.isCreativeSuper();
-		else
-			return original.isCreative();
+		return wrapper.isCreativeSuper();
 	}
 }

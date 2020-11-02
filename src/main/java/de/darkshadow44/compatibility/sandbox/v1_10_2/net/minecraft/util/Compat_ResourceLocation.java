@@ -6,17 +6,16 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.util.ResourceLocation;
 
 public class Compat_ResourceLocation implements Comparable<Compat_ResourceLocation> {
-	private ResourceLocation original;
-	private CompatI_ResourceLocation thisReal;
+	private CompatI_ResourceLocation wrapper;
 
 	// When called from Mod
 	public Compat_ResourceLocation(String p1, String p2) {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ResourceLocation.class, this, p1, p2), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ResourceLocation.class, this, p1, p2));
 	}
 
 	// When called from Mod
 	public Compat_ResourceLocation(String p1) {
-		this.initialize(Factory.create(CtorPos.POS2, CompatI_ResourceLocation.class, this, p1), null);
+		this.initialize(Factory.create(CtorPos.POS2, CompatI_ResourceLocation.class, this, p1));
 	}
 
 	// When called from child
@@ -25,16 +24,15 @@ public class Compat_ResourceLocation implements Comparable<Compat_ResourceLocati
 
 	// When called from Minecraft
 	public Compat_ResourceLocation(ResourceLocation original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ResourceLocation.class, original));
 	}
 
-	protected void initialize(CompatI_ResourceLocation thisReal, ResourceLocation original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ResourceLocation wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public ResourceLocation getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public boolean Compat_equals(Object other) {
@@ -46,46 +44,28 @@ public class Compat_ResourceLocation implements Comparable<Compat_ResourceLocati
 		if (other instanceof Compat_ResourceLocation) {
 			other = ((Compat_ResourceLocation) other).getReal();
 		}
-		if (original == null)
-			return thisReal.equalsSuper(other);
-		else
-			return original.equals(other);
+		return wrapper.equalsSuper(other);
 	}
 
 	@Override
 	public int hashCode() {
-		if (original == null)
-			return thisReal.hashCodeSuper();
-		else
-			return original.hashCode();
+		return wrapper.hashCodeSuper();
 	}
 
 	@Override
 	public int compareTo(Compat_ResourceLocation other) {
-		if (original == null)
-			return thisReal.compareToSuper(other.getReal());
-		else
-			return original.compareTo(other.getReal());
+		return wrapper.compareToSuper(other.getReal());
 	}
 
 	public String Compat_func_110624_b() {
-		if (original == null)
-			return thisReal.getResourceDomainSuper();
-		else
-			return original.getResourceDomain();
+		return wrapper.getResourceDomainSuper();
 	}
 
 	public String Compat_func_110623_a() {
-		if (original == null)
-			return thisReal.getResourcePathSuper();
-		else
-			return original.getResourcePath();
+		return wrapper.getResourcePathSuper();
 	}
 
 	public String Compat_toString() {
-		if (original == null)
-			return thisReal.toStringSuper();
-		else
-			return original.toString();
+		return wrapper.toStringSuper();
 	}
 }
