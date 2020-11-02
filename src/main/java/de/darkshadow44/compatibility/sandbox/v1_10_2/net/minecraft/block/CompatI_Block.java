@@ -6,6 +6,8 @@ import de.darkshadow44.compatibility.autogen.Interface;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.registry.CompatI_IForgeRegistryEntry_Impl;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -60,4 +62,26 @@ public interface CompatI_Block extends CompatI_IForgeRegistryEntry_Impl<Block> {
 	public void addCollisionBoxToListSuper(IBlockState state, World world, BlockPos pos, AxisAlignedBB bbEntity, List<AxisAlignedBB> boxes, Entity entity, boolean b);
 
 	public boolean canRenderInLayerSuper(IBlockState state, BlockRenderLayer layer);
+
+	public Block setTickRandomlySuper(boolean shouldTick);
+
+	public Block setSoundTypeSuper(SoundType sound);
+
+	public Block disableStatsSuper();
+
+	public Block setLightOpacitySuper(int opacity);
+
+	public Block setBlockUnbreakableSuper();
+
+	public Block setResistanceSuper(float resistance);
+
+	public Block setLightLevelSuper(float value);
+
+	public void setDefaultSlipperinessSuper(float value);
+
+	public Material getMaterialSuper(IBlockState state);
+
+	public SoundType getSoundTypeSuper();
+
+	public String getUnlocalizedNameSuper();
 }

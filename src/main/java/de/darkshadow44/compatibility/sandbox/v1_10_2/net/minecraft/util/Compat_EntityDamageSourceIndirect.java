@@ -3,7 +3,7 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util;
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
-import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.entity.Compat_Entity;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.entity.Compat_Entity;
 import net.minecraft.util.EntityDamageSourceIndirect;
 
 public class Compat_EntityDamageSourceIndirect extends Compat_EntityDamageSource {

@@ -3,8 +3,8 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fluids;
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
-import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_Block;
-import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.material.Compat_Material;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.Compat_Block;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.material.Compat_Material;
 import net.minecraftforge.fluids.BlockFluidBase;
 
 public class Compat_BlockFluidBase extends Compat_Block {

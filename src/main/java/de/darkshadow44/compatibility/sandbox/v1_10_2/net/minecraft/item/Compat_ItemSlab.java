@@ -3,8 +3,8 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.item;
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
-import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_Block;
-import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_BlockSlab;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.Compat_Block;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.Compat_BlockSlab;
 import net.minecraft.item.ItemSlab;
 
 public class Compat_ItemSlab extends Compat_ItemBlock {

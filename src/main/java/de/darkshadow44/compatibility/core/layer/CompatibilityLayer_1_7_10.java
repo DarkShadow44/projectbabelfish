@@ -21,9 +21,9 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.cpw.mods.fml.common.Compat_
 import de.darkshadow44.compatibility.sandbox.v1_10_2.cpw.mods.fml.common.Compat_Mod_Instance;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.cpw.mods.fml.common.Compat_SidedProxy;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.cpw.mods.fml.common.event.Compat_FMLPreInitializationEvent;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.texture.Wrapper_IIconRegister;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.item.CompatI_Item;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.item.Compat_Item;
-import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.renderer.texture.Wrapper_IIconRegister;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.texture.TextureMap;

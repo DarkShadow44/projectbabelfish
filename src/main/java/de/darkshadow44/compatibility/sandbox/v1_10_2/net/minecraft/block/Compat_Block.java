@@ -28,8 +28,10 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Wrapper_IBlockAccess;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.registry.Compat_IForgeRegistryEntry_Impl;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
@@ -113,11 +115,13 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 
 	public Compat_Block Compat_func_149663_c(String name) {
 		wrapper.setUnlocalizedNameSuper(name);
+		// TODO 1.7.10: wrapper.setRegistryNameSuper(name);
 		return this;
 	}
 
-	public Compat_Block Compat_func_149647_a(Compat_CreativeTabs tabs) {
-		wrapper.setCreativeTabSuper(tabs.getReal());
+	public Compat_Block Compat_func_149647_a(Compat_CreativeTabs creativeTabs) {
+		CreativeTabs real = creativeTabs == null ? null : creativeTabs.getReal();
+		wrapper.setCreativeTabSuper(real);
 		return this;
 	}
 
@@ -284,6 +288,101 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	@HasCallback
 	public boolean Compat_canRenderInLayer(Compat_IBlockState state, Compat_BlockRenderLayer layer) {
 		return Compat_canRenderInLayer(layer);
+	}
+
+	public Compat_Block Compat_func_149675_a(boolean shouldTick) {
+		wrapper.setTickRandomlySuper(shouldTick);
+		return this;
+	}
+
+	public void Compat_func_149676_a(float minX, float minY, float minZ, float maxX, float maxY, float maxZ) {
+		// TODO: setBlockBounds
+	}
+
+	public static Compat_Block_SoundType Compat_get_field_149779_h() {
+		return new Compat_Block_SoundType(SoundType.PLANT);
+	}
+
+	public Compat_Block Compat_func_149672_a(Compat_Block_SoundType sound) {
+
+		wrapper.setSoundTypeSuper(sound.getReal());
+		return this;
+	}
+
+	public Compat_Block Compat_func_149649_H() {
+
+		wrapper.disableStatsSuper();
+		return this;
+	}
+
+	public Compat_Block Compat_func_149658_d(String name) {
+		// TODO
+		return this;
+	}
+
+	public static Compat_Block_SoundType Compat_get_field_149766_f() {
+		return new Compat_Block_SoundType(SoundType.WOOD);
+	}
+
+	public Compat_Block Compat_func_149713_g(int opacity) {
+
+		wrapper.setLightOpacitySuper(opacity);
+		return this;
+	}
+
+	public Compat_Block Compat_func_149722_s() {
+
+		wrapper.setBlockUnbreakableSuper();
+		return this;
+	}
+
+	public Compat_Block Compat_func_149752_b(float resistance) {
+
+		wrapper.setResistanceSuper(resistance);
+		return this;
+	}
+
+	public Compat_Block Compat_func_149715_a(float value) {
+
+		wrapper.setLightLevelSuper(value);
+		return this;
+	}
+
+	public static Compat_Block_SoundType Compat_get_field_149775_l() {
+		return new Compat_Block_SoundType(SoundType.CLOTH);
+	}
+
+	public static Compat_Block_SoundType Compat_get_field_149767_g() {
+		return new Compat_Block_SoundType(SoundType.GROUND);
+	}
+
+	public static Compat_Block_SoundType Compat_get_field_149777_j() {
+		return new Compat_Block_SoundType(SoundType.METAL);
+	}
+
+	public static Compat_Block_SoundType Compat_get_field_149769_e() {
+		return new Compat_Block_SoundType(SoundType.STONE);
+	}
+
+	public static Compat_Block_SoundType Compat_get_field_149773_n() {
+		return new Compat_Block_SoundType(SoundType.SNOW);
+	}
+
+	public static Compat_Block_SoundType Compat_get_field_149780_i() {
+		return new Compat_Block_SoundType(SoundType.WOOD); // TODO
+	}
+
+	public static Compat_Block_SoundType Compat_get_field_149778_k() {
+		return new Compat_Block_SoundType(SoundType.GLASS);
+	}
+
+	public void Compat_set_field_149765_K(float value) {
+
+		wrapper.setDefaultSlipperinessSuper(value);
+	}
+
+	public void Compat_set_field_149787_q(boolean opaque) {
+		// TODO opaque
 	}
 
 }

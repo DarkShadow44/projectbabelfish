@@ -3,8 +3,8 @@ package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.common.
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.entity.player.Compat_EntityPlayerMP;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_WorldServer;
-import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.entity.player.Compat_EntityPlayerMP;
 import net.minecraftforge.common.util.FakePlayer;
 
 public class Compat_FakePlayer extends Compat_EntityPlayerMP {
