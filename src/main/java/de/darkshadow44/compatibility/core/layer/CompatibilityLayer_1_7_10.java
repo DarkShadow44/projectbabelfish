@@ -88,7 +88,7 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 		for (Class<?> c : classes) {
 			Compat_Mod annotation = c.getAnnotation(Compat_Mod.class);
 			if (annotation != null) {
-				mods.add(new ModInfo(annotation.modid(), c.getName()));
+				mods.add(new ModInfo(annotation.modid(), c.getName(), annotation.dependencies()));
 			}
 		}
 		return mods;

@@ -66,7 +66,7 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 		for (Class<?> c : classes) {
 			Compat_Mod annotation = c.getAnnotation(Compat_Mod.class);
 			if (annotation != null) {
-				mods.add(new ModInfo(annotation.modid(), c.getName()));
+				mods.add(new ModInfo(annotation.modid(), c.getName(), annotation.dependencies()));
 			}
 		}
 		return mods;
@@ -80,9 +80,8 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 		List<Class<?>> modClasses = loader.loadAllMods(dir);
 		List<ModInfo> modInfos = findMods(modClasses);
 
-		// HACK TODO dependencies
-		// modInfos = Lists.reverse(modInfos);
-
+		ModSorter modSorter = new ModSorter(modInfos);
+		modInfos = modSorter.sortMods();
 		mods.addAll(modInfos);
 
 		// Construct mod objects
