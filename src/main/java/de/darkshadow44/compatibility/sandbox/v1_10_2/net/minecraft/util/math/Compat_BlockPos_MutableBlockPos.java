@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 
 public class Compat_BlockPos_MutableBlockPos extends Compat_BlockPos {
-	private MutableBlockPos original;
-	private CompatI_BlockPos_MutableBlockPos thisReal;
+	private CompatI_BlockPos_MutableBlockPos wrapper;
 
 	// When called from Mod
 	public Compat_BlockPos_MutableBlockPos() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockPos_MutableBlockPos.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockPos_MutableBlockPos.class, this));
 	}
 
 	// When called from child
@@ -23,23 +22,19 @@ public class Compat_BlockPos_MutableBlockPos extends Compat_BlockPos {
 	// When called from Minecraft
 	public Compat_BlockPos_MutableBlockPos(MutableBlockPos original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockPos_MutableBlockPos.class, original));
 	}
 
-	protected void initialize(CompatI_BlockPos_MutableBlockPos thisReal, MutableBlockPos original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockPos_MutableBlockPos wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public MutableBlockPos getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public Compat_BlockPos_MutableBlockPos Compat_func_181079_c(int p1, int p2, int p3) {
-		if (original == null)
-			return new Compat_BlockPos_MutableBlockPos(thisReal.setPosSuper(p1, p2, p3));
-		else
-			return new Compat_BlockPos_MutableBlockPos(original.setPos(p1, p2, p3));
+		return new Compat_BlockPos_MutableBlockPos(wrapper.setPosSuper(p1, p2, p3));
 	}
 }

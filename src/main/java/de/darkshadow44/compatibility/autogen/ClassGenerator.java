@@ -129,10 +129,13 @@ public class ClassGenerator {
 
 		method.instructions = new InsnList();
 
-		// this.thisFake = thisFake;
+		// this.original = original;
+		method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+		method.instructions.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, "java/lang/Object", "<init>", "()V", false));
 		method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
 		method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 1));
 		method.instructions.add(new FieldInsnNode(Opcodes.PUTFIELD, pathWrapper, "original", descMc));
+		method.instructions.add(new InsnNode(Opcodes.RETURN));
 
 		return method;
 	}
@@ -195,18 +198,27 @@ public class ClassGenerator {
 		method.instructions = new InsnList();
 
 		method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
-		generateLoadParams(method.instructions, params, 0);
-		String superDesc = "(" + makeParamDesc(params) + ")" + Type.getDescriptor(returnType);
+		if (isWrapper) {
+			method.instructions.add(new FieldInsnNode(Opcodes.GETFIELD, pathWrapper, "original", descMc));
+		}
 
+		generateLoadParams(method.instructions, params, 0);
+
+		String superDesc = "(" + makeParamDesc(params) + ")" + Type.getDescriptor(returnType);
 		String methodNameMc = methodName.substring(0, methodName.length() - "Super".length());
 
-		method.instructions.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, pathMc, methodNameMc, superDesc, false));
+		if (isWrapper) {
+			method.instructions.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, pathMc, methodNameMc, superDesc, false));
+		} else {
+			method.instructions.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, pathMc, methodNameMc, superDesc, false));
+		}
+
 		generateReturn(method.instructions, returnType);
 
 		return method;
 	}
 
-	private MethodNode generatePropertyGet(String methodName, Class<?> type) {
+	private MethodNode generatePropertyGet(String methodName, Class<?> type, boolean isWrapper) {
 		MethodNode method = new MethodNode();
 		method.name = methodName;
 		method.access = Opcodes.ACC_PUBLIC;
@@ -217,6 +229,9 @@ public class ClassGenerator {
 		method.instructions = new InsnList();
 
 		method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+		if (isWrapper) {
+			method.instructions.add(new FieldInsnNode(Opcodes.GETFIELD, pathWrapper, "original", descMc));
+		}
 
 		String name = methodName.substring("get_".length());
 		String desc = Type.getDescriptor(type);
@@ -227,7 +242,7 @@ public class ClassGenerator {
 		return method;
 	}
 
-	private MethodNode generatePropertySet(String mcPath, String methodName, Class<?> type) {
+	private MethodNode generatePropertySet(String mcPath, String methodName, Class<?> type, boolean isWrapper) {
 		MethodNode method = new MethodNode();
 		method.name = methodName;
 		method.access = Opcodes.ACC_PUBLIC;
@@ -237,12 +252,13 @@ public class ClassGenerator {
 
 		method.instructions = new InsnList();
 
-		method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
-
 		String name = methodName.substring("set_".length());
 		String desc = Type.getDescriptor(type);
 
 		method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+		if (isWrapper) {
+			method.instructions.add(new FieldInsnNode(Opcodes.GETFIELD, pathWrapper, "original", descMc));
+		}
 		int opcode = Type.getType(type).getOpcode(Opcodes.ILOAD);
 		method.instructions.add(new VarInsnNode(opcode, 1));
 
@@ -292,16 +308,19 @@ public class ClassGenerator {
 				continue;
 			}
 			if (method.getName().equals("getFake")) {
+				if (isWrapper) {
+					continue;
+				}
 				methods.add(generateGetFake(method.getReturnType()));
 				continue;
 			}
 			if (method.getName().startsWith("get_")) {
-				MethodNode methodCreated = generatePropertyGet(method.getName(), method.getReturnType());
+				MethodNode methodCreated = generatePropertyGet(method.getName(), method.getReturnType(), isWrapper);
 				methods.add(methodCreated);
 				continue;
 			}
 			if (method.getName().startsWith("set_")) {
-				MethodNode methodCreated = generatePropertySet(pathMc, method.getName(), method.getParameters()[0].getType());
+				MethodNode methodCreated = generatePropertySet(pathMc, method.getName(), method.getParameters()[0].getType(), isWrapper);
 				methods.add(methodCreated);
 				continue;
 			}
@@ -374,13 +393,12 @@ public class ClassGenerator {
 		}
 	}
 
-	private void generateClassWrapper(Class<?> classIface, String path, String ifaceName) throws Exception {
-		Method methodGet = classIface.getMethod("get");
-		Class<?> classMc = methodGet.getReturnType();
-
+	private void generateClassWrapper() throws Exception {
 		ClassNode classNode = new ClassNode();
 		classNode.access = Opcodes.ACC_PUBLIC;
+		classNode.interfaces.add(pathIface);
 		classNode.name = pathWrapper;
+		classNode.superName = "java/lang/Object";
 		classNode.version = 52;
 
 		classNode.fields.add(new FieldNode(Opcodes.ACC_PRIVATE, "original", descMc, null, null));
@@ -461,7 +479,7 @@ public class ClassGenerator {
 			if (clazz.isInterface() && className.startsWith("CompatI_")) {
 				ClassGenerator generator = new ClassGenerator(clazz, classFullName);
 				generator.generateClass();
-				// generateClassWrapper(clazz, classPath, className);
+				generator.generateClassWrapper();
 			}
 		}
 	}

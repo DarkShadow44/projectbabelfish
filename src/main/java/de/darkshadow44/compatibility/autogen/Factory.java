@@ -104,4 +104,23 @@ public class Factory {
 			throw new RuntimeException(e);
 		}
 	}
+
+	@SuppressWarnings("unchecked")
+	public static <T> T createWrapper(Class<?> classIface, Object param) {
+		if (!classIface.getName().contains(".CompatI_")) {
+			throw new RuntimeException("Not an interface: " + classIface.getName());
+		}
+		String targetName = classIface.getName().replace("CompatI_", "CompatWrapper_");
+
+		try {
+			Class<?> classReal = Class.forName(targetName, true, CompatibilityMod.classLoader);
+			Constructor<?> constructor = findConstructor(classReal, new Object[] { param });
+			if (constructor == null) {
+				throw new RuntimeException("Can't find constructor! desc: " + param);
+			}
+			return (T) constructor.newInstance(param);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 }

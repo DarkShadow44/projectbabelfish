@@ -7,13 +7,12 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_E
 import net.minecraft.util.math.BlockPos;
 
 public class Compat_BlockPos extends Compat_Vec3i {
-	private BlockPos original;
-	private CompatI_BlockPos thisReal;
+	private CompatI_BlockPos wrapper;
 
 	// When called from Mod
 	public Compat_BlockPos(int x, int y, int z) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockPos.class, this, x, y, z), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockPos.class, this, x, y, z));
 	}
 
 	// When called from child
@@ -24,24 +23,20 @@ public class Compat_BlockPos extends Compat_Vec3i {
 	// When called from Minecraft
 	public Compat_BlockPos(BlockPos original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockPos.class, original));
 	}
 
-	protected void initialize(CompatI_BlockPos thisReal, BlockPos original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockPos wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	public BlockPos getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public Compat_BlockPos Compat_func_177972_a(Compat_EnumFacing facing) {
-		if (original == null)
-			return new Compat_BlockPos(thisReal.offsetSuper(facing.getReal()));
-		else
-			return new Compat_BlockPos(original.offset(facing.getReal()));
+		return new Compat_BlockPos(wrapper.offsetSuper(facing.getReal()));
 	}
 
 	public static Compat_BlockPos Compat_get_field_177992_a() {
@@ -49,18 +44,11 @@ public class Compat_BlockPos extends Compat_Vec3i {
 	}
 
 	public Compat_BlockPos Compat_func_177971_a(Compat_Vec3i vec) {
-		BlockPos result;
-		if (original == null)
-			result = thisReal.addSuper(vec.getReal());
-		else
-			result = original.add(vec.getReal());
+		BlockPos result = wrapper.addSuper(vec.getReal());
 		return new Compat_BlockPos(result);
 	}
 
 	public double Compat_func_177951_i(Compat_Vec3i vec) {
-		if (original == null)
-			return thisReal.distanceSqSuper(vec.getReal());
-		else
-			return original.distanceSq(vec.getReal());
+		return wrapper.distanceSqSuper(vec.getReal());
 	}
 }

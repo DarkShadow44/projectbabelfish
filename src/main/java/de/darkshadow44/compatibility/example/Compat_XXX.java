@@ -5,12 +5,11 @@ import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 
 public class Compat_XXX {
-	private XXX original;
-	private CompatI_XXX thisReal;
+	private CompatI_XXX wrapper;
 
 	// When called from Mod
 	public Compat_XXX() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_XXX.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_XXX.class, this));
 	}
 
 	// When called from child
@@ -19,15 +18,14 @@ public class Compat_XXX {
 
 	// When called from Minecraft
 	public Compat_XXX(XXX original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_XXX.class, original));
 	}
 
-	protected void initialize(CompatI_XXX thisReal, XXX original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_XXX wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public XXX getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

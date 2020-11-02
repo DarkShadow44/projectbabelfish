@@ -6,12 +6,11 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.util.math.Vec3i;
 
 public class Compat_Vec3i implements Comparable<Compat_Vec3i> {
-	private Vec3i original;
-	private CompatI_Vec3i thisReal;
+	private CompatI_Vec3i wrapper;
 
 	// When called from Mod
 	public Compat_Vec3i() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_Vec3i.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Vec3i.class, this));
 	}
 
 	// When called from child
@@ -20,16 +19,15 @@ public class Compat_Vec3i implements Comparable<Compat_Vec3i> {
 
 	// When called from Minecraft
 	public Compat_Vec3i(Vec3i original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_Vec3i.class, original));
 	}
 
-	protected void initialize(CompatI_Vec3i thisReal, Vec3i original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_Vec3i wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public Vec3i getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	@Override
@@ -37,46 +35,28 @@ public class Compat_Vec3i implements Comparable<Compat_Vec3i> {
 		if (other instanceof Compat_Vec3i) {
 			other = ((Compat_Vec3i) other).getReal();
 		}
-		if (original == null)
-			return thisReal.equalsSuper(other);
-		else
-			return original.equals(other);
+		return wrapper.equalsSuper(other);
 	}
 
 	@Override
 	public int hashCode() {
-		if (original == null)
-			return thisReal.hashCodeSuper();
-		else
-			return original.hashCode();
+		return wrapper.hashCodeSuper();
 	}
 
 	@Override
 	public int compareTo(Compat_Vec3i other) {
-		if (original == null)
-			return thisReal.compareToSuper(other.getReal());
-		else
-			return original.compareTo(other.getReal());
+		return wrapper.compareToSuper(other.getReal());
 	}
 
 	public int Compat_func_177958_n() {
-		if (original == null)
-			return thisReal.getXSuper();
-		else
-			return original.getX();
+		return wrapper.getXSuper();
 	}
 
 	public int Compat_func_177956_o() {
-		if (original == null)
-			return thisReal.getYSuper();
-		else
-			return original.getY();
+		return wrapper.getYSuper();
 	}
 
 	public int Compat_func_177952_p() {
-		if (original == null)
-			return thisReal.getZSuper();
-		else
-			return original.getZ();
+		return wrapper.getZSuper();
 	}
 }
