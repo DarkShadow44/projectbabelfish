@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.entity.ai.EntityAIWander;
 
 public class Compat_EntityAIWander extends Compat_EntityAIBase {
-	private EntityAIWander original;
-	private CompatI_EntityAIWander thisReal;
+	private CompatI_EntityAIWander wrapper;
 
 	// When called from Mod
 	public Compat_EntityAIWander() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityAIWander.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityAIWander.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_EntityAIWander extends Compat_EntityAIBase {
 	// When called from Minecraft
 	public Compat_EntityAIWander(EntityAIWander original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityAIWander.class, original));
 	}
 
-	protected void initialize(CompatI_EntityAIWander thisReal, EntityAIWander original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityAIWander wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityAIWander getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

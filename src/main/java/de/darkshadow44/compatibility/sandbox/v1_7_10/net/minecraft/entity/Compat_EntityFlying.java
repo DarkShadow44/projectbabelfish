@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.entity.EntityFlying;
 
 public class Compat_EntityFlying extends Compat_EntityLiving {
-	private EntityFlying original;
-	private CompatI_EntityFlying thisReal;
+	private CompatI_EntityFlying wrapper;
 
 	// When called from Mod
 	public Compat_EntityFlying() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityFlying.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityFlying.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_EntityFlying extends Compat_EntityLiving {
 	// When called from Minecraft
 	public Compat_EntityFlying(EntityFlying original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityFlying.class, original));
 	}
 
-	protected void initialize(CompatI_EntityFlying thisReal, EntityFlying original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityFlying wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityFlying getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

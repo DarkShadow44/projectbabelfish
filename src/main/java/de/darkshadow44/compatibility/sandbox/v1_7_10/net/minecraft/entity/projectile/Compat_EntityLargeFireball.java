@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.entity.projectile.EntityLargeFireball;
 
 public class Compat_EntityLargeFireball extends Compat_EntityFireball {
-	private EntityLargeFireball original;
-	private CompatI_EntityLargeFireball thisReal;
+	private CompatI_EntityLargeFireball wrapper;
 
 	// When called from Mod
 	public Compat_EntityLargeFireball() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityLargeFireball.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityLargeFireball.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_EntityLargeFireball extends Compat_EntityFireball {
 	// When called from Minecraft
 	public Compat_EntityLargeFireball(EntityLargeFireball original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityLargeFireball.class, original));
 	}
 
-	protected void initialize(CompatI_EntityLargeFireball thisReal, EntityLargeFireball original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityLargeFireball wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityLargeFireball getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

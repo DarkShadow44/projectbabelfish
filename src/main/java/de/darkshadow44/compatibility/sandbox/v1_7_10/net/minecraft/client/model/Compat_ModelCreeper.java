@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.client.model.ModelCreeper;
 
 public class Compat_ModelCreeper extends Compat_ModelBase {
-	private ModelCreeper original;
-	private CompatI_ModelCreeper thisReal;
+	private CompatI_ModelCreeper wrapper;
 
 	// When called from Mod
 	public Compat_ModelCreeper() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ModelCreeper.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ModelCreeper.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_ModelCreeper extends Compat_ModelBase {
 	// When called from Minecraft
 	public Compat_ModelCreeper(ModelCreeper original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ModelCreeper.class, original));
 	}
 
-	protected void initialize(CompatI_ModelCreeper thisReal, ModelCreeper original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ModelCreeper wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public ModelCreeper getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

@@ -7,13 +7,12 @@ import net.minecraft.client.renderer.entity.RenderBat;
 import net.minecraft.entity.passive.EntityBat;
 
 public class Compat_RenderBat extends Compat_RenderLiving<EntityBat> {
-	private RenderBat original;
-	private CompatI_RenderBat thisReal;
+	private CompatI_RenderBat wrapper;
 
 	// When called from Mod
 	public Compat_RenderBat(Compat_RenderManager renderManager) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_RenderBat.class, this, renderManager.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_RenderBat.class, this, renderManager.getReal()));
 	}
 
 	// When called from child
@@ -24,16 +23,14 @@ public class Compat_RenderBat extends Compat_RenderLiving<EntityBat> {
 	// When called from Minecraft
 	public Compat_RenderBat(RenderBat original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_RenderBat.class, original));
 	}
 
-	protected void initialize(CompatI_RenderBat thisReal, RenderBat original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_RenderBat wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public RenderBat getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

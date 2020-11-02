@@ -10,8 +10,7 @@ import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.texture.TextureManager;
 
 public class Compat_RenderItem {
-	private RenderItem original;
-	private CompatI_RenderItem thisReal;
+	private CompatI_RenderItem wrapper;
 
 	// When called from Mod
 	public Compat_RenderItem() {
@@ -27,7 +26,7 @@ public class Compat_RenderItem {
 		TextureManager textureManager = Minecraft.getMinecraft().getTextureManager();
 		ModelManager modelManager = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager();
 		ItemColors itemColors = new ItemColors();
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_RenderItem.class, this, textureManager, modelManager, itemColors), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_RenderItem.class, this, textureManager, modelManager, itemColors));
 	}
 
 	// When called from child
@@ -36,15 +35,14 @@ public class Compat_RenderItem {
 
 	// When called from Minecraft
 	public Compat_RenderItem(RenderItem original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_RenderItem.class, original));
 	}
 
-	protected void initialize(CompatI_RenderItem thisReal, RenderItem original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_RenderItem wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public RenderItem getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

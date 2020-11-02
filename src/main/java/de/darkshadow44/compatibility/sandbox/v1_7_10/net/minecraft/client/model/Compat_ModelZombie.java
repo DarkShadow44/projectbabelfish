@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.client.model.ModelZombie;
 
 public class Compat_ModelZombie extends Compat_ModelBiped {
-	private ModelZombie original;
-	private CompatI_ModelZombie thisReal;
+	private CompatI_ModelZombie wrapper;
 
 	// When called from Mod
 	public Compat_ModelZombie() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ModelZombie.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ModelZombie.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_ModelZombie extends Compat_ModelBiped {
 	// When called from Minecraft
 	public Compat_ModelZombie(ModelZombie original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ModelZombie.class, original));
 	}
 
-	protected void initialize(CompatI_ModelZombie thisReal, ModelZombie original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ModelZombie wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public ModelZombie getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

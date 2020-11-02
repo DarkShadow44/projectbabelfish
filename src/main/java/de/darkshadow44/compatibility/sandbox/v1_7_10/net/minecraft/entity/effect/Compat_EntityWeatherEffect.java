@@ -7,13 +7,12 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.entity.Compat
 import net.minecraft.entity.effect.EntityWeatherEffect;
 
 public class Compat_EntityWeatherEffect extends Compat_Entity {
-	private EntityWeatherEffect original;
-	private CompatI_EntityWeatherEffect thisReal;
+	private CompatI_EntityWeatherEffect wrapper;
 
 	// When called from Mod
 	public Compat_EntityWeatherEffect() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityWeatherEffect.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityWeatherEffect.class, this));
 	}
 
 	// When called from child
@@ -24,16 +23,14 @@ public class Compat_EntityWeatherEffect extends Compat_Entity {
 	// When called from Minecraft
 	public Compat_EntityWeatherEffect(EntityWeatherEffect original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityWeatherEffect.class, original));
 	}
 
-	protected void initialize(CompatI_EntityWeatherEffect thisReal, EntityWeatherEffect original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityWeatherEffect wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityWeatherEffect getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

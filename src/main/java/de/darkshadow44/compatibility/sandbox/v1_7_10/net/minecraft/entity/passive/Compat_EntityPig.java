@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.entity.passive.EntityPig;
 
 public class Compat_EntityPig extends Compat_EntityAnimal {
-	private EntityPig original;
-	private CompatI_EntityPig thisReal;
+	private CompatI_EntityPig wrapper;
 
 	// When called from Mod
 	public Compat_EntityPig() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityPig.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityPig.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_EntityPig extends Compat_EntityAnimal {
 	// When called from Minecraft
 	public Compat_EntityPig(EntityPig original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityPig.class, original));
 	}
 
-	protected void initialize(CompatI_EntityPig thisReal, EntityPig original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityPig wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityPig getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

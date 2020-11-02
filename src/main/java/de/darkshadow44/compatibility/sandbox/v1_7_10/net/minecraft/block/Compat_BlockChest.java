@@ -7,13 +7,12 @@ import net.minecraft.block.BlockChest;
 import net.minecraft.block.BlockChest.Type;
 
 public class Compat_BlockChest extends Compat_Block {
-	private BlockChest original;
-	private CompatI_BlockChest thisReal;
+	private CompatI_BlockChest wrapper;
 
 	// When called from Mod
 	public Compat_BlockChest(int p1) { // TODO
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockChest.class, this, Type.BASIC), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockChest.class, this, Type.BASIC));
 	}
 
 	// When called from child
@@ -24,16 +23,14 @@ public class Compat_BlockChest extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockChest(BlockChest original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockChest.class, original));
 	}
 
-	protected void initialize(CompatI_BlockChest thisReal, BlockChest original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockChest wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public BlockChest getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

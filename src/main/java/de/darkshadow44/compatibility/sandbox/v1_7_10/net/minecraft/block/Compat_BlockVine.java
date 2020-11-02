@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.block.BlockVine;
 
 public class Compat_BlockVine extends Compat_Block {
-	private BlockVine original;
-	private CompatI_BlockVine thisReal;
+	private CompatI_BlockVine wrapper;
 
 	// When called from Mod
 	public Compat_BlockVine() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockVine.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockVine.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_BlockVine extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockVine(BlockVine original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockVine.class, original));
 	}
 
-	protected void initialize(CompatI_BlockVine thisReal, BlockVine original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockVine wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public BlockVine getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

@@ -7,13 +7,12 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.world.Compat_
 import net.minecraft.entity.passive.AbstractHorse;
 
 public class Compat_AbstractHorse extends Compat_EntityAnimal {
-	private AbstractHorse original;
-	private CompatI_AbstractHorse thisReal;
+	private CompatI_AbstractHorse wrapper;
 
 	// When called from Mod
 	public Compat_AbstractHorse(Compat_World world) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_AbstractHorse.class, this, world.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_AbstractHorse.class, this, world.getReal()));
 	}
 
 	// When called from child
@@ -24,16 +23,14 @@ public class Compat_AbstractHorse extends Compat_EntityAnimal {
 	// When called from Minecraft
 	public Compat_AbstractHorse(AbstractHorse original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_AbstractHorse.class, original));
 	}
 
-	protected void initialize(CompatI_AbstractHorse thisReal, AbstractHorse original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_AbstractHorse wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public AbstractHorse getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

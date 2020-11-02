@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
 
 public class Compat_EntityAIMoveTowardsRestriction extends Compat_EntityAIBase {
-	private EntityAIMoveTowardsRestriction original;
-	private CompatI_EntityAIMoveTowardsRestriction thisReal;
+	private CompatI_EntityAIMoveTowardsRestriction wrapper;
 
 	// When called from Mod
 	public Compat_EntityAIMoveTowardsRestriction() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityAIMoveTowardsRestriction.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityAIMoveTowardsRestriction.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_EntityAIMoveTowardsRestriction extends Compat_EntityAIBase {
 	// When called from Minecraft
 	public Compat_EntityAIMoveTowardsRestriction(EntityAIMoveTowardsRestriction original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityAIMoveTowardsRestriction.class, original));
 	}
 
-	protected void initialize(CompatI_EntityAIMoveTowardsRestriction thisReal, EntityAIMoveTowardsRestriction original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityAIMoveTowardsRestriction wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityAIMoveTowardsRestriction getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

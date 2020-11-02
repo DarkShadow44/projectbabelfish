@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.block.BlockGrass;
 
 public class Compat_BlockGrass extends Compat_Block {
-	private BlockGrass original;
-	private CompatI_BlockGrass thisReal;
+	private CompatI_BlockGrass wrapper;
 
 	// When called from Mod
 	public Compat_BlockGrass() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockGrass.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockGrass.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_BlockGrass extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockGrass(BlockGrass original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockGrass.class, original));
 	}
 
-	protected void initialize(CompatI_BlockGrass thisReal, BlockGrass original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockGrass wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public BlockGrass getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

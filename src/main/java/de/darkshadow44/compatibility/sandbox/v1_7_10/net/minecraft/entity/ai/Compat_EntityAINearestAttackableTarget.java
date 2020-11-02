@@ -7,13 +7,12 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 
 public class Compat_EntityAINearestAttackableTarget<T extends EntityLivingBase> extends Compat_EntityAITarget {
-	private EntityAINearestAttackableTarget<T> original;
-	private CompatI_EntityAINearestAttackableTarget<T> thisReal;
+	private CompatI_EntityAINearestAttackableTarget<T> wrapper;
 
 	// When called from Mod
 	public Compat_EntityAINearestAttackableTarget() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityAINearestAttackableTarget.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityAINearestAttackableTarget.class, this));
 	}
 
 	// When called from child
@@ -24,16 +23,14 @@ public class Compat_EntityAINearestAttackableTarget<T extends EntityLivingBase> 
 	// When called from Minecraft
 	public Compat_EntityAINearestAttackableTarget(EntityAINearestAttackableTarget<T> original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityAINearestAttackableTarget.class, original));
 	}
 
-	protected void initialize(CompatI_EntityAINearestAttackableTarget<T> thisReal, EntityAINearestAttackableTarget<T> original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityAINearestAttackableTarget<T> wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityAINearestAttackableTarget<T> getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

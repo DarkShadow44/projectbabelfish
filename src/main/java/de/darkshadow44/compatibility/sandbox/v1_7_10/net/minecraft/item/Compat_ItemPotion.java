@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.item.ItemPotion;
 
 public class Compat_ItemPotion extends Compat_Item {
-	private ItemPotion original;
-	private CompatI_ItemPotion thisReal;
+	private CompatI_ItemPotion wrapper;
 
 	// When called from Mod
 	public Compat_ItemPotion() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemPotion.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemPotion.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_ItemPotion extends Compat_Item {
 	// When called from Minecraft
 	public Compat_ItemPotion(ItemPotion original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ItemPotion.class, original));
 	}
 
-	protected void initialize(CompatI_ItemPotion thisReal, ItemPotion original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ItemPotion wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public ItemPotion getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

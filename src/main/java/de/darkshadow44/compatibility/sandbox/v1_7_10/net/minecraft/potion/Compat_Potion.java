@@ -6,12 +6,11 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.potion.Potion;
 
 public class Compat_Potion {
-	private Potion original;
-	private CompatI_Potion thisReal;
+	private CompatI_Potion wrapper;
 
 	// When called from Mod
 	public Compat_Potion(boolean isBadEffect, int color) {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_Potion.class, this, isBadEffect, color), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Potion.class, this, isBadEffect, color));
 	}
 
 	// When called from child
@@ -20,16 +19,15 @@ public class Compat_Potion {
 
 	// When called from Minecraft
 	public Compat_Potion(Potion original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_Potion.class, original));
 	}
 
-	protected void initialize(CompatI_Potion thisReal, Potion original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_Potion wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public Potion getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public static Compat_Potion[] Compat_get_field_76425_a() {
@@ -45,7 +43,7 @@ public class Compat_Potion {
 	}
 
 	public int Compat_get_field_76415_H() {
-		return Potion.getIdFromPotion(original);
+		return Potion.getIdFromPotion(wrapper.get());
 	}
 
 	public static Compat_Potion Compat_get_field_76424_c() {

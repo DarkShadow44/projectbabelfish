@@ -7,13 +7,12 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.materia
 import net.minecraft.block.BlockRotatedPillar;
 
 public class Compat_BlockRotatedPillar extends Compat_Block {
-	private BlockRotatedPillar original;
-	private CompatI_BlockRotatedPillar thisReal;
+	private CompatI_BlockRotatedPillar wrapper;
 
 	// When called from Mod
 	public Compat_BlockRotatedPillar(Compat_Material material) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockRotatedPillar.class, this, material.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockRotatedPillar.class, this, material.getReal()));
 	}
 
 	// When called from child
@@ -24,16 +23,14 @@ public class Compat_BlockRotatedPillar extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockRotatedPillar(BlockRotatedPillar original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockRotatedPillar.class, original));
 	}
 
-	protected void initialize(CompatI_BlockRotatedPillar thisReal, BlockRotatedPillar original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockRotatedPillar wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public BlockRotatedPillar getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

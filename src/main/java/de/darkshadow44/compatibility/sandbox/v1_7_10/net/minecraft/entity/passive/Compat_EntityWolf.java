@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.entity.passive.EntityWolf;
 
 public class Compat_EntityWolf extends Compat_EntityTameable {
-	private EntityWolf original;
-	private CompatI_EntityWolf thisReal;
+	private CompatI_EntityWolf wrapper;
 
 	// When called from Mod
 	public Compat_EntityWolf() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityWolf.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityWolf.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_EntityWolf extends Compat_EntityTameable {
 	// When called from Minecraft
 	public Compat_EntityWolf(EntityWolf original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityWolf.class, original));
 	}
 
-	protected void initialize(CompatI_EntityWolf thisReal, EntityWolf original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityWolf wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityWolf getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

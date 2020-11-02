@@ -7,12 +7,11 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.render
 import net.minecraft.client.renderer.entity.RenderManager;
 
 public class Compat_RenderManager {
-	private RenderManager original;
-	private CompatI_RenderManager thisReal;
+	private CompatI_RenderManager wrapper;
 
 	// When called from Mod
 	public Compat_RenderManager(Compat_TextureManager textureManager, Compat_RenderItem renderItem) {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_RenderManager.class, this, textureManager.getReal(), renderItem.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_RenderManager.class, this, textureManager.getReal(), renderItem.getReal()));
 	}
 
 	// When called from child
@@ -21,15 +20,14 @@ public class Compat_RenderManager {
 
 	// When called from Minecraft
 	public Compat_RenderManager(RenderManager original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_RenderManager.class, original));
 	}
 
-	protected void initialize(CompatI_RenderManager thisReal, RenderManager original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_RenderManager wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public RenderManager getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

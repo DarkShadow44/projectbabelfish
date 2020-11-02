@@ -6,12 +6,11 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.world.WorldProvider;
 
 public class Compat_WorldProvider {
-	private WorldProvider original;
-	private CompatI_WorldProvider thisReal;
+	private CompatI_WorldProvider wrapper;
 
 	// When called from Mod
 	public Compat_WorldProvider() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_WorldProvider.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_WorldProvider.class, this));
 	}
 
 	// When called from child
@@ -20,15 +19,14 @@ public class Compat_WorldProvider {
 
 	// When called from Minecraft
 	public Compat_WorldProvider(WorldProvider original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_WorldProvider.class, original));
 	}
 
-	protected void initialize(CompatI_WorldProvider thisReal, WorldProvider original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_WorldProvider wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public WorldProvider getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

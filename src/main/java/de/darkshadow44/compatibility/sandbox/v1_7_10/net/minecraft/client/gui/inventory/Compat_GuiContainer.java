@@ -8,13 +8,12 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.inventory.Com
 import net.minecraft.client.gui.inventory.GuiContainer;
 
 public class Compat_GuiContainer extends Compat_GuiScreen {
-	private GuiContainer original;
-	private CompatI_GuiContainer thisReal;
+	private CompatI_GuiContainer wrapper;
 
 	// When called from Mod
 	public Compat_GuiContainer(Compat_Container container) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_GuiContainer.class, this, container.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_GuiContainer.class, this, container.getReal()));
 	}
 
 	// When called from child
@@ -25,16 +24,14 @@ public class Compat_GuiContainer extends Compat_GuiScreen {
 	// When called from Minecraft
 	public Compat_GuiContainer(GuiContainer original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_GuiContainer.class, original));
 	}
 
-	protected void initialize(CompatI_GuiContainer thisReal, GuiContainer original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_GuiContainer wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public GuiContainer getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

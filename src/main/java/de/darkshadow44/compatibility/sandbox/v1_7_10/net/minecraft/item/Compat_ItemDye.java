@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.item.ItemDye;
 
 public class Compat_ItemDye extends Compat_Item {
-	private ItemDye original;
-	private CompatI_ItemDye thisReal;
+	private CompatI_ItemDye wrapper;
 
 	// When called from Mod
 	public Compat_ItemDye() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemDye.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemDye.class, this));
 	}
 
 	// When called from child
@@ -23,17 +22,15 @@ public class Compat_ItemDye extends Compat_Item {
 	// When called from Minecraft
 	public Compat_ItemDye(ItemDye original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ItemDye.class, original));
 	}
 
-	protected void initialize(CompatI_ItemDye thisReal, ItemDye original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ItemDye wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public ItemDye getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public static String[] Compat_get_field_150921_b() {

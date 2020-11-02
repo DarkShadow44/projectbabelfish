@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.entity.monster.EntityWitch;
 
 public class Compat_EntityWitch extends Compat_EntityMob {
-	private EntityWitch original;
-	private CompatI_EntityWitch thisReal;
+	private CompatI_EntityWitch wrapper;
 
 	// When called from Mod
 	public Compat_EntityWitch() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityWitch.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityWitch.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_EntityWitch extends Compat_EntityMob {
 	// When called from Minecraft
 	public Compat_EntityWitch(EntityWitch original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityWitch.class, original));
 	}
 
-	protected void initialize(CompatI_EntityWitch thisReal, EntityWitch original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityWitch wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityWitch getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

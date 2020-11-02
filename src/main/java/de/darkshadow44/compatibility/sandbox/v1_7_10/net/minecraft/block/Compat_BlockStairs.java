@@ -7,13 +7,12 @@ import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockStairs;
 
 public class Compat_BlockStairs extends Compat_Block {
-	private BlockStairs original;
-	private CompatI_BlockStairs thisReal;
+	private CompatI_BlockStairs wrapper;
 
 	// When called from Mod
 	public Compat_BlockStairs(Compat_Block block, int p1) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockStairs.class, this, new BlockPlanks().getDefaultState()), null); // TODO
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockStairs.class, this, new BlockPlanks().getDefaultState())); // TODO
 	}
 
 	// When called from child
@@ -24,16 +23,14 @@ public class Compat_BlockStairs extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockStairs(BlockStairs original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockStairs.class, original));
 	}
 
-	protected void initialize(CompatI_BlockStairs thisReal, BlockStairs original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockStairs wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public BlockStairs getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

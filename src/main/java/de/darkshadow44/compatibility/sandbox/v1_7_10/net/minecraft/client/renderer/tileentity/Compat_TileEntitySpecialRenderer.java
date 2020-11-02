@@ -7,12 +7,11 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 
 public class Compat_TileEntitySpecialRenderer<T extends TileEntity> {
-	private TileEntitySpecialRenderer<T> original;
-	private CompatI_TileEntitySpecialRenderer<T> thisReal;
+	private CompatI_TileEntitySpecialRenderer<T> wrapper;
 
 	// When called from Mod
 	public Compat_TileEntitySpecialRenderer() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_TileEntitySpecialRenderer.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_TileEntitySpecialRenderer.class, this));
 	}
 
 	// When called from child
@@ -21,15 +20,14 @@ public class Compat_TileEntitySpecialRenderer<T extends TileEntity> {
 
 	// When called from Minecraft
 	public Compat_TileEntitySpecialRenderer(TileEntitySpecialRenderer<T> original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_TileEntitySpecialRenderer.class, original));
 	}
 
-	protected void initialize(CompatI_TileEntitySpecialRenderer<T> thisReal, TileEntitySpecialRenderer<T> original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_TileEntitySpecialRenderer<T> wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public TileEntitySpecialRenderer<T> getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

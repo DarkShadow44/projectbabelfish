@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 
 public class Compat_EntityAIAttackOnCollide extends Compat_EntityAIBase {
-	private EntityAIAttackMelee original;
-	private CompatI_EntityAIAttackOnCollide thisReal;
+	private CompatI_EntityAIAttackOnCollide wrapper;
 
 	// When called from Mod
 	public Compat_EntityAIAttackOnCollide() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityAIAttackOnCollide.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityAIAttackOnCollide.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_EntityAIAttackOnCollide extends Compat_EntityAIBase {
 	// When called from Minecraft
 	public Compat_EntityAIAttackOnCollide(EntityAIAttackMelee original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityAIAttackOnCollide.class, original));
 	}
 
-	protected void initialize(CompatI_EntityAIAttackOnCollide thisReal, EntityAIAttackMelee original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityAIAttackOnCollide wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityAIAttackMelee getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

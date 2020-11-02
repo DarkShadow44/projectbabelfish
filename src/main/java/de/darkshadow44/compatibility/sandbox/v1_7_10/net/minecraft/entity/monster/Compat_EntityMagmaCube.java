@@ -7,13 +7,12 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.world.Compat_
 import net.minecraft.entity.monster.EntityMagmaCube;
 
 public class Compat_EntityMagmaCube extends Compat_EntitySlime {
-	private EntityMagmaCube original;
-	private CompatI_EntityMagmaCube thisReal;
+	private CompatI_EntityMagmaCube wrapper;
 
 	// When called from Mod
 	public Compat_EntityMagmaCube(Compat_World world) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityMagmaCube.class, this, world.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityMagmaCube.class, this, world.getReal()));
 	}
 
 	// When called from child
@@ -24,16 +23,14 @@ public class Compat_EntityMagmaCube extends Compat_EntitySlime {
 	// When called from Minecraft
 	public Compat_EntityMagmaCube(EntityMagmaCube original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityMagmaCube.class, original));
 	}
 
-	protected void initialize(CompatI_EntityMagmaCube thisReal, EntityMagmaCube original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityMagmaCube wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityMagmaCube getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

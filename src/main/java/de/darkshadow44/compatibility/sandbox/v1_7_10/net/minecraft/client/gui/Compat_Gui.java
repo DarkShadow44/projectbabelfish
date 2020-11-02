@@ -6,12 +6,11 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.client.gui.Gui;
 
 public class Compat_Gui {
-	private Gui original;
-	private CompatI_Gui thisReal;
+	private CompatI_Gui wrapper;
 
 	// When called from Mod
 	public Compat_Gui() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_Gui.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Gui.class, this));
 	}
 
 	// When called from child
@@ -20,15 +19,14 @@ public class Compat_Gui {
 
 	// When called from Minecraft
 	public Compat_Gui(Gui original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_Gui.class, original));
 	}
 
-	protected void initialize(CompatI_Gui thisReal, Gui original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_Gui wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public Gui getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

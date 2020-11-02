@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.entity.ai.EntityAIRestrictOpenDoor;
 
 public class Compat_EntityAIRestrictOpenDoor extends Compat_EntityAIBase {
-	private EntityAIRestrictOpenDoor original;
-	private CompatI_EntityAIRestrictOpenDoor thisReal;
+	private CompatI_EntityAIRestrictOpenDoor wrapper;
 
 	// When called from Mod
 	public Compat_EntityAIRestrictOpenDoor() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityAIRestrictOpenDoor.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityAIRestrictOpenDoor.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_EntityAIRestrictOpenDoor extends Compat_EntityAIBase {
 	// When called from Minecraft
 	public Compat_EntityAIRestrictOpenDoor(EntityAIRestrictOpenDoor original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityAIRestrictOpenDoor.class, original));
 	}
 
-	protected void initialize(CompatI_EntityAIRestrictOpenDoor thisReal, EntityAIRestrictOpenDoor original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityAIRestrictOpenDoor wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityAIRestrictOpenDoor getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

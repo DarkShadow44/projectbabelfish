@@ -7,13 +7,12 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.materia
 import net.minecraft.block.BlockStainedGlass;
 
 public class Compat_BlockStainedGlass extends Compat_Block {
-	private BlockStainedGlass original;
-	private CompatI_BlockStainedGlass thisReal;
+	private CompatI_BlockStainedGlass wrapper;
 
 	// When called from Mod
 	public Compat_BlockStainedGlass(Compat_Material material) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockStainedGlass.class, this, material.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockStainedGlass.class, this, material.getReal()));
 	}
 
 	// When called from child
@@ -24,16 +23,14 @@ public class Compat_BlockStainedGlass extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockStainedGlass(BlockStainedGlass original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockStainedGlass.class, original));
 	}
 
-	protected void initialize(CompatI_BlockStainedGlass thisReal, BlockStainedGlass original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockStainedGlass wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public BlockStainedGlass getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

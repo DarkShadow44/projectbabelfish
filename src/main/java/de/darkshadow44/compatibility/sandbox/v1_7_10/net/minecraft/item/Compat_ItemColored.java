@@ -7,13 +7,12 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_
 import net.minecraft.item.ItemColored;
 
 public class Compat_ItemColored extends Compat_ItemBlock {
-	private ItemColored original;
-	private CompatI_ItemColored thisReal;
+	private CompatI_ItemColored wrapper;
 
 	// When called from Mod
 	public Compat_ItemColored(Compat_Block block, boolean p1) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemColored.class, this, block.getReal(), p1), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemColored.class, this, block.getReal(), p1));
 	}
 
 	// When called from child
@@ -24,16 +23,14 @@ public class Compat_ItemColored extends Compat_ItemBlock {
 	// When called from Minecraft
 	public Compat_ItemColored(ItemColored original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ItemColored.class, original));
 	}
 
-	protected void initialize(CompatI_ItemColored thisReal, ItemColored original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ItemColored wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public ItemColored getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

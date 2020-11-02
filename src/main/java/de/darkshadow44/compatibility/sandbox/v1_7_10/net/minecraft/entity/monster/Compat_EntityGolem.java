@@ -8,13 +8,12 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.world.Compat_
 import net.minecraft.entity.monster.EntityGolem;
 
 public class Compat_EntityGolem extends Compat_EntityCreature {
-	private EntityGolem original;
-	private CompatI_EntityGolem thisReal;
+	private CompatI_EntityGolem wrapper;
 
 	// When called from Mod
 	public Compat_EntityGolem(Compat_World world) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityGolem.class, this, world.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityGolem.class, this, world.getReal()));
 	}
 
 	// When called from child
@@ -25,16 +24,14 @@ public class Compat_EntityGolem extends Compat_EntityCreature {
 	// When called from Minecraft
 	public Compat_EntityGolem(EntityGolem original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityGolem.class, original));
 	}
 
-	protected void initialize(CompatI_EntityGolem thisReal, EntityGolem original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityGolem wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityGolem getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

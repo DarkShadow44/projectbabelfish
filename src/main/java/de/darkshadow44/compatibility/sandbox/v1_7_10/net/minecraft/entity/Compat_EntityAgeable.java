@@ -7,13 +7,12 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.world.Compat_
 import net.minecraft.entity.EntityAgeable;
 
 public class Compat_EntityAgeable extends Compat_EntityCreature {
-	private EntityAgeable original;
-	private CompatI_EntityAgeable thisReal;
+	private CompatI_EntityAgeable wrapper;
 
 	// When called from Mod
 	public Compat_EntityAgeable(Compat_World world) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityAgeable.class, this, world.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityAgeable.class, this, world.getReal()));
 	}
 
 	// When called from child
@@ -24,16 +23,14 @@ public class Compat_EntityAgeable extends Compat_EntityCreature {
 	// When called from Minecraft
 	public Compat_EntityAgeable(EntityAgeable original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityAgeable.class, original));
 	}
 
-	protected void initialize(CompatI_EntityAgeable thisReal, EntityAgeable original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityAgeable wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityAgeable getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

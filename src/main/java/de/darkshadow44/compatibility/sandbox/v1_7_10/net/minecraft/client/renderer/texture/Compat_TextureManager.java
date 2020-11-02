@@ -6,12 +6,11 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.client.renderer.texture.TextureManager;
 
 public class Compat_TextureManager {
-	private TextureManager original;
-	private CompatI_TextureManager thisReal;
+	private CompatI_TextureManager wrapper;
 
 	// When called from Mod
 	public Compat_TextureManager() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_TextureManager.class, this, new Object[] { null }), null); // TODO
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_TextureManager.class, this, new Object[] { null })); // TODO
 	}
 
 	// When called from child
@@ -20,15 +19,14 @@ public class Compat_TextureManager {
 
 	// When called from Minecraft
 	public Compat_TextureManager(TextureManager original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_TextureManager.class, original));
 	}
 
-	protected void initialize(CompatI_TextureManager thisReal, TextureManager original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_TextureManager wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public TextureManager getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

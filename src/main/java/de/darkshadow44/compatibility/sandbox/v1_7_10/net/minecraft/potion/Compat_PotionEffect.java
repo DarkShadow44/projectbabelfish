@@ -7,17 +7,16 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
 public class Compat_PotionEffect {
-	private PotionEffect original;
-	private CompatI_PotionEffect thisReal;
+	private CompatI_PotionEffect wrapper;
 
 	// When called from Mod
 	public Compat_PotionEffect(int id, int duration, int amplifier) {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_PotionEffect.class, this, Potion.getPotionById(id), duration, amplifier), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_PotionEffect.class, this, Potion.getPotionById(id), duration, amplifier));
 	}
 
 	// When called from Mod
 	public Compat_PotionEffect(int id, int duration) {
-		this.initialize(Factory.create(CtorPos.POS2, CompatI_PotionEffect.class, this, Potion.getPotionById(id), duration), null);
+		this.initialize(Factory.create(CtorPos.POS2, CompatI_PotionEffect.class, this, Potion.getPotionById(id), duration));
 	}
 
 	// When called from child
@@ -26,15 +25,14 @@ public class Compat_PotionEffect {
 
 	// When called from Minecraft
 	public Compat_PotionEffect(PotionEffect original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_PotionEffect.class, original));
 	}
 
-	protected void initialize(CompatI_PotionEffect thisReal, PotionEffect original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_PotionEffect wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public PotionEffect getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

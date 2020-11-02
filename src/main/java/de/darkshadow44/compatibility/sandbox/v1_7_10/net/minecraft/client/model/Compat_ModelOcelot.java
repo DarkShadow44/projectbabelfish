@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.client.model.ModelOcelot;
 
 public class Compat_ModelOcelot extends Compat_ModelBase {
-	private ModelOcelot original;
-	private CompatI_ModelOcelot thisReal;
+	private CompatI_ModelOcelot wrapper;
 
 	// When called from Mod
 	public Compat_ModelOcelot() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ModelOcelot.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ModelOcelot.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_ModelOcelot extends Compat_ModelBase {
 	// When called from Minecraft
 	public Compat_ModelOcelot(ModelOcelot original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ModelOcelot.class, original));
 	}
 
-	protected void initialize(CompatI_ModelOcelot thisReal, ModelOcelot original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ModelOcelot wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public ModelOcelot getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

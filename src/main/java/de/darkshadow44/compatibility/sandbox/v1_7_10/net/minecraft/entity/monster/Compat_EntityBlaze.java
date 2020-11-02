@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.entity.monster.EntityBlaze;
 
 public class Compat_EntityBlaze extends Compat_EntityMob {
-	private EntityBlaze original;
-	private CompatI_EntityBlaze thisReal;
+	private CompatI_EntityBlaze wrapper;
 
 	// When called from Mod
 	public Compat_EntityBlaze() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityBlaze.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityBlaze.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_EntityBlaze extends Compat_EntityMob {
 	// When called from Minecraft
 	public Compat_EntityBlaze(EntityBlaze original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityBlaze.class, original));
 	}
 
-	protected void initialize(CompatI_EntityBlaze thisReal, EntityBlaze original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityBlaze wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityBlaze getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

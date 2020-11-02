@@ -7,13 +7,12 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.world.Compat_
 import net.minecraft.entity.EntityLiving;
 
 public class Compat_EntityLiving extends Compat_EntityLivingBase {
-	private EntityLiving original;
-	private CompatI_EntityLiving thisReal;
+	private CompatI_EntityLiving wrapper;
 
 	// When called from Mod
 	public Compat_EntityLiving(Compat_World world) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityLiving.class, this, world.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityLiving.class, this, world.getReal()));
 	}
 
 	// When called from child
@@ -24,16 +23,14 @@ public class Compat_EntityLiving extends Compat_EntityLivingBase {
 	// When called from Minecraft
 	public Compat_EntityLiving(EntityLiving original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityLiving.class, original));
 	}
 
-	protected void initialize(CompatI_EntityLiving thisReal, EntityLiving original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityLiving wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityLiving getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

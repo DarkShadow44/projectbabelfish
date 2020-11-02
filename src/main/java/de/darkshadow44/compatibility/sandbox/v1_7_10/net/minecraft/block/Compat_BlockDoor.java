@@ -7,13 +7,12 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.materia
 import net.minecraft.block.BlockDoor;
 
 public class Compat_BlockDoor extends Compat_Block {
-	private BlockDoor original;
-	private CompatI_BlockDoor thisReal;
+	private CompatI_BlockDoor wrapper;
 
 	// When called from Mod
 	public Compat_BlockDoor(Compat_Material material) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockDoor.class, this, material.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockDoor.class, this, material.getReal()));
 	}
 
 	// When called from child
@@ -24,16 +23,14 @@ public class Compat_BlockDoor extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockDoor(BlockDoor original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockDoor.class, original));
 	}
 
-	protected void initialize(CompatI_BlockDoor thisReal, BlockDoor original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockDoor wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public BlockDoor getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

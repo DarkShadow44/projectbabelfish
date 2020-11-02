@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.client.model.ModelPig;
 
 public class Compat_ModelPig extends Compat_ModelQuadruped {
-	private ModelPig original;
-	private CompatI_ModelPig thisReal;
+	private CompatI_ModelPig wrapper;
 
 	// When called from Mod
 	public Compat_ModelPig() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ModelPig.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ModelPig.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_ModelPig extends Compat_ModelQuadruped {
 	// When called from Minecraft
 	public Compat_ModelPig(ModelPig original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ModelPig.class, original));
 	}
 
-	protected void initialize(CompatI_ModelPig thisReal, ModelPig original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ModelPig wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public ModelPig getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

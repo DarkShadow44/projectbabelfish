@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.client.model.ModelVillager;
 
 public class Compat_ModelVillager extends Compat_ModelBase {
-	private ModelVillager original;
-	private CompatI_ModelVillager thisReal;
+	private CompatI_ModelVillager wrapper;
 
 	// When called from Mod
 	public Compat_ModelVillager(float p1) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ModelVillager.class, this, p1), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ModelVillager.class, this, p1));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_ModelVillager extends Compat_ModelBase {
 	// When called from Minecraft
 	public Compat_ModelVillager(ModelVillager original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ModelVillager.class, original));
 	}
 
-	protected void initialize(CompatI_ModelVillager thisReal, ModelVillager original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ModelVillager wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public ModelVillager getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.entity.ai.EntityAIMoveIndoors;
 
 public class Compat_EntityAIMoveIndoors extends Compat_EntityAIBase {
-	private EntityAIMoveIndoors original;
-	private CompatI_EntityAIMoveIndoors thisReal;
+	private CompatI_EntityAIMoveIndoors wrapper;
 
 	// When called from Mod
 	public Compat_EntityAIMoveIndoors() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityAIMoveIndoors.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityAIMoveIndoors.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_EntityAIMoveIndoors extends Compat_EntityAIBase {
 	// When called from Minecraft
 	public Compat_EntityAIMoveIndoors(EntityAIMoveIndoors original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityAIMoveIndoors.class, original));
 	}
 
-	protected void initialize(CompatI_EntityAIMoveIndoors thisReal, EntityAIMoveIndoors original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityAIMoveIndoors wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityAIMoveIndoors getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

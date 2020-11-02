@@ -8,19 +8,18 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_
 import net.minecraft.item.ItemSlab;
 
 public class Compat_ItemSlab extends Compat_ItemBlock {
-	private ItemSlab original;
-	private CompatI_ItemSlab thisReal;
+	private CompatI_ItemSlab wrapper;
 
 	// When called from Mod
 	public Compat_ItemSlab(Compat_Block block, Compat_BlockSlab singleSlab, Compat_BlockSlab doubleSlab) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemSlab.class, this, block.getReal(), singleSlab.getReal(), doubleSlab.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemSlab.class, this, block.getReal(), singleSlab.getReal(), doubleSlab.getReal()));
 	}
 
 	// When called from Mod
 	public Compat_ItemSlab(Compat_Block block, Compat_BlockSlab singleSlab, Compat_BlockSlab doubleSlab, boolean p1) { // TODO
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemSlab.class, this, block.getReal(), singleSlab.getReal(), doubleSlab.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemSlab.class, this, block.getReal(), singleSlab.getReal(), doubleSlab.getReal()));
 	}
 
 	// When called from child
@@ -31,16 +30,14 @@ public class Compat_ItemSlab extends Compat_ItemBlock {
 	// When called from Minecraft
 	public Compat_ItemSlab(ItemSlab original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ItemSlab.class, original));
 	}
 
-	protected void initialize(CompatI_ItemSlab thisReal, ItemSlab original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ItemSlab wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public ItemSlab getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

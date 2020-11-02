@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.entity.monster.EntityCreeper;
 
 public class Compat_EntityCreeper extends Compat_EntityMob {
-	private EntityCreeper original;
-	private CompatI_EntityCreeper thisReal;
+	private CompatI_EntityCreeper wrapper;
 
 	// When called from Mod
 	public Compat_EntityCreeper() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityCreeper.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityCreeper.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_EntityCreeper extends Compat_EntityMob {
 	// When called from Minecraft
 	public Compat_EntityCreeper(EntityCreeper original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityCreeper.class, original));
 	}
 
-	protected void initialize(CompatI_EntityCreeper thisReal, EntityCreeper original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityCreeper wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityCreeper getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

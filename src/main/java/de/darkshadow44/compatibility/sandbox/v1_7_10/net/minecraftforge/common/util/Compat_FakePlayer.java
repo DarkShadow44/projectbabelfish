@@ -8,13 +8,12 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.world.Compat_
 import net.minecraftforge.common.util.FakePlayer;
 
 public class Compat_FakePlayer extends Compat_EntityPlayerMP {
-	private FakePlayer original;
-	private CompatI_FakePlayer thisReal;
+	private CompatI_FakePlayer wrapper;
 
 	// When called from Mod
 	public Compat_FakePlayer(Compat_WorldServer world) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_FakePlayer.class, this, world.getReal(), null), null); // TODO
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_FakePlayer.class, this, world.getReal(), null)); // TODO
 	}
 
 	// When called from child
@@ -25,16 +24,14 @@ public class Compat_FakePlayer extends Compat_EntityPlayerMP {
 	// When called from Minecraft
 	public Compat_FakePlayer(FakePlayer original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_FakePlayer.class, original));
 	}
 
-	protected void initialize(CompatI_FakePlayer thisReal, FakePlayer original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_FakePlayer wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public FakePlayer getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.entity.monster.EntityZombie;
 
 public class Compat_EntityZombie extends Compat_EntityMob {
-	private EntityZombie original;
-	private CompatI_EntityZombie thisReal;
+	private CompatI_EntityZombie wrapper;
 
 	// When called from Mod
 	public Compat_EntityZombie() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityZombie.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityZombie.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_EntityZombie extends Compat_EntityMob {
 	// When called from Minecraft
 	public Compat_EntityZombie(EntityZombie original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityZombie.class, original));
 	}
 
-	protected void initialize(CompatI_EntityZombie thisReal, EntityZombie original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityZombie wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityZombie getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

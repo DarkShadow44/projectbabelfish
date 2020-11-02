@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.block.BlockLilyPad;
 
 public class Compat_BlockLilyPad extends Compat_Block {
-	private BlockLilyPad original;
-	private CompatI_BlockLilyPad thisReal;
+	private CompatI_BlockLilyPad wrapper;
 
 	// When called from Mod
 	public Compat_BlockLilyPad() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockLilyPad.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockLilyPad.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_BlockLilyPad extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockLilyPad(BlockLilyPad original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockLilyPad.class, original));
 	}
 
-	protected void initialize(CompatI_BlockLilyPad thisReal, BlockLilyPad original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockLilyPad wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public BlockLilyPad getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

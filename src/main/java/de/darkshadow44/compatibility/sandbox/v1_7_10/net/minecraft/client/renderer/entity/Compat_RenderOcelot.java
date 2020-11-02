@@ -7,13 +7,12 @@ import net.minecraft.client.renderer.entity.RenderOcelot;
 import net.minecraft.entity.passive.EntityOcelot;
 
 public class Compat_RenderOcelot extends Compat_RenderLiving<EntityOcelot> {
-	private RenderOcelot original;
-	private CompatI_RenderOcelot thisReal;
+	private CompatI_RenderOcelot wrapper;
 
 	// When called from Mod
 	public Compat_RenderOcelot(Compat_RenderManager renderManager) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_RenderOcelot.class, this, renderManager.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_RenderOcelot.class, this, renderManager.getReal()));
 	}
 
 	// When called from child
@@ -24,16 +23,14 @@ public class Compat_RenderOcelot extends Compat_RenderLiving<EntityOcelot> {
 	// When called from Minecraft
 	public Compat_RenderOcelot(RenderOcelot original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_RenderOcelot.class, original));
 	}
 
-	protected void initialize(CompatI_RenderOcelot thisReal, RenderOcelot original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_RenderOcelot wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public RenderOcelot getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

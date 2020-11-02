@@ -7,19 +7,18 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.materia
 import net.minecraft.block.BlockBush;
 
 public class Compat_BlockBush extends Compat_Block {
-	private BlockBush original;
-	private CompatI_BlockBush thisReal;
+	private CompatI_BlockBush wrapper;
 
 	// When called from Mod
 	public Compat_BlockBush() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockBush.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockBush.class, this));
 	}
 
 	// When called from Mod
 	public Compat_BlockBush(Compat_Material material) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS2, CompatI_BlockBush.class, this, material.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS2, CompatI_BlockBush.class, this, material.getReal()));
 	}
 
 	// When called from child
@@ -30,16 +29,14 @@ public class Compat_BlockBush extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockBush(BlockBush original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockBush.class, original));
 	}
 
-	protected void initialize(CompatI_BlockBush thisReal, BlockBush original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockBush wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public BlockBush getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

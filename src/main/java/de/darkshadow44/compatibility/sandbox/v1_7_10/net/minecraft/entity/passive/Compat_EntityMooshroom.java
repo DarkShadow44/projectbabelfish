@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.entity.passive.EntityMooshroom;
 
 public class Compat_EntityMooshroom extends Compat_EntityCow {
-	private EntityMooshroom original;
-	private CompatI_EntityMooshroom thisReal;
+	private CompatI_EntityMooshroom wrapper;
 
 	// When called from Mod
 	public Compat_EntityMooshroom() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityMooshroom.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityMooshroom.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_EntityMooshroom extends Compat_EntityCow {
 	// When called from Minecraft
 	public Compat_EntityMooshroom(EntityMooshroom original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityMooshroom.class, original));
 	}
 
-	protected void initialize(CompatI_EntityMooshroom thisReal, EntityMooshroom original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityMooshroom wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityMooshroom getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

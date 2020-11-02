@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.client.model.ModelBiped;
 
 public class Compat_ModelBiped extends Compat_ModelBase {
-	private ModelBiped original;
-	private CompatI_ModelBiped thisReal;
+	private CompatI_ModelBiped wrapper;
 
 	// When called from Mod
 	public Compat_ModelBiped() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ModelBiped.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ModelBiped.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_ModelBiped extends Compat_ModelBase {
 	// When called from Minecraft
 	public Compat_ModelBiped(ModelBiped original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ModelBiped.class, original));
 	}
 
-	protected void initialize(CompatI_ModelBiped thisReal, ModelBiped original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ModelBiped wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public ModelBiped getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

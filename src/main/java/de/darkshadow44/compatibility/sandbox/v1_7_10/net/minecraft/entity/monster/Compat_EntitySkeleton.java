@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.entity.monster.EntitySkeleton;
 
 public class Compat_EntitySkeleton extends Compat_AbstractSkeleton {
-	private EntitySkeleton original;
-	private CompatI_EntitySkeleton thisReal;
+	private CompatI_EntitySkeleton wrapper;
 
 	// When called from Mod
 	public Compat_EntitySkeleton() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntitySkeleton.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntitySkeleton.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_EntitySkeleton extends Compat_AbstractSkeleton {
 	// When called from Minecraft
 	public Compat_EntitySkeleton(EntitySkeleton original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntitySkeleton.class, original));
 	}
 
-	protected void initialize(CompatI_EntitySkeleton thisReal, EntitySkeleton original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntitySkeleton wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntitySkeleton getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

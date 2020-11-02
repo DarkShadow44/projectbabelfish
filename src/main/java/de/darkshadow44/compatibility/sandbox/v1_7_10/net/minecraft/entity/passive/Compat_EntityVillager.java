@@ -8,13 +8,12 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.world.Compat_
 import net.minecraft.entity.passive.EntityVillager;
 
 public class Compat_EntityVillager extends Compat_EntityAgeable {
-	private EntityVillager original;
-	private CompatI_EntityVillager thisReal;
+	private CompatI_EntityVillager wrapper;
 
 	// When called from Mod
 	public Compat_EntityVillager(Compat_World world) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityVillager.class, this, world.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityVillager.class, this, world.getReal()));
 	}
 
 	// When called from child
@@ -25,16 +24,14 @@ public class Compat_EntityVillager extends Compat_EntityAgeable {
 	// When called from Minecraft
 	public Compat_EntityVillager(EntityVillager original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityVillager.class, original));
 	}
 
-	protected void initialize(CompatI_EntityVillager thisReal, EntityVillager original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityVillager wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityVillager getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

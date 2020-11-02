@@ -6,12 +6,11 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.inventory.Slot;
 
 public class Compat_Slot {
-	private Slot original;
-	private CompatI_Slot thisReal;
+	private CompatI_Slot wrapper;
 
 	// When called from Mod
 	public Compat_Slot() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_Slot.class, this, null, 0, 0, 0), null); // TODO
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Slot.class, this, null, 0, 0, 0)); // TODO
 	}
 
 	// When called from child
@@ -20,15 +19,14 @@ public class Compat_Slot {
 
 	// When called from Minecraft
 	public Compat_Slot(Slot original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_Slot.class, original));
 	}
 
-	protected void initialize(CompatI_Slot thisReal, Slot original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_Slot wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public Slot getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

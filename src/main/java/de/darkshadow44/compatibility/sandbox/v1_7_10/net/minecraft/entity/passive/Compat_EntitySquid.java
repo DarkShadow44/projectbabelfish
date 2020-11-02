@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.entity.passive.EntitySquid;
 
 public class Compat_EntitySquid extends Compat_EntityWaterMob {
-	private EntitySquid original;
-	private CompatI_EntitySquid thisReal;
+	private CompatI_EntitySquid wrapper;
 
 	// When called from Mod
 	public Compat_EntitySquid() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntitySquid.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntitySquid.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_EntitySquid extends Compat_EntityWaterMob {
 	// When called from Minecraft
 	public Compat_EntitySquid(EntitySquid original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntitySquid.class, original));
 	}
 
-	protected void initialize(CompatI_EntitySquid thisReal, EntitySquid original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntitySquid wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntitySquid getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

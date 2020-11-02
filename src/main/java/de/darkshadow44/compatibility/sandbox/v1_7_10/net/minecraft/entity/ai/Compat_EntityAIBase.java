@@ -6,12 +6,11 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.entity.ai.EntityAIBase;
 
 public class Compat_EntityAIBase {
-	private EntityAIBase original;
-	private CompatI_EntityAIBase thisReal;
+	private CompatI_EntityAIBase wrapper;
 
 	// When called from Mod
 	public Compat_EntityAIBase() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityAIBase.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityAIBase.class, this));
 	}
 
 	// When called from child
@@ -20,15 +19,14 @@ public class Compat_EntityAIBase {
 
 	// When called from Minecraft
 	public Compat_EntityAIBase(EntityAIBase original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityAIBase.class, original));
 	}
 
-	protected void initialize(CompatI_EntityAIBase thisReal, EntityAIBase original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityAIBase wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityAIBase getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

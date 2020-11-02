@@ -7,13 +7,12 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.materia
 import net.minecraft.block.BlockSlab;
 
 public class Compat_BlockSlab extends Compat_Block {
-	private BlockSlab original;
-	private CompatI_BlockSlab thisReal;
+	private CompatI_BlockSlab wrapper;
 
 	// When called from Mod
 	public Compat_BlockSlab(boolean p1, Compat_Material material) { // TODO
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockSlab.class, this, material.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockSlab.class, this, material.getReal()));
 	}
 
 	// When called from child
@@ -24,17 +23,15 @@ public class Compat_BlockSlab extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockSlab(BlockSlab original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockSlab.class, original));
 	}
 
-	protected void initialize(CompatI_BlockSlab thisReal, BlockSlab original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockSlab wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public BlockSlab getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public boolean isDouble() {
@@ -42,6 +39,6 @@ public class Compat_BlockSlab extends Compat_Block {
 	}
 
 	public String getUnlocalizedName(int meta) {
-		return this.thisReal.getUnlocalizedNameSuper();
+		return this.wrapper.getUnlocalizedNameSuper();
 	}
 }

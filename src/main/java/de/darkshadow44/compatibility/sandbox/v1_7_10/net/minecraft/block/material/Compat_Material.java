@@ -5,7 +5,6 @@ import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import net.minecraft.block.material.Material;
 
 public class Compat_Material {
-
 	private static final Compat_Material PLANTS = new Compat_Material(Material.PLANTS);
 	private static final Compat_Material WOOD = new Compat_Material(Material.WOOD);
 	private static final Compat_Material LEAVES = new Compat_Material(Material.LEAVES);
@@ -24,29 +23,28 @@ public class Compat_Material {
 	private static final Compat_Material AIR = new Compat_Material(Material.AIR);
 	private static final Compat_Material WATER = new Compat_Material(Material.WATER);
 
-	private Material original;
-	private CompatI_Material thisReal;
+	private CompatI_Material wrapper;
 
 	// When called from Mod
 	public Compat_Material(Compat_MapColor color) {
-		this.thisReal = Factory.create(CtorPos.POS1, CompatI_Material.class, this, color.getReal());
+		this.wrapper = Factory.create(CtorPos.POS1, CompatI_Material.class, this, color.getReal());
 	}
 
 	// When called from child
-	public Compat_Material(CompatI_Material thisReal) {
+	public Compat_Material(CompatI_Material wrapper) {
 	}
 
 	// When called from Minecraft
 	public Compat_Material(Material original) {
-		this.original = original;
+		this.wrapper = Factory.createWrapper(CompatI_Material.class, original);
 	}
 
-	public void setThisReal(CompatI_Material thisReal) {
-		this.thisReal = thisReal;
+	public void setwrapper(CompatI_Material wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public Material getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public static Compat_Material Compat_get_field_151585_k() {
@@ -70,30 +68,24 @@ public class Compat_Material {
 	}
 
 	public Compat_MapColor Compat_func_151565_r() {
-		return new Compat_MapColor(original.getMaterialMapColor());
+		return new Compat_MapColor(wrapper.getMaterialMapColorSuper());
 	}
 
 	public Compat_Material Compat_func_76226_g() {
-		if (this.original == null)
-			thisReal.setBurningSuper();
-		else
-			original.setBurning();
+
+		wrapper.setBurningSuper();
 		return this;
 	}
 
 	public Compat_Material Compat_func_76219_n() {
-		if (this.original == null)
-			thisReal.setNoPushMobilitySuper();
-		else
-			original.setNoPushMobility();
+
+		wrapper.setNoPushMobilitySuper();
 		return this;
 	}
 
 	public Compat_Material Compat_func_76231_i() {
-		if (this.original == null)
-			thisReal.setReplaceableSuper();
-		else
-			original.setReplaceable();
+
+		wrapper.setReplaceableSuper();
 		return this;
 	}
 

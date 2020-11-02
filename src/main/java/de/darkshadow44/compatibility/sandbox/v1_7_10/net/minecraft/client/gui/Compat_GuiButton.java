@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.client.gui.GuiButton;
 
 public class Compat_GuiButton extends Compat_Gui {
-	private GuiButton original;
-	private CompatI_GuiButton thisReal;
+	private CompatI_GuiButton wrapper;
 
 	// When called from Mod
 	public Compat_GuiButton(int buttonId, int x, int y, String buttonText) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_GuiButton.class, this, buttonId, x, y, buttonText), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_GuiButton.class, this, buttonId, x, y, buttonText));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_GuiButton extends Compat_Gui {
 	// When called from Minecraft
 	public Compat_GuiButton(GuiButton original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_GuiButton.class, original));
 	}
 
-	protected void initialize(CompatI_GuiButton thisReal, GuiButton original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_GuiButton wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public GuiButton getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

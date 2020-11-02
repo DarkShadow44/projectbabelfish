@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.item.ItemBow;
 
 public class Compat_ItemBow extends Compat_Item {
-	private ItemBow original;
-	private CompatI_ItemBow thisReal;
+	private CompatI_ItemBow wrapper;
 
 	// When called from Mod
 	public Compat_ItemBow() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemBow.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemBow.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_ItemBow extends Compat_Item {
 	// When called from Minecraft
 	public Compat_ItemBow(ItemBow original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ItemBow.class, original));
 	}
 
-	protected void initialize(CompatI_ItemBow thisReal, ItemBow original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ItemBow wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public ItemBow getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

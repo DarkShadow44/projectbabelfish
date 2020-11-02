@@ -7,13 +7,12 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.entity.Compat
 import net.minecraft.util.EntityDamageSourceIndirect;
 
 public class Compat_EntityDamageSourceIndirect extends Compat_EntityDamageSource {
-	private EntityDamageSourceIndirect original;
-	private CompatI_EntityDamageSourceIndirect thisReal;
+	private CompatI_EntityDamageSourceIndirect wrapper;
 
 	// When called from Mod
 	public Compat_EntityDamageSourceIndirect(String p1, Compat_Entity entity1, Compat_Entity entity2) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityDamageSourceIndirect.class, this, p1, entity1.getReal(), entity2.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityDamageSourceIndirect.class, this, p1, entity1.getReal(), entity2.getReal()));
 	}
 
 	// When called from child
@@ -24,16 +23,14 @@ public class Compat_EntityDamageSourceIndirect extends Compat_EntityDamageSource
 	// When called from Minecraft
 	public Compat_EntityDamageSourceIndirect(EntityDamageSourceIndirect original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityDamageSourceIndirect.class, original));
 	}
 
-	protected void initialize(CompatI_EntityDamageSourceIndirect thisReal, EntityDamageSourceIndirect original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityDamageSourceIndirect wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityDamageSourceIndirect getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

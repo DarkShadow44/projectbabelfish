@@ -8,13 +8,12 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.materia
 import net.minecraftforge.fluids.BlockFluidBase;
 
 public class Compat_BlockFluidBase extends Compat_Block {
-	private BlockFluidBase original;
-	private CompatI_BlockFluidBase thisReal;
+	private CompatI_BlockFluidBase wrapper;
 
 	// When called from Mod
 	public Compat_BlockFluidBase(Compat_Fluid fluid, Compat_Material material) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockFluidBase.class, this, fluid.getReal(), material.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockFluidBase.class, this, fluid.getReal(), material.getReal()));
 	}
 
 	// When called from child
@@ -25,23 +24,18 @@ public class Compat_BlockFluidBase extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockFluidBase(BlockFluidBase original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockFluidBase.class, original));
 	}
 
-	protected void initialize(CompatI_BlockFluidBase thisReal, BlockFluidBase original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockFluidBase wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public BlockFluidBase getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public void Compat_set_quantaPerBlock(int value) {
-		if (original == null)
-			this.thisReal.setQuantaPerBlockSuper(value);
-		else
-			this.original.setQuantaPerBlock(value);
+		this.wrapper.setQuantaPerBlockSuper(value);
 	}
 }

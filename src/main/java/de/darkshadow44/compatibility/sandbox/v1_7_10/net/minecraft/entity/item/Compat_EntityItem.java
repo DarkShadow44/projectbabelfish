@@ -8,13 +8,12 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.world.Compat_
 import net.minecraft.entity.item.EntityItem;
 
 public class Compat_EntityItem extends Compat_Entity {
-	private EntityItem original;
-	private CompatI_EntityItem thisReal;
+	private CompatI_EntityItem wrapper;
 
 	// When called from Mod
 	public Compat_EntityItem(Compat_World world) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityItem.class, this, world.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityItem.class, this, world.getReal()));
 	}
 
 	// When called from child
@@ -25,16 +24,14 @@ public class Compat_EntityItem extends Compat_Entity {
 	// When called from Minecraft
 	public Compat_EntityItem(EntityItem original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityItem.class, original));
 	}
 
-	protected void initialize(CompatI_EntityItem thisReal, EntityItem original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityItem wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityItem getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

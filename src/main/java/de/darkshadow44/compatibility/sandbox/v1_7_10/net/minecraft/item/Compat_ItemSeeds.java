@@ -7,13 +7,12 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_
 import net.minecraft.item.ItemSeeds;
 
 public class Compat_ItemSeeds extends Compat_Item {
-	private ItemSeeds original;
-	private CompatI_ItemSeeds thisReal;
+	private CompatI_ItemSeeds wrapper;
 
 	// When called from Mod
 	public Compat_ItemSeeds(Compat_Block b1, Compat_Block b2) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemSeeds.class, this, b1.getReal(), b2.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemSeeds.class, this, b1.getReal(), b2.getReal()));
 	}
 
 	// When called from child
@@ -24,16 +23,14 @@ public class Compat_ItemSeeds extends Compat_Item {
 	// When called from Minecraft
 	public Compat_ItemSeeds(ItemSeeds original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ItemSeeds.class, original));
 	}
 
-	protected void initialize(CompatI_ItemSeeds thisReal, ItemSeeds original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ItemSeeds wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public ItemSeeds getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

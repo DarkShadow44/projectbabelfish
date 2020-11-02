@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.block.BlockDaylightDetector;
 
 public class Compat_BlockDaylightDetector extends Compat_Block {
-	private BlockDaylightDetector original;
-	private CompatI_BlockDaylightDetector thisReal;
+	private CompatI_BlockDaylightDetector wrapper;
 
 	// When called from Mod
 	public Compat_BlockDaylightDetector(boolean p1) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockDaylightDetector.class, this, p1), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockDaylightDetector.class, this, p1));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_BlockDaylightDetector extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockDaylightDetector(BlockDaylightDetector original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockDaylightDetector.class, original));
 	}
 
-	protected void initialize(CompatI_BlockDaylightDetector thisReal, BlockDaylightDetector original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockDaylightDetector wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public BlockDaylightDetector getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

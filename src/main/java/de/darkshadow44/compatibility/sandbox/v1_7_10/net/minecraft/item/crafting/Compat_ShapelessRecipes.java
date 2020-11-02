@@ -11,8 +11,7 @@ import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.NonNullList;
 
 public class Compat_ShapelessRecipes {
-	private ShapelessRecipes original;
-	private CompatI_ShapelessRecipes thisReal;
+	private CompatI_ShapelessRecipes wrapper;
 
 	// When called from Mod
 	public Compat_ShapelessRecipes(Compat_ItemStack output, List<Compat_ItemStack> inputs) {
@@ -23,7 +22,7 @@ public class Compat_ShapelessRecipes {
 			ingredientsConverted.add(ing);
 		}
 
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ShapelessRecipes.class, this, group, output.getReal(), ingredientsConverted), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ShapelessRecipes.class, this, group, output.getReal(), ingredientsConverted));
 	}
 
 	// When called from child
@@ -32,15 +31,14 @@ public class Compat_ShapelessRecipes {
 
 	// When called from Minecraft
 	public Compat_ShapelessRecipes(ShapelessRecipes original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ShapelessRecipes.class, original));
 	}
 
-	protected void initialize(CompatI_ShapelessRecipes thisReal, ShapelessRecipes original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ShapelessRecipes wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public ShapelessRecipes getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

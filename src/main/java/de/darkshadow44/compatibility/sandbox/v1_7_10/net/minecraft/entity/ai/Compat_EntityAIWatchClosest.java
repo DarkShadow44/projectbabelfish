@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 
 public class Compat_EntityAIWatchClosest extends Compat_EntityAIBase {
-	private EntityAIWatchClosest original;
-	private CompatI_EntityAIWatchClosest thisReal;
+	private CompatI_EntityAIWatchClosest wrapper;
 
 	// When called from Mod
 	public Compat_EntityAIWatchClosest() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityAIWatchClosest.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityAIWatchClosest.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_EntityAIWatchClosest extends Compat_EntityAIBase {
 	// When called from Minecraft
 	public Compat_EntityAIWatchClosest(EntityAIWatchClosest original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityAIWatchClosest.class, original));
 	}
 
-	protected void initialize(CompatI_EntityAIWatchClosest thisReal, EntityAIWatchClosest original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityAIWatchClosest wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityAIWatchClosest getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

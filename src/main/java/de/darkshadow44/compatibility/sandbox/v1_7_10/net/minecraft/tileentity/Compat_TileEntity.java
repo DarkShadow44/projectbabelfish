@@ -6,12 +6,11 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.tileentity.TileEntity;
 
 public class Compat_TileEntity {
-	private TileEntity original;
-	private CompatI_TileEntity thisReal;
+	private CompatI_TileEntity wrapper;
 
 	// When called from Mod
 	public Compat_TileEntity() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_TileEntity.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_TileEntity.class, this));
 	}
 
 	// When called from child
@@ -20,15 +19,14 @@ public class Compat_TileEntity {
 
 	// When called from Minecraft
 	public Compat_TileEntity(TileEntity original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_TileEntity.class, original));
 	}
 
-	protected void initialize(CompatI_TileEntity thisReal, TileEntity original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_TileEntity wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public TileEntity getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

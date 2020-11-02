@@ -8,13 +8,12 @@ import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.MapColor;
 
 public class Compat_BlockFence extends Compat_Block {
-	private BlockFence original;
-	private CompatI_BlockFence thisReal;
+	private CompatI_BlockFence wrapper;
 
 	// When called from Mod
 	public Compat_BlockFence(String p1, Compat_Material material) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockFence.class, this, material.getReal(), MapColor.BLACK), null); // TODO
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockFence.class, this, material.getReal(), MapColor.BLACK)); // TODO
 	}
 
 	// When called from child
@@ -25,16 +24,14 @@ public class Compat_BlockFence extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockFence(BlockFence original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockFence.class, original));
 	}
 
-	protected void initialize(CompatI_BlockFence thisReal, BlockFence original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockFence wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public BlockFence getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

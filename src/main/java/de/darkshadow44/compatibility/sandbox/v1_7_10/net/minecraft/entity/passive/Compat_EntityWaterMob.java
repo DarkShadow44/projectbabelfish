@@ -7,13 +7,12 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.entity.Compat
 import net.minecraft.entity.passive.EntityWaterMob;
 
 public class Compat_EntityWaterMob extends Compat_EntityLiving {
-	private EntityWaterMob original;
-	private CompatI_EntityWaterMob thisReal;
+	private CompatI_EntityWaterMob wrapper;
 
 	// When called from Mod
 	public Compat_EntityWaterMob() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityWaterMob.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityWaterMob.class, this));
 	}
 
 	// When called from child
@@ -24,16 +23,14 @@ public class Compat_EntityWaterMob extends Compat_EntityLiving {
 	// When called from Minecraft
 	public Compat_EntityWaterMob(EntityWaterMob original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityWaterMob.class, original));
 	}
 
-	protected void initialize(CompatI_EntityWaterMob thisReal, EntityWaterMob original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityWaterMob wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityWaterMob getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

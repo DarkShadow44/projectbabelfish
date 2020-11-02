@@ -6,12 +6,11 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.world.Teleporter;
 
 public class Compat_Teleporter {
-	private Teleporter original;
-	private CompatI_Teleporter thisReal;
+	private CompatI_Teleporter wrapper;
 
 	// When called from Mod
 	public Compat_Teleporter(Compat_WorldServer world) {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_Teleporter.class, this, world.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Teleporter.class, this, world.getReal()));
 	}
 
 	// When called from child
@@ -20,15 +19,14 @@ public class Compat_Teleporter {
 
 	// When called from Minecraft
 	public Compat_Teleporter(Teleporter original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_Teleporter.class, original));
 	}
 
-	protected void initialize(CompatI_Teleporter thisReal, Teleporter original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_Teleporter wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public Teleporter getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.client.gui.GuiScreen;
 
 public class Compat_GuiScreen extends Compat_Gui {
-	private GuiScreen original;
-	private CompatI_GuiScreen thisReal;
+	private CompatI_GuiScreen wrapper;
 
 	// When called from Mod
 	public Compat_GuiScreen() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_GuiScreen.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_GuiScreen.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_GuiScreen extends Compat_Gui {
 	// When called from Minecraft
 	public Compat_GuiScreen(GuiScreen original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_GuiScreen.class, original));
 	}
 
-	protected void initialize(CompatI_GuiScreen thisReal, GuiScreen original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_GuiScreen wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public GuiScreen getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

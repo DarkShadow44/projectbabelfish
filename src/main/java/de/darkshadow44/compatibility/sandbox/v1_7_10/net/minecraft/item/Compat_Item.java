@@ -18,12 +18,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Compat_Item {
-	private Item original;
-	private CompatI_Item thisReal;
+	private CompatI_Item wrapper;
 
 	// When called from Mod
 	public Compat_Item() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_Item.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Item.class, this));
 	}
 
 	// When called from child
@@ -32,56 +31,45 @@ public class Compat_Item {
 
 	// When called from Minecraft
 	public Compat_Item(Item original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_Item.class, original));
 	}
 
-	protected void initialize(CompatI_Item thisReal, Item original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_Item wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public Item getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public Compat_Item Compat_func_77656_e(int maxDamage) {
-		if (this.original == null)
-			thisReal.setMaxDamageSuper(maxDamage);
-		else
-			original.setMaxDamage(maxDamage);
-		return this;
+		
+			wrapper.setMaxDamageSuper(maxDamage);
+				return this;
 	}
 
 	public Compat_Item Compat_func_77625_d(int maxStackSize) {
-		if (this.original == null)
-			thisReal.setMaxStackSizeSuper(maxStackSize);
-		else
-			original.setMaxStackSize(maxStackSize);
-		return this;
+		
+			wrapper.setMaxStackSizeSuper(maxStackSize);
+				return this;
 	}
 
 	public Compat_Item Compat_func_77627_a(boolean hasSubtypes) {
-		if (this.original == null)
-			thisReal.setHasSubtypesSuper(hasSubtypes);
-		else
-			original.setHasSubtypes(hasSubtypes);
-		return this;
+		
+			wrapper.setHasSubtypesSuper(hasSubtypes);
+				return this;
 	}
 
 	public Compat_Item Compat_func_77637_a(Compat_CreativeTabs tab) {
-		if (this.original == null)
-			thisReal.setCreativeTabSuper(tab.getReal());
-		else
-			original.setCreativeTab(tab.getReal());
-		return this;
+		
+			wrapper.setCreativeTabSuper(tab.getReal());
+				return this;
 	}
 
 	public Compat_Item Compat_func_77655_b(String unlocalizedName) {
-		if (this.original == null)
-			thisReal.setUnlocalizedNameSuper(unlocalizedName);
-		else
-			original.setUnlocalizedName(unlocalizedName);
-		return this;
+		
+			wrapper.setUnlocalizedNameSuper(unlocalizedName);
+				return this;
 	}
 
 	private String iconString = null;
@@ -97,34 +85,26 @@ public class Compat_Item {
 	}
 
 	public Compat_Item Compat_setNoRepair() {
-		if (this.original == null)
-			thisReal.setNoRepairSuper();
-		else
-			original.setNoRepair();
-		return this;
+		
+			wrapper.setNoRepairSuper();
+				return this;
 	}
 
 	public Compat_Item Compat_func_77664_n() {
-		if (this.original == null)
-			thisReal.setFull3DSuper();
-		else
-			original.setFull3D();
-		return this;
+		
+			wrapper.setFull3DSuper();
+				return this;
 	}
 
 	public void Compat_set_field_77787_bX(boolean hasSubtypes) {
-		if (this.original == null)
-			thisReal.setHasSubtypesSuper(hasSubtypes);
-		else
-			original.setHasSubtypes(hasSubtypes);
-	}
+		
+			wrapper.setHasSubtypesSuper(hasSubtypes);
+			}
 
 	public Compat_Item Compat_func_77642_a(Compat_Item containerItem) {
-		if (this.original == null)
-			thisReal.setContainerItemSuper(containerItem.getReal());
-		else
-			original.setContainerItem(containerItem.getReal());
-		return this;
+		
+			wrapper.setContainerItemSuper(containerItem.getReal());
+				return this;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -159,11 +139,9 @@ public class Compat_Item {
 
 	public void Compat_func_150895_a(Compat_Item item, Compat_CreativeTabs tab, List<Compat_ItemStack> items) {
 		NonNullList<ItemStack> realItems = NonNullList.create();
-		if (this.original == null)
-			thisReal.getSubItemsSuper(tab.getReal(), realItems);
-		else
-			original.getSubItems(tab.getReal(), realItems);
-		for (ItemStack stack : realItems) {
+		
+			wrapper.getSubItemsSuper(tab.getReal(), realItems);
+				for (ItemStack stack : realItems) {
 			items.add(new Compat_ItemStack(stack));
 		}
 	}
@@ -174,11 +152,9 @@ public class Compat_Item {
 	}
 
 	public String Compat_func_77653_i(Compat_ItemStack itemstack) {
-		if (this.original == null)
-			return thisReal.getItemStackDisplayNameSuper(itemstack.getReal());
-		else
-			return original.getItemStackDisplayName(itemstack.getReal());
-	}
+		
+			return wrapper.getItemStackDisplayNameSuper(itemstack.getReal());
+			}
 
 	@Callback
 	public String getUnlocalizedName(ItemStack stack) {
@@ -186,16 +162,12 @@ public class Compat_Item {
 	}
 
 	public String Compat_func_77667_c(Compat_ItemStack stack) {
-		if (this.original == null)
-			return thisReal.getUnlocalizedNameSuper(stack.getReal());
-		else
-			return original.getUnlocalizedName(stack.getReal());
-	}
+		
+			return wrapper.getUnlocalizedNameSuper(stack.getReal());
+			}
 
 	public String Compat_func_77658_a() {
-		if (this.original == null)
-			return thisReal.getUnlocalizedNameSuper();
-		else
-			return original.getUnlocalizedName();
-	}
+		
+			return wrapper.getUnlocalizedNameSuper();
+			}
 }

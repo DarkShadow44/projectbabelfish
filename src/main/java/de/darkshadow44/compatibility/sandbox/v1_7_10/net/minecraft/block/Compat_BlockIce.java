@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.block.BlockIce;
 
 public class Compat_BlockIce extends Compat_Block {
-	private BlockIce original;
-	private CompatI_BlockIce thisReal;
+	private CompatI_BlockIce wrapper;
 
 	// When called from Mod
 	public Compat_BlockIce() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockIce.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockIce.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_BlockIce extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockIce(BlockIce original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockIce.class, original));
 	}
 
-	protected void initialize(CompatI_BlockIce thisReal, BlockIce original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockIce wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public BlockIce getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

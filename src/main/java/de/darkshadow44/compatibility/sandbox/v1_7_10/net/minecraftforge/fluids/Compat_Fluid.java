@@ -7,12 +7,11 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_
 import net.minecraftforge.fluids.Fluid;
 
 public class Compat_Fluid {
-	private Fluid original;
-	private CompatI_Fluid thisReal;
+	private CompatI_Fluid wrapper;
 
 	// When called from Mod
 	public Compat_Fluid(String fluidName) {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_Fluid.class, this, fluidName, null, null), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Fluid.class, this, fluidName, null, null));
 	}
 
 	// When called from child
@@ -21,85 +20,57 @@ public class Compat_Fluid {
 
 	// When called from Minecraft
 	public Compat_Fluid(Fluid original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_Fluid.class, original));
 	}
 
-	protected void initialize(CompatI_Fluid thisReal, Fluid original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_Fluid wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public Fluid getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public Compat_Fluid Compat_setDensity(int density) {
-		if (original == null)
-			this.thisReal.setDensitySuper(density);
-		else
-			this.original.setDensity(density);
+		this.wrapper.setDensitySuper(density);
 
 		return this;
 	}
 
 	public Compat_Fluid Compat_setViscosity(int viscosity) {
-		if (original == null)
-			this.thisReal.setViscositySuper(viscosity);
-		else
-			this.original.setViscosity(viscosity);
+		this.wrapper.setViscositySuper(viscosity);
 
 		return this;
 	}
 
 	public Compat_Fluid Compat_setGaseous(boolean isGaseous) {
-		if (original == null)
-			this.thisReal.setGaseousSuper(isGaseous);
-		else
-			this.original.setGaseous(isGaseous);
+		this.wrapper.setGaseousSuper(isGaseous);
 
 		return this;
 	}
 
 	public String Compat_getName() {
-		if (original == null)
-			return this.thisReal.getNameSuper();
-		else
-			return this.original.getName();
+		return this.wrapper.getNameSuper();
 	}
 
 	public int Compat_getDensity() {
-		if (original == null)
-			return this.thisReal.getDensitySuper();
-		else
-			return this.original.getDensity();
+		return this.wrapper.getDensitySuper();
 	}
 
 	public int Compat_getTemperature() {
-		if (original == null)
-			return this.thisReal.getTemperatureSuper();
-		else
-			return this.original.getTemperature();
+		return this.wrapper.getTemperatureSuper();
 	}
 
 	public int Compat_getLuminosity() {
-		if (original == null)
-			return this.thisReal.getLuminositySuper();
-		else
-			return this.original.getLuminosity();
+		return this.wrapper.getLuminositySuper();
 	}
 
 	public int Compat_getViscosity() {
-		if (original == null)
-			return this.thisReal.getViscositySuper();
-		else
-			return this.original.getViscosity();
+		return this.wrapper.getViscositySuper();
 	}
 
 	public Compat_Fluid Compat_setBlock(Compat_Block block) {
-		if (original == null)
-			this.thisReal.setBlockSuper(block.getReal());
-		else
-			this.original.setBlock(block.getReal());
+		this.wrapper.setBlockSuper(block.getReal());
 		return this;
 	}
 

@@ -7,13 +7,12 @@ import net.minecraft.block.BlockFenceGate;
 import net.minecraft.block.BlockPlanks.EnumType;
 
 public class Compat_BlockFenceGate extends Compat_Block {
-	private BlockFenceGate original;
-	private CompatI_BlockFenceGate thisReal;
+	private CompatI_BlockFenceGate wrapper;
 
 	// When called from Mod
 	public Compat_BlockFenceGate() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockFenceGate.class, this, EnumType.BIRCH), null); // TODO
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockFenceGate.class, this, EnumType.BIRCH)); // TODO
 	}
 
 	// When called from child
@@ -24,16 +23,14 @@ public class Compat_BlockFenceGate extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockFenceGate(BlockFenceGate original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockFenceGate.class, original));
 	}
 
-	protected void initialize(CompatI_BlockFenceGate thisReal, BlockFenceGate original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockFenceGate wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public BlockFenceGate getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

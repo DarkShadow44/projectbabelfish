@@ -9,8 +9,7 @@ import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.util.NonNullList;
 
 public class Compat_ShapedRecipes {
-	private ShapedRecipes original;
-	private CompatI_ShapedRecipes thisReal;
+	private CompatI_ShapedRecipes wrapper;
 
 	// When called from Mod
 	public Compat_ShapedRecipes(int width, int height, Compat_ItemStack[] ingredients, Compat_ItemStack output) {
@@ -22,7 +21,7 @@ public class Compat_ShapedRecipes {
 			ingredientsConverted.add(ing);
 		}
 
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ShapedRecipes.class, this, group, width, height, ingredientsConverted, output.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ShapedRecipes.class, this, group, width, height, ingredientsConverted, output.getReal()));
 	}
 
 	// When called from child
@@ -31,16 +30,15 @@ public class Compat_ShapedRecipes {
 
 	// When called from Minecraft
 	public Compat_ShapedRecipes(ShapedRecipes original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ShapedRecipes.class, original));
 	}
 
-	protected void initialize(CompatI_ShapedRecipes thisReal, ShapedRecipes original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ShapedRecipes wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public ShapedRecipes getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public Compat_ShapedRecipes() {

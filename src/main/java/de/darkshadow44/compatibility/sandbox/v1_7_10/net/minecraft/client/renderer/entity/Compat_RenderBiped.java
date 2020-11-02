@@ -8,13 +8,12 @@ import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.entity.EntityLiving;
 
 public class Compat_RenderBiped<T extends EntityLiving> extends Compat_RenderLiving<T> {
-	private RenderBiped<T> original;
-	private CompatI_RenderBiped<T> thisReal;
+	private CompatI_RenderBiped<T> wrapper;
 
 	// When called from Mod
 	public Compat_RenderBiped(Compat_RenderManager renderManager, Compat_ModelBiped model, float p1) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_RenderBiped.class, this, renderManager.getReal(), model.getReal(), p1), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_RenderBiped.class, this, renderManager.getReal(), model.getReal(), p1));
 	}
 
 	// When called from child
@@ -25,16 +24,14 @@ public class Compat_RenderBiped<T extends EntityLiving> extends Compat_RenderLiv
 	// When called from Minecraft
 	public Compat_RenderBiped(RenderBiped<T> original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_RenderBiped.class, original));
 	}
 
-	protected void initialize(CompatI_RenderBiped<T> thisReal, RenderBiped<T> original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_RenderBiped<T> wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public RenderBiped<T> getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

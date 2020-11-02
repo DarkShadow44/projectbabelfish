@@ -7,13 +7,12 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.materia
 import net.minecraft.block.BlockPressurePlate;
 
 public class Compat_BlockPressurePlate extends Compat_Block {
-	private BlockPressurePlate original;
-	private CompatI_BlockPressurePlate thisReal;
+	private CompatI_BlockPressurePlate wrapper;
 
 	// When called from Mod
 	public Compat_BlockPressurePlate(String p1, Compat_Material material, Compat_BlockPressurePlate_Sensitivity sensitivity) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockPressurePlate.class, this, material.getReal(), sensitivity.getReal()), null); // TODO
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockPressurePlate.class, this, material.getReal(), sensitivity.getReal())); // TODO
 	}
 
 	// When called from child
@@ -24,16 +23,14 @@ public class Compat_BlockPressurePlate extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockPressurePlate(BlockPressurePlate original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockPressurePlate.class, original));
 	}
 
-	protected void initialize(CompatI_BlockPressurePlate thisReal, BlockPressurePlate original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockPressurePlate wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public BlockPressurePlate getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

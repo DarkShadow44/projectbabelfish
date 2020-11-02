@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.entity.monster.EntitySpider;
 
 public class Compat_EntitySpider extends Compat_EntityMob {
-	private EntitySpider original;
-	private CompatI_EntitySpider thisReal;
+	private CompatI_EntitySpider wrapper;
 
 	// When called from Mod
 	public Compat_EntitySpider() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntitySpider.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntitySpider.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_EntitySpider extends Compat_EntityMob {
 	// When called from Minecraft
 	public Compat_EntitySpider(EntitySpider original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntitySpider.class, original));
 	}
 
-	protected void initialize(CompatI_EntitySpider thisReal, EntitySpider original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntitySpider wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntitySpider getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

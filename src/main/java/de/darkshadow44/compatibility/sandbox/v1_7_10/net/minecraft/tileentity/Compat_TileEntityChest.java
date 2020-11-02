@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.tileentity.TileEntityChest;
 
 public class Compat_TileEntityChest extends Compat_TileEntity {
-	private TileEntityChest original;
-	private CompatI_TileEntityChest thisReal;
+	private CompatI_TileEntityChest wrapper;
 
 	// When called from Mod
 	public Compat_TileEntityChest() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_TileEntityChest.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_TileEntityChest.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_TileEntityChest extends Compat_TileEntity {
 	// When called from Minecraft
 	public Compat_TileEntityChest(TileEntityChest original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_TileEntityChest.class, original));
 	}
 
-	protected void initialize(CompatI_TileEntityChest thisReal, TileEntityChest original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_TileEntityChest wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public TileEntityChest getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

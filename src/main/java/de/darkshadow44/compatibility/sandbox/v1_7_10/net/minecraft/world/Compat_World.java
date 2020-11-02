@@ -6,12 +6,11 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.world.World;
 
 public class Compat_World {
-	private World original;
-	private CompatI_World thisReal;
+	private CompatI_World wrapper;
 
 	// When called from Mod
 	public Compat_World() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_World.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_World.class, this));
 	}
 
 	// When called from child
@@ -20,15 +19,14 @@ public class Compat_World {
 
 	// When called from Minecraft
 	public Compat_World(World original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_World.class, original));
 	}
 
-	protected void initialize(CompatI_World thisReal, World original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_World wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public World getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

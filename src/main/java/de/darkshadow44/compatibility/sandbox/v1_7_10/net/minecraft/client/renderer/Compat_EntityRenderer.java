@@ -3,16 +3,15 @@ package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.rende
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
-import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.Compat_Minecraft;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.Compat_Minecraft;
 import net.minecraft.client.renderer.EntityRenderer;
 
 public class Compat_EntityRenderer {
-	private EntityRenderer original;
-	private CompatI_EntityRenderer thisReal;
+	private CompatI_EntityRenderer wrapper;
 
 	// When called from Mod
 	public Compat_EntityRenderer(Compat_Minecraft mc) {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityRenderer.class, this, mc.getReal(), null), null); // TODO
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityRenderer.class, this, mc.getReal(), null)); // TODO
 	}
 
 	// When called from child
@@ -21,15 +20,14 @@ public class Compat_EntityRenderer {
 
 	// When called from Minecraft
 	public Compat_EntityRenderer(EntityRenderer original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityRenderer.class, original));
 	}
 
-	protected void initialize(CompatI_EntityRenderer thisReal, EntityRenderer original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityRenderer wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityRenderer getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

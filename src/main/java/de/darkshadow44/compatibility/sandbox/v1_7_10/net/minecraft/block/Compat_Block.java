@@ -10,12 +10,11 @@ import net.minecraft.block.SoundType;
 import net.minecraft.creativetab.CreativeTabs;
 
 public class Compat_Block {
-	private Block original;
-	private CompatI_Block thisReal;
+	private CompatI_Block wrapper;
 
 	// When called from Mod
 	public Compat_Block(Compat_Material material) {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_Block.class, this, material.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Block.class, this, material.getReal()));
 	}
 
 	// When called from child
@@ -24,23 +23,20 @@ public class Compat_Block {
 
 	// When called from Minecraft
 	public Compat_Block(Block original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_Block.class, original));
 	}
 
-	protected void initialize(CompatI_Block thisReal, Block original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_Block wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public Block getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public Compat_Block Compat_func_149675_a(boolean shouldTick) {
-		if (this.original == null)
-			thisReal.setTickRandomlySuper(shouldTick);
-		else
-			original.setTickRandomly(shouldTick);
+
+		wrapper.setTickRandomlySuper(shouldTick);
 		return this;
 	}
 
@@ -49,10 +45,8 @@ public class Compat_Block {
 	}
 
 	public Compat_Block Compat_func_149711_c(float hardness) {
-		if (this.original == null)
-			thisReal.setHardnessSuper(hardness);
-		else
-			original.setHardness(hardness);
+
+		wrapper.setHardnessSuper(hardness);
 		return this;
 	}
 
@@ -61,36 +55,29 @@ public class Compat_Block {
 	}
 
 	public Compat_Block Compat_func_149672_a(Compat_Block_SoundType sound) {
-		if (this.original == null)
-			thisReal.setSoundTypeSuper(sound.getReal());
-		else
-			original.setSoundType(sound.getReal());
+
+		wrapper.setSoundTypeSuper(sound.getReal());
 		return this;
 	}
 
 	public Compat_Block Compat_func_149649_H() {
-		if (this.original == null)
-			thisReal.disableStatsSuper();
-		else
-			original.disableStats();
+
+		wrapper.disableStatsSuper();
 		return this;
 	}
 
 	public Compat_Block Compat_func_149647_a(Compat_CreativeTabs creativeTabs) {
 		CreativeTabs real = creativeTabs == null ? null : creativeTabs.getReal();
-		if (this.original == null)
-			thisReal.setCreativeTabSuper(real);
-		else
-			original.setCreativeTab(real);
+
+		wrapper.setCreativeTabSuper(real);
 		return this;
 	}
 
 	public Compat_Block Compat_func_149663_c(String name) {
-		if (this.original == null) {
-			thisReal.setUnlocalizedNameSuper(name);
-			thisReal.setRegistryNameSuper(name);
-		} else
-			original.setUnlocalizedName(name);
+		{
+			wrapper.setUnlocalizedNameSuper(name);
+			wrapper.setRegistryNameSuper(name);
+		}
 		return this;
 	}
 
@@ -104,34 +91,26 @@ public class Compat_Block {
 	}
 
 	public Compat_Block Compat_func_149713_g(int opacity) {
-		if (this.original == null)
-			thisReal.setLightOpacitySuper(opacity);
-		else
-			original.setLightOpacity(opacity);
+
+		wrapper.setLightOpacitySuper(opacity);
 		return this;
 	}
 
 	public Compat_Block Compat_func_149722_s() {
-		if (this.original == null)
-			thisReal.setBlockUnbreakableSuper();
-		else
-			original.setBlockUnbreakable();
+
+		wrapper.setBlockUnbreakableSuper();
 		return this;
 	}
 
 	public Compat_Block Compat_func_149752_b(float resistance) {
-		if (this.original == null)
-			thisReal.setResistanceSuper(resistance);
-		else
-			original.setResistance(resistance);
+
+		wrapper.setResistanceSuper(resistance);
 		return this;
 	}
 
 	public Compat_Block Compat_func_149715_a(float value) {
-		if (this.original == null)
-			thisReal.setLightLevelSuper(value);
-		else
-			original.setLightLevel(value);
+
+		wrapper.setLightLevelSuper(value);
 		return this;
 	}
 
@@ -164,30 +143,12 @@ public class Compat_Block {
 	}
 
 	public void Compat_set_field_149765_K(float value) {
-		if (this.original == null)
-			thisReal.setDefaultSlipperinessSuper(value);
-		else
-			original.setDefaultSlipperiness(value);
+
+		wrapper.setDefaultSlipperinessSuper(value);
 	}
 
 	public void Compat_set_field_149787_q(boolean opaque) {
 		// TODO opaque
-	}
-
-	@SuppressWarnings("deprecation")
-	public Compat_Material Compat_func_149688_o() {
-		if (this.original == null)
-			return new Compat_Material(thisReal.getMaterialSuper(null));
-		else
-			return new Compat_Material(original.getMaterial(null)); // TODO
-	}
-
-	@SuppressWarnings("deprecation")
-	public Compat_Block_SoundType Compat_get_field_149762_H() {
-		if (this.original == null)
-			return new Compat_Block_SoundType(thisReal.getSoundTypeSuper());
-		else
-			return new Compat_Block_SoundType(original.getSoundType()); // TODO
 	}
 
 }

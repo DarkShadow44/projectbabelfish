@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.block.BlockDragonEgg;
 
 public class Compat_BlockDragonEgg extends Compat_Block {
-	private BlockDragonEgg original;
-	private CompatI_BlockDragonEgg thisReal;
+	private CompatI_BlockDragonEgg wrapper;
 
 	// When called from Mod
 	public Compat_BlockDragonEgg() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockDragonEgg.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockDragonEgg.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_BlockDragonEgg extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockDragonEgg(BlockDragonEgg original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockDragonEgg.class, original));
 	}
 
-	protected void initialize(CompatI_BlockDragonEgg thisReal, BlockDragonEgg original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockDragonEgg wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public BlockDragonEgg getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

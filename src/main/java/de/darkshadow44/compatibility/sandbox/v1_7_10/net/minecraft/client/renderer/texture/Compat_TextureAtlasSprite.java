@@ -6,12 +6,11 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 public class Compat_TextureAtlasSprite {
-	private TextureAtlasSprite original;
-	private CompatI_TextureAtlasSprite thisReal;
+	private CompatI_TextureAtlasSprite wrapper;
 
 	// When called from Mod
 	public Compat_TextureAtlasSprite(String spriteName) {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_TextureAtlasSprite.class, this, spriteName), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_TextureAtlasSprite.class, this, spriteName));
 	}
 
 	// When called from child
@@ -20,15 +19,14 @@ public class Compat_TextureAtlasSprite {
 
 	// When called from Minecraft
 	public Compat_TextureAtlasSprite(TextureAtlasSprite original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_TextureAtlasSprite.class, original));
 	}
 
-	protected void initialize(CompatI_TextureAtlasSprite thisReal, TextureAtlasSprite original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_TextureAtlasSprite wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public TextureAtlasSprite getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

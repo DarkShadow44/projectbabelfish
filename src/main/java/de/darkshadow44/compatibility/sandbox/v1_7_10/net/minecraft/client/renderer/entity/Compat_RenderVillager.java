@@ -7,13 +7,12 @@ import net.minecraft.client.renderer.entity.RenderVillager;
 import net.minecraft.entity.passive.EntityVillager;
 
 public class Compat_RenderVillager extends Compat_RenderLiving<EntityVillager> {
-	private RenderVillager original;
-	private CompatI_RenderVillager thisReal;
+	private CompatI_RenderVillager wrapper;
 
 	// When called from Mod
 	public Compat_RenderVillager(Compat_RenderManager renderManager) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_RenderVillager.class, this, renderManager.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_RenderVillager.class, this, renderManager.getReal()));
 	}
 
 	// When called from child
@@ -24,16 +23,14 @@ public class Compat_RenderVillager extends Compat_RenderLiving<EntityVillager> {
 	// When called from Minecraft
 	public Compat_RenderVillager(RenderVillager original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_RenderVillager.class, original));
 	}
 
-	protected void initialize(CompatI_RenderVillager thisReal, RenderVillager original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_RenderVillager wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public RenderVillager getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

@@ -6,12 +6,11 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.nbt.NBTTagList;
 
 public class Compat_NBTTagList extends Compat_NBTBase {
-	private NBTTagList original;
-	private CompatI_NBTTagList thisReal;
+	private CompatI_NBTTagList wrapper;
 
 	// When called from Mod
 	public Compat_NBTTagList() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_NBTTagList.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_NBTTagList.class, this));
 	}
 
 	// When called from child
@@ -20,15 +19,14 @@ public class Compat_NBTTagList extends Compat_NBTBase {
 
 	// When called from Minecraft
 	public Compat_NBTTagList(NBTTagList original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_NBTTagList.class, original));
 	}
 
-	protected void initialize(CompatI_NBTTagList thisReal, NBTTagList original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_NBTTagList wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public NBTTagList getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

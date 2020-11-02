@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.block.BlockDeadBush;
 
 public class Compat_BlockDeadBush extends Compat_Block {
-	private BlockDeadBush original;
-	private CompatI_BlockDeadBush thisReal;
+	private CompatI_BlockDeadBush wrapper;
 
 	// When called from Mod
 	public Compat_BlockDeadBush() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, Compat_BlockDeadBush.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, Compat_BlockDeadBush.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_BlockDeadBush extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockDeadBush(BlockDeadBush original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockDeadBush.class, original));
 	}
 
-	protected void initialize(CompatI_BlockDeadBush thisReal, BlockDeadBush original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockDeadBush wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public BlockDeadBush getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

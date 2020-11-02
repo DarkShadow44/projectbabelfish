@@ -8,13 +8,12 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.world.Compat_
 import net.minecraft.entity.monster.EntitySlime;
 
 public class Compat_EntitySlime extends Compat_EntityLiving {
-	private EntitySlime original;
-	private CompatI_EntitySlime thisReal;
+	private CompatI_EntitySlime wrapper;
 
 	// When called from Mod
 	public Compat_EntitySlime(Compat_World world) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntitySlime.class, this, world.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntitySlime.class, this, world.getReal()));
 	}
 
 	// When called from child
@@ -25,16 +24,14 @@ public class Compat_EntitySlime extends Compat_EntityLiving {
 	// When called from Minecraft
 	public Compat_EntitySlime(EntitySlime original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntitySlime.class, original));
 	}
 
-	protected void initialize(CompatI_EntitySlime thisReal, EntitySlime original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntitySlime wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntitySlime getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

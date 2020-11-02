@@ -7,13 +7,12 @@ import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.world.Compat_
 import net.minecraft.entity.passive.EntityTameable;
 
 public class Compat_EntityTameable extends Compat_EntityAnimal {
-	private EntityTameable original;
-	private CompatI_EntityTameable thisReal;
+	private CompatI_EntityTameable wrapper;
 
 	// When called from Mod
 	public Compat_EntityTameable(Compat_World world) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityTameable.class, this, world.getReal()), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityTameable.class, this, world.getReal()));
 	}
 
 	// When called from child
@@ -24,16 +23,14 @@ public class Compat_EntityTameable extends Compat_EntityAnimal {
 	// When called from Minecraft
 	public Compat_EntityTameable(EntityTameable original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_EntityTameable.class, original));
 	}
 
-	protected void initialize(CompatI_EntityTameable thisReal, EntityTameable original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_EntityTameable wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public EntityTameable getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

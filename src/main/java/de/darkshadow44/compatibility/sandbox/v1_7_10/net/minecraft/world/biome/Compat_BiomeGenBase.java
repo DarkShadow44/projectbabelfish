@@ -7,12 +7,11 @@ import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 
 public class Compat_BiomeGenBase {
-	private Biome original;
-	private CompatI_BiomeGenBase thisReal;
+	private CompatI_BiomeGenBase wrapper;
 
 	// When called from Mod
 	public Compat_BiomeGenBase() {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BiomeGenBase.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BiomeGenBase.class, this));
 	}
 
 	// When called from child
@@ -21,16 +20,15 @@ public class Compat_BiomeGenBase {
 
 	// When called from Minecraft
 	public Compat_BiomeGenBase(Biome original) {
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BiomeGenBase.class, original));
 	}
 
-	protected void initialize(CompatI_BiomeGenBase thisReal, Biome original) {
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BiomeGenBase wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public Biome getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 
 	public static Compat_BiomeGenBase Compat_get_field_76780_h() {
@@ -38,9 +36,6 @@ public class Compat_BiomeGenBase {
 	}
 
 	public String Compat_get_field_76791_y() {
-		if (original == null)
-			return thisReal.getBiomeNameSuper();
-		else
-			return original.getBiomeName();
+		return wrapper.getBiomeNameSuper();
 	}
 }

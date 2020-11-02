@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.block.BlockMycelium;
 
 public class Compat_BlockMycelium extends Compat_Block {
-	private BlockMycelium original;
-	private CompatI_BlockMycelium thisReal;
+	private CompatI_BlockMycelium wrapper;
 
 	// When called from Mod
 	public Compat_BlockMycelium() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockMycelium.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockMycelium.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_BlockMycelium extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockMycelium(BlockMycelium original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockMycelium.class, original));
 	}
 
-	protected void initialize(CompatI_BlockMycelium thisReal, BlockMycelium original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockMycelium wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public BlockMycelium getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

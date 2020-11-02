@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.item.ItemTool;
 
 public class Compat_ItemTool extends Compat_Item {
-	private ItemTool original;
-	private CompatI_ItemTool thisReal;
+	private CompatI_ItemTool wrapper;
 
 	// When called from Mod
 	public Compat_ItemTool() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemTool.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemTool.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_ItemTool extends Compat_Item {
 	// When called from Minecraft
 	public Compat_ItemTool(ItemTool original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ItemTool.class, original));
 	}
 
-	protected void initialize(CompatI_ItemTool thisReal, ItemTool original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ItemTool wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public ItemTool getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.block.BlockFlower;
 
 public class Compat_BlockFlower extends Compat_Block {
-	private BlockFlower original;
-	private CompatI_BlockFlower thisReal;
+	private CompatI_BlockFlower wrapper;
 
 	// When called from Mod
 	public Compat_BlockFlower() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockFlower.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockFlower.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_BlockFlower extends Compat_Block {
 	// When called from Minecraft
 	public Compat_BlockFlower(BlockFlower original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_BlockFlower.class, original));
 	}
 
-	protected void initialize(CompatI_BlockFlower thisReal, BlockFlower original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_BlockFlower wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public BlockFlower getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }

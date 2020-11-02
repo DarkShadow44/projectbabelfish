@@ -6,13 +6,12 @@ import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.item.ItemShears;
 
 public class Compat_ItemShears extends Compat_Item {
-	private ItemShears original;
-	private CompatI_ItemShears thisReal;
+	private CompatI_ItemShears wrapper;
 
 	// When called from Mod
 	public Compat_ItemShears() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemShears.class, this), null);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemShears.class, this));
 	}
 
 	// When called from child
@@ -23,16 +22,14 @@ public class Compat_ItemShears extends Compat_Item {
 	// When called from Minecraft
 	public Compat_ItemShears(ItemShears original) {
 		super(ParentSelector.NULL);
-		this.initialize(null, original);
+		this.initialize(Factory.createWrapper(CompatI_ItemShears.class, original));
 	}
 
-	protected void initialize(CompatI_ItemShears thisReal, ItemShears original) {
-		super.initialize(thisReal, original);
-		this.thisReal = thisReal;
-		this.original = original;
+	protected void initialize(CompatI_ItemShears wrapper) {
+		this.wrapper = wrapper;
 	}
 
 	public ItemShears getReal() {
-		return original == null ? thisReal.get() : original;
+		return wrapper.get();
 	}
 }
