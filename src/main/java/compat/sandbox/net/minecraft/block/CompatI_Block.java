@@ -12,8 +12,11 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -84,4 +87,8 @@ public interface CompatI_Block extends CompatI_IForgeRegistryEntry_Impl<Block> {
 	public SoundType getSoundTypeSuper();
 
 	public String getUnlocalizedNameSuper();
+
+	public void onBlockClickedSuper(World world, BlockPos pos, EntityPlayer player);
+
+	public boolean onBlockActivatedSuper(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float x, float y, float z);
 }

@@ -54,4 +54,13 @@ public class Compat_EntityPlayer extends Compat_EntityLivingBase {
 	public boolean Compat_func_184812_l_() {
 		return wrapper.isCreativeSuper();
 	}
+
+	public float Compat_func_70047_e() {
+		return wrapper.getEyeHeightSuper();
+	}
+
+	public Compat_PlayerCapabilities Compat_get_field_71075_bZ() {
+		return new Compat_PlayerCapabilities(wrapper.get_capabilities());
+	}
+
 }

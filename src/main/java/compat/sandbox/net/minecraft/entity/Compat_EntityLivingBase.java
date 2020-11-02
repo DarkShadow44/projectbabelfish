@@ -4,6 +4,7 @@ import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
 import compat.sandbox.net.minecraft.item.Compat_ItemStack;
+import compat.sandbox.net.minecraft.util.math.Compat_Vec3d;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 
@@ -44,5 +45,9 @@ public class Compat_EntityLivingBase extends Compat_Entity {
 	public Compat_ItemStack Compat_func_184592_cb() {
 		ItemStack result = wrapper.getHeldItemOffhandSuper();
 		return result == null || result.isEmpty() ? null : new Compat_ItemStack(result);
+	}
+
+	public Compat_Vec3d Compat_func_70040_Z() {
+		return new Compat_Vec3d(wrapper.getLookVecSuper());
 	}
 }

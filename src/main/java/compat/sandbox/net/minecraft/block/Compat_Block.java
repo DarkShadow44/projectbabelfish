@@ -5,8 +5,8 @@ import java.util.List;
 
 import compat.autogen.Callback;
 import compat.autogen.Factory;
-import compat.autogen.HasCallback;
 import compat.autogen.Factory.CtorPos;
+import compat.autogen.HasCallback;
 import compat.core.ParentSelector;
 import compat.sandbox.net.minecraft.block.material.Compat_Material;
 import compat.sandbox.net.minecraft.block.state.Compat_BlockStateContainer;
@@ -14,9 +14,13 @@ import compat.sandbox.net.minecraft.block.state.Compat_IBlockState;
 import compat.sandbox.net.minecraft.block.state.Wrapper_IBlockState;
 import compat.sandbox.net.minecraft.creativetab.Compat_CreativeTabs;
 import compat.sandbox.net.minecraft.entity.Compat_Entity;
+import compat.sandbox.net.minecraft.entity.player.Compat_EntityPlayer;
+import compat.sandbox.net.minecraft.item.Compat_ItemStack;
 import compat.sandbox.net.minecraft.tileentity.Compat_TileEntity;
 import compat.sandbox.net.minecraft.util.Compat_BlockRenderLayer;
 import compat.sandbox.net.minecraft.util.Compat_EnumBlockRenderType;
+import compat.sandbox.net.minecraft.util.Compat_EnumFacing;
+import compat.sandbox.net.minecraft.util.Compat_EnumHand;
 import compat.sandbox.net.minecraft.util.math.Compat_AxisAlignedBB;
 import compat.sandbox.net.minecraft.util.math.Compat_BlockPos;
 import compat.sandbox.net.minecraft.util.math.Compat_RayTraceResult;
@@ -33,9 +37,13 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -304,13 +312,11 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	}
 
 	public Compat_Block Compat_func_149672_a(Compat_Block_SoundType sound) {
-
 		wrapper.setSoundTypeSuper(sound.getReal());
 		return this;
 	}
 
 	public Compat_Block Compat_func_149649_H() {
-
 		wrapper.disableStatsSuper();
 		return this;
 	}
@@ -325,25 +331,21 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	}
 
 	public Compat_Block Compat_func_149713_g(int opacity) {
-
 		wrapper.setLightOpacitySuper(opacity);
 		return this;
 	}
 
 	public Compat_Block Compat_func_149722_s() {
-
 		wrapper.setBlockUnbreakableSuper();
 		return this;
 	}
 
 	public Compat_Block Compat_func_149752_b(float resistance) {
-
 		wrapper.setResistanceSuper(resistance);
 		return this;
 	}
 
 	public Compat_Block Compat_func_149715_a(float value) {
-
 		wrapper.setLightLevelSuper(value);
 		return this;
 	}
@@ -377,12 +379,33 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	}
 
 	public void Compat_set_field_149765_K(float value) {
-
 		wrapper.setDefaultSlipperinessSuper(value);
 	}
 
 	public void Compat_set_field_149787_q(boolean opaque) {
 		// TODO opaque
+	}
+
+	@Callback
+	public void onBlockClicked(World world, BlockPos pos, EntityPlayer player) {
+		Compat_func_180649_a(Compat_World.get_fake(world), new Compat_BlockPos(pos), Compat_EntityPlayer.get_fake(player));
+	}
+
+	@HasCallback
+	public void Compat_func_180649_a(Compat_World world, Compat_BlockPos pos, Compat_EntityPlayer player) {
+		wrapper.onBlockClickedSuper(world.getReal(), pos.getReal(), player.getReal());
+	}
+
+	@Callback
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float x, float y, float z) {
+		ItemStack stack = player.getHeldItem(hand);
+		Compat_ItemStack stack2 = stack == null ? null : new Compat_ItemStack(stack);
+		return Compat_func_180639_a(Compat_World.get_fake(world), new Compat_BlockPos(pos), new Wrapper_IBlockState(state), Compat_EntityPlayer.get_fake(player), Compat_EnumHand.map_real_to_fake(hand), stack2, Compat_EnumFacing.map_real_to_fake(facing), x, y, z);
+	}
+
+	@HasCallback
+	public boolean Compat_func_180639_a(Compat_World world, Compat_BlockPos pos, Compat_IBlockState state, Compat_EntityPlayer player, Compat_EnumHand hand, Compat_ItemStack stack, Compat_EnumFacing facing, float x, float y, float z) {
+		return wrapper.onBlockActivatedSuper(world.getReal(), pos.getReal(), state.getReal(), player.getReal(), hand.getReal(), facing.getReal(), x, y, z);
 	}
 
 }
