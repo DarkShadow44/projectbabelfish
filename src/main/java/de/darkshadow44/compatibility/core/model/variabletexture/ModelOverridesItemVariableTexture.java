@@ -8,9 +8,9 @@ import javax.annotation.Nullable;
 import com.google.common.collect.ImmutableList;
 
 import de.darkshadow44.compatibility.core.CompatibilityMod;
-import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item.CompatI_Item;
-import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item.Compat_Item;
-import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.util.Compat_IIcon;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.item.CompatI_Item;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.item.Compat_Item;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_IIcon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;

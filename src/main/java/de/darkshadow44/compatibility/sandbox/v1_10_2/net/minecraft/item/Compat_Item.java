@@ -16,9 +16,11 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.entity.player
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_EnumActionResult;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_EnumFacing;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_EnumHand;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_IIcon;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_BlockPos;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.world.Compat_World;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraftforge.fml.common.registry.Compat_IForgeRegistryEntry_Impl;
+import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.renderer.texture.Compat_IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,6 +32,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 	private CompatI_Item wrapper;
@@ -155,6 +159,76 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 
 	public static int Compat_func_150891_b(Compat_Item item) {
 		return Item.getIdFromItem(item.getReal());
+	}
+
+	public Compat_Item Compat_func_77627_a(boolean hasSubtypes) {
+		wrapper.setHasSubtypesSuper(hasSubtypes);
+		return this;
+	}
+
+	private String iconString = null;
+
+	public Compat_Item Compat_func_111206_d(String name) {
+		iconString = name;
+		return this;
+	}
+
+	@SideOnly(Side.CLIENT)
+	protected String Compat_func_111208_A() { // getIconString
+		return (this.iconString == null) ? ("MISSING_ICON_ITEM") : this.iconString;
+	}
+
+	public Compat_Item Compat_setNoRepair() {
+		wrapper.setNoRepairSuper();
+		return this;
+	}
+
+	public Compat_Item Compat_func_77664_n() {
+		wrapper.setFull3DSuper();
+		return this;
+	}
+
+	public void Compat_set_field_77787_bX(boolean hasSubtypes) {
+		wrapper.setHasSubtypesSuper(hasSubtypes);
+	}
+
+	public Compat_Item Compat_func_77642_a(Compat_Item containerItem) {
+		wrapper.setContainerItemSuper(containerItem.getReal());
+		return this;
+	}
+
+	@SideOnly(Side.CLIENT)
+	public void Compat_func_94581_a(Compat_IIconRegister iconRegister) {
+		icon = iconRegister.Compat_func_94245_a(Compat_func_111208_A());
+	}
+
+	@SideOnly(Side.CLIENT)
+	public Compat_IIcon Compat_func_77617_a(int damage) {
+		// To be overriden
+		return icon;
+	}
+
+	private Compat_IIcon icon;
+
+	public void Compat_set_field_77791_bV(Compat_IIcon icon) {
+		this.icon = icon;
+	}
+
+	public Compat_IIcon Compat_get_field_77791_bV() {
+		return icon;
+	}
+
+	@Callback
+	public String getItemStackDisplayName(ItemStack stack) {
+		return Compat_func_77653_i(new Compat_ItemStack(stack));
+	}
+
+	public String Compat_func_77653_i(Compat_ItemStack itemstack) {
+		return wrapper.getItemStackDisplayNameSuper(itemstack.getReal());
+	}
+
+	public String Compat_func_77658_a() {
+		return wrapper.getUnlocalizedNameSuper();
 	}
 
 }

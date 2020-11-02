@@ -40,4 +40,14 @@ public class Compat_CreativeTabs {
 		// To be overriden
 		return null;
 	}
+
+	/* TODO 1.7.10
+	 * public Compat_ItemStack Compat_func_151244_d() {
+		// Must be original, method is abstract
+		return new Compat_ItemStack(wrapper.getIconItemStackSuper());
+	}
+	
+	public ItemStack getTabIconItem() {
+		return Compat_func_151244_d().getReal();
+	}*/
 }

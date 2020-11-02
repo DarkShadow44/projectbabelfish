@@ -3,8 +3,8 @@ package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.gui.i
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.inventory.Compat_Container;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.gui.Compat_GuiScreen;
-import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.inventory.Compat_Container;
 import net.minecraft.client.gui.inventory.GuiContainer;
 
 public class Compat_GuiContainer extends Compat_GuiScreen {

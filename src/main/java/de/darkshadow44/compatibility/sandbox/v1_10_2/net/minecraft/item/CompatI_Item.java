@@ -35,4 +35,16 @@ public interface CompatI_Item extends CompatI_IForgeRegistryEntry_Impl<Item> {
 	public EnumActionResult onItemUseSuper(EntityPlayer player, World world, BlockPos block, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ);
 
 	public Compat_Item getFake();
+
+	public Item setHasSubtypesSuper(boolean hasSubtypes);
+
+	public Item setNoRepairSuper();
+
+	public Item setFull3DSuper();
+
+	public Item setContainerItemSuper(Item containerItem);
+
+	public String getItemStackDisplayNameSuper(ItemStack stack);
+
+	public String getUnlocalizedNameSuper();
 }

@@ -34,4 +34,9 @@ public class Compat_ItemArmor extends Compat_Item {
 	public ItemArmor getReal() {
 		return wrapper.get();
 	}
+	
+
+	public int Compat_get_field_77879_b() {
+		return wrapper.get_damageReduceAmount();
+	}
 }

@@ -6,10 +6,10 @@ import de.darkshadow44.compatibility.core.RegistrationInfoItem;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.cpw.mods.fml.common.Compat_IFuelHandler;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.cpw.mods.fml.common.Compat_IWorldGenerator;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.cpw.mods.fml.common.Wrapper_IWorldGenerator;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.item.Compat_Item;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.item.Compat_ItemStack;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.item.crafting.Compat_IRecipe;
 import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.block.Compat_Block;
-import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item.Compat_Item;
-import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item.Compat_ItemStack;
-import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item.crafting.Compat_IRecipe;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class Compat_GameRegistry {

@@ -1,9 +1,9 @@
 package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.init;
 
-import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item.Compat_Item;
-import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item.Compat_ItemBow;
-import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item.Compat_ItemPotion;
-import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item.Compat_ItemShears;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.item.Compat_Item;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.item.Compat_ItemBow;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.item.Compat_ItemPotion;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.item.Compat_ItemShears;
 import net.minecraft.init.Items;
 
 public class Compat_Items {

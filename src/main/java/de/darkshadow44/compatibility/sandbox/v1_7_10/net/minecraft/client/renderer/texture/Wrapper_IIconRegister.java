@@ -2,7 +2,7 @@ package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.rende
 
 import de.darkshadow44.compatibility.core.CompatibilityMod;
 import de.darkshadow44.compatibility.core.RegistrationInfoIcon;
-import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.util.Compat_IIcon;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_IIcon;
 
 public class Wrapper_IIconRegister implements Compat_IIconRegister {
 

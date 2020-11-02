@@ -34,4 +34,10 @@ public class Compat_ItemBlock extends Compat_Item {
 	public ItemBlock getReal() {
 		return wrapper.get();
 	}
+	
+	public Compat_ItemBlock Compat_func_77655_b(String unlocalizedName) {
+		// TODO move up?
+		wrapper.setUnlocalizedNameSuper(unlocalizedName);
+		return this;
+	}
 }

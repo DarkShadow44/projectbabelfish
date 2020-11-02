@@ -1,6 +1,6 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.cpw.mods.fml.common.registry;
 
-import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.util.Compat_ResourceLocation;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_ResourceLocation;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 
 public class Compat_VillagerRegistry {

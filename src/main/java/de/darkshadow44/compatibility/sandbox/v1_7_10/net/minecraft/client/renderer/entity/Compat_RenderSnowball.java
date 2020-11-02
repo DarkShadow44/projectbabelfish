@@ -3,7 +3,7 @@ package de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.client.rende
 import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
-import de.darkshadow44.compatibility.sandbox.v1_7_10.net.minecraft.item.Compat_Item;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.item.Compat_Item;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.entity.Entity;
 
