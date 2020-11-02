@@ -30,10 +30,28 @@ import de.darkshadow44.compatibility.core.layer.CompatibilityLayer;
 
 public class ClassGenerator {
 
-	private final CompatibilityLayer layer;
+	private final Class<?> classIface;
+	private final String pathIface;
+	private final String nameIface;
+	private final Class<?> classMc;
+	private final String pathMc;
+	private final String pathFake;
+	private final String descFake;
+	private final Class<?> classFake;
+	private final String pathReal;
 
-	public ClassGenerator(CompatibilityLayer layer) {
-		this.layer = layer;
+	private ClassGenerator(Class<?> classIface, String pathIface, String nameIface) throws Exception {
+		this.classIface = classIface;
+		this.pathIface = pathIface;
+		this.nameIface = nameIface;
+		this.pathReal = pathIface.replace("CompatI_", "CompatReal_");
+		this.pathFake = pathIface.replace("CompatI_", "Compat_");
+		this.descFake = "L" + pathFake + ";";
+		this.classFake = Class.forName(pathFake.replace("/", "."));
+
+		Method methodGet = classIface.getMethod("get");
+		classMc = methodGet.getReturnType();
+		pathMc = classMc.getName().replace(".", "/");
 	}
 
 	private void generateLoadParams(InsnList instructions, Parameter[] params, int offset) {
@@ -100,6 +118,27 @@ public class ClassGenerator {
 		return method;
 	}
 
+	private MethodNode generateConstructorWrapper(String realPath, String mcPath) {
+		String originalDesc = "L" + mcPath + ";";
+		realPath = realPath.replace("CompatReal_", "CompatWrapper_");
+
+		MethodNode method = new MethodNode();
+		method.name = "<init>";
+		method.access = Opcodes.ACC_PUBLIC;
+		method.exceptions = new ArrayList<>();
+
+		method.desc = "(" + originalDesc + ")V";
+
+		method.instructions = new InsnList();
+
+		// this.thisFake = thisFake;
+		method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+		method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 1));
+		method.instructions.add(new FieldInsnNode(Opcodes.PUTFIELD, realPath, "original", originalDesc));
+
+		return method;
+	}
+
 	private MethodNode generateGet(String mcPath) {
 		MethodNode method = new MethodNode();
 		method.name = "get";
@@ -132,7 +171,7 @@ public class ClassGenerator {
 		return method;
 	}
 
-	private MethodNode generateSuper(String realPath, String mcPath, Parameter[] params, String methodName, Class<?> returnType) {
+	private MethodNode generateSuper(String realPath, String mcPath, Parameter[] params, String methodName, Class<?> returnType, boolean isWrapper) {
 		MethodNode method = new MethodNode();
 		method.name = methodName;
 		method.access = Opcodes.ACC_PUBLIC;
@@ -236,7 +275,7 @@ public class ClassGenerator {
 		return method;
 	}
 
-	private void generateMethodsForIface(List<MethodNode> methods, Class<?> classIface, String realPath, String mcPath, Class<?> classMc) {
+	private void generateMethodsForIface(List<MethodNode> methods, Class<?> classIface, String realPath, String mcPath, Class<?> classMc, boolean isWrapper) {
 		for (Method method : classIface.getMethods()) {
 			if (method.getName().equals("get")) {
 				continue;
@@ -258,7 +297,7 @@ public class ClassGenerator {
 			if (!methodExistsInClass(classMc, method, true)) {
 				throw new RuntimeException("Can't find method \"" + method.getName() + "\" in class " + mcPath);
 			}
-			MethodNode methodCreated = generateSuper(realPath, mcPath, method.getParameters(), method.getName(), method.getReturnType());
+			MethodNode methodCreated = generateSuper(realPath, mcPath, method.getParameters(), method.getName(), method.getReturnType(), isWrapper);
 			methods.add(methodCreated);
 		}
 	}
@@ -324,21 +363,44 @@ public class ClassGenerator {
 		}
 	}
 
-	private void generateClass(Class<?> classIface, String path, String ifaceName) throws Exception {
+	private void generateClassWrapper(Class<?> classIface, String path, String ifaceName) throws Exception {
 		Method methodGet = classIface.getMethod("get");
 		Class<?> classMc = methodGet.getReturnType();
 
 		ClassNode classNode = new ClassNode();
 		classNode.access = Opcodes.ACC_PUBLIC;
-		classNode.interfaces.add(path + ifaceName);
-		String className = ifaceName.replace("CompatI_", "CompatReal_");
+		String className = ifaceName.replace("CompatI_", "CompatWrapper_");
 		classNode.name = path + className;
+		classNode.version = 52;
+
+		String mcPath = classMc.getName().replace(".", "/");
+
+		String originalDesc = "L" + mcPath + ";";
+		classNode.fields.add(new FieldNode(Opcodes.ACC_PRIVATE, "original", originalDesc, null, null));
+
+		classNode.methods.add(generateGet(mcPath));
+
+		MethodNode method = generateConstructorWrapper(classNode.name, mcPath);
+		classNode.methods.add(method);
+
+		generateMethodsForIface(classNode.methods, classIface, classNode.name, mcPath, classMc, true);
+
+		ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
+		classNode.accept(classWriter);
+		byte[] data = classWriter.toByteArray();
+
+		CompatibilityMod.classLoader.addClass(classNode.name.replace("/", "."), data);
+	}
+
+	public void generateClass() throws Exception {
+		ClassNode classNode = new ClassNode();
+		classNode.access = Opcodes.ACC_PUBLIC;
+		classNode.interfaces.add(pathIface);
+		classNode.name = pathReal;
 		classNode.superName = classMc.getName().replace(".", "/");
 		classNode.version = 52;
 
-		String fakePath = path + ifaceName.replace("CompatI_", "Compat_");
-		String thisFakeDesc = "L" + fakePath + ";";
-		classNode.fields.add(new FieldNode(Opcodes.ACC_PRIVATE, "thisFake", thisFakeDesc, null, null));
+		classNode.fields.add(new FieldNode(Opcodes.ACC_PRIVATE, "thisFake", descFake, null, null));
 		classNode.fields.add(new FieldNode(Opcodes.ACC_PRIVATE, "inInit", "Z", null, null));
 
 		String mcPath = classMc.getName().replace(".", "/");
@@ -350,7 +412,7 @@ public class ClassGenerator {
 			classNode.methods.add(method);
 		}
 
-		generateMethodsForIface(classNode.methods, classIface, classNode.name, mcPath, classMc);
+		generateMethodsForIface(classNode.methods, classIface, classNode.name, mcPath, classMc, false);
 
 		generateAbstractWrappers(classNode.methods, classMc, classNode.name);
 
@@ -365,7 +427,6 @@ public class ClassGenerator {
 			}
 		}
 
-		Class<?> classFake = Class.forName(fakePath.replace("/", "."));
 		generateCallbacks(classNode.methods, classFake, classNode.name, mcPath, classMc);
 
 		ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
@@ -375,7 +436,7 @@ public class ClassGenerator {
 		CompatibilityMod.classLoader.addClass(classNode.name.replace("/", "."), data);
 	}
 
-	private void generateRealClasses() throws Exception {
+	private static void generateRealClasses(CompatibilityLayer layer) throws Exception {
 		ClassPath classesPath = ClassPath.from(ClassGenerator.class.getClassLoader());
 		String sandbox = layer.getPathSandbox().replace("/", ".");
 		sandbox = sandbox.substring(0, sandbox.length() - 1);
@@ -390,18 +451,19 @@ public class ClassGenerator {
 			String classFullName = clazzInfo.getName().replace(".", "/");
 			String[] classNameSplit = classFullName.split("\\/");
 			String className = classNameSplit[classNameSplit.length - 1];
-			String classPath = classFullName.substring(0, classFullName.length() - className.length());
 			Class<?> clazz = Class.forName(clazzInfo.getName());
 
 			if (clazz.isInterface() && className.startsWith("CompatI_")) {
-				generateClass(clazz, classPath, className);
+				ClassGenerator generator = new ClassGenerator(clazz, classFullName, className);
+				generator.generateClass();
+				// generateClassWrapper(clazz, classPath, className);
 			}
 		}
 	}
 
-	public void tryGenerateRealClasses() {
+	public static void tryGenerateRealClasses(CompatibilityLayer layer) {
 		try {
-			generateRealClasses();
+			generateRealClasses(layer);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

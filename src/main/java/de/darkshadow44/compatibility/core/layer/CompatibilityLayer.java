@@ -71,8 +71,7 @@ public abstract class CompatibilityLayer {
 	}
 
 	public void generateClasses() {
-		ClassGenerator classGenerator = new ClassGenerator(this);
-		classGenerator.tryGenerateRealClasses();
+		ClassGenerator.tryGenerateRealClasses(this);
 	}
 
 	public ModInfo getModById(String id) {
