@@ -42,4 +42,10 @@ public interface CompatI_NBTTagCompound {
 	public void setByteArraySuper(String key, byte[] value);
 
 	public byte[] getByteArraySuper(String key);
+
+	public void setBooleanSuper(String key, boolean value);
+
+	public void setIntArraySuper(String key, int[] value);
+
+	public int[] getIntArraySuper(String key);
 }

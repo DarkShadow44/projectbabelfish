@@ -153,4 +153,24 @@ public class Compat_NBTTagCompound extends Compat_NBTBase {
 			return original.getByteArray(key);
 	}
 
+	public void Compat_func_74757_a(String key, boolean value) {
+		if (original == null)
+			thisReal.setBooleanSuper(key, value);
+		else
+			original.setBoolean(key, value);
+	}
+
+	public void Compat_func_74783_a(String key, int[] value) {
+		if (original == null)
+			thisReal.setIntArraySuper(key, value);
+		else
+			original.setIntArray(key, value);
+	}
+
+	public int[] Compat_func_74759_k(String key) {
+		if (original == null)
+			return thisReal.getIntArraySuper(key);
+		else
+			return original.getIntArray(key);
+	}
 }

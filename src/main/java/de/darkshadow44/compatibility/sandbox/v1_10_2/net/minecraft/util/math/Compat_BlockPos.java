@@ -43,4 +43,24 @@ public class Compat_BlockPos extends Compat_Vec3i {
 		else
 			return new Compat_BlockPos(original.offset(facing.getReal()));
 	}
+
+	public static Compat_BlockPos Compat_get_field_177992_a() {
+		return new Compat_BlockPos(BlockPos.ORIGIN);
+	}
+
+	public Compat_BlockPos Compat_func_177971_a(Compat_Vec3i vec) {
+		BlockPos result;
+		if (original == null)
+			result = thisReal.addSuper(vec.getReal());
+		else
+			result = original.add(vec.getReal());
+		return new Compat_BlockPos(result);
+	}
+
+	public double Compat_func_177951_i(Compat_Vec3i vec) {
+		if (original == null)
+			return thisReal.distanceSqSuper(vec.getReal());
+		else
+			return original.distanceSq(vec.getReal());
+	}
 }

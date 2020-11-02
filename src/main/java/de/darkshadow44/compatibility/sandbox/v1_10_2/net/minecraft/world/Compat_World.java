@@ -170,4 +170,18 @@ public class Compat_World implements Compat_IBlockAccess {
 
 		return new Compat_WorldBorder(ret);
 	}
+
+	public long Compat_func_82737_E() {
+		if (original == null)
+			return thisReal.getTotalWorldTimeSuper();
+		else
+			return original.getTotalWorldTime();
+	}
+
+	public boolean Compat_func_175698_g(Compat_BlockPos pos) {
+		if (original == null)
+			return thisReal.setBlockToAirSuper(pos.getReal());
+		else
+			return original.setBlockToAir(pos.getReal());
+	}
 }

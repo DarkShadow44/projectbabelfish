@@ -41,4 +41,8 @@ public interface CompatI_World {
 	public void markBlockRangeForRenderUpdateSuper(BlockPos real, BlockPos real2);
 
 	public WorldBorder getWorldBorderSuper();
+
+	public long getTotalWorldTimeSuper();
+
+	public boolean setBlockToAirSuper(BlockPos pos);
 }

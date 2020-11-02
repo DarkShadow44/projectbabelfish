@@ -31,9 +31,15 @@ public class Wrapper_IBlockState implements Compat_IBlockState {
 		return original;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T extends Comparable<T>, V extends T> Compat_IBlockState Compat_func_177226_a(Compat_IProperty<T> var1, V var2) {
-		return new Wrapper_IBlockState(original.withProperty(var1.getReal(), var2));
+		Object value = var2;
+		if (value instanceof Compat_EnumFacing) {
+			value = ((Compat_EnumFacing) value).getReal();
+		}
+		IBlockState result = original.withProperty(var1.getReal(), (V) value);
+		return Compat_IBlockState.getFake(result);
 	}
 
 	@Override
