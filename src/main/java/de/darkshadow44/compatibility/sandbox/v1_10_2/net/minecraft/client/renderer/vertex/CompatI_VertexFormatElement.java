@@ -1,6 +1,7 @@
 package de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.client.renderer.vertex;
 
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
+import net.minecraft.client.renderer.vertex.VertexFormatElement.EnumType;
 import net.minecraft.client.renderer.vertex.VertexFormatElement.EnumUsage;
 
 public interface CompatI_VertexFormatElement {
@@ -9,4 +10,6 @@ public interface CompatI_VertexFormatElement {
 	public EnumUsage getUsageSuper();
 
 	public int getIndexSuper();
+
+	public EnumType getTypeSuper();
 }

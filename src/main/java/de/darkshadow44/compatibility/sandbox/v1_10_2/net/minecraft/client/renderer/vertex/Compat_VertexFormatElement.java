@@ -4,6 +4,7 @@ import de.darkshadow44.compatibility.autogen.Factory;
 import de.darkshadow44.compatibility.autogen.Factory.CtorPos;
 import de.darkshadow44.compatibility.core.ParentSelector;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
+import net.minecraft.client.renderer.vertex.VertexFormatElement.EnumType;
 import net.minecraft.client.renderer.vertex.VertexFormatElement.EnumUsage;
 
 public class Compat_VertexFormatElement {
@@ -47,5 +48,14 @@ public class Compat_VertexFormatElement {
 			return thisReal.getIndexSuper();
 		else
 			return original.getIndex();
+	}
+
+	public Compat_VertexFormatElement_EnumType Compat_func_177367_b() {
+		EnumType result;
+		if (original == null)
+			result = thisReal.getTypeSuper();
+		else
+			result = original.getType();
+		return Compat_VertexFormatElement_EnumType.getFake(result);
 	}
 }
