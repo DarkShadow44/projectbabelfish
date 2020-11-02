@@ -15,6 +15,7 @@ import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.block.state.W
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.creativetab.Compat_CreativeTabs;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.entity.Compat_Entity;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.tileentity.Compat_TileEntity;
+import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_BlockRenderLayer;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.Compat_EnumBlockRenderType;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_AxisAlignedBB;
 import de.darkshadow44.compatibility.sandbox.v1_10_2.net.minecraft.util.math.Compat_BlockPos;
@@ -31,6 +32,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -333,6 +335,24 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		for (AxisAlignedBB box : list2) {
 			boxes.add(new Compat_AxisAlignedBB(box));
 		}
+	}
+
+	@Callback
+	public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer) {
+		return Compat_canRenderInLayer(new Wrapper_IBlockState(state), Compat_BlockRenderLayer.getFake(layer));
+	}
+
+	@HasCallback
+	public boolean Compat_canRenderInLayer(Compat_BlockRenderLayer layer) {
+		if (original == null)
+			return thisReal.canRenderInLayerSuper(null, layer.getReal());
+		else
+			return original.canRenderInLayer(null, layer.getReal());
+	}
+
+	@HasCallback
+	public boolean Compat_canRenderInLayer(Compat_IBlockState state, Compat_BlockRenderLayer layer) {
+		return Compat_canRenderInLayer(layer);
 	}
 
 }

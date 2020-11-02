@@ -10,6 +10,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -57,4 +58,6 @@ public interface CompatI_Block extends CompatI_IForgeRegistryEntry_Impl<Block> {
 	public AxisAlignedBB getSelectedBoundingBoxSuper(IBlockState state, World world, BlockPos pos);
 
 	public void addCollisionBoxToListSuper(IBlockState state, World world, BlockPos pos, AxisAlignedBB bbEntity, List<AxisAlignedBB> boxes, Entity entity, boolean b);
+
+	public boolean canRenderInLayerSuper(IBlockState state, BlockRenderLayer layer);
 }
