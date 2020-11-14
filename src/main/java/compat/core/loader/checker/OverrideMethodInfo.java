@@ -1,4 +1,4 @@
-package compat.core.loader;
+package compat.core.loader.checker;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -9,6 +9,7 @@ import org.objectweb.asm.Type;
 import compat.autogen.HasCallback;
 import compat.core.CompatibilityMod;
 import compat.core.layer.CompatibilityLayer;
+import compat.core.loader.CompatibilityClassTransformer;
 
 public class OverrideMethodInfo {
 	public class MethodInfo {

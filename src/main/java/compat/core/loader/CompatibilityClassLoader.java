@@ -8,6 +8,7 @@ import java.util.Map;
 
 import compat.core.CompatibilityMod;
 import compat.core.layer.CompatibilityLayer;
+import compat.core.loader.checker.MissingOverrideChecker;
 
 public class CompatibilityClassLoader {
 

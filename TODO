@@ -53,3 +53,7 @@ if this.getClass != Compat_XXX.class then is child
 HasCallback with MC Versions, to know it is called for version XXX
 find all called methods, like overrides
 
+still using so much memory when looking at circuit?
+
+different sandbox for different mc verison, but same mc sandbox...
+

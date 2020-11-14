@@ -1,11 +1,11 @@
-package compat.core.loader;
+package compat.core.loader.checker;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import compat.core.layer.CompatibilityLayer;
-import compat.core.loader.OverrideMethodInfo.MethodInfo;
+import compat.core.loader.checker.OverrideMethodInfo.MethodInfo;
 
 public class MissingOverrideChecker {
 
