@@ -4,16 +4,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import compat.autogen.Callback;
 import compat.autogen.Factory;
-import compat.autogen.HasCallback;
 import compat.autogen.Factory.CtorPos;
+import compat.autogen.HasCallback;
 import compat.core.ParentSelector;
+import compat.sandbox.net.minecraft.block.Compat_Block;
+import compat.sandbox.net.minecraft.block.state.Compat_IBlockState;
 import compat.sandbox.net.minecraft.client.renderer.texture.Compat_IIconRegister;
 import compat.sandbox.net.minecraft.creativetab.Compat_CreativeTabs;
 import compat.sandbox.net.minecraft.entity.Compat_Entity;
 import compat.sandbox.net.minecraft.entity.player.Compat_EntityPlayer;
+import compat.sandbox.net.minecraft.nbt.Compat_NBTTagCompound;
+import compat.sandbox.net.minecraft.util.Compat_ActionResult;
 import compat.sandbox.net.minecraft.util.Compat_EnumActionResult;
 import compat.sandbox.net.minecraft.util.Compat_EnumFacing;
 import compat.sandbox.net.minecraft.util.Compat_EnumHand;
@@ -26,6 +31,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -229,6 +236,34 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 
 	public String Compat_func_77658_a() {
 		return wrapper.getUnlocalizedNameSuper();
+	}
+
+	public static Compat_Item Compat_func_150898_a(Compat_Block block) {
+		Item result = Item.getItemFromBlock(block.getReal());
+		return Compat_Item.get_fake(result);
+	}
+
+	public int Compat_func_77647_b(int damage) {
+		return wrapper.getMetadataSuper(damage);
+	}
+
+	public Compat_ActionResult<ItemStack> Compat_func_77659_a(Compat_ItemStack stack, Compat_World world, Compat_EntityPlayer player, Compat_EnumHand hand) {
+		ActionResult<ItemStack> result = wrapper.onItemRightClickSuper(world.getReal(), player.getReal(), hand.getReal());
+		return new Compat_ActionResult<ItemStack>(result);
+	}
+
+	public int Compat_getHarvestLevel(Compat_ItemStack stack, String toolClass, Compat_EntityPlayer player, Compat_IBlockState state) {
+		return wrapper.getHarvestLevelSuper(stack.getReal(), toolClass, player.getReal(), state.getReal());
+	}
+
+	public Compat_NBTTagCompound Compat_getNBTShareTag(Compat_ItemStack stack) {
+		NBTTagCompound result = wrapper.getNBTShareTagSuper(stack.getReal());
+		return new Compat_NBTTagCompound(result);
+	}
+
+	public Set<String> Compat_getToolClasses(Compat_ItemStack stack) {
+		Set<String> result = wrapper.getToolClassesSuper(stack.getReal());
+		return result; // TODO ?
 	}
 
 }

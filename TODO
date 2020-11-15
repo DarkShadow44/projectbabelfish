@@ -51,7 +51,7 @@ All mod classes tagged? When usin @Callback, switch on version (CASE V1_7_10 Cal
 factory checks if child, if yes, creates wrapper.
 if this.getClass != Compat_XXX.class then is child
 HasCallback with MC Versions, to know it is called for version XXX
-find all called methods, like overrides
+find all called methods, like overrides - find method that call into mod class, but are inherited from non-mod.
 
 still using so much memory when looking at circuit?
 

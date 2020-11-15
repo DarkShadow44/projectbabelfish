@@ -8,6 +8,7 @@ import compat.sandbox.net.minecraft.block.Compat_BlockDeadBush;
 import compat.sandbox.net.minecraft.block.Compat_BlockFire;
 import compat.sandbox.net.minecraft.block.Compat_BlockFlower;
 import compat.sandbox.net.minecraft.block.Compat_BlockPistonBase;
+import compat.sandbox.net.minecraft.block.Compat_BlockRedstoneWire;
 import compat.sandbox.net.minecraft.block.Compat_BlockSand;
 import compat.sandbox.net.minecraft.block.Compat_BlockSlab;
 import compat.sandbox.net.minecraft.block.Compat_BlockStainedGlass;
@@ -50,7 +51,7 @@ public class Compat_Blocks {
 	public static Compat_Block Compat_get_field_150348_b() {
 		return STONE;
 	}
-	
+
 	// TODO!
 	public static Compat_BlockFire Compat_get_field_150480_ab() {
 		return new Compat_BlockFire(Blocks.FIRE);
@@ -278,5 +279,9 @@ public class Compat_Blocks {
 
 	public static Compat_Block Compat_get_field_150365_q() {
 		return new Compat_Block(Blocks.COAL_ORE);
+	}
+
+	public static Compat_BlockRedstoneWire Compat_get_field_150488_af() {
+		return new Compat_BlockRedstoneWire(Blocks.REDSTONE_WIRE);
 	}
 }
