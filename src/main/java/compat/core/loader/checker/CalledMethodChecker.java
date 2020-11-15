@@ -1,5 +1,6 @@
 package compat.core.loader.checker;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,16 +38,22 @@ public class CalledMethodChecker {
 		try {
 			Class<?> clazz = Class.forName(method.owner.replace("/", "."), false, CompatibilityMod.classLoader);
 
-			Method[] methods = clazz.getMethods();
-			for (Method m : methods) {
-				if (m.getName().equals(method.name) && Type.getMethodDescriptor(m).equals(method.desc)) {
-					return true;
+			if (method.name.equals("<init>")) {
+				for (Constructor<?> c : clazz.getConstructors()) {
+					if (Type.getConstructorDescriptor(c).equals(method.desc)) {
+						return true;
+					}
+				}
+			} else {
+				for (Method m : clazz.getMethods()) {
+					if (m.getName().equals(method.name) && Type.getMethodDescriptor(m).equals(method.desc)) {
+						return true;
+					}
 				}
 			}
 		} catch (Exception e) {
 			return false;
 		}
-
 		return false;
 	}
 
