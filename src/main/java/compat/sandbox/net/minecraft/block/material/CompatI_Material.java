@@ -15,4 +15,6 @@ public interface CompatI_Material {
 	public Material setReplaceableSuper();
 
 	public MapColor getMaterialMapColorSuper();
+
+	public boolean isToolNotRequiredSuper();
 }

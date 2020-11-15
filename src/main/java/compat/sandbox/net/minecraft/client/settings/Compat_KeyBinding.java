@@ -34,4 +34,12 @@ public class Compat_KeyBinding implements Comparable<Compat_KeyBinding> {
 	public int compareTo(Compat_KeyBinding other) {
 		return this.getReal().compareTo(other.getReal());
 	}
+
+	public boolean Compat_func_151468_f() {
+		return wrapper.isPressedSuper();
+	}
+
+	public boolean Compat_func_151470_d() {
+		return wrapper.isKeyDownSuper();
+	}
 }

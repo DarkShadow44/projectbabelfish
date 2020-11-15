@@ -71,7 +71,7 @@ public enum Compat_EnumDyeColor {
 		return original.name();
 	}
 
-	Compat_MapColor Compat_func_176768_e() {
+	public Compat_MapColor Compat_func_176768_e() {
 		return Compat_MapColor.getFake(MapColor.getBlockColor(this.getReal()));
 	}
 

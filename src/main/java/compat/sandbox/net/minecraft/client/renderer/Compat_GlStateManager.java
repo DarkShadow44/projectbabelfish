@@ -114,4 +114,8 @@ public class Compat_GlStateManager {
 		GlStateManager.scale(x, y, z);
 	}
 
+	public static void Compat_func_187401_a(Compat_GlStateManager_SourceFactor src, Compat_GlStateManager_DestFactor dst) {
+		GlStateManager.blendFunc(src.getReal(), dst.getReal());
+	}
+
 }

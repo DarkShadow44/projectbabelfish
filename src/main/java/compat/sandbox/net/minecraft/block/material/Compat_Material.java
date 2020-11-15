@@ -1,5 +1,6 @@
 package compat.sandbox.net.minecraft.block.material;
 
+import akka.actor.OriginalRestartException;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
@@ -141,5 +142,9 @@ public class Compat_Material {
 
 	public static Compat_Material Compat_get_field_151586_h() {
 		return WATER;
+	}
+
+	public boolean Compat_func_76229_l() {
+		return wrapper.isToolNotRequiredSuper();
 	}
 }
