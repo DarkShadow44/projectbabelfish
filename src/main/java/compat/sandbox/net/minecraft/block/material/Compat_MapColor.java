@@ -29,4 +29,17 @@ public class Compat_MapColor {
 	public static Compat_MapColor Compat_get_field_151660_b() {
 		return AIR;
 	}
+
+	public static Compat_MapColor getFake(MapColor real) {
+		if (real == MapColor.DIRT)
+			return DIRT;
+
+		if (real == MapColor.GRASS)
+			return GRASS;
+
+		if (real == MapColor.AIR)
+			return AIR;
+
+		throw new RuntimeException("Unhandled " + real);
+	}
 }
