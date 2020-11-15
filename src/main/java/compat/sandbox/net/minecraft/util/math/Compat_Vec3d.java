@@ -15,7 +15,7 @@ public class Compat_Vec3d {
 
 	// When called from Mod
 	public Compat_Vec3d(double p1, double p2, double p3) {
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_Vec3d.class, this, p1, p2, p3));
+		this.initialize(Factory.create(CtorPos.POS2, CompatI_Vec3d.class, this, p1, p2, p3));
 	}
 
 	// When called from child

@@ -48,4 +48,6 @@ public interface CompatI_NBTTagCompound {
 	public void setIntArraySuper(String key, int[] value);
 
 	public int[] getIntArraySuper(String key);
+
+	public Compat_NBTTagCompound getFake();
 }

@@ -31,7 +31,7 @@ public class Compat_NBTTagList extends Compat_NBTBase {
 	}
 
 	public Compat_NBTTagCompound Compat_func_150305_b(int index) {
-		return new Compat_NBTTagCompound(wrapper.getCompoundTagAtSuper(index));
+		return Compat_NBTTagCompound.getFake(wrapper.getCompoundTagAtSuper(index));
 	}
 
 	public void Compat_func_74742_a(Compat_NBTBase tag) {

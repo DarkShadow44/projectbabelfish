@@ -242,7 +242,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 
 	@Callback
 	public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World world, BlockPos pos) {
-		return Compat_func_180640_a(new Wrapper_IBlockState(state), Compat_World.get_fake(world), new Compat_BlockPos(pos)).getReal();
+		return Compat_func_180640_a(new Wrapper_IBlockState(state), Compat_World.get_fake(world), Compat_BlockPos.getFake(pos)).getReal();
 	}
 
 	@HasCallback

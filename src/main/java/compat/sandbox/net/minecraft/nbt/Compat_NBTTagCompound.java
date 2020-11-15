@@ -111,4 +111,11 @@ public class Compat_NBTTagCompound extends Compat_NBTBase {
 	public int[] Compat_func_74759_k(String key) {
 		return wrapper.getIntArraySuper(key);
 	}
+
+	public static Compat_NBTTagCompound getFake(NBTTagCompound tag) {
+		if (tag instanceof CompatI_NBTTagCompound) {
+			return ((CompatI_NBTTagCompound) tag).getFake();
+		}
+		return new Compat_NBTTagCompound(tag);
+	}
 }
