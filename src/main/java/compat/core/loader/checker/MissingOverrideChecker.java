@@ -44,11 +44,11 @@ public class MissingOverrideChecker {
 		for (MethodInfo method : methodsMod.getMethods()) {
 			if (!methodsCompat.containsDescriptor(method)) {
 				if (method.name.startsWith(layer.getPrefixFake() + "func_")) {
-					methods.add("Missing method: " + parentCompat.getSimpleName() + "." + method.desc);
+					methods.add("Missing override method: " + parentCompat.getSimpleName() + "." + method.desc);
 				} else {
 					String mcName = method.name.replace(layer.getPrefixFake(), "");
 					if (methodsMc.containsName(mcName)) {
-						methods.add("Missing method: " + parentCompat.getSimpleName() + "." + method.desc);
+						methods.add("Missing override method: " + parentCompat.getSimpleName() + "." + method.desc);
 					}
 				}
 			} else if (!methodsCompat.getByDesc(method.desc).hasCallback) {
@@ -59,7 +59,7 @@ public class MissingOverrideChecker {
 	}
 
 	public void printWarning() {
-		List<String> methodsDedup = methods.stream().distinct().collect(Collectors.toList());
+		List<String> methodsDedup = methods.stream().distinct().sorted().collect(Collectors.toList());
 		for (String method : methodsDedup) {
 			System.out.println("Compatibility: " + method);
 		}
