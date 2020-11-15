@@ -1,5 +1,7 @@
 package compat.sandbox.net.minecraft.util.text;
 
-public interface Compat_ITextComponent {
+import net.minecraft.util.text.ITextComponent;
 
+public interface Compat_ITextComponent {
+	public ITextComponent getReal();
 }

@@ -4,8 +4,11 @@ import compat.sandbox.net.minecraft.entity.player.Compat_EntityPlayer;
 import compat.sandbox.net.minecraft.entity.player.Compat_InventoryPlayer;
 import compat.sandbox.net.minecraft.inventory.Compat_Container;
 import compat.sandbox.net.minecraft.util.text.Compat_ITextComponent;
+import net.minecraft.world.IInteractionObject;
 
 public interface Compat_IInteractionObject {
+	public IInteractionObject getReal();
+
 	public String Compat_func_70005_c_();
 
 	public boolean Compat_func_145818_k_();

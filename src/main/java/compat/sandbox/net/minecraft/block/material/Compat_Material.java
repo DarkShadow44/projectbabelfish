@@ -1,6 +1,5 @@
 package compat.sandbox.net.minecraft.block.material;
 
-import akka.actor.OriginalRestartException;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
