@@ -1,6 +1,7 @@
 package compat.autogen;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
@@ -315,12 +316,21 @@ public class ClassGenerator {
 				methods.add(generateGetFake(method.getReturnType()));
 				continue;
 			}
+
 			if (method.getName().startsWith("get_")) {
+				String name = method.getName().substring(4);
+				if (!fieldExistsInClass(classMc, name, method.getReturnType())) {
+					throw new RuntimeException("Can't find field \"" + name + "\" in class " + pathMc);
+				}
 				MethodNode methodCreated = generatePropertyGet(method.getName(), method.getReturnType(), isWrapper);
 				methods.add(methodCreated);
 				continue;
 			}
 			if (method.getName().startsWith("set_")) {
+				String name = method.getName().substring(4);
+				if (!fieldExistsInClass(classMc, name, method.getParameters()[0].getType())) {
+					throw new RuntimeException("Can't find field \"" + name + "\" in class " + pathMc);
+				}
 				MethodNode methodCreated = generatePropertySet(pathMc, method.getName(), method.getParameters()[0].getType(), isWrapper);
 				methods.add(methodCreated);
 				continue;
@@ -376,6 +386,19 @@ public class ClassGenerator {
 
 		if (clazz.getSuperclass() != null) {
 			return methodExistsInClass(clazz.getSuperclass(), methodSearch, isSuper);
+		}
+
+		return false;
+	}
+
+	private boolean fieldExistsInClass(Class<?> clazz, String name, Class<?> type) {
+		for (Field field : clazz.getDeclaredFields()) {
+			if (field.getName().equals(name) && field.getType() == type)
+				return true;
+		}
+
+		if (clazz.getSuperclass() != null) {
+			return fieldExistsInClass(clazz.getSuperclass(), name, type);
 		}
 
 		return false;
