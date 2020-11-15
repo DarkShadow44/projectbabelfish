@@ -9,6 +9,11 @@ public class Compat_Vec3d {
 	private CompatI_Vec3d wrapper;
 
 	// When called from Mod
+	public Compat_Vec3d(Compat_Vec3i vec) {
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Vec3d.class, this, vec.getReal()));
+	}
+
+	// When called from Mod
 	public Compat_Vec3d(double p1, double p2, double p3) {
 		this.initialize(Factory.create(CtorPos.POS1, CompatI_Vec3d.class, this, p1, p2, p3));
 	}
@@ -48,5 +53,21 @@ public class Compat_Vec3d {
 
 	public double Compat_func_72436_e(Compat_Vec3d vec) {
 		return wrapper.squareDistanceToSuper(vec.getReal());
+	}
+
+	public Compat_Vec3d Compat_func_178786_a(double x, double y, double z) {
+		return new Compat_Vec3d(wrapper.subtractSuper(x, y, z));
+	}
+
+	public Compat_Vec3d Compat_func_178787_e(Compat_Vec3d other) {
+		return new Compat_Vec3d(wrapper.addSuper(other.getReal()));
+	}
+
+	public Compat_Vec3d Compat_func_178788_d(Compat_Vec3d vec) {
+		return new Compat_Vec3d(wrapper.subtractSuper(vec.getReal()));
+	}
+
+	public Compat_Vec3d Compat_func_186678_a(double factor) {
+		return new Compat_Vec3d(wrapper.scaleSuper(factor));
 	}
 }
