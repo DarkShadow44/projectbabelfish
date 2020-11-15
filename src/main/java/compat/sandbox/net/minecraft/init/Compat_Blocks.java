@@ -81,6 +81,96 @@ public class Compat_Blocks {
 	private static final Compat_Block GLASS_PANE = new Compat_Block(Blocks.GLASS_PANE);
 	private static final Compat_Block COAL_ORE = new Compat_Block(Blocks.COAL_ORE);
 	private static final Compat_BlockRedstoneWire REDSTONE_WIRE = new Compat_BlockRedstoneWire(Blocks.REDSTONE_WIRE);
+	private static final Compat_Block BRICK_BLOCK = new Compat_Block(Blocks.BRICK_BLOCK);
+	private static final Compat_Block GOLD_BLOCK = new Compat_Block(Blocks.GOLD_BLOCK);
+	private static final Compat_Block MOSSY_COBBLESTONE = new Compat_Block(Blocks.MOSSY_COBBLESTONE);
+	private static final Compat_Block LAPIS_BLOCK = new Compat_Block(Blocks.LAPIS_BLOCK);
+	private static final Compat_Block END_STONE = new Compat_Block(Blocks.END_STONE);
+	private static final Compat_Block COAL_BLOCK = new Compat_Block(Blocks.COAL_BLOCK);
+	private static final Compat_Block PACKED_ICE = new Compat_Block(Blocks.PACKED_ICE);
+	private static final Compat_Block HARDENED_CLAY = new Compat_Block(Blocks.HARDENED_CLAY);
+	private static final Compat_Block STAINED_HARDENED_CLAY = new Compat_Block(Blocks.STAINED_HARDENED_CLAY);
+	private static final Compat_Block ICE = new Compat_Block(Blocks.ICE);
+	private static final Compat_Block LEVER = new Compat_Block(Blocks.LEVER);
+	private static final Compat_Block REDSTONE_BLOCK = new Compat_Block(Blocks.REDSTONE_BLOCK);
+	private static final Compat_Block CRAFTING_TABLE = new Compat_Block(Blocks.CRAFTING_TABLE);
+	private static final Compat_Block EMERALD_BLOCK = new Compat_Block(Blocks.EMERALD_BLOCK);
+	private static final Compat_Block DIAMOND_BLOCK = new Compat_Block(Blocks.DIAMOND_BLOCK);
+	private static final Compat_Block RED_SANDSTONE = new Compat_Block(Blocks.RED_SANDSTONE);
+	private static final Compat_Block PRISMARINE = new Compat_Block(Blocks.PRISMARINE);
+	private static final Compat_Block SEA_LANTERN = new Compat_Block(Blocks.SEA_LANTERN);
+
+	public static Compat_Block Compat_get_field_150336_V() {
+		return BRICK_BLOCK;
+	}
+
+	public static Compat_Block Compat_get_field_150340_R() {
+		return GOLD_BLOCK;
+	}
+
+	public static Compat_Block Compat_get_field_150341_Y() {
+		return MOSSY_COBBLESTONE;
+	}
+
+	public static Compat_Block Compat_get_field_150368_y() {
+		return LAPIS_BLOCK;
+	}
+
+	public static Compat_Block Compat_get_field_150377_bs() {
+		return END_STONE;
+	}
+
+	public static Compat_Block Compat_get_field_150402_ci() {
+		return COAL_BLOCK;
+	}
+
+	public static Compat_Block Compat_get_field_150403_cj() {
+		return PACKED_ICE;
+	}
+
+	public static Compat_Block Compat_get_field_150405_ch() {
+		return HARDENED_CLAY;
+	}
+
+	public static Compat_Block Compat_get_field_150406_ce() {
+		return STAINED_HARDENED_CLAY;
+	}
+
+	public static Compat_Block Compat_get_field_150432_aD() {
+		return ICE;
+	}
+
+	public static Compat_Block Compat_get_field_150442_at() {
+		return LEVER;
+	}
+
+	public static Compat_Block Compat_get_field_150451_bX() {
+		return REDSTONE_BLOCK;
+	}
+
+	public static Compat_Block Compat_get_field_150462_ai() {
+		return CRAFTING_TABLE;
+	}
+
+	public static Compat_Block Compat_get_field_150475_bE() {
+		return EMERALD_BLOCK;
+	}
+
+	public static Compat_Block Compat_get_field_150484_ah() {
+		return DIAMOND_BLOCK;
+	}
+
+	public static Compat_Block Compat_get_field_180395_cM() {
+		return RED_SANDSTONE;
+	}
+
+	public static Compat_Block Compat_get_field_180397_cI() {
+		return PRISMARINE;
+	}
+
+	public static Compat_Block Compat_get_field_180398_cJ() {
+		return SEA_LANTERN;
+	}
 
 	public static Compat_Block Compat_get_field_150379_bu() {
 		return REDSTONE_LAMP;
