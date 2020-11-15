@@ -23,6 +23,64 @@ public class Compat_Blocks {
 	private static final Compat_Block STONE_BUTTON = new Compat_Block(Blocks.STONE_BUTTON);
 	private static final Compat_BlockPistonBase PISTON = new Compat_BlockPistonBase(Blocks.PISTON);
 	private static final Compat_Block STONE = new Compat_Block(Blocks.STONE);
+	private static final Compat_BlockFire FIRE = new Compat_BlockFire(Blocks.FIRE);
+	private static final Compat_Block SNOW = new Compat_Block(Blocks.SNOW);
+	private static final Compat_Block OAK_DOOR = new Compat_Block(Blocks.OAK_DOOR);
+	private static final Compat_Block IRON_DOOR = new Compat_Block(Blocks.IRON_DOOR);
+	private static final Compat_Block STANDING_SIGN = new Compat_Block(Blocks.STANDING_SIGN);
+	private static final Compat_Block WALL_SIGN = new Compat_Block(Blocks.WALL_SIGN);
+	private static final Compat_Block REEDS = new Compat_Block(Blocks.REEDS);
+	private static final Compat_Block WOODEN_PRESSURE_PLATE = new Compat_Block(Blocks.WOODEN_PRESSURE_PLATE);
+	private static final Compat_Block STONE_PRESSURE_PLATE = new Compat_Block(Blocks.STONE_PRESSURE_PLATE);
+	private static final Compat_Block DIRT = new Compat_Block(Blocks.DIRT);
+	private static final Compat_Block SANDSTONE = new Compat_Block(Blocks.SANDSTONE);
+	private static final Compat_BlockSand SAND = new Compat_BlockSand(Blocks.SAND);
+	private static final Compat_Block PLANKS = new Compat_Block(Blocks.PLANKS);
+	private static final Compat_Block BOOKSHELF = new Compat_Block(Blocks.BOOKSHELF);
+	private static final Compat_BlockChest CHEST = new Compat_BlockChest(Blocks.CHEST);
+	private static final Compat_Block PUMPKIN = new Compat_Block(Blocks.PUMPKIN);
+	private static final Compat_Block LIT_PUMPKIN = new Compat_Block(Blocks.LIT_PUMPKIN);
+	private static final Compat_Block WATER = new Compat_Block(Blocks.WATER);
+	private static final Compat_Block LAVA = new Compat_Block(Blocks.LAVA);
+	private static final Compat_Block FARMLAND = new Compat_Block(Blocks.FARMLAND);
+	private static final Compat_Block AIR = new Compat_Block(Blocks.AIR);
+	private static final Compat_BlockFlower RED_FLOWER = new Compat_BlockFlower(Blocks.RED_FLOWER);
+	private static final Compat_BlockFlower YELLOW_FLOWER = new Compat_BlockFlower(Blocks.YELLOW_FLOWER);
+	private static final Compat_BlockDeadBush DEADBUSH = new Compat_BlockDeadBush(Blocks.DEADBUSH);
+	private static final Compat_Block WATERLILY = new Compat_Block(Blocks.WATERLILY);
+	private static final Compat_BlockBush RED_MUSHROOM = new Compat_BlockBush(Blocks.RED_MUSHROOM);
+	private static final Compat_BlockBush BROWN_MUSHROOM = new Compat_BlockBush(Blocks.BROWN_MUSHROOM);
+	private static final Compat_Block NETHER_BRICK = new Compat_Block(Blocks.NETHER_BRICK);
+	private static final Compat_Block IRON_BARS = new Compat_Block(Blocks.IRON_BARS);
+	private static final Compat_Block SNOW_LAYER = new Compat_Block(Blocks.SNOW_LAYER);
+	private static final Compat_Block STONEBRICK = new Compat_Block(Blocks.STONEBRICK);
+	private static final Compat_Block TORCH = new Compat_Block(Blocks.TORCH);
+	private static final Compat_Block SAPLING = new Compat_Block(Blocks.SAPLING);
+	private static final Compat_Block WEB = new Compat_Block(Blocks.WEB);
+	private static final Compat_Block IRON_BLOCK = new Compat_Block(Blocks.IRON_BLOCK);
+	private static final Compat_Block GLOWSTONE = new Compat_Block(Blocks.GLOWSTONE);
+	private static final Compat_Block GLASS = new Compat_Block(Blocks.GLASS);
+	private static final Compat_Block NETHERRACK = new Compat_Block(Blocks.NETHERRACK);
+	private static final Compat_Block GRAVEL = new Compat_Block(Blocks.GRAVEL);
+	private static final Compat_Block QUARTZ_BLOCK = new Compat_Block(Blocks.QUARTZ_BLOCK);
+	private static final Compat_Block LOG = new Compat_Block(Blocks.LOG);
+	private static final Compat_Block HAY_BLOCK = new Compat_Block(Blocks.HAY_BLOCK);
+	private static final Compat_Block LOG2 = new Compat_Block(Blocks.LOG2);
+	private static final Compat_Block FURNACE = new Compat_Block(Blocks.FURNACE);
+	private static final Compat_Block HEAVY_WEIGHTED_PRESSURE_PLATE = new Compat_Block(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE);
+	private static final Compat_Block STONE_BRICK_STAIRS = new Compat_Block(Blocks.STONE_BRICK_STAIRS);
+	private static final Compat_BlockDaylightDetector DAYLIGHT_DETECTOR = new Compat_BlockDaylightDetector(Blocks.DAYLIGHT_DETECTOR);
+	private static final Compat_BlockStainedGlass STAINED_GLASS = new Compat_BlockStainedGlass(Blocks.STAINED_GLASS);
+	private static final Compat_Block SOUL_SAND = new Compat_Block(Blocks.SOUL_SAND);
+	private static final Compat_Block VINE = new Compat_Block(Blocks.VINE);
+	private static final Compat_Block IRON_ORE = new Compat_Block(Blocks.IRON_ORE);
+	private static final Compat_Block GOLD_ORE = new Compat_Block(Blocks.GOLD_ORE);
+	private static final Compat_Block OBSIDIAN = new Compat_Block(Blocks.OBSIDIAN);
+	private static final Compat_Block CACTUS = new Compat_Block(Blocks.CACTUS);
+	private static final Compat_Block COBBLESTONE = new Compat_Block(Blocks.COBBLESTONE);
+	private static final Compat_Block GLASS_PANE = new Compat_Block(Blocks.GLASS_PANE);
+	private static final Compat_Block COAL_ORE = new Compat_Block(Blocks.COAL_ORE);
+	private static final Compat_BlockRedstoneWire REDSTONE_WIRE = new Compat_BlockRedstoneWire(Blocks.REDSTONE_WIRE);
 
 	public static Compat_Block Compat_get_field_150379_bu() {
 		return REDSTONE_LAMP;
@@ -52,236 +110,235 @@ public class Compat_Blocks {
 		return STONE;
 	}
 
-	// TODO!
 	public static Compat_BlockFire Compat_get_field_150480_ab() {
-		return new Compat_BlockFire(Blocks.FIRE);
+		return FIRE;
 	}
 
 	public static Compat_Block Compat_get_field_150433_aE() {
-		return new Compat_Block(Blocks.SNOW);
+		return SNOW;
 	}
 
 	public static Compat_Block Compat_get_field_150466_ao() {
-		return new Compat_Block(Blocks.OAK_DOOR);
+		return OAK_DOOR;
 	}
 
 	public static Compat_Block Compat_get_field_150454_av() {
-		return new Compat_Block(Blocks.IRON_DOOR);
+		return IRON_DOOR;
 	}
 
 	public static Compat_Block Compat_get_field_150472_an() {
-		return new Compat_Block(Blocks.STANDING_SIGN);
+		return STANDING_SIGN;
 	}
 
 	public static Compat_Block Compat_get_field_150444_as() {
-		return new Compat_Block(Blocks.WALL_SIGN);
+		return WALL_SIGN;
 	}
 
 	public static Compat_Block Compat_get_field_150436_aH() {
-		return new Compat_Block(Blocks.REEDS);
+		return REEDS;
 	}
 
 	public static Compat_Block Compat_get_field_150452_aw() {
-		return new Compat_Block(Blocks.WOODEN_PRESSURE_PLATE);
+		return WOODEN_PRESSURE_PLATE;
 	}
 
 	public static Compat_Block Compat_get_field_150456_au() {
-		return new Compat_Block(Blocks.STONE_PRESSURE_PLATE);
+		return STONE_PRESSURE_PLATE;
 	}
 
 	public static Compat_Block Compat_get_field_150346_d() {
-		return new Compat_Block(Blocks.DIRT);
+		return DIRT;
 	}
 
 	public static Compat_Block Compat_get_field_150322_A() {
-		return new Compat_Block(Blocks.SANDSTONE);
+		return SANDSTONE;
 	}
 
 	public static Compat_BlockSand Compat_get_field_150354_m() {
-		return new Compat_BlockSand(Blocks.SAND);
+		return SAND;
 	}
 
 	public static Compat_Block Compat_get_field_150344_f() {
-		return new Compat_Block(Blocks.PLANKS);
+		return PLANKS;
 	}
 
 	public static Compat_Block Compat_get_field_150342_X() {
-		return new Compat_Block(Blocks.BOOKSHELF);
+		return BOOKSHELF;
 	}
 
 	public static Compat_BlockChest Compat_get_field_150486_ae() {
-		return new Compat_BlockChest(Blocks.CHEST);
+		return CHEST;
 	}
 
 	public static Compat_Block Compat_get_field_150423_aK() {
-		return new Compat_Block(Blocks.PUMPKIN);
+		return PUMPKIN;
 	}
 
 	public static Compat_Block Compat_get_field_150428_aP() {
-		return new Compat_Block(Blocks.LIT_PUMPKIN);
+		return LIT_PUMPKIN;
 	}
 
 	public static Compat_Block Compat_get_field_150355_j() {
-		return new Compat_Block(Blocks.WATER);
+		return WATER;
 	}
 
 	public static Compat_Block Compat_get_field_150353_l() {
-		return new Compat_Block(Blocks.LAVA);
+		return LAVA;
 	}
 
 	public static Compat_Block Compat_get_field_150458_ak() {
-		return new Compat_Block(Blocks.FARMLAND);
+		return FARMLAND;
 	}
 
 	public static Compat_Block Compat_get_field_150350_a() {
-		return new Compat_Block(Blocks.AIR);
+		return AIR;
 	}
 
 	public static Compat_BlockFlower Compat_get_field_150328_O() {
-		return new Compat_BlockFlower(Blocks.RED_FLOWER);
+		return RED_FLOWER;
 	}
 
 	public static Compat_BlockFlower Compat_get_field_150327_N() {
-		return new Compat_BlockFlower(Blocks.YELLOW_FLOWER);
+		return YELLOW_FLOWER;
 	}
 
 	public static Compat_BlockDeadBush Compat_get_field_150330_I() {
-		return new Compat_BlockDeadBush(Blocks.DEADBUSH);
+		return DEADBUSH;
 	}
 
 	public static Compat_Block Compat_get_field_150392_bi() {
-		return new Compat_Block(Blocks.WATERLILY);
+		return WATERLILY;
 	}
 
 	public static Compat_BlockBush Compat_get_field_150337_Q() {
-		return new Compat_BlockBush(Blocks.RED_MUSHROOM);
+		return RED_MUSHROOM;
 	}
 
 	public static Compat_BlockBush Compat_get_field_150338_P() {
-		return new Compat_BlockBush(Blocks.BROWN_MUSHROOM);
+		return BROWN_MUSHROOM;
 	}
 
 	public static Compat_Block Compat_get_field_150385_bj() {
-		return new Compat_Block(Blocks.NETHER_BRICK);
+		return NETHER_BRICK;
 	}
 
 	public static Compat_Block Compat_get_field_150411_aY() {
-		return new Compat_Block(Blocks.IRON_BARS);
+		return IRON_BARS;
 	}
 
 	public static Compat_Block Compat_get_field_150431_aC() {
-		return new Compat_Block(Blocks.SNOW_LAYER);
+		return SNOW_LAYER;
 	}
 
 	public static Compat_Block Compat_get_field_150417_aV() {
-		return new Compat_Block(Blocks.STONEBRICK);
+		return STONEBRICK;
 	}
 
 	public static Compat_Block Compat_get_field_150478_aa() {
-		return new Compat_Block(Blocks.TORCH);
+		return TORCH;
 	}
 
 	public static Compat_Block Compat_get_field_150345_g() {
-		return new Compat_Block(Blocks.SAPLING);
+		return SAPLING;
 	}
 
 	public static Compat_Block Compat_get_field_150321_G() {
-		return new Compat_Block(Blocks.WEB);
+		return WEB;
 	}
 
 	public static Compat_Block Compat_get_field_150339_S() {
-		return new Compat_Block(Blocks.IRON_BLOCK);
+		return IRON_BLOCK;
 	}
 
 	public static Compat_Block Compat_get_field_150426_aN() {
-		return new Compat_Block(Blocks.GLOWSTONE);
+		return GLOWSTONE;
 	}
 
 	public static Compat_Block Compat_get_field_150359_w() {
-		return new Compat_Block(Blocks.GLASS);
+		return GLASS;
 	}
 
 	public static Compat_Block Compat_get_field_150424_aL() {
-		return new Compat_Block(Blocks.NETHERRACK);
+		return NETHERRACK;
 	}
 
 	public static Compat_Block Compat_get_field_150351_n() {
-		return new Compat_Block(Blocks.GRAVEL);
+		return GRAVEL;
 	}
 
 	public static Compat_Block Compat_get_field_150371_ca() {
-		return new Compat_Block(Blocks.QUARTZ_BLOCK);
+		return QUARTZ_BLOCK;
 	}
 
 	public static Compat_Block Compat_get_field_150364_r() {
-		return new Compat_Block(Blocks.LOG);
+		return LOG;
 	}
 
 	public static Compat_Block Compat_get_field_150407_cf() {
-		return new Compat_Block(Blocks.HAY_BLOCK);
+		return HAY_BLOCK;
 	}
 
 	public static Compat_Block Compat_get_field_150363_s() {
-		return new Compat_Block(Blocks.LOG2);
+		return LOG2;
 	}
 
 	public static Compat_Block Compat_get_field_150460_al() {
-		return new Compat_Block(Blocks.FURNACE);
+		return FURNACE;
 	}
 
 	public static Compat_Block Compat_get_field_150443_bT() {
-		return new Compat_Block(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE);
+		return HEAVY_WEIGHTED_PRESSURE_PLATE;
 	}
 
 	public static Compat_Block Compat_get_field_150390_bg() {
-		return new Compat_Block(Blocks.STONE_BRICK_STAIRS);
+		return STONE_BRICK_STAIRS;
 	}
 
 	public static Compat_BlockDaylightDetector Compat_get_field_150453_bW() {
-		return new Compat_BlockDaylightDetector(Blocks.DAYLIGHT_DETECTOR);
+		return DAYLIGHT_DETECTOR;
 	}
 
 	public static Compat_BlockStainedGlass Compat_get_field_150399_cn() {
-		return new Compat_BlockStainedGlass(Blocks.STAINED_GLASS);
+		return STAINED_GLASS;
 	}
 
 	public static Compat_Block Compat_get_field_150425_aM() {
-		return new Compat_Block(Blocks.SOUL_SAND);
+		return SOUL_SAND;
 	}
 
 	public static Compat_Block Compat_get_field_150395_bd() {
-		return new Compat_Block(Blocks.VINE);
+		return VINE;
 	}
 
 	public static Compat_Block Compat_get_field_150366_p() {
-		return new Compat_Block(Blocks.IRON_ORE);
+		return IRON_ORE;
 	}
 
 	public static Compat_Block Compat_get_field_150352_o() {
-		return new Compat_Block(Blocks.GOLD_ORE);
+		return GOLD_ORE;
 	}
 
 	public static Compat_Block Compat_get_field_150343_Z() {
-		return new Compat_Block(Blocks.OBSIDIAN);
+		return OBSIDIAN;
 	}
 
 	public static Compat_Block Compat_get_field_150434_aF() {
-		return new Compat_Block(Blocks.CACTUS);
+		return CACTUS;
 	}
 
 	public static Compat_Block Compat_get_field_150347_e() {
-		return new Compat_Block(Blocks.COBBLESTONE);
+		return COBBLESTONE;
 	}
 
 	public static Compat_Block Compat_get_field_150410_aZ() {
-		return new Compat_Block(Blocks.GLASS_PANE);
+		return GLASS_PANE;
 	}
 
 	public static Compat_Block Compat_get_field_150365_q() {
-		return new Compat_Block(Blocks.COAL_ORE);
+		return COAL_ORE;
 	}
 
 	public static Compat_BlockRedstoneWire Compat_get_field_150488_af() {
-		return new Compat_BlockRedstoneWire(Blocks.REDSTONE_WIRE);
+		return REDSTONE_WIRE;
 	}
 }
