@@ -3,6 +3,7 @@ package compat.sandbox.net.minecraftforge.event.entity.player;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
+import compat.sandbox.net.minecraftforge.fml.common.eventhandler.Compat_Event_Result;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.LeftClickBlock;
 
 public class Compat_PlayerInteractEvent_LeftClickBlock extends Compat_PlayerInteractEvent {
@@ -32,5 +33,13 @@ public class Compat_PlayerInteractEvent_LeftClickBlock extends Compat_PlayerInte
 
 	public LeftClickBlock getReal() {
 		return wrapper.get();
+	}
+
+	public void Compat_setUseItem(Compat_Event_Result result) {
+		wrapper.setUseItemSuper(result.getReal());
+	}
+
+	public void Compat_setUseBlock(Compat_Event_Result result) {
+		wrapper.setUseBlockSuper(result.getReal());
 	}
 }

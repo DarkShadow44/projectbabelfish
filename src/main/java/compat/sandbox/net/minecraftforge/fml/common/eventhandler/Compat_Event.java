@@ -29,4 +29,8 @@ public class Compat_Event {
 	public Event getReal() {
 		return wrapper.get();
 	}
+
+	public void Compat_setCanceled(boolean value) {
+		wrapper.setCanceledSuper(value);
+	}
 }

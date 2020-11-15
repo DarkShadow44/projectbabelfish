@@ -4,6 +4,7 @@ import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
 import compat.sandbox.net.minecraft.util.math.Compat_Vec3d;
+import compat.sandbox.net.minecraftforge.fml.common.eventhandler.Compat_Event_Result;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 
 public class Compat_PlayerInteractEvent_RightClickBlock extends Compat_PlayerInteractEvent {
@@ -37,5 +38,9 @@ public class Compat_PlayerInteractEvent_RightClickBlock extends Compat_PlayerInt
 
 	public Compat_Vec3d Compat_getHitVec() {
 		return new Compat_Vec3d(wrapper.getHitVecSuper());
+	}
+
+	public void Compat_setUseItem(Compat_Event_Result result) {
+		wrapper.setUseItemSuper(result.getReal());
 	}
 }
