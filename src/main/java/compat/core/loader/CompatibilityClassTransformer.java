@@ -279,13 +279,15 @@ public class CompatibilityClassTransformer {
 				method.desc = transformDescriptor(method.desc);
 			}
 			if (method.owner.equals("java/lang/Class")) {
-				if (method.name.equals("getConstructor") || method.name.equals("getDeclaredField") || method.name.equals("getDeclaredFields")) {
+				if (method.name.equals("getConstructor") || method.name.equals("getDeclaredField") || method.name.equals("getDeclaredFields") || method.name.equals("forName")) {
 					method.name = layer.getPrefixFake() + method.name;
 
 					method.setOpcode(Opcodes.INVOKESTATIC);
 					method.owner = layer.getPrefixedClassname(method.owner);
 					method.desc = transformDescriptor(method.desc);
-					method.desc = "(Ljava/lang/Class;" + method.desc.substring(1);
+					if (opcode != Opcodes.INVOKESTATIC) {
+						method.desc = "(Ljava/lang/Class;" + method.desc.substring(1);
+					}
 				}
 			}
 			break;
