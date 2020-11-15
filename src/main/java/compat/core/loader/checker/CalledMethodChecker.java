@@ -39,7 +39,7 @@ public class CalledMethodChecker {
 
 			Method[] methods = clazz.getMethods();
 			for (Method m : methods) {
-				if (Type.getMethodDescriptor(m).equals(method.desc)) {
+				if (m.getName().equals(method.name) && Type.getMethodDescriptor(m).equals(method.desc)) {
 					return true;
 				}
 			}
