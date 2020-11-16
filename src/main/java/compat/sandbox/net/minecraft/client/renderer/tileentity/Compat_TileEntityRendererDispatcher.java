@@ -1,5 +1,6 @@
 package compat.sandbox.net.minecraft.client.renderer.tileentity;
 
+import compat.sandbox.net.minecraft.client.gui.Compat_FontRenderer;
 import compat.sandbox.net.minecraft.client.renderer.texture.Compat_TextureManager;
 import compat.sandbox.net.minecraft.world.Compat_World;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
@@ -22,5 +23,9 @@ public class Compat_TileEntityRendererDispatcher {
 
 	public Compat_World Compat_get_field_147550_f() {
 		return new Compat_World(original.world);
+	}
+
+	public Compat_FontRenderer Compat_func_147548_a() {
+		return new Compat_FontRenderer(original.getFontRenderer());
 	}
 }

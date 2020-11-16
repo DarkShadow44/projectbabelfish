@@ -31,4 +31,8 @@ public class Compat_VertexBuffer {
 	public void Compat_func_181675_d() {
 		original.endVertex();
 	}
+
+	public void Compat_func_78914_f() {
+		original.noColor();
+	}
 }

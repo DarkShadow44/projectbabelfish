@@ -29,4 +29,8 @@ public class Compat_WorldProvider {
 	public WorldProvider getReal() {
 		return wrapper.get();
 	}
+
+	public int Compat_getDimension() {
+		return wrapper.getDimensionSuper();
+	}
 }

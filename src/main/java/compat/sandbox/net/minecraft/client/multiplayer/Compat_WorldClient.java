@@ -3,6 +3,9 @@ package compat.sandbox.net.minecraft.client.multiplayer;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
+import compat.sandbox.net.minecraft.util.Compat_SoundCategory;
+import compat.sandbox.net.minecraft.util.Compat_SoundEvent;
+import compat.sandbox.net.minecraft.util.math.Compat_BlockPos;
 import compat.sandbox.net.minecraft.world.Compat_World;
 import net.minecraft.client.multiplayer.WorldClient;
 
@@ -33,5 +36,9 @@ public class Compat_WorldClient extends Compat_World {
 
 	public WorldClient getReal() {
 		return wrapper.get();
+	}
+
+	public void Compat_func_184156_a(Compat_BlockPos pos, Compat_SoundEvent sound, Compat_SoundCategory category, float volume, float pitch, boolean distanceDelay) {
+		wrapper.playSoundSuper(pos.getReal(), sound.getReal(), category.getReal(), volume, pitch, distanceDelay);
 	}
 }
