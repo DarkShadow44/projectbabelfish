@@ -25,4 +25,24 @@ public class Compat_GameSettings {
 		}
 		return keyBindings.toArray(new Compat_KeyBinding[0]);
 	}
+
+	public Compat_KeyBinding Compat_get_field_74312_F() {
+		return new Compat_KeyBinding(original.keyBindAttack);
+	}
+
+	public Compat_KeyBinding Compat_get_field_74313_G() {
+		return new Compat_KeyBinding(original.keyBindUseItem);
+	}
+
+	public boolean Compat_get_field_74330_P() {
+		return original.showDebugInfo;
+	}
+
+	public float Compat_get_field_74341_c() {
+		return original.mouseSensitivity;
+	}
+
+	public void Compat_set_field_74341_c(float value) {
+		original.mouseSensitivity = value;
+	}
 }

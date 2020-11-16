@@ -3,6 +3,7 @@ package compat.sandbox.net.minecraftforge.fml.common.network.simpleimpl;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
+import compat.sandbox.net.minecraft.network.Compat_NetHandlerPlayServer;
 import compat.sandbox.net.minecraftforge.fml.relauncher.Compat_Side;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
@@ -33,5 +34,9 @@ public class Compat_MessageContext {
 
 	public Compat_Side Compat_get_side() {
 		return Compat_Side.fromReal(wrapper.get_side());
+	}
+
+	public Compat_NetHandlerPlayServer Compat_getServerHandler() {
+		return new Compat_NetHandlerPlayServer(wrapper.getServerHandlerSuper());
 	}
 }
