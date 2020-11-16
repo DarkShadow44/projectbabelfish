@@ -15,13 +15,13 @@ public class Wrapper2_ICapabilityProvider implements ICapabilityProvider {
 
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-		return fake.Compat_hasCapability(Compat_Capability.getFake(capability), Compat_EnumFacing.map_real_to_fake(facing));
+		return fake.Compat_hasCapability(Compat_Capability.getFake(capability), Compat_EnumFacing.getFake(facing));
 	}
 
 	@SuppressWarnings({ "unchecked" })
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		return (T) fake.Compat_getCapability(Compat_Capability.getFake(capability), Compat_EnumFacing.map_real_to_fake(facing));
+		return (T) fake.Compat_getCapability(Compat_Capability.getFake(capability), Compat_EnumFacing.getFake(facing));
 	}
 
 }

@@ -64,6 +64,6 @@ public class Compat_PlayerInteractEvent extends Compat_Event {
 	}
 
 	public Compat_EnumFacing Compat_getFace() {
-		return Compat_EnumFacing.map_real_to_fake(wrapper.getFaceSuper());
+		return Compat_EnumFacing.getFake(wrapper.getFaceSuper());
 	}
 }

@@ -34,4 +34,8 @@ public enum Compat_EnumHand {
 	public static Compat_EnumHand Compat_get_MAIN_HAND() {
 		return MAIN_HAND;
 	}
+
+	public int Compat_ordinal() {
+		return original.ordinal();
+	}
 }

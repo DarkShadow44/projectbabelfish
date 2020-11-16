@@ -46,7 +46,7 @@ public class Wrapper_IBlockState implements Compat_IBlockState {
 	public Comparable<?> Compat_func_177229_b(Compat_IProperty<?> property) {
 		Comparable<?> value = original.getValue(property.getReal());
 		if (value instanceof EnumFacing) {
-			return Compat_EnumFacing.map_real_to_fake((EnumFacing) value);
+			return Compat_EnumFacing.getFake((EnumFacing) value);
 		}
 		return value;
 	}

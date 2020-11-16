@@ -57,7 +57,7 @@ public class Compat_BakedQuad {
 
 	public Compat_EnumFacing Compat_func_178210_d() {
 		EnumFacing result = wrapper.getFaceSuper();
-		return Compat_EnumFacing.map_real_to_fake(result);
+		return Compat_EnumFacing.getFake(result);
 	}
 
 	public int[] Compat_func_178209_a() {

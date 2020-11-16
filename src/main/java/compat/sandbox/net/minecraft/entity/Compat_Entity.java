@@ -44,7 +44,7 @@ public class Compat_Entity {
 
 	public Compat_EnumFacing Compat_func_174811_aO() {
 		EnumFacing result = wrapper.getHorizontalFacingSuper();
-		return Compat_EnumFacing.map_real_to_fake(result);
+		return Compat_EnumFacing.getFake(result);
 	}
 
 	public Compat_World Compat_func_130014_f_() {

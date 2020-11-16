@@ -35,4 +35,8 @@ public enum Compat_EnumHandSide {
 	public static Compat_EnumHandSide Compat_get_RIGHT() {
 		return RIGHT;
 	}
+
+	public Compat_EnumHandSide Compat_func_188468_a() {
+		return getFake(original.opposite());
+	}
 }

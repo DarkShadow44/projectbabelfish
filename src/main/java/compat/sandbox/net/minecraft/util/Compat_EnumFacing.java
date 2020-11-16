@@ -57,7 +57,7 @@ public enum Compat_EnumFacing implements IStringSerializable {
 		return SOUTH;
 	}
 
-	public static Compat_EnumFacing map_real_to_fake(EnumFacing real) {
+	public static Compat_EnumFacing getFake(EnumFacing real) {
 		if (real == null) {
 			return null;
 		}
@@ -79,7 +79,7 @@ public enum Compat_EnumFacing implements IStringSerializable {
 	}
 
 	public static Compat_EnumFacing Compat_func_82600_a(int index) {
-		return map_real_to_fake(EnumFacing.getFront(index));
+		return getFake(EnumFacing.getFront(index));
 	}
 
 	@Override
@@ -108,10 +108,18 @@ public enum Compat_EnumFacing implements IStringSerializable {
 	}
 
 	public Compat_EnumFacing Compat_func_176734_d() {
-		return map_real_to_fake(original.getOpposite());
+		return getFake(original.getOpposite());
 	}
 
 	public Compat_EnumFacing_Axis Compat_func_176740_k() {
 		return Compat_EnumFacing_Axis.getFake(original.getAxis());
+	}
+
+	public int Compat_func_176736_b() {
+		return original.getHorizontalIndex();
+	}
+
+	public static Compat_EnumFacing Compat_func_176737_a(float x, float y, float z) {
+		return getFake(EnumFacing.getFacingFromVector(x, y, z));
 	}
 }

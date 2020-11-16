@@ -22,7 +22,7 @@ public class Wrapper_IBakedModel implements IBakedModel {
 
 	@Override
 	public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
-		List<Compat_BakedQuad> result = fake.Compat_func_188616_a(Compat_IBlockState.getFake(state), Compat_EnumFacing.map_real_to_fake(side), rand);
+		List<Compat_BakedQuad> result = fake.Compat_func_188616_a(Compat_IBlockState.getFake(state), Compat_EnumFacing.getFake(side), rand);
 
 		List<BakedQuad> ret = new ArrayList<>();
 

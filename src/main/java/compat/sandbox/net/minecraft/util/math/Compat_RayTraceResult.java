@@ -56,7 +56,7 @@ public class Compat_RayTraceResult {
 
 	public Compat_EnumFacing Compat_get_field_178784_b() {
 		EnumFacing result = wrapper.get_sideHit();
-		return Compat_EnumFacing.map_real_to_fake(result);
+		return Compat_EnumFacing.getFake(result);
 	}
 
 	public void Compat_set_subHit(int value) {

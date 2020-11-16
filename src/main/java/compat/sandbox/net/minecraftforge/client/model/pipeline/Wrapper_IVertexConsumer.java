@@ -27,7 +27,7 @@ public class Wrapper_IVertexConsumer implements IVertexConsumer {
 
 	@Override
 	public void setQuadOrientation(EnumFacing orientation) {
-		fake.Compat_setQuadOrientation(Compat_EnumFacing.map_real_to_fake(orientation));
+		fake.Compat_setQuadOrientation(Compat_EnumFacing.getFake(orientation));
 	}
 
 	@Override

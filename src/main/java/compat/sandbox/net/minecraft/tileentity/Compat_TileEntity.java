@@ -64,7 +64,7 @@ public class Compat_TileEntity {
 
 	@Callback
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-		return Compat_hasCapability(Compat_Capability.getFake(capability), Compat_EnumFacing.map_real_to_fake(facing));
+		return Compat_hasCapability(Compat_Capability.getFake(capability), Compat_EnumFacing.getFake(facing));
 	}
 
 	@HasCallback
@@ -87,7 +87,7 @@ public class Compat_TileEntity {
 	@SuppressWarnings("unchecked")
 	@Callback
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		return (T) Compat_getCapability(Compat_Capability.getFake(capability), Compat_EnumFacing.map_real_to_fake(facing));
+		return (T) Compat_getCapability(Compat_Capability.getFake(capability), Compat_EnumFacing.getFake(facing));
 	}
 
 	@HasCallback
