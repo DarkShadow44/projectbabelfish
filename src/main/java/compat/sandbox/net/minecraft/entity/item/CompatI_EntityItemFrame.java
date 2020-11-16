@@ -5,4 +5,6 @@ import net.minecraft.entity.item.EntityItemFrame;
 
 public interface CompatI_EntityItemFrame extends CompatI_EntityHanging {
 	public EntityItemFrame get();
+
+	public int getAnalogOutputSuper();
 }

@@ -34,4 +34,8 @@ public class Compat_EntityItemFrame extends Compat_EntityHanging {
 	public EntityItemFrame getReal() {
 		return wrapper.get();
 	}
+
+	public int Compat_func_174866_q() {
+		return wrapper.getAnalogOutputSuper();
+	}
 }

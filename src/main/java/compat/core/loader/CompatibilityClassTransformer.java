@@ -78,6 +78,9 @@ public class CompatibilityClassTransformer {
 		if (name.startsWith("com/google/"))
 			return true;
 
+		if (name.startsWith("com/mojang/authlib/"))
+			return true;
+
 		return false;
 	}
 

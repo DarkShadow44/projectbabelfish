@@ -13,7 +13,7 @@ public enum Compat_EnumHandSide {
 		this.original = original;
 	}
 
-	public Compat_EnumHandSide getFake(EnumHandSide real) {
+	public static Compat_EnumHandSide getFake(EnumHandSide real) {
 		switch (real) {
 		case LEFT:
 			return LEFT;
