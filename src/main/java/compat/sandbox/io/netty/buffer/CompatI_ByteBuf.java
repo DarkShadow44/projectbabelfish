@@ -32,4 +32,12 @@ public interface CompatI_ByteBuf {
 	public int readUnsignedMediumSuper();
 
 	public ByteBuf readBytesSuper(byte[] data, int start, int len);
+
+	public byte readByteSuper();
+
+	public double readDoubleSuper();
+
+	public ByteBuf writeByteSuper(int value);
+
+	public ByteBuf writeDoubleSuper(double value);
 }

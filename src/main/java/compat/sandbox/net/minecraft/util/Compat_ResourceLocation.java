@@ -52,6 +52,10 @@ public class Compat_ResourceLocation implements Comparable<Compat_ResourceLocati
 		return wrapper.hashCodeSuper();
 	}
 
+	public int Compat_hashCode() {
+		return hashCode();
+	}
+
 	@Override
 	public int compareTo(Compat_ResourceLocation other) {
 		return wrapper.compareToSuper(other.getReal());
@@ -71,7 +75,7 @@ public class Compat_ResourceLocation implements Comparable<Compat_ResourceLocati
 
 	public static Compat_ResourceLocation getFake(ResourceLocation location) {
 		if (location instanceof CompatI_ResourceLocation) {
-			return ((CompatI_ResourceLocation)location).getFake();
+			return ((CompatI_ResourceLocation) location).getFake();
 		}
 		return new Compat_ResourceLocation(location);
 	}

@@ -94,4 +94,22 @@ public class Compat_ByteBuf {
 		return this;
 	}
 
+	public byte Compat_readByte() {
+		return wrapper.readByteSuper();
+	}
+
+	public double Compat_readDouble() {
+		return wrapper.readDoubleSuper();
+	}
+
+	public Compat_ByteBuf Compat_writeByte(int value) {
+		wrapper.writeByteSuper(value);
+		return this;
+	}
+
+	public Compat_ByteBuf Compat_writeDouble(double value) {
+		wrapper.writeDoubleSuper(value);
+		return this;
+	}
+
 }
