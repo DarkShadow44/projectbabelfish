@@ -8,6 +8,8 @@ import net.minecraft.client.renderer.block.model.ItemOverrideList;
 public class Compat_ItemOverrideList {
 	private CompatI_ItemOverrideList wrapper;
 
+	private static Compat_ItemOverrideList NONE = new Compat_ItemOverrideList(ItemOverrideList.NONE);
+
 	// When called from Mod
 	public Compat_ItemOverrideList() {
 		this.initialize(Factory.create(CtorPos.POS1, CompatI_ItemOverrideList.class, this));
@@ -28,5 +30,9 @@ public class Compat_ItemOverrideList {
 
 	public ItemOverrideList getReal() {
 		return wrapper.get();
+	}
+
+	public static Compat_ItemOverrideList Compat_get_field_188022_a() {
+		return NONE;
 	}
 }

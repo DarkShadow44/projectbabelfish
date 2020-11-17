@@ -4,10 +4,14 @@ import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
 import compat.sandbox.net.minecraft.block.Compat_Block;
+import compat.sandbox.net.minecraft.entity.Compat_EntityLivingBase;
 import compat.sandbox.net.minecraft.nbt.Compat_NBTTagCompound;
+import compat.sandbox.net.minecraft.util.Compat_EnumFacing;
+import compat.sandbox.net.minecraftforge.common.capabilities.Compat_Capability;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
 
 public class Compat_ItemStack {
 	private CompatI_ItemStack wrapper;
@@ -129,4 +133,27 @@ public class Compat_ItemStack {
 		}
 		return new Compat_ItemStack(stack);
 	}
+
+	public void Compat_func_77964_b(int damage) {
+		wrapper.setItemDamageSuper(damage);
+	}
+
+	public boolean Compat_func_77969_a(Compat_ItemStack stack) {
+		return wrapper.isItemEqualSuper(stack.getReal());
+	}
+
+	public void Compat_func_77972_a(int amount, Compat_EntityLivingBase entity) {
+		wrapper.damageItemSuper(amount, entity.getReal());
+	}
+
+	public boolean Compat_hasCapability(Compat_Capability<?> capability, Compat_EnumFacing facing) {
+		EnumFacing facing2 = facing == null ? null : facing.getReal();
+		return wrapper.hasCapabilitySuper(capability.getReal(), facing2);
+	}
+
+	public Object Compat_getCapability(Compat_Capability<?> capability, Compat_EnumFacing facing) {
+		EnumFacing facing2 = facing == null ? null : facing.getReal();
+		return wrapper.getCapabilitySuper(capability.getReal(), facing2);
+	}
+
 }

@@ -24,7 +24,7 @@ public interface CompatI_TileEntity {
 
 	public boolean hasCapabilitySuper(Capability<?> capability, EnumFacing facing);
 
-	public Object getCapabilitySuper(Capability<?> real, EnumFacing facing2);
+	public Object getCapabilitySuper(Capability<?> real, EnumFacing facing);
 
 	public NBTTagCompound writeToNBTSuper(NBTTagCompound tag);
 

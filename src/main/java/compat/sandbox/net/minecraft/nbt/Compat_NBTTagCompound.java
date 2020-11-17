@@ -118,4 +118,49 @@ public class Compat_NBTTagCompound extends Compat_NBTBase {
 		}
 		return new Compat_NBTTagCompound(tag);
 	}
+
+	public boolean equals(Object other) {
+		if (other instanceof Compat_NBTTagCompound) {
+			other = ((Compat_NBTTagCompound) other).getReal();
+		}
+
+		return wrapper.equalsSuper(other);
+	}
+
+	public boolean Compat_equals(Object other) {
+		return equals(other);
+	}
+
+	public int hashCode() {
+		return wrapper.hashCodeSuper();
+	}
+
+	public int Compat_hashCode() {
+		return hashCode();
+	}
+
+	public void Compat_func_179237_a(Compat_NBTTagCompound tag) {
+		wrapper.mergeSuper(tag.getReal());
+	}
+
+	public long Compat_func_74763_f(String key) {
+		return wrapper.getLongSuper(key);
+	}
+
+	public void Compat_func_74772_a(String key, long value) {
+		wrapper.setLongSuper(key, value);
+	}
+
+	public void Compat_func_74774_a(String key, byte value) {
+		wrapper.setByteSuper(key, value);
+	}
+
+	public Compat_NBTBase Compat_func_74781_a(String key) {
+		return Compat_NBTBase.getFake(wrapper.getTagSuper(key));
+	}
+
+	public void Compat_func_82580_o(String key) {
+		wrapper.removeTagSuper(key);
+	}
+
 }

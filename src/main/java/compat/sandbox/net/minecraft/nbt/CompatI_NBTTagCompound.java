@@ -50,4 +50,20 @@ public interface CompatI_NBTTagCompound {
 	public int[] getIntArraySuper(String key);
 
 	public Compat_NBTTagCompound getFake();
+
+	public boolean equalsSuper(Object other);
+
+	public int hashCodeSuper();
+
+	public void mergeSuper(NBTTagCompound real);
+
+	public long getLongSuper(String key);
+
+	public void setLongSuper(String key, long value);
+
+	public void setByteSuper(String key, byte value);
+
+	public void removeTagSuper(String key);
+
+	public NBTBase getTagSuper(String key);
 }

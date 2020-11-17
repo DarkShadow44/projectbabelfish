@@ -48,4 +48,8 @@ public class Compat_NBTTagList extends Compat_NBTBase {
 		}
 		return new Compat_NBTTagList(tag);
 	}
+
+	public Compat_NBTTagList Compat_func_74737_b() {
+		return new Compat_NBTTagList(wrapper.copySuper());
+	}
 }

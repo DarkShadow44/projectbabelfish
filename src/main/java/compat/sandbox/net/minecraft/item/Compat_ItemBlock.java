@@ -4,6 +4,11 @@ import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
 import compat.sandbox.net.minecraft.block.Compat_Block;
+import compat.sandbox.net.minecraft.block.state.Compat_IBlockState;
+import compat.sandbox.net.minecraft.entity.player.Compat_EntityPlayer;
+import compat.sandbox.net.minecraft.util.Compat_EnumFacing;
+import compat.sandbox.net.minecraft.util.math.Compat_BlockPos;
+import compat.sandbox.net.minecraft.world.Compat_World;
 import net.minecraft.item.ItemBlock;
 
 public class Compat_ItemBlock extends Compat_Item {
@@ -34,10 +39,15 @@ public class Compat_ItemBlock extends Compat_Item {
 	public ItemBlock getReal() {
 		return wrapper.get();
 	}
-	
+
 	public Compat_ItemBlock Compat_func_77655_b(String unlocalizedName) {
 		// TODO move up?
 		wrapper.setUnlocalizedNameSuper(unlocalizedName);
 		return this;
 	}
+
+	public boolean Compat_placeBlockAt(Compat_ItemStack stack, Compat_EntityPlayer player, Compat_World world, Compat_BlockPos pos, Compat_EnumFacing facing, float x, float y, float z, Compat_IBlockState state) {
+		return wrapper.placeBlockAtSuper(stack.getReal(), player.getReal(), world.getReal(), pos.getReal(), facing.getReal(), x, y, z, state.getReal());
+	}
+
 }
