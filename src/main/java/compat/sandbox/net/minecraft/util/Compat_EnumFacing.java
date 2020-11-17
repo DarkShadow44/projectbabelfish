@@ -122,4 +122,8 @@ public enum Compat_EnumFacing implements IStringSerializable {
 	public static Compat_EnumFacing Compat_func_176737_a(float x, float y, float z) {
 		return getFake(EnumFacing.getFacingFromVector(x, y, z));
 	}
+
+	public static EnumFacing getReal(Compat_EnumFacing facing) {
+		return facing == null ? null : facing.getReal();
+	}
 }

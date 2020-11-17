@@ -2,6 +2,7 @@ package compat.sandbox.net.minecraft.block;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import compat.autogen.Callback;
 import compat.autogen.Factory;
@@ -12,8 +13,10 @@ import compat.sandbox.net.minecraft.block.material.Compat_Material;
 import compat.sandbox.net.minecraft.block.state.Compat_BlockStateContainer;
 import compat.sandbox.net.minecraft.block.state.Compat_IBlockState;
 import compat.sandbox.net.minecraft.block.state.Wrapper_IBlockState;
+import compat.sandbox.net.minecraft.client.particle.Compat_ParticleManager;
 import compat.sandbox.net.minecraft.creativetab.Compat_CreativeTabs;
 import compat.sandbox.net.minecraft.entity.Compat_Entity;
+import compat.sandbox.net.minecraft.entity.Compat_EntityLivingBase;
 import compat.sandbox.net.minecraft.entity.player.Compat_EntityPlayer;
 import compat.sandbox.net.minecraft.item.Compat_ItemStack;
 import compat.sandbox.net.minecraft.tileentity.Compat_TileEntity;
@@ -29,6 +32,7 @@ import compat.sandbox.net.minecraft.util.registry.Compat_RegistryNamespacedDefau
 import compat.sandbox.net.minecraft.util.registry.Compat_RegistryNamespacedDefaultedByKey_Block;
 import compat.sandbox.net.minecraft.world.Compat_IBlockAccess;
 import compat.sandbox.net.minecraft.world.Compat_World;
+import compat.sandbox.net.minecraft.world.Compat_WorldServer;
 import compat.sandbox.net.minecraft.world.Wrapper_IBlockAccess;
 import compat.sandbox.net.minecraftforge.fml.common.registry.Compat_IForgeRegistryEntry_Impl;
 import net.minecraft.block.Block;
@@ -415,6 +419,131 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 			return ((CompatI_Block) block).getFake();
 		}
 		return new Compat_Block(block);
+	}
+
+	public boolean Compat_addDestroyEffects(Compat_World world, Compat_BlockPos pos, Compat_ParticleManager manager) {
+		return wrapper.addDestroyEffectsSuper(world.getReal(), pos.getReal(), manager.getReal());
+	}
+
+	public boolean Compat_addHitEffects(Compat_IBlockState state, Compat_World world, Compat_RayTraceResult ray, Compat_ParticleManager manager) {
+		return wrapper.addHitEffectsSuper(state.getReal(), world.getReal(), ray.getReal(), manager.getReal());
+	}
+
+	public boolean Compat_addLandingEffects(Compat_IBlockState state, Compat_WorldServer world, Compat_BlockPos pos, Compat_IBlockState state2, Compat_EntityLivingBase entity, int p1) {
+		return wrapper.addLandingEffectsSuper(state.getReal(), world.getReal(), pos.getReal(), state2.getReal(), entity.getReal(), p1);
+	}
+
+	public boolean Compat_canConnectRedstone(Compat_IBlockState state, Compat_IBlockAccess world, Compat_BlockPos pos, Compat_EnumFacing facing) {
+		return wrapper.canConnectRedstoneSuper(state.getReal(), world.getReal(), pos.getReal(), Compat_EnumFacing.getReal(facing));
+	}
+
+	public boolean Compat_canPlaceTorchOnTop(Compat_IBlockState state, Compat_IBlockAccess world, Compat_BlockPos pos) {
+		return wrapper.canPlaceTorchOnTopSuper(state.getReal(), world.getReal(), pos.getReal());
+	}
+
+	public boolean Compat_func_149744_f(Compat_IBlockState state) {
+		return wrapper.canProvidePowerSuper(state.getReal());
+	}
+
+	public void Compat_func_176199_a(Compat_World world, Compat_BlockPos pos, Compat_Entity entity) {
+		wrapper.onEntityWalkSuper(world.getReal(), pos.getReal(), entity.getReal());
+	}
+
+	public Compat_IBlockState Compat_func_176203_a(int meta) {
+		return new Wrapper_IBlockState(wrapper.getStateFromMetaSuper(meta));
+	}
+
+	public int Compat_func_176211_b(Compat_IBlockState state, Compat_IBlockAccess world, Compat_BlockPos pos, Compat_EnumFacing facing) {
+		return wrapper.getStrongPowerSuper(state.getReal(), world.getReal(), pos.getReal(), Compat_EnumFacing.getReal(facing));
+	}
+
+	public void Compat_func_180634_a(Compat_World world, Compat_BlockPos pos, Compat_IBlockState state, Compat_Entity entity) {
+		wrapper.onEntityCollidedWithBlockSuper(world.getReal(), pos.getReal(), state.getReal(), entity.getReal());
+	}
+
+	public float Compat_func_180647_a(Compat_IBlockState state, Compat_EntityPlayer player, Compat_World world, Compat_BlockPos pos) {
+		return wrapper.getPlayerRelativeBlockHardnessSuper(state.getReal(), player.getReal(), world.getReal(), pos.getReal());
+	}
+
+	public void Compat_func_180655_c(Compat_IBlockState state, Compat_World world, Compat_BlockPos pos, Random random) {
+		wrapper.randomDisplayTickSuper(state.getReal(), world.getReal(), pos.getReal(), random);
+	}
+
+	public int Compat_func_180656_a(Compat_IBlockState state, Compat_IBlockAccess world, Compat_BlockPos pos, Compat_EnumFacing facing) {
+		return wrapper.getWeakPowerSuper(state.getReal(), world.getReal(), pos.getReal(), Compat_EnumFacing.getReal(facing));
+	}
+
+	public void Compat_func_180657_a(Compat_World world, Compat_EntityPlayer player, Compat_BlockPos pos, Compat_IBlockState state, Compat_TileEntity tile, Compat_ItemStack stack) {
+		wrapper.harvestBlockSuper(world.getReal(), player.getReal(), pos.getReal(), state.getReal(), tile.getReal(), stack.getReal());
+	}
+
+	public void Compat_func_189540_a(Compat_IBlockState state, Compat_World world, Compat_BlockPos pos, Compat_Block block) {
+		wrapper.neighborChangedSuper(state.getReal(), world.getReal(), pos.getReal(), block.getReal(), pos.getReal());
+	}
+
+	public List<Compat_ItemStack> Compat_getDrops(Compat_IBlockAccess world, Compat_BlockPos pos, Compat_IBlockState state, int fortune) {
+		List<ItemStack> result = wrapper.getDropsSuper(world.getReal(), pos.getReal(), state.getReal(), fortune);
+		List<Compat_ItemStack> ret = new ArrayList<>();
+
+		for (ItemStack stack : result) {
+			ret.add(Compat_ItemStack.getFake(stack));
+		}
+
+		return ret;
+	}
+
+	public int Compat_getHarvestLevel(Compat_IBlockState state) {
+		return wrapper.getHarvestLevelSuper(state.getReal());
+	}
+
+	public String Compat_getHarvestTool(Compat_IBlockState state) {
+		return wrapper.getHarvestToolSuper(state.getReal());
+	}
+
+	public int Compat_getLightValue(Compat_IBlockState state, Compat_IBlockAccess world, Compat_BlockPos pos) {
+		return wrapper.getLightValueSuper(state.getReal(), world.getReal(), pos.getReal());
+	}
+
+	public Compat_ItemStack Compat_getPickBlock(Compat_IBlockState state, Compat_RayTraceResult target, Compat_World world, Compat_BlockPos pos, Compat_EntityPlayer player) {
+		ItemStack result = wrapper.getPickBlockSuper(state.getReal(), target.getReal(), world.getReal(), pos.getReal(), player.getReal());
+		return Compat_ItemStack.getFake(result);
+	}
+
+	public boolean Compat_getWeakChanges(Compat_IBlockAccess world, Compat_BlockPos pos) {
+		return wrapper.getWeakChangesSuper(world.getReal(), pos.getReal());
+	}
+
+	public Boolean Compat_isAABBInsideMaterial(Compat_World world, Compat_BlockPos pos, Compat_AxisAlignedBB bb, Compat_Material material) {
+		return wrapper.isAABBInsideMaterialSuper(world.getReal(), pos.getReal(), bb.getReal(), material.getReal());
+	}
+
+	public Boolean Compat_isEntityInsideMaterial(Compat_IBlockAccess world, Compat_BlockPos pos, Compat_IBlockState state, Compat_Entity entity, double d, Compat_Material material, boolean b) {
+		return wrapper.isEntityInsideMaterialSuper(world.getReal(), pos.getReal(), state.getReal(), entity.getReal(), d, material.getReal(), b);
+	}
+
+	public boolean Compat_isSideSolid(Compat_IBlockState state, Compat_IBlockAccess world, Compat_BlockPos pos, Compat_EnumFacing facing) {
+		return wrapper.isSideSolidSuper(state.getReal(), world.getReal(), pos.getReal(), Compat_EnumFacing.getReal(facing));
+	}
+
+	public boolean Compat_isToolEffective(String type, Compat_IBlockState state) {
+		return wrapper.isToolEffectiveSuper(type, state.getReal());
+	}
+
+	public void Compat_onNeighborChange(Compat_IBlockAccess world, Compat_BlockPos pos, Compat_BlockPos posNeighbor) {
+		wrapper.onNeighborChangeSuper(world.getReal(), pos.getReal(), posNeighbor.getReal());
+	}
+
+	public boolean Compat_removedByPlayer(Compat_IBlockState state, Compat_World world, Compat_BlockPos pos, Compat_EntityPlayer player, boolean b) {
+		return wrapper.removedByPlayerSuper(state.getReal(), world.getReal(), pos.getReal(), player.getReal(), b);
+	}
+
+	public Compat_IBlockState Compat_func_180642_a(Compat_World world, Compat_BlockPos pos, Compat_EnumFacing facing, float x, float y, float z, int meta, Compat_EntityLivingBase entity) {
+		IBlockState result = wrapper.getStateForPlacementSuper(world.getReal(), pos.getReal(), Compat_EnumFacing.getReal(facing), x, y, z, meta, entity.getReal());
+		return new Wrapper_IBlockState(result);
+	}
+
+	public void Compat_func_180650_b(Compat_World world, Compat_BlockPos pos, Compat_IBlockState state, Random random) {
+		wrapper.updateTickSuper(world.getReal(), pos.getReal(), state.getReal(), random);
 	}
 
 }
