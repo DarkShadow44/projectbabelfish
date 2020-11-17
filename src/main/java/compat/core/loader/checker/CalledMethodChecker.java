@@ -90,8 +90,12 @@ public class CalledMethodChecker {
 
 	public void printWarning() {
 		List<String> methodsDedup = methods.stream().distinct().sorted().collect(Collectors.toList());
+		StringBuilder sb = new StringBuilder();
+		sb.append("\n########## Compatibility: Found " + methodsDedup.size() + " missing called methods.\n");
+
 		for (String method : methodsDedup) {
-			System.out.println("Compatibility: " + method);
+			sb.append("\t" + method + "\n");
 		}
+		System.out.println(sb.toString());
 	}
 }
