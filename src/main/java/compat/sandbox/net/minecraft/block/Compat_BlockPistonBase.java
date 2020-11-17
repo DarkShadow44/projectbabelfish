@@ -3,7 +3,11 @@ package compat.sandbox.net.minecraft.block;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
+import compat.sandbox.net.minecraft.entity.Compat_EntityLivingBase;
+import compat.sandbox.net.minecraft.util.Compat_EnumFacing;
+import compat.sandbox.net.minecraft.util.math.Compat_BlockPos;
 import net.minecraft.block.BlockPistonBase;
+import net.minecraft.util.EnumFacing;
 
 public class Compat_BlockPistonBase extends Compat_BlockDirectional {
 	private CompatI_BlockPistonBase wrapper;
@@ -32,5 +36,9 @@ public class Compat_BlockPistonBase extends Compat_BlockDirectional {
 
 	public BlockPistonBase getReal() {
 		return wrapper.get();
+	}
+
+	public static Compat_EnumFacing Compat_func_185647_a(Compat_BlockPos pos, Compat_EntityLivingBase entity) {
+		return Compat_EnumFacing.getFake(EnumFacing.getDirectionFromEntityLiving(pos.getReal(), entity.getReal()));
 	}
 }

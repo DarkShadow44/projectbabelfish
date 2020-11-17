@@ -4,7 +4,10 @@ import net.minecraft.util.EnumParticleTypes;
 
 public enum Compat_EnumParticleTypes {
 
-	VALUE(EnumParticleTypes.EXPLOSION_NORMAL);
+	CLOUD(EnumParticleTypes.CLOUD),
+	REDSTONE(EnumParticleTypes.REDSTONE),
+	SMOKE_NORMAL(EnumParticleTypes.SMOKE_NORMAL),
+	SNOW_SHOVEL(EnumParticleTypes.SNOW_SHOVEL);
 
 	private EnumParticleTypes original;
 
@@ -16,7 +19,19 @@ public enum Compat_EnumParticleTypes {
 		return original;
 	}
 
-	public static Compat_EnumParticleTypes Compat_get_VALUE() {
-		return VALUE;
+	public Compat_EnumParticleTypes Compat_get_CLOUD() {
+		return CLOUD;
+	}
+
+	public Compat_EnumParticleTypes Compat_get_REDSTONE() {
+		return REDSTONE;
+	}
+
+	public Compat_EnumParticleTypes Compat_get_SMOKE_NORMAL() {
+		return SMOKE_NORMAL;
+	}
+
+	public Compat_EnumParticleTypes Compat_get_SNOW_SHOVEL() {
+		return SNOW_SHOVEL;
 	}
 }

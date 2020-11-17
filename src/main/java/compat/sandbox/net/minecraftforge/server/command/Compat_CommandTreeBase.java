@@ -4,6 +4,7 @@ import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
 import compat.sandbox.net.minecraft.command.Compat_CommandBase;
+import compat.sandbox.net.minecraft.command.Compat_ICommand;
 import net.minecraftforge.server.command.CommandTreeBase;
 
 public class Compat_CommandTreeBase extends Compat_CommandBase {
@@ -33,5 +34,9 @@ public class Compat_CommandTreeBase extends Compat_CommandBase {
 
 	public CommandTreeBase getReal() {
 		return wrapper.get();
+	}
+
+	public void Compat_addSubcommand(Compat_ICommand command) {
+		wrapper.addSubcommandSuper(getReal());
 	}
 }
