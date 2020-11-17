@@ -37,10 +37,13 @@ import compat.sandbox.net.minecraft.world.Wrapper_IBlockAccess;
 import compat.sandbox.net.minecraftforge.fml.common.registry.Compat_IForgeRegistryEntry_Impl;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -54,6 +57,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 
 public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	private CompatI_Block wrapper;
@@ -234,7 +238,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 
 	@Callback
 	public RayTraceResult collisionRayTrace(IBlockState state, World world, BlockPos pos, Vec3d start, Vec3d end) {
-		Compat_RayTraceResult result = Compat_func_180636_a(new Wrapper_IBlockState(state), Compat_World.get_fake(world), new Compat_BlockPos(pos), new Compat_Vec3d(start), new Compat_Vec3d(end));
+		Compat_RayTraceResult result = Compat_func_180636_a(new Wrapper_IBlockState(state), Compat_World.getFake(world), Compat_BlockPos.getFake(pos), new Compat_Vec3d(start), new Compat_Vec3d(end));
 		return result == null ? null : result.getReal();
 	}
 
@@ -246,7 +250,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 
 	@Callback
 	public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World world, BlockPos pos) {
-		return Compat_func_180640_a(new Wrapper_IBlockState(state), Compat_World.get_fake(world), Compat_BlockPos.getFake(pos)).getReal();
+		return Compat_func_180640_a(new Wrapper_IBlockState(state), Compat_World.getFake(world), Compat_BlockPos.getFake(pos)).getReal();
 	}
 
 	@HasCallback
@@ -265,7 +269,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 
 		Compat_Entity entity2 = entity == null ? null : new Compat_Entity(entity);
 
-		Compat_func_185477_a(new Wrapper_IBlockState(state), Compat_World.get_fake(world), new Compat_BlockPos(pos), new Compat_AxisAlignedBB(entityBox), list2, entity2);
+		Compat_func_185477_a(new Wrapper_IBlockState(state), Compat_World.getFake(world), new Compat_BlockPos(pos), new Compat_AxisAlignedBB(entityBox), list2, entity2);
 
 		boxes.clear();
 		for (Compat_AxisAlignedBB box : list2) {
@@ -394,7 +398,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 
 	@Callback
 	public void onBlockClicked(World world, BlockPos pos, EntityPlayer player) {
-		Compat_func_180649_a(Compat_World.get_fake(world), new Compat_BlockPos(pos), Compat_EntityPlayer.get_fake(player));
+		Compat_func_180649_a(Compat_World.getFake(world), new Compat_BlockPos(pos), Compat_EntityPlayer.getFake(player));
 	}
 
 	@HasCallback
@@ -406,7 +410,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float x, float y, float z) {
 		ItemStack stack = player.getHeldItem(hand);
 		Compat_ItemStack stack2 = stack == null ? null : new Compat_ItemStack(stack);
-		return Compat_func_180639_a(Compat_World.get_fake(world), Compat_BlockPos.getFake(pos), Compat_IBlockState.getFake(state), Compat_EntityPlayer.get_fake(player), Compat_EnumHand.map_real_to_fake(hand), stack2, Compat_EnumFacing.getFake(facing), x, y, z);
+		return Compat_func_180639_a(Compat_World.getFake(world), Compat_BlockPos.getFake(pos), Compat_IBlockState.getFake(state), Compat_EntityPlayer.getFake(player), Compat_EnumHand.map_real_to_fake(hand), stack2, Compat_EnumFacing.getFake(facing), x, y, z);
 	}
 
 	@HasCallback
@@ -421,66 +425,170 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return new Compat_Block(block);
 	}
 
+	@Callback
+	public boolean addDestroyEffects(World world, BlockPos pos, ParticleManager manager) {
+		return Compat_addDestroyEffects(Compat_World.getFake(world), Compat_BlockPos.getFake(pos), new Compat_ParticleManager(manager));
+	}
+
+	@HasCallback
 	public boolean Compat_addDestroyEffects(Compat_World world, Compat_BlockPos pos, Compat_ParticleManager manager) {
 		return wrapper.addDestroyEffectsSuper(world.getReal(), pos.getReal(), manager.getReal());
 	}
 
+	@Callback
+	public boolean addHitEffects(IBlockState state, World world, RayTraceResult target, ParticleManager manager) {
+		return Compat_addHitEffects(Compat_IBlockState.getFake(state), Compat_World.getFake(world), new Compat_RayTraceResult(target), new Compat_ParticleManager(manager));
+	}
+
+	@HasCallback
 	public boolean Compat_addHitEffects(Compat_IBlockState state, Compat_World world, Compat_RayTraceResult ray, Compat_ParticleManager manager) {
 		return wrapper.addHitEffectsSuper(state.getReal(), world.getReal(), ray.getReal(), manager.getReal());
 	}
 
+	@Callback
+	public boolean addLandingEffects(IBlockState state, WorldServer world, BlockPos pos, IBlockState state2, EntityLivingBase entity, int p1) {
+		return Compat_addLandingEffects(Compat_IBlockState.getFake(state), new Compat_WorldServer(world), Compat_BlockPos.getFake(pos), Compat_IBlockState.getFake(state2), new Compat_EntityLivingBase(entity), p1);
+	}
+
+	@HasCallback
 	public boolean Compat_addLandingEffects(Compat_IBlockState state, Compat_WorldServer world, Compat_BlockPos pos, Compat_IBlockState state2, Compat_EntityLivingBase entity, int p1) {
 		return wrapper.addLandingEffectsSuper(state.getReal(), world.getReal(), pos.getReal(), state2.getReal(), entity.getReal(), p1);
 	}
 
+	@Callback
+	public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing facing) {
+		return Compat_canConnectRedstone(Compat_IBlockState.getFake(state), Compat_IBlockAccess.getFake(world), Compat_BlockPos.getFake(pos), Compat_EnumFacing.getFake(facing));
+	}
+
+	@HasCallback
 	public boolean Compat_canConnectRedstone(Compat_IBlockState state, Compat_IBlockAccess world, Compat_BlockPos pos, Compat_EnumFacing facing) {
 		return wrapper.canConnectRedstoneSuper(state.getReal(), world.getReal(), pos.getReal(), Compat_EnumFacing.getReal(facing));
 	}
 
+	@Callback
+	public boolean canPlaceTorchOnTop(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return Compat_canPlaceTorchOnTop(Compat_IBlockState.getFake(state), Compat_IBlockAccess.getFake(world), Compat_BlockPos.getFake(pos));
+	}
+
+	@HasCallback
 	public boolean Compat_canPlaceTorchOnTop(Compat_IBlockState state, Compat_IBlockAccess world, Compat_BlockPos pos) {
 		return wrapper.canPlaceTorchOnTopSuper(state.getReal(), world.getReal(), pos.getReal());
 	}
 
+	@Callback
+	public boolean canProvidePower(IBlockState state) {
+		return Compat_func_149744_f(new Wrapper_IBlockState(state));
+	}
+
+	@HasCallback
 	public boolean Compat_func_149744_f(Compat_IBlockState state) {
 		return wrapper.canProvidePowerSuper(state.getReal());
 	}
 
+	@Callback
+	public void onEntityWalk(World world, BlockPos pos, Entity entity) {
+		Compat_func_176199_a(Compat_World.getFake(world), Compat_BlockPos.getFake(pos), new Compat_Entity(entity));
+	}
+
+	@HasCallback
 	public void Compat_func_176199_a(Compat_World world, Compat_BlockPos pos, Compat_Entity entity) {
 		wrapper.onEntityWalkSuper(world.getReal(), pos.getReal(), entity.getReal());
 	}
 
+	@Callback
+	public IBlockState getStateFromMeta(int meta) {
+		Compat_IBlockState result = Compat_func_176203_a(meta);
+		return result.getReal();
+	}
+
+	@HasCallback
 	public Compat_IBlockState Compat_func_176203_a(int meta) {
 		return new Wrapper_IBlockState(wrapper.getStateFromMetaSuper(meta));
 	}
 
+	@Callback
+	public int getStrongPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+		return Compat_func_176211_b(Compat_IBlockState.getFake(state), Compat_IBlockAccess.getFake(world), Compat_BlockPos.getFake(pos), Compat_EnumFacing.getFake(side));
+	}
+
+	@HasCallback
 	public int Compat_func_176211_b(Compat_IBlockState state, Compat_IBlockAccess world, Compat_BlockPos pos, Compat_EnumFacing facing) {
 		return wrapper.getStrongPowerSuper(state.getReal(), world.getReal(), pos.getReal(), Compat_EnumFacing.getReal(facing));
 	}
 
+	@Callback
+	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
+		Compat_func_180634_a(Compat_World.getFake(world), Compat_BlockPos.getFake(pos), Compat_IBlockState.getFake(state), new Compat_Entity(entity));
+	}
+
+	@HasCallback
 	public void Compat_func_180634_a(Compat_World world, Compat_BlockPos pos, Compat_IBlockState state, Compat_Entity entity) {
 		wrapper.onEntityCollidedWithBlockSuper(world.getReal(), pos.getReal(), state.getReal(), entity.getReal());
 	}
 
+	@Callback
+	public float getPlayerRelativeBlockHardness(IBlockState state, EntityPlayer player, World world, BlockPos pos) {
+		return Compat_func_180647_a(Compat_IBlockState.getFake(state), Compat_EntityPlayer.getFake(player), Compat_World.getFake(world), Compat_BlockPos.getFake(pos));
+	}
+
+	@HasCallback
 	public float Compat_func_180647_a(Compat_IBlockState state, Compat_EntityPlayer player, Compat_World world, Compat_BlockPos pos) {
 		return wrapper.getPlayerRelativeBlockHardnessSuper(state.getReal(), player.getReal(), world.getReal(), pos.getReal());
 	}
 
+	@Callback
+	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random random) {
+		Compat_func_180655_c(Compat_IBlockState.getFake(state), Compat_World.getFake(world), Compat_BlockPos.getFake(pos), random);
+	}
+
+	@HasCallback
 	public void Compat_func_180655_c(Compat_IBlockState state, Compat_World world, Compat_BlockPos pos, Random random) {
 		wrapper.randomDisplayTickSuper(state.getReal(), world.getReal(), pos.getReal(), random);
 	}
 
+	@Callback
+	public int getWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing facing) {
+		return Compat_func_180656_a(Compat_IBlockState.getFake(state), Compat_IBlockAccess.getFake(world), Compat_BlockPos.getFake(pos), Compat_EnumFacing.getFake(facing));
+	}
+
+	@HasCallback
 	public int Compat_func_180656_a(Compat_IBlockState state, Compat_IBlockAccess world, Compat_BlockPos pos, Compat_EnumFacing facing) {
 		return wrapper.getWeakPowerSuper(state.getReal(), world.getReal(), pos.getReal(), Compat_EnumFacing.getReal(facing));
 	}
 
+	@Callback
+	public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity tile, ItemStack stack) {
+		Compat_func_180657_a(Compat_World.getFake(world), Compat_EntityPlayer.getFake(player), Compat_BlockPos.getFake(pos), Compat_IBlockState.getFake(state), Compat_TileEntity.get_fake(tile), Compat_ItemStack.getFake(stack));
+	}
+
+	@HasCallback
 	public void Compat_func_180657_a(Compat_World world, Compat_EntityPlayer player, Compat_BlockPos pos, Compat_IBlockState state, Compat_TileEntity tile, Compat_ItemStack stack) {
 		wrapper.harvestBlockSuper(world.getReal(), player.getReal(), pos.getReal(), state.getReal(), tile.getReal(), stack.getReal());
 	}
 
+	@Callback
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
+		Compat_func_189540_a(Compat_IBlockState.getFake(state), Compat_World.getFake(world), Compat_BlockPos.getFake(pos), Compat_Block.getFake(block));
+	}
+
+	@HasCallback
 	public void Compat_func_189540_a(Compat_IBlockState state, Compat_World world, Compat_BlockPos pos, Compat_Block block) {
 		wrapper.neighborChangedSuper(state.getReal(), world.getReal(), pos.getReal(), block.getReal(), pos.getReal());
 	}
 
+	@Callback
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+		List<Compat_ItemStack> result = Compat_getDrops(Compat_IBlockAccess.getFake(world), Compat_BlockPos.getFake(pos), Compat_IBlockState.getFake(state), fortune);
+		List<ItemStack> ret = new ArrayList<>();
+
+		for (Compat_ItemStack stack : result) {
+			ret.add(stack.getReal());
+		}
+
+		return ret;
+	}
+
+	@HasCallback
 	public List<Compat_ItemStack> Compat_getDrops(Compat_IBlockAccess world, Compat_BlockPos pos, Compat_IBlockState state, int fortune) {
 		List<ItemStack> result = wrapper.getDropsSuper(world.getReal(), pos.getReal(), state.getReal(), fortune);
 		List<Compat_ItemStack> ret = new ArrayList<>();
@@ -492,56 +600,136 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return ret;
 	}
 
+	@Callback
+	public int getHarvestLevel(IBlockState state) {
+		return Compat_getHarvestLevel(Compat_IBlockState.getFake(state));
+	}
+
+	@HasCallback
 	public int Compat_getHarvestLevel(Compat_IBlockState state) {
 		return wrapper.getHarvestLevelSuper(state.getReal());
 	}
 
+	@Callback
+	public String getHarvestTool(IBlockState state) {
+		return Compat_getHarvestTool(Compat_IBlockState.getFake(state));
+	}
+
+	@HasCallback
 	public String Compat_getHarvestTool(Compat_IBlockState state) {
 		return wrapper.getHarvestToolSuper(state.getReal());
 	}
 
+	@Callback
+	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return Compat_getLightValue(Compat_IBlockState.getFake(state), Compat_IBlockAccess.getFake(world), Compat_BlockPos.getFake(pos));
+	}
+
+	@HasCallback
 	public int Compat_getLightValue(Compat_IBlockState state, Compat_IBlockAccess world, Compat_BlockPos pos) {
 		return wrapper.getLightValueSuper(state.getReal(), world.getReal(), pos.getReal());
 	}
 
+	@Callback
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+		Compat_ItemStack result = Compat_getPickBlock(Compat_IBlockState.getFake(state), Compat_RayTraceResult.getFake(target), Compat_World.getFake(world), Compat_BlockPos.getFake(pos), Compat_EntityPlayer.getFake(player));
+		return result == null ? null : result.getReal();
+	}
+
+	@HasCallback
 	public Compat_ItemStack Compat_getPickBlock(Compat_IBlockState state, Compat_RayTraceResult target, Compat_World world, Compat_BlockPos pos, Compat_EntityPlayer player) {
 		ItemStack result = wrapper.getPickBlockSuper(state.getReal(), target.getReal(), world.getReal(), pos.getReal(), player.getReal());
 		return Compat_ItemStack.getFake(result);
 	}
 
+	@Callback
+	public boolean getWeakChanges(IBlockAccess world, BlockPos pos) {
+		return Compat_getWeakChanges(Compat_IBlockAccess.getFake(world), Compat_BlockPos.getFake(pos));
+	}
+
+	@HasCallback
 	public boolean Compat_getWeakChanges(Compat_IBlockAccess world, Compat_BlockPos pos) {
 		return wrapper.getWeakChangesSuper(world.getReal(), pos.getReal());
 	}
 
+	@Callback
+	public Boolean isAABBInsideMaterial(World world, BlockPos pos, AxisAlignedBB bb, Material material) {
+		return Compat_isAABBInsideMaterial(Compat_World.getFake(world), Compat_BlockPos.getFake(pos), Compat_AxisAlignedBB.getFake(bb), Compat_Material.getFake(material));
+	}
+
+	@HasCallback
 	public Boolean Compat_isAABBInsideMaterial(Compat_World world, Compat_BlockPos pos, Compat_AxisAlignedBB bb, Compat_Material material) {
 		return wrapper.isAABBInsideMaterialSuper(world.getReal(), pos.getReal(), bb.getReal(), material.getReal());
 	}
 
-	public Boolean Compat_isEntityInsideMaterial(Compat_IBlockAccess world, Compat_BlockPos pos, Compat_IBlockState state, Compat_Entity entity, double d, Compat_Material material, boolean b) {
-		return wrapper.isEntityInsideMaterialSuper(world.getReal(), pos.getReal(), state.getReal(), entity.getReal(), d, material.getReal(), b);
+	@Callback
+	public Boolean isEntityInsideMaterial(IBlockAccess world, BlockPos pos, IBlockState state, Entity entity, double d, Material material, boolean testingHead) {
+		return Compat_isEntityInsideMaterial(Compat_IBlockAccess.getFake(world), Compat_BlockPos.getFake(pos), Compat_IBlockState.getFake(state), Compat_Entity.getFake(entity), d, Compat_Material.getFake(material), testingHead);
 	}
 
+	@HasCallback
+	public Boolean Compat_isEntityInsideMaterial(Compat_IBlockAccess world, Compat_BlockPos pos, Compat_IBlockState state, Compat_Entity entity, double d, Compat_Material material, boolean testingHead) {
+		return wrapper.isEntityInsideMaterialSuper(world.getReal(), pos.getReal(), state.getReal(), entity.getReal(), d, material.getReal(), testingHead);
+	}
+
+	@Callback
+	public boolean isSideSolid(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing facing) {
+		return Compat_isSideSolid(Compat_IBlockState.getFake(state), Compat_IBlockAccess.getFake(world), Compat_BlockPos.getFake(pos), Compat_EnumFacing.getFake(facing));
+	}
+
+	@HasCallback
 	public boolean Compat_isSideSolid(Compat_IBlockState state, Compat_IBlockAccess world, Compat_BlockPos pos, Compat_EnumFacing facing) {
 		return wrapper.isSideSolidSuper(state.getReal(), world.getReal(), pos.getReal(), Compat_EnumFacing.getReal(facing));
 	}
 
+	@Callback
+	public boolean isToolEffective(String type, IBlockState state) {
+		return Compat_isToolEffective(type, Compat_IBlockState.getFake(state));
+	}
+
+	@HasCallback
 	public boolean Compat_isToolEffective(String type, Compat_IBlockState state) {
 		return wrapper.isToolEffectiveSuper(type, state.getReal());
 	}
 
+	@Callback
+	public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
+		Compat_onNeighborChange(Compat_IBlockAccess.getFake(world), Compat_BlockPos.getFake(pos), Compat_BlockPos.getFake(neighbor));
+	}
+
+	@HasCallback
 	public void Compat_onNeighborChange(Compat_IBlockAccess world, Compat_BlockPos pos, Compat_BlockPos posNeighbor) {
 		wrapper.onNeighborChangeSuper(world.getReal(), pos.getReal(), posNeighbor.getReal());
 	}
 
-	public boolean Compat_removedByPlayer(Compat_IBlockState state, Compat_World world, Compat_BlockPos pos, Compat_EntityPlayer player, boolean b) {
-		return wrapper.removedByPlayerSuper(state.getReal(), world.getReal(), pos.getReal(), player.getReal(), b);
+	@Callback
+	public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+		return Compat_removedByPlayer(Compat_IBlockState.getFake(state), Compat_World.getFake(world), Compat_BlockPos.getFake(pos), Compat_EntityPlayer.getFake(player), willHarvest);
 	}
 
+	@HasCallback
+	public boolean Compat_removedByPlayer(Compat_IBlockState state, Compat_World world, Compat_BlockPos pos, Compat_EntityPlayer player, boolean willHarvest) {
+		return wrapper.removedByPlayerSuper(state.getReal(), world.getReal(), pos.getReal(), player.getReal(), willHarvest);
+	}
+
+	@Callback
+	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float x, float y, float z, int meta, EntityLivingBase entity) {
+		Compat_IBlockState result = Compat_func_180642_a(Compat_World.getFake(world), Compat_BlockPos.getFake(pos), Compat_EnumFacing.getFake(facing), x, y, z, meta, Compat_EntityLivingBase.getFake(entity));
+		return result.getReal();
+	}
+
+	@HasCallback
 	public Compat_IBlockState Compat_func_180642_a(Compat_World world, Compat_BlockPos pos, Compat_EnumFacing facing, float x, float y, float z, int meta, Compat_EntityLivingBase entity) {
 		IBlockState result = wrapper.getStateForPlacementSuper(world.getReal(), pos.getReal(), Compat_EnumFacing.getReal(facing), x, y, z, meta, entity.getReal());
 		return new Wrapper_IBlockState(result);
 	}
 
+	@Callback
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random random) {
+		Compat_func_180650_b(Compat_World.getFake(world), Compat_BlockPos.getFake(pos), Compat_IBlockState.getFake(state), random);
+	}
+
+	@HasCallback
 	public void Compat_func_180650_b(Compat_World world, Compat_BlockPos pos, Compat_IBlockState state, Random random) {
 		wrapper.updateTickSuper(world.getReal(), pos.getReal(), state.getReal(), random);
 	}

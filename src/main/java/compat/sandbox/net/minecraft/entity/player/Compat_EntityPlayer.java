@@ -49,7 +49,7 @@ public class Compat_EntityPlayer extends Compat_EntityLivingBase {
 		return wrapper.canPlayerEditSuper(pos.getReal(), facing.getReal(), stack.getReal());
 	}
 
-	public static Compat_EntityPlayer get_fake(EntityPlayer real) {
+	public static Compat_EntityPlayer getFake(EntityPlayer real) {
 		if (real instanceof EntityPlayerMP) {
 			return new Compat_EntityPlayerMP((EntityPlayerMP) real);
 		} else {

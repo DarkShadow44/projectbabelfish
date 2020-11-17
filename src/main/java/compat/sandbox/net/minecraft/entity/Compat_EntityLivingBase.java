@@ -50,4 +50,8 @@ public class Compat_EntityLivingBase extends Compat_Entity {
 	public Compat_Vec3d Compat_func_70040_Z() {
 		return new Compat_Vec3d(wrapper.getLookVecSuper());
 	}
+
+	public static Compat_EntityLivingBase getFake(EntityLivingBase entity) {
+		return new Compat_EntityLivingBase(entity);
+	}
 }

@@ -35,7 +35,7 @@ public class Compat_Entity {
 	}
 
 	public Compat_World Compat_get_field_70170_p() {
-		return Compat_World.get_fake(wrapper.get_world());
+		return Compat_World.getFake(wrapper.get_world());
 	}
 
 	public boolean Compat_func_70093_af() {
@@ -49,7 +49,7 @@ public class Compat_Entity {
 
 	public Compat_World Compat_func_130014_f_() {
 		World result = wrapper.getEntityWorldSuper();
-		return Compat_World.get_fake(result);
+		return Compat_World.getFake(result);
 	}
 
 	public double Compat_get_field_70142_S() {
@@ -74,5 +74,9 @@ public class Compat_Entity {
 
 	public double Compat_get_field_70161_v() {
 		return wrapper.get_posZ();
+	}
+
+	public static Compat_Entity getFake(Entity entity) {
+		return new Compat_Entity(entity);
 	}
 }

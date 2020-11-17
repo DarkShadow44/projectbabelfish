@@ -102,7 +102,7 @@ public class Compat_World implements Compat_IBlockAccess {
 		return wrapper.checkLightSuper(pos.getReal());
 	}
 
-	public static Compat_World get_fake(World real) {
+	public static Compat_World getFake(World real) {
 		if (real == null)
 			return null;
 
@@ -118,7 +118,7 @@ public class Compat_World implements Compat_IBlockAccess {
 
 		List<Compat_EntityPlayer> ret = new ArrayList<>();
 		for (EntityPlayer player : result) {
-			ret.add(Compat_EntityPlayer.get_fake(player));
+			ret.add(Compat_EntityPlayer.getFake(player));
 		}
 		return ret;
 	}

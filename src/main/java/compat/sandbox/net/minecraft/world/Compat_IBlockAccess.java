@@ -11,4 +11,8 @@ public interface Compat_IBlockAccess {
 	public Compat_TileEntity Compat_func_175625_s(Compat_BlockPos pos);
 
 	public Compat_IBlockState Compat_func_180495_p(Compat_BlockPos pos);
+
+	public static Compat_IBlockAccess getFake(IBlockAccess world) {
+		return new Wrapper_IBlockAccess(world);
+	}
 }

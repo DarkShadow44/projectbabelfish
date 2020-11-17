@@ -43,7 +43,7 @@ public class Compat_PlayerInteractEvent extends Compat_Event {
 	}
 
 	public Compat_World Compat_getWorld() {
-		return Compat_World.get_fake(wrapper.getWorldSuper());
+		return Compat_World.getFake(wrapper.getWorldSuper());
 	}
 
 	public Compat_EnumHand Compat_getHand() {

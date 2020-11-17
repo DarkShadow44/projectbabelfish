@@ -55,7 +55,7 @@ public class Compat_TileEntity {
 	}
 
 	public Compat_World Compat_func_145831_w() {
-		return Compat_World.get_fake(wrapper.getWorldSuper());
+		return Compat_World.getFake(wrapper.getWorldSuper());
 	}
 
 	public Compat_BlockPos Compat_func_174877_v() {

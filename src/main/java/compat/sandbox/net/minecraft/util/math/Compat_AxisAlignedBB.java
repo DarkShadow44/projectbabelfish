@@ -84,4 +84,8 @@ public class Compat_AxisAlignedBB {
 		return result == null ? null : new Compat_RayTraceResult(result);
 	}
 
+	public static Compat_AxisAlignedBB getFake(AxisAlignedBB bb) {
+		return new Compat_AxisAlignedBB(bb);
+	}
+
 }

@@ -146,4 +146,8 @@ public class Compat_Material {
 	public boolean Compat_func_76229_l() {
 		return wrapper.isToolNotRequiredSuper();
 	}
+
+	public static Compat_Material getFake(Material material) {
+		return new Compat_Material(material);
+	}
 }
