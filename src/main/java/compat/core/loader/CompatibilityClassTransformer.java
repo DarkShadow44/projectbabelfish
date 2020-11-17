@@ -174,7 +174,7 @@ public class CompatibilityClassTransformer {
 			return true;
 
 		// Skip stream methods?
-		if (name.equals("apply") || name.equals("accept"))
+		if (name.equals("apply") || name.equals("accept") || name.equals("applyAsInt"))
 			return true;
 
 		return false;

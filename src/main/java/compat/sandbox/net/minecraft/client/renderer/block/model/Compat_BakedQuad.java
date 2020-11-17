@@ -75,4 +75,11 @@ public class Compat_BakedQuad {
 	public boolean Compat_shouldApplyDiffuseLighting() {
 		return wrapper.shouldApplyDiffuseLightingSuper();
 	}
+
+	public static Compat_BakedQuad getFake(BakedQuad quad) {
+		if (quad instanceof CompatI_BakedQuad) {
+			return ((CompatI_BakedQuad) quad).getFake();
+		}
+		return new Compat_BakedQuad(quad);
+	}
 }

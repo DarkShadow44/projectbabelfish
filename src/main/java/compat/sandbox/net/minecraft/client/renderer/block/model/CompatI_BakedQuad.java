@@ -24,4 +24,6 @@ public interface CompatI_BakedQuad {
 	public void pipeSuper(IVertexConsumer consumer);
 
 	public boolean shouldApplyDiffuseLightingSuper();
+
+	public Compat_BakedQuad getFake();
 }

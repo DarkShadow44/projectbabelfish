@@ -103,6 +103,9 @@ public class Compat_World implements Compat_IBlockAccess {
 	}
 
 	public static Compat_World get_fake(World real) {
+		if (real == null)
+			return null;
+
 		if (real instanceof WorldServer) {
 			return new Compat_WorldServer((WorldServer) real);
 		} else {

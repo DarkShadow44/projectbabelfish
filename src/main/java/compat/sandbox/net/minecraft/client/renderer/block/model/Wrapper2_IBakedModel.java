@@ -49,7 +49,7 @@ public class Wrapper2_IBakedModel implements Compat_IBakedModel {
 		List<BakedQuad> quads = real.getQuads(state.getReal(), side2, rand);
 		List<Compat_BakedQuad> ret = new ArrayList<>();
 		for (BakedQuad quad : quads) {
-			ret.add(new Compat_BakedQuad(quad));
+			ret.add(Compat_BakedQuad.getFake(quad));
 		}
 		return ret;
 	}
