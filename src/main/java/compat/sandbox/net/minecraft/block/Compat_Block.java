@@ -410,7 +410,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float x, float y, float z) {
 		ItemStack stack = player.getHeldItem(hand);
 		Compat_ItemStack stack2 = stack == null ? null : new Compat_ItemStack(stack);
-		return Compat_func_180639_a(Compat_World.getFake(world), Compat_BlockPos.getFake(pos), Compat_IBlockState.getFake(state), Compat_EntityPlayer.getFake(player), Compat_EnumHand.map_real_to_fake(hand), stack2, Compat_EnumFacing.getFake(facing), x, y, z);
+		return Compat_func_180639_a(Compat_World.getFake(world), Compat_BlockPos.getFake(pos), Compat_IBlockState.getFake(state), Compat_EntityPlayer.getFake(player), Compat_EnumHand.getFake(hand), stack2, Compat_EnumFacing.getFake(facing), x, y, z);
 	}
 
 	@HasCallback

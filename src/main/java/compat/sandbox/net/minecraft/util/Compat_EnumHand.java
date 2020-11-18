@@ -17,7 +17,7 @@ public enum Compat_EnumHand {
 		return original;
 	}
 
-	public static Compat_EnumHand map_real_to_fake(EnumHand real) {
+	public static Compat_EnumHand getFake(EnumHand real) {
 		switch (real) {
 		case MAIN_HAND:
 			return MAIN_HAND;

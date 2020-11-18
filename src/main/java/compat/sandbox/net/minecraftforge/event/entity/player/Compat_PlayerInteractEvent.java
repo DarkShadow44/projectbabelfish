@@ -47,7 +47,7 @@ public class Compat_PlayerInteractEvent extends Compat_Event {
 	}
 
 	public Compat_EnumHand Compat_getHand() {
-		return Compat_EnumHand.map_real_to_fake(wrapper.getHandSuper());
+		return Compat_EnumHand.getFake(wrapper.getHandSuper());
 	}
 
 	public Compat_ItemStack Compat_getItemStack() {

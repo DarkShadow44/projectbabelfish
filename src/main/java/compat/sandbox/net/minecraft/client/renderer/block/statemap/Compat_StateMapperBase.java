@@ -7,8 +7,8 @@ import java.util.Map.Entry;
 
 import compat.autogen.Callback;
 import compat.autogen.Factory;
-import compat.autogen.HasCallback;
 import compat.autogen.Factory.CtorPos;
+import compat.autogen.HasCallback;
 import compat.core.ParentSelector;
 import compat.sandbox.net.minecraft.block.Compat_Block;
 import compat.sandbox.net.minecraft.block.properties.Compat_IProperty;
@@ -72,6 +72,18 @@ public class Compat_StateMapperBase implements Compat_IStateMapper {
 		return ret;
 	}
 
+	@Callback
+	public String getPropertyString(Map<IProperty<?>, Comparable<?>> map) {
+		Map<Compat_IProperty<?>, Comparable<?>> map2 = new LinkedHashMap<>();
+
+		for (Entry<IProperty<?>, Comparable<?>> property : map.entrySet()) {
+			map2.put(Compat_IProperty.getFake(property.getKey()), property.getValue());
+		}
+
+		return Compat_func_178131_a(map2);
+	}
+
+	@HasCallback
 	public String Compat_func_178131_a(Map<Compat_IProperty<?>, Comparable<?>> map) {
 		Map<IProperty<?>, Comparable<?>> map2 = new LinkedHashMap<>();
 

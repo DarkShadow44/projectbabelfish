@@ -1,7 +1,9 @@
 package compat.sandbox.net.minecraft.creativetab;
 
+import compat.autogen.Callback;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
+import compat.autogen.HasCallback;
 import compat.core.ParentSelector;
 import compat.sandbox.net.minecraft.item.Compat_Item;
 import net.minecraft.creativetab.CreativeTabs;
@@ -32,10 +34,12 @@ public class Compat_CreativeTabs {
 		return wrapper.get();
 	}
 
+	@Callback
 	public ItemStack getTabIconItem() {
 		return new ItemStack(Compat_func_78016_d().getReal());
 	}
 
+	@HasCallback
 	public Compat_Item Compat_func_78016_d() {
 		// To be overriden
 		return null;
