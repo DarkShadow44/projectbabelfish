@@ -396,7 +396,13 @@ public class ClassGenerator {
 		}
 
 		if (clazz.getSuperclass() != null) {
-			return methodExistsInClass(clazz.getSuperclass(), methodSearch, isSuper);
+			if (methodExistsInClass(clazz.getSuperclass(), methodSearch, isSuper))
+				return true;
+		}
+
+		for (Class<?> iface : clazz.getInterfaces()) {
+			if (methodExistsInClass(iface, methodSearch, isSuper))
+				return true;
 		}
 
 		return false;
