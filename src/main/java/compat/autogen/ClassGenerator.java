@@ -343,9 +343,20 @@ public class ClassGenerator {
 		}
 	}
 
+	private boolean methodExistsAsCallback(Method methodSearch) {
+		for (Method method : classFake.getDeclaredMethods()) {
+			if (method.getAnnotation(Callback.class) != null) {
+				if (methodsMatch(method, methodSearch, false)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 	private void generateAbstractWrappers(List<MethodNode> methods) {
 		for (Method method : classMc.getDeclaredMethods()) {
-			if (Modifier.isAbstract(method.getModifiers())) {
+			if (Modifier.isAbstract(method.getModifiers()) && !methodExistsAsCallback(method)) {
 				MethodNode methodCreated = generateWrapper(method.getParameters(), method.getName(), method.getReturnType(), false);
 				methods.add(methodCreated);
 			}
