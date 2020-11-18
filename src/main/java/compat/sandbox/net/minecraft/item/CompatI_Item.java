@@ -62,4 +62,8 @@ public interface CompatI_Item extends CompatI_IForgeRegistryEntry_Impl<Item> {
 	public NBTTagCompound getNBTShareTagSuper(ItemStack stack);
 
 	public Set<String> getToolClassesSuper(ItemStack stack);
+
+	public boolean isRepairableSuper();
+
+	public boolean getHasSubtypesSuper();
 }

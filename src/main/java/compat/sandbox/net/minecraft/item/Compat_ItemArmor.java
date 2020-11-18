@@ -1,10 +1,16 @@
 package compat.sandbox.net.minecraft.item;
 
+import compat.autogen.Callback;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
+import compat.autogen.HasCallback;
 import compat.core.ParentSelector;
+import compat.sandbox.net.minecraft.entity.Compat_Entity;
 import compat.sandbox.net.minecraft.inventory.Compat_EntityEquipmentSlot;
+import net.minecraft.entity.Entity;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
 
 public class Compat_ItemArmor extends Compat_Item {
 	private CompatI_ItemArmor wrapper;
@@ -34,9 +40,18 @@ public class Compat_ItemArmor extends Compat_Item {
 	public ItemArmor getReal() {
 		return wrapper.get();
 	}
-	
 
 	public int Compat_get_field_77879_b() {
 		return wrapper.get_damageReduceAmount();
+	}
+
+	@Callback
+	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
+		return Compat_getArmorTexture(Compat_ItemStack.getFake(stack), Compat_Entity.getFake(entity), Compat_EntityEquipmentSlot.getFake(slot), type);
+	}
+
+	@HasCallback
+	public String Compat_getArmorTexture(Compat_ItemStack stack, Compat_Entity entity, Compat_EntityEquipmentSlot slot, String type) {
+		return wrapper.getArmorTextureSuper(stack.getReal(), entity.getReal(), slot.getReal(), type);
 	}
 }

@@ -285,4 +285,24 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 		return result; // TODO ?
 	}
 
+	@Callback
+	public boolean isRepairable() {
+		return Compat_isRepairable();
+	}
+
+	@HasCallback
+	public boolean Compat_isRepairable() {
+		return wrapper.isRepairableSuper();
+	}
+
+	@Callback
+	public boolean getHasSubtypes() {
+		return Compat_func_77614_k();
+	}
+
+	@HasCallback
+	public boolean Compat_func_77614_k() {
+		return wrapper.getHasSubtypesSuper();
+	}
+
 }
