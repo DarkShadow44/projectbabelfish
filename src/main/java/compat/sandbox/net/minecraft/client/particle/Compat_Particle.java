@@ -29,4 +29,8 @@ public class Compat_Particle {
 	public Particle getReal() {
 		return wrapper.get();
 	}
+
+	public static Compat_Particle getFake(Particle real) {
+		return new Compat_Particle(real);
+	}
 }

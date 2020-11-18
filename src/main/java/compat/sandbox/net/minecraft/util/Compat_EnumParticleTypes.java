@@ -19,6 +19,21 @@ public enum Compat_EnumParticleTypes {
 		return original;
 	}
 
+	public static Compat_EnumParticleTypes getFake(EnumParticleTypes real) {
+		switch (real) {
+		case CLOUD:
+			return CLOUD;
+		case REDSTONE:
+			return REDSTONE;
+		case SMOKE_NORMAL:
+			return SMOKE_NORMAL;
+		case SNOW_SHOVEL:
+			return SNOW_SHOVEL;
+		default:
+			throw new RuntimeException("Unhandled " + real.name());
+		}
+	}
+
 	public Compat_EnumParticleTypes Compat_get_CLOUD() {
 		return CLOUD;
 	}

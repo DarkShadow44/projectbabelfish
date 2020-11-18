@@ -36,12 +36,12 @@ public class Compat_CreativeTabs {
 
 	@Callback
 	public ItemStack getTabIconItem() {
-		return new ItemStack(Compat_func_78016_d().getReal());
+		return new ItemStack(Compat_func_78016_d().getReal(), 1, Compat_func_151243_f());
 	}
 
 	@HasCallback
 	public Compat_Item Compat_func_78016_d() {
-		// To be overriden
+		// To be overridden
 		return null;
 	}
 
@@ -50,6 +50,12 @@ public class Compat_CreativeTabs {
 			return ((CompatI_CreativeTabs) tab).getFake();
 		}
 		return new Compat_CreativeTabs(tab);
+	}
+
+
+	@HasCallback
+	public int Compat_func_151243_f() { // getIconItemDamage
+		return 0;
 	}
 
 	/* TODO 1.7.10

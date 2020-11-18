@@ -40,6 +40,17 @@ Think again: Why "Mod_Block -> Wrapper_Block -> MC_Block" nicht möglich?
 
 
 
+False positive callback missing:
+	Compat_TileEntity.Compat_getCapability
+	Compat_TileEntity.Compat_hasCapability
+	Compat_Block.Compat_getExtendedState
+	Compat_ParticleManager.Compat_addBlockDestroyEffects
+	Compat_ParticleManager.Compat_addBlockHitEffects
+	Compat_ParticleManager.Compat_addBlockHitEffects
+	Compat_ParticleManager.Compat_addBlockHitEffects
+False positive called:
+	Compat_MathHelper.Compat_func_76128_c
+
 no new Compat_Item allowed!
 
 instanceof abfangen oder doublewrap verhinern...?
