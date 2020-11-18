@@ -96,6 +96,7 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 		return Compat_func_77667_c(Compat_ItemStack.getFake(stack));
 	}
 
+	@HasCallback
 	public String Compat_func_77667_c(Compat_ItemStack stack) {
 		return wrapper.getUnlocalizedNameSuper(stack.getReal());
 	}
@@ -267,6 +268,13 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 		return wrapper.getHarvestLevelSuper(stack.getReal(), toolClass, player.getReal(), state.getReal());
 	}
 
+	@Callback
+	public NBTTagCompound getNBTShareTag(ItemStack stack) {
+		Compat_NBTTagCompound result = Compat_getNBTShareTag(Compat_ItemStack.getFake(stack));
+		return result.getReal();
+	}
+
+	@HasCallback
 	public Compat_NBTTagCompound Compat_getNBTShareTag(Compat_ItemStack stack) {
 		NBTTagCompound result = wrapper.getNBTShareTagSuper(stack.getReal());
 		return new Compat_NBTTagCompound(result);

@@ -12,8 +12,16 @@ public class Compat_MinecraftServer {
 		this.original = original;
 	}
 
+	public MinecraftServer getReal() {
+		return original;
+	}
+
 	public ListenableFuture<Object> Compat_func_152344_a(Runnable run) {
 		return original.addScheduledTask(run);
+	}
+
+	public static Compat_MinecraftServer getFake(MinecraftServer server) {
+		return new Compat_MinecraftServer(server);
 	}
 
 }
