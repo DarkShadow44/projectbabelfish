@@ -58,7 +58,7 @@ public class CompatibilityClassTransformer {
 		return classNode.interfaces.toArray(new String[0]);
 	}
 
-	public boolean isClassException(String name) {
+	public static boolean isClassException(String name) {
 		if (name.startsWith("java/")) {
 			if (name.startsWith("java/lang/reflect/")) {
 				return false; // We must handle reflection attempts and redirect accordingly...
@@ -147,7 +147,23 @@ public class CompatibilityClassTransformer {
 
 	public static boolean isMcClass(String name) {
 		name = name.replace(".", "/");
-		return name.startsWith("net/minecraft/") || name.startsWith("net/minecraftforge/");
+
+		if (name.startsWith("net/minecraft/"))
+			return true;
+
+		if (name.startsWith("net/minecraftforge/"))
+			return true;
+
+		if (name.startsWith("io/netty/"))
+			return true;
+
+		if (name.startsWith("java/lang/reflect/"))
+			return true;
+
+		if (name.equals("java/lang/Class"))
+			return true;
+
+		return false;
 	}
 
 	private static boolean isMethodException(String targetClassName, String name) {
@@ -410,8 +426,6 @@ public class CompatibilityClassTransformer {
 		classNode.name = getTransformedClassname(classNode.name);
 		classNode.superName = getTransformedClassname(classNode.superName);
 		classNode.interfaces = transformInterfaces(classNode.interfaces);
-		int posName = classNode.name.lastIndexOf('/') + 1;
-		classNode.sourceFile = classNode.name.substring(posName) + ".java";
 	}
 
 	public byte[] getTransformedData() {

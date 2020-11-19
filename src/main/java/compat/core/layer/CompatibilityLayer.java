@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import compat.core.ModInfo;
+import compat.core.loader.CompatibilityClassTransformer;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
@@ -44,7 +45,9 @@ public abstract class CompatibilityLayer {
 
 	public String getPrefixedClassname(String name) {
 		String[] names = name.replace('$', '_').split("\\/");
-		names[names.length - 1] = prefixFake + names[names.length - 1];
+		if (CompatibilityClassTransformer.isMcClass(name)) {
+			names[names.length - 1] = prefixFake + names[names.length - 1];
+		}
 		return pathSandbox + String.join("/", names);
 	}
 
