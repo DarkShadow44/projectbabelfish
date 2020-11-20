@@ -1,5 +1,6 @@
 package compat.core.loader;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,7 @@ import org.objectweb.asm.tree.MultiANewArrayInsnNode;
 import org.objectweb.asm.tree.TryCatchBlockNode;
 import org.objectweb.asm.tree.TypeInsnNode;
 
+import compat.core.CompatibilityMod;
 import compat.core.layer.CompatibilityLayer;
 
 public class CompatibilityClassTransformer {
@@ -65,6 +67,9 @@ public class CompatibilityClassTransformer {
 			}
 			return true;
 		}
+
+		if (name.startsWith("scala/"))
+			return true;
 
 		if (name.startsWith("javax/"))
 			return true;
@@ -166,7 +171,7 @@ public class CompatibilityClassTransformer {
 		return false;
 	}
 
-	private static boolean isMethodException(String targetClassName, String name) {
+	private boolean isMethodException(Map<String, LoadClassInfo> classesToLoad, String targetClassName, String name, String desc) {
 		// Skip constructors
 		if (name.equals("<init>") || name.equals("<clinit>"))
 			return true;
@@ -176,9 +181,11 @@ public class CompatibilityClassTransformer {
 			return true;
 
 		if (name.equals("ordinal") || name.equals("name") || name.equals("hashCode") || name.equals("equals")) {
-			if (!isMcClass(targetClassName)) {
+			if (!isMcClass(targetClassName)) { // TODO hashCode can go to Object, which means we don't know if we should
+												// transform... e.g. Interfaces
 				return true;
 			}
+			return false;
 		}
 
 		// Skip Runnable method
@@ -193,17 +200,87 @@ public class CompatibilityClassTransformer {
 		if (name.equals("apply") || name.equals("accept") || name.equals("applyAsInt"))
 			return true;
 
-		return false;
+		if (isMcClass(targetClassName)) {
+			return false;
+		}
+
+		if (isMethodMc(classesToLoad, targetClassName, name, desc))
+			return false;
+
+		return true;
 	}
 
-	private Handle transformHandle(Handle handle) {
+	private Handle transformHandle(Map<String, LoadClassInfo> classesToLoad, Handle handle) {
 		String desc = transformDescriptor(handle.getDesc());
 		String owner = getTransformedClassname(handle.getOwner());
 		String name = handle.getName();
-		if (!isMethodException(handle.getOwner(), name) && !isClassException(handle.getOwner())) {
+		if (!isMethodException(classesToLoad, handle.getOwner(), name, handle.getDesc()) && !isClassException(handle.getOwner())) {
 			name = layer.getPrefixFake() + name;
 		}
 		return new Handle(handle.getTag(), owner, name, desc, handle.isInterface());
+	}
+
+	private void getMcParentsForCompat(List<Class<?>> parents, Class<?> clazz) {
+		parents.add(clazz);
+
+		if (clazz.getSuperclass() != null) {
+			getMcParentsForCompat(parents, clazz.getSuperclass());
+		}
+		if (!clazz.isInterface()) {
+			for (Class<?> parent : clazz.getInterfaces()) {
+				getMcParentsForCompat(parents, parent);
+			}
+		}
+	}
+
+	private void getMcParentsForMod(List<Class<?>> parents, Map<String, LoadClassInfo> classesToLoad, String className) {
+		if (isMcClass(className)) {
+			String parentPath = className.replace(layer.getPathSandbox(), "").replace(layer.getPrefixFake(), "").replace("/", ".");
+			Class<?> classParent = null;
+			try {
+				classParent = Class.forName(parentPath, false, CompatibilityMod.classLoader);
+			} catch (ClassNotFoundException e) {
+				return; // Some classes don't exist in MC/forge today, this is okay.
+			}
+			getMcParentsForCompat(parents, classParent);
+			return;
+		}
+
+		if (className.isEmpty() || isClassException(className))
+			return;
+
+		LoadClassInfo classInfo = classesToLoad.get(className);
+		if (classInfo == null) {
+			throw new RuntimeException("Unexpected " + className);
+		}
+
+		for (String parent : classInfo.dependenciesHard) {
+			getMcParentsForMod(parents, classesToLoad, parent);
+		}
+	}
+
+	private boolean isMethodMc(Map<String, LoadClassInfo> classesToLoad, String className, String methodName, String methodDesc) {
+		if (methodName.startsWith("func_"))
+			return true;
+
+		List<Class<?>> mcClasses = new ArrayList<>();
+		getMcParentsForMod(mcClasses, classesToLoad, className);
+
+		// TODO also if method exists in Compat_Block or so!! Not only in MC classes
+		// themselves
+
+		XXX HERE
+
+		for (Class<?> parent : mcClasses) {
+			for (Method method : parent.getDeclaredMethods()) {
+				// Don't check descriptor here, need to be careful! //&&
+				// Type.getMethodDescriptor(method).equals(methodDesc)
+				if (method.getName().equals(methodName))
+					return true;
+			}
+		}
+
+		return false;
 	}
 
 	private List<AbstractInsnNode> transformInstruction(AbstractInsnNode instruction, Map<String, LoadClassInfo> classesToLoad) {
@@ -266,15 +343,15 @@ public class CompatibilityClassTransformer {
 			InvokeDynamicInsnNode methoddyn = (InvokeDynamicInsnNode) instruction;
 			methoddyn.desc = transformDescriptor(methoddyn.desc);
 
-			if (!isMethodException("", methoddyn.name)) {
+			if (!isMethodException(classesToLoad, "", methoddyn.name, methoddyn.desc)) {
 				methoddyn.name = layer.getPrefixFake() + methoddyn.name;
 			}
 
-			methoddyn.bsm = transformHandle(methoddyn.bsm);
+			methoddyn.bsm = transformHandle(classesToLoad, methoddyn.bsm);
 			for (int i = 0; i < methoddyn.bsmArgs.length; i++) {
 				Object arg = methoddyn.bsmArgs[i];
 				if (arg instanceof Handle) {
-					methoddyn.bsmArgs[i] = transformHandle((Handle) arg);
+					methoddyn.bsmArgs[i] = transformHandle(classesToLoad, (Handle) arg);
 				}
 				if (arg instanceof Type) {
 					Type argType = (Type) arg;
@@ -291,7 +368,7 @@ public class CompatibilityClassTransformer {
 			MethodInsnNode method = (MethodInsnNode) instruction;
 			if (!isClassException(method.owner)) {
 				// Skip constructors and special enum methods
-				if (!isMethodException(method.owner, method.name)) {
+				if (!isMethodException(classesToLoad, method.owner, method.name, method.desc)) {
 					method.name = layer.getPrefixFake() + method.name;
 				}
 				method.owner = getTransformedClassname(method.owner);
@@ -401,7 +478,7 @@ public class CompatibilityClassTransformer {
 		transformVariables(method.localVariables);
 		transformAnnotations(method.visibleAnnotations);
 		// Skip constructors and special enum methods
-		if (!isMethodException(classNode.name, method.name)) {
+		if (!isMethodException(classesToLoad, classNode.name, method.name, method.desc)) {
 			method.name = layer.getPrefixFake() + method.name;
 		}
 		method.desc = transformDescriptor(method.desc);
