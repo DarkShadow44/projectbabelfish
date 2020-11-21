@@ -14,6 +14,15 @@ public enum Compat_ENUM {
 		return original;
 	}
 
+	public static Compat_ENUM getFake(ENUM real) {
+		switch (real) {
+		case VALUE:
+			return VALUE;
+		default:
+			throw new RuntimeException("Unhandled " + real.name());
+		}
+	}
+
 	public static Compat_ENUM Compat_get_VALUE() {
 		return VALUE;
 	}
