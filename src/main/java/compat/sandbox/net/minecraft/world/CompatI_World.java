@@ -64,7 +64,7 @@ public interface CompatI_World {
 
 	public void updateComparatorOutputLevelSuper(BlockPos pos, Block block);
 
-	public void spawnParticleSuper(EnumParticleTypes type, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int...parameters);
+	public void spawnParticleSuper(EnumParticleTypes type, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... parameters);
 
 	public void notifyNeighborsOfStateExceptSuper(BlockPos pos, Block block, EnumFacing facing);
 

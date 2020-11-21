@@ -52,7 +52,6 @@ public class Compat_CreativeTabs {
 		return new Compat_CreativeTabs(tab);
 	}
 
-
 	@HasCallback
 	public int Compat_func_151243_f() { // getIconItemDamage
 		return 0;

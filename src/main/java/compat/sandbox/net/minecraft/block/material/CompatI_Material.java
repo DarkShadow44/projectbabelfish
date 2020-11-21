@@ -7,7 +7,7 @@ public interface CompatI_Material {
 	public Material get();
 
 	public boolean isReplaceableSuper();
-	
+
 	public Material setBurningSuper();
 
 	public Material setNoPushMobilitySuper();
