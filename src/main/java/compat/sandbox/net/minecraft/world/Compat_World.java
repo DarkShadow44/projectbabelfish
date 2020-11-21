@@ -75,7 +75,7 @@ public class Compat_World implements Compat_IBlockAccess {
 		if (result == null)
 			return null;
 
-		return Compat_TileEntity.get_fake(result);
+		return Compat_TileEntity.getFake(result);
 	}
 
 	public boolean Compat_func_72855_b(Compat_AxisAlignedBB axis) {

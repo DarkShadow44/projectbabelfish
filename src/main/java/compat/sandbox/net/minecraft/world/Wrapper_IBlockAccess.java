@@ -27,7 +27,7 @@ public class Wrapper_IBlockAccess implements Compat_IBlockAccess {
 		if (tile == null)
 			return null;
 
-		return Compat_TileEntity.get_fake(tile);
+		return Compat_TileEntity.getFake(tile);
 	}
 
 	public Compat_IBlockState Compat_func_180495_p(Compat_BlockPos pos) {

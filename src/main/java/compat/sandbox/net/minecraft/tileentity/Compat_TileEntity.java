@@ -43,7 +43,7 @@ public class Compat_TileEntity {
 		this.wrapper = wrapper;
 	}
 
-	public static Compat_TileEntity get_fake(TileEntity real) {
+	public static Compat_TileEntity getFake(TileEntity real) {
 		if (real instanceof CompatI_TileEntity) {
 			return ((CompatI_TileEntity) real).getFake();
 		}
@@ -75,13 +75,6 @@ public class Compat_TileEntity {
 		}
 		EnumFacing facing2 = facing == null ? null : facing.getReal();
 		return wrapper.hasCapabilitySuper(capability.getReal(), facing2);
-	}
-
-	public static Compat_TileEntity getFake(TileEntity real) {
-		if (real instanceof CompatI_TileEntity) {
-			return ((CompatI_TileEntity) real).getFake();
-		}
-		return new Compat_TileEntity(real);
 	}
 
 	@SuppressWarnings("unchecked")

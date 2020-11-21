@@ -558,7 +558,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 
 	@Callback
 	public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity tile, ItemStack stack) {
-		Compat_func_180657_a(Compat_World.getFake(world), Compat_EntityPlayer.getFake(player), Compat_BlockPos.getFake(pos), Compat_IBlockState.getFake(state), Compat_TileEntity.get_fake(tile), Compat_ItemStack.getFake(stack));
+		Compat_func_180657_a(Compat_World.getFake(world), Compat_EntityPlayer.getFake(player), Compat_BlockPos.getFake(pos), Compat_IBlockState.getFake(state), Compat_TileEntity.getFake(tile), Compat_ItemStack.getFake(stack));
 	}
 
 	@HasCallback

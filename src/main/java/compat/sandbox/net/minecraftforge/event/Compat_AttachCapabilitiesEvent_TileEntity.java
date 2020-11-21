@@ -42,7 +42,7 @@ public class Compat_AttachCapabilitiesEvent_TileEntity extends Compat_AttachCapa
 	public Compat_TileEntity Compat_getTileEntity() {
 		TileEntity result = wrapper.getObjectSuper();
 
-		return Compat_TileEntity.get_fake(result);
+		return Compat_TileEntity.getFake(result);
 	}
 
 	public void Compat_addCapability(Compat_ResourceLocation location, Compat_ICapabilityProvider provider) {

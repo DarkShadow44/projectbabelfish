@@ -36,7 +36,7 @@ public class Compat_TileEntitySpecialRenderer<T extends Compat_TileEntity> {
 
 	@Callback
 	public void render(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float p1) {
-		Compat_func_180535_a(Compat_TileEntity.get_fake(te), x, y, z, partialTicks, destroyStage);
+		Compat_func_180535_a(Compat_TileEntity.getFake(te), x, y, z, partialTicks, destroyStage);
 	}
 
 	@HasCallback
