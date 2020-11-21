@@ -13,4 +13,8 @@ public class Compat_TickEvent_ServerTickEvent {
 	public ServerTickEvent getReal() {
 		return original;
 	}
+
+	public Compat_TickEvent_Phase Compat_get_phase() {
+		return Compat_TickEvent_Phase.getFake(original.phase);
+	}
 }

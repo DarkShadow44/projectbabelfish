@@ -42,6 +42,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.ServerTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
@@ -243,6 +244,11 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 
 	@Override
 	public void onAttachCapabilities(AttachCapabilitiesEvent<TileEntity> event) {
+
+	}
+
+	@Override
+	public void onServerTick(ServerTickEvent event) {
 
 	}
 

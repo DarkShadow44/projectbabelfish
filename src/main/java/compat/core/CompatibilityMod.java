@@ -151,6 +151,13 @@ public class CompatibilityMod {
 	}
 
 	@SubscribeEvent
+	public static void onServerTick(TickEvent.ServerTickEvent event) {
+		for (CompatibilityLayer layer : layers) {
+			layer.onServerTick(event);
+		}
+	}
+
+	@SubscribeEvent
 	public static void onRightclickBlock(PlayerInteractEvent.RightClickBlock event) {
 		for (CompatibilityLayer layer : layers) {
 			layer.onRightclickBlock(event);

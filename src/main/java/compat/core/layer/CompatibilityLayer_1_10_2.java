@@ -32,6 +32,7 @@ import compat.sandbox.net.minecraftforge.fml.common.event.Compat_FMLInitializati
 import compat.sandbox.net.minecraftforge.fml.common.event.Compat_FMLPreInitializationEvent;
 import compat.sandbox.net.minecraftforge.fml.common.eventhandler.Compat_SubscribeEvent;
 import compat.sandbox.net.minecraftforge.fml.common.gameevent.Compat_TickEvent_ClientTickEvent;
+import compat.sandbox.net.minecraftforge.fml.common.gameevent.Compat_TickEvent_ServerTickEvent;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
@@ -47,6 +48,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.ServerTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
@@ -285,6 +287,14 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 				MethodInfo<?> method = new MethodInfo<>(eventObj, Compat_SubscribeEvent.class, Compat_AttachCapabilitiesEvent_TileEntity.class);
 				method.tryInvoke(new Compat_AttachCapabilitiesEvent_TileEntity(event));
 			}
+		}
+	}
+
+	@Override
+	public void onServerTick(ServerTickEvent event) {
+		for (ModInfo modInfo : mods) {
+			MethodInfo<?> method = new MethodInfo<>(modInfo.getProxy(), Compat_SubscribeEvent.class, Compat_TickEvent_ServerTickEvent.class);
+			method.tryInvoke(new Compat_TickEvent_ServerTickEvent(event));
 		}
 	}
 

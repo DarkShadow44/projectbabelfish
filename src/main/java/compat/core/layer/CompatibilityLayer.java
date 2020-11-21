@@ -20,6 +20,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.ServerTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
 public abstract class CompatibilityLayer {
@@ -107,4 +108,6 @@ public abstract class CompatibilityLayer {
 	public abstract void onDrawBlockHighlight(DrawBlockHighlightEvent event);
 
 	public abstract void onAttachCapabilities(AttachCapabilitiesEvent<TileEntity> event);
+
+	public abstract void onServerTick(ServerTickEvent event);
 }
