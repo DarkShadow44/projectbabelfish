@@ -1,4 +1,4 @@
-package compat.sandbox.net.minecraft.util;
+package compat.sandbox.net.minecraft.util.math;
 
 import net.minecraft.util.math.MathHelper;
 
