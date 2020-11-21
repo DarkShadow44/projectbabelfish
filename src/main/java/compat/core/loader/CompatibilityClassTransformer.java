@@ -235,7 +235,7 @@ public class CompatibilityClassTransformer {
 
 	private void getMcParentsForMod(List<Class<?>> parents, Map<String, LoadClassInfo> classesToLoad, String className) {
 		if (isMcClass(className)) {
-			String parentPath = className.replace(layer.getPathSandbox(), "").replace(layer.getPrefixFake(), "").replace("/", ".");
+			String parentPath = className.replace("/", ".");
 			Class<?> classParent = null;
 			try {
 				classParent = Class.forName(parentPath, false, CompatibilityMod.classLoader);
@@ -259,6 +259,45 @@ public class CompatibilityClassTransformer {
 		}
 	}
 
+	private void getCompatParentsForCompat(List<Class<?>> parents, Class<?> clazz) {
+		parents.add(clazz);
+
+		if (clazz.getSuperclass() != null) {
+			getCompatParentsForCompat(parents, clazz.getSuperclass());
+		}
+		if (!clazz.isInterface()) {
+			for (Class<?> parent : clazz.getInterfaces()) {
+				getCompatParentsForCompat(parents, parent);
+			}
+		}
+	}
+
+	private void getCompatParentsForMod(List<Class<?>> parents, Map<String, LoadClassInfo> classesToLoad, String className) {
+		if (isMcClass(className)) {
+			String parentPath = (getTransformedClassname(className)).replace("/", ".");
+			Class<?> classParent = null;
+			try {
+				classParent = Class.forName(parentPath, false, CompatibilityMod.classLoader);
+			} catch (ClassNotFoundException e) {
+				throw new RuntimeException(e);
+			}
+			getCompatParentsForCompat(parents, classParent);
+			return;
+		}
+
+		if (className.isEmpty() || isClassException(className))
+			return;
+
+		LoadClassInfo classInfo = classesToLoad.get(className);
+		if (classInfo == null) {
+			throw new RuntimeException("Unexpected " + className);
+		}
+
+		for (String parent : classInfo.dependenciesHard) {
+			getCompatParentsForMod(parents, classesToLoad, parent);
+		}
+	}
+
 	private boolean isMethodMc(Map<String, LoadClassInfo> classesToLoad, String className, String methodName, String methodDesc) {
 		if (methodName.startsWith("func_"))
 			return true;
@@ -266,10 +305,16 @@ public class CompatibilityClassTransformer {
 		List<Class<?>> mcClasses = new ArrayList<>();
 		getMcParentsForMod(mcClasses, classesToLoad, className);
 
-		// TODO also if method exists in Compat_Block or so!! Not only in MC classes
-		// themselves
+		List<Class<?>> compatClasses = new ArrayList<>();
+		getCompatParentsForMod(compatClasses, classesToLoad, className);
 
-		XXX HERE
+		for (Class<?> parent : compatClasses) {
+			for (Method method : parent.getDeclaredMethods()) {
+				String methodDescTransformed = transformDescriptor(methodDesc);
+				if (method.getName().equals(layer.getPrefixFake() + methodName) && Type.getMethodDescriptor(method).equals(methodDescTransformed))
+					return true;
+			}
+		}
 
 		for (Class<?> parent : mcClasses) {
 			for (Method method : parent.getDeclaredMethods()) {

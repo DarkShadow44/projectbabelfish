@@ -66,5 +66,8 @@ find all called methods, like overrides - find method that call into mod class, 
 
 still using so much memory when looking at circuit?
 
-different sandbox for different mc verison, but same mc sandbox...
+different sandbox for different mc version, but same mc sandbox... could be problematic in Compat_Class.forName
+
+cache for same build version
+
 
