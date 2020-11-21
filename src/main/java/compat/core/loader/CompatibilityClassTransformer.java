@@ -352,7 +352,6 @@ public class CompatibilityClassTransformer {
 
 			if (doesClassContainField(classesToLoad, field.owner, field.name)) {
 				field.desc = transformDescriptor(field.desc);
-				field.name = layer.getPrefixFake() + field.name;
 				field.owner = getTransformedClassname(field.owner);
 			} else {
 				ret.clear();
@@ -531,7 +530,6 @@ public class CompatibilityClassTransformer {
 
 	private void transformField(FieldNode field) {
 		field.desc = transformDescriptor(field.desc);
-		field.name = layer.getPrefixFake() + field.name;
 		transformAnnotations(field.visibleAnnotations);
 	}
 
