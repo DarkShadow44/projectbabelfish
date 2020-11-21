@@ -1,8 +1,13 @@
 package compat.core.loader.checker;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.mutable.MutableBoolean;
 import org.objectweb.asm.Type;
 
@@ -12,8 +17,17 @@ import compat.core.loader.CompatibilityClassTransformer;
 
 public class MissingOverrideChecker extends GenericChecker {
 
+	private final List<String> knownFalsePositives;
+
 	public MissingOverrideChecker(CompatibilityLayer layer) {
 		super(layer, "override methods");
+
+		InputStream inputStream = getClass().getClassLoader().getResourceAsStream("overrideCheckerFalsePositives.txt");
+		try {
+			knownFalsePositives = IOUtils.readLines(inputStream, StandardCharsets.UTF_8);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	private static boolean methodMatches(Method method, Method methodSearch) {
@@ -30,11 +44,11 @@ public class MissingOverrideChecker extends GenericChecker {
 			return false;
 
 		for (int i = 0; i < parameters.length; i++) {
-				Class<?> classParam = parameters[i].getType();
-				Class<?> classParamSearch = parametersSearch[i].getType();
-				if (!classParam.isAssignableFrom(classParamSearch)) {
-					return false;
-				}
+			Class<?> classParam = parameters[i].getType();
+			Class<?> classParamSearch = parametersSearch[i].getType();
+			if (!classParam.isAssignableFrom(classParamSearch)) {
+				return false;
+			}
 		}
 
 		return true;
@@ -91,10 +105,13 @@ public class MissingOverrideChecker extends GenericChecker {
 				MutableBoolean hasCallback = new MutableBoolean();
 				int lastDot = parentName.lastIndexOf('.') + 1;
 				String className = parentName.substring(lastDot);
+				String methodInfo = className + "." + method.getName() + Type.getMethodDescriptor(method);
 				if (!methodExistsInCompat(classMod, method, hasCallback)) {
-					methods.add("Missing override method: " + className + "." + method.getName() + Type.getMethodDescriptor(method));
+					if (!knownFalsePositives.contains(methodInfo)) {
+						methods.add("Missing override method: " + methodInfo);
+					}
 				} else if (!hasCallback.getValue()) {
-					methods.add("Missing callback method: " + className + "." + method.getName() + Type.getMethodDescriptor(method));
+					methods.add("Missing callback method: " + methodInfo);
 				}
 			}
 		}
