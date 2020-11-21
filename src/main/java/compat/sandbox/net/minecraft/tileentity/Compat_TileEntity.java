@@ -221,4 +221,8 @@ public class Compat_TileEntity {
 
 	}
 
+	public static TileEntity getReal(Compat_TileEntity tile) {
+		return tile == null ? null : tile.getReal();
+	}
+
 }

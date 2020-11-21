@@ -146,7 +146,7 @@ public class Compat_World implements Compat_IBlockAccess {
 	}
 
 	public void Compat_func_175646_b(Compat_BlockPos pos, Compat_TileEntity tile) {
-		wrapper.markChunkDirtySuper(pos.getReal(), tile.getReal());
+		wrapper.markChunkDirtySuper(pos.getReal(), Compat_TileEntity.getReal(tile));
 	}
 
 	// TODO?
