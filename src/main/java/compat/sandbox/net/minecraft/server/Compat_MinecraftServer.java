@@ -16,8 +16,20 @@ public class Compat_MinecraftServer {
 		return original;
 	}
 
-	public ListenableFuture<Object> Compat_func_152344_a(Runnable run) {
-		return original.addScheduledTask(run);
+	public ListenableFuture<Object> Compat_func_152344_a(Runnable task) {
+		Runnable taskCompat = new Runnable() {
+			@Override
+			public void run() {
+				try {
+					task.run();
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new RuntimeException(e);
+				}
+
+			}
+		};
+		return original.addScheduledTask(taskCompat);
 	}
 
 	public static Compat_MinecraftServer getFake(MinecraftServer server) {
