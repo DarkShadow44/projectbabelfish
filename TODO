@@ -59,4 +59,8 @@ different sandbox for different mc version, but same mc sandbox... could be prob
 
 cache for same build version
 
+always disable dump classes for release
+reobj Real classes for production
+Mixin into mods only possible starting with 1.14 ?!
+why didn't throw error when NPE in tileentity thingy?
 
