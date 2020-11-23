@@ -9,6 +9,7 @@ import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.autogen.HasCallback;
 import compat.core.ParentSelector;
+import compat.core.Version;
 import compat.sandbox.net.minecraft.block.material.Compat_Material;
 import compat.sandbox.net.minecraft.block.state.Compat_BlockStateContainer;
 import compat.sandbox.net.minecraft.block.state.Compat_IBlockState;
@@ -62,10 +63,14 @@ import net.minecraft.world.WorldServer;
 public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	private CompatI_Block wrapper;
 
+	@SuppressWarnings("unused")
+	private Version version = Version.UNKNOWN;
+
 	// When called from Mod
 	public Compat_Block(Compat_Material material) {
 		super(ParentSelector.NULL);
 		this.initialize(Factory.create(CtorPos.POS1, CompatI_Block.class, this, material.getReal()));
+		version = Version.get(this);
 
 		workaround_init();
 	}

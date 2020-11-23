@@ -17,6 +17,7 @@ import compat.core.MethodInfo;
 import compat.core.ModInfo;
 import compat.core.RegistrationInfoBlock;
 import compat.core.RegistrationInfoItem;
+import compat.core.Version;
 import compat.core.loader.CompatibilityModLoader;
 import compat.sandbox.net.minecraftforge.client.event.Compat_DrawBlockHighlightEvent;
 import compat.sandbox.net.minecraftforge.client.event.Compat_ModelBakeEvent;
@@ -59,8 +60,8 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 
 	public String currentModId = "";
 
-	public CompatibilityLayer_1_10_2(String pathSandbox) {
-		super(pathSandbox);
+	public CompatibilityLayer_1_10_2(Version version) {
+		super(version);
 	}
 
 	private List<ModInfo> findMods(List<Class<?>> classes) {
@@ -76,7 +77,7 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 
 	@Override
 	public void loadMods(File modsDirectory, Side side) {
-		File dir = new File(modsDirectory, version);
+		File dir = new File(modsDirectory, version.getString());
 		dir.mkdirs();
 		CompatibilityModLoader loader = new CompatibilityModLoader(this);
 		List<Class<?>> modClasses = loader.loadAllMods(dir);

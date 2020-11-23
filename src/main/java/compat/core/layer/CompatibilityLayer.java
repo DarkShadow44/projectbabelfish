@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import compat.core.ModInfo;
+import compat.core.Version;
 import compat.core.loader.CompatibilityClassTransformer;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -32,12 +33,16 @@ public abstract class CompatibilityLayer {
 	static final String prefixSet = "Compat_set_";
 
 	public static final String pathSandbox = "compat/sandbox/";
-	protected final String version;
+	protected final Version version;
 
 	protected final List<ModInfo> mods = new ArrayList<>();
 
-	public CompatibilityLayer(String version) {
+	public CompatibilityLayer(Version version) {
 		this.version = version;
+	}
+
+	public Version getVersion() {
+		return version;
 	}
 
 	public String getPathSandbox() {

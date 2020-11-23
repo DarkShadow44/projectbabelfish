@@ -27,6 +27,8 @@ import org.objectweb.asm.tree.TryCatchBlockNode;
 import org.objectweb.asm.tree.TypeInsnNode;
 
 import compat.core.CompatibilityMod;
+import compat.core.Version;
+import compat.core.VersionInfo;
 import compat.core.layer.CompatibilityLayer;
 
 public class CompatibilityClassTransformer {
@@ -555,6 +557,20 @@ public class CompatibilityClassTransformer {
 		transformAnnotations(field.visibleAnnotations);
 	}
 
+	private void addVersionAnnotation() {
+		AnnotationNode versionAnnotation = new AnnotationNode(Type.getDescriptor(VersionInfo.class));
+		versionAnnotation.values = new ArrayList<>();
+		versionAnnotation.values.add("value");
+		String[] values = new String[2];
+		values[0] = Type.getDescriptor(Version.class);
+		values[1] = layer.getVersion().name();
+		versionAnnotation.values.add(values);
+		if (classNode.visibleAnnotations == null) {
+			classNode.visibleAnnotations = new ArrayList<>();
+		}
+		classNode.visibleAnnotations.add(versionAnnotation);
+	}
+
 	public void transform(Map<String, LoadClassInfo> classesToLoad) {
 		for (FieldNode field : classNode.fields) {
 			transformField(field);
@@ -565,6 +581,7 @@ public class CompatibilityClassTransformer {
 		}
 
 		transformAnnotations(classNode.visibleAnnotations);
+		addVersionAnnotation();
 		classNode.name = getTransformedClassname(classNode.name);
 		classNode.superName = getTransformedClassname(classNode.superName);
 		classNode.interfaces = transformInterfaces(classNode.interfaces);

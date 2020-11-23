@@ -49,8 +49,8 @@ public class CompatibilityMod {
 	private final ResourcePack resourcePack = new ResourcePack();
 
 	private static List<CompatibilityLayer> layers = new ArrayList<>();
-	public static CompatibilityLayer_1_7_10 LAYER_1_7_10 = new CompatibilityLayer_1_7_10("1.7.10");
-	public static CompatibilityLayer_1_10_2 LAYER_1_10_2 = new CompatibilityLayer_1_10_2("1.10.2");
+	public static CompatibilityLayer_1_7_10 LAYER_1_7_10 = new CompatibilityLayer_1_7_10(Version.V1_7_10);
+	public static CompatibilityLayer_1_10_2 LAYER_1_10_2 = new CompatibilityLayer_1_10_2(Version.V1_10_2);
 
 	static {
 		layers.add(LAYER_1_7_10);

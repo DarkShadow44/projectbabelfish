@@ -14,6 +14,7 @@ import compat.core.ModInfo;
 import compat.core.RegistrationInfoBlock;
 import compat.core.RegistrationInfoIcon;
 import compat.core.RegistrationInfoItem;
+import compat.core.Version;
 import compat.core.loader.CompatibilityModLoader;
 import compat.core.model.variabletexture.ModelItemVariableTexture;
 import compat.sandbox.cpw.mods.fml.common.Compat_Mod;
@@ -52,8 +53,8 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 	public List<RegistrationInfoIcon> iconsToRegister = new ArrayList<>();
 	public Map<String, String> translationsToRegister = new HashMap<>();
 
-	public CompatibilityLayer_1_7_10(String pathSandbox) {
-		super(pathSandbox);
+	public CompatibilityLayer_1_7_10(Version version) {
+		super(version);
 	}
 
 	private void registerTranslation(String key) {
@@ -97,7 +98,7 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 
 	@Override
 	public void loadMods(File modsDirectory, Side side) {
-		File dir = new File(modsDirectory, version);
+		File dir = new File(modsDirectory, version.getString());
 		dir.mkdirs();
 		CompatibilityModLoader loader = new CompatibilityModLoader(this);
 		List<Class<?>> modClasses = loader.loadAllMods(dir);
