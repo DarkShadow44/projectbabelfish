@@ -1,7 +1,5 @@
 package compat.sandbox.net.minecraftforge.event.entity.player;
 
-import compat.sandbox.net.minecraftforge.fml.common.eventhandler.CompatI_Event;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -9,7 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
-public interface CompatI_PlayerInteractEvent extends CompatI_Event {
+public interface CompatI_PlayerInteractEvent extends CompatI_PlayerEvent {
 	public PlayerInteractEvent get();
 
 	public World getWorldSuper();
@@ -17,8 +15,6 @@ public interface CompatI_PlayerInteractEvent extends CompatI_Event {
 	public EnumHand getHandSuper();
 
 	public ItemStack getItemStackSuper();
-
-	public EntityPlayer getEntityPlayerSuper();
 
 	public BlockPos getPosSuper();
 

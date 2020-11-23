@@ -13,7 +13,7 @@ import compat.sandbox.net.minecraftforge.fml.common.eventhandler.Compat_Event;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
-public class Compat_PlayerInteractEvent extends Compat_Event {
+public class Compat_PlayerInteractEvent extends Compat_PlayerEvent {
 	private CompatI_PlayerInteractEvent wrapper;
 
 	// When called from Mod
@@ -53,10 +53,6 @@ public class Compat_PlayerInteractEvent extends Compat_Event {
 	public Compat_ItemStack Compat_getItemStack() {
 		ItemStack stack = wrapper.getItemStackSuper();
 		return stack == null || stack.isEmpty() ? null : new Compat_ItemStack(stack);
-	}
-
-	public Compat_EntityPlayer Compat_getEntityPlayer() {
-		return new Compat_EntityPlayer(wrapper.getEntityPlayerSuper());
 	}
 
 	public Compat_BlockPos Compat_getPos() {
