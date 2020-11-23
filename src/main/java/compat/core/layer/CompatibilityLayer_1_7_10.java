@@ -103,6 +103,8 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 		CompatibilityModLoader loader = new CompatibilityModLoader(this);
 		List<Class<?>> modClasses = loader.loadAllMods(dir);
 		List<ModInfo> modInfos = findMods(modClasses);
+		ModSorter modSorter = new ModSorter(modInfos);
+		modInfos = modSorter.sortMods();
 		mods.addAll(modInfos);
 
 		// Construct mod objects
