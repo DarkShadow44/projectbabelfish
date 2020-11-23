@@ -93,7 +93,7 @@ public class CalledMethodChecker extends GenericChecker {
 		if (missingClasses.size() > 0) {
 			List<String> classesDedup = missingClasses.stream().distinct().sorted().collect(Collectors.toList());
 			StringBuilder sb = new StringBuilder();
-			sb.append("\n########## Compatibility: Found " + missingClasses.size() + " missing classes.\n");
+			sb.append("\n########## Compatibility: Found " + classesDedup.size() + " missing classes.\n");
 
 			for (String method : classesDedup) {
 				sb.append("\t" + method + "\n");
