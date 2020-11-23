@@ -50,12 +50,13 @@ public class CalledMethodChecker extends GenericChecker {
 		if (nameOwner.startsWith(layer.getPathSandbox())) {
 			nameOwner = nameOwner.substring(layer.getPathSandbox().length());
 		}
+		String pathOwner = layer.getRedirected(methodSearch.owner);
 		if (!CompatibilityClassTransformer.isMcClass(nameOwner)) {
 			return true;
 		}
 
 		try {
-			Class<?> clazz = Class.forName(methodSearch.owner.replace("/", "."), false, CompatibilityMod.classLoader);
+			Class<?> clazz = Class.forName(pathOwner.replace("/", "."), false, CompatibilityMod.classLoader);
 
 			if (methodSearch.name.equals("<init>")) {
 				for (Constructor<?> c : clazz.getConstructors()) {

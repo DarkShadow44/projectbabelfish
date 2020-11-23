@@ -14,6 +14,9 @@ public class MethodInfo<T extends Annotation> {
 			if (method.getAnnotation(annotationClass) != null) {
 				Parameter[] params = method.getParameters();
 				String paramName = params[0].getParameterizedType().getTypeName().replace("$", "_");
+				if (paramName.contains("cpw/")) {
+					throw new RuntimeException("Err");
+				}
 				if (params.length == 1 && paramName.equals(eventClass.getTypeName())) {
 					this.method = method;
 				}

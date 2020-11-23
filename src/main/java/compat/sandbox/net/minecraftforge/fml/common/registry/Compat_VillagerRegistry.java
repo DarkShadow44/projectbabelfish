@@ -1,4 +1,4 @@
-package compat.sandbox.cpw.mods.fml.common.registry;
+package compat.sandbox.net.minecraftforge.fml.common.registry;
 
 import compat.sandbox.net.minecraft.util.Compat_ResourceLocation;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;

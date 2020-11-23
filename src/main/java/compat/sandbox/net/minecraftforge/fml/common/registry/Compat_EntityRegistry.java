@@ -1,4 +1,4 @@
-package compat.sandbox.cpw.mods.fml.common.registry;
+package compat.sandbox.net.minecraftforge.fml.common.registry;
 
 import java.util.ArrayList;
 import java.util.List;

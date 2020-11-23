@@ -1,4 +1,4 @@
-package compat.sandbox.cpw.mods.fml.common;
+package compat.sandbox.net.minecraftforge.fml.common;
 
 import java.util.Random;
 

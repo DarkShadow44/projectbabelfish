@@ -1,4 +1,4 @@
-package compat.sandbox.cpw.mods.fml.common;
+package compat.sandbox.net.minecraftforge.fml.common;
 
 public class Compat_ObfuscationReflectionHelper {
 	public static String[] Compat_remapFieldNames(String p1, String[] p2) {

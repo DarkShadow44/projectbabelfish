@@ -5,9 +5,13 @@ import compat.core.RegistrationInfoBlock;
 import compat.core.RegistrationInfoItem;
 import compat.sandbox.net.minecraft.block.Compat_Block;
 import compat.sandbox.net.minecraft.item.Compat_Item;
+import compat.sandbox.net.minecraft.item.Compat_ItemStack;
 import compat.sandbox.net.minecraft.item.crafting.Compat_IRecipe;
 import compat.sandbox.net.minecraft.util.Compat_ResourceLocation;
 import compat.sandbox.net.minecraft.util.Compat_SoundEvent;
+import compat.sandbox.net.minecraftforge.fml.common.Compat_IFuelHandler;
+import compat.sandbox.net.minecraftforge.fml.common.Compat_IWorldGenerator;
+import compat.sandbox.net.minecraftforge.fml.common.Wrapper_IWorldGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
@@ -59,5 +63,47 @@ public class Compat_GameRegistry {
 
 	public static void Compat_addRecipe(Compat_IRecipe recipe) {
 		// TODO
+	}
+
+	public static void Compat_registerWorldGenerator(Compat_IWorldGenerator generator, int modGenerationWeight) {
+		GameRegistry.registerWorldGenerator(new Wrapper_IWorldGenerator(generator), modGenerationWeight);
+	}
+
+	public static Compat_Block Compat_registerBlock(Compat_Block block, String name) {
+		// TODO
+		CompatibilityMod.LAYER_1_7_10.blocksToRegister.add(new RegistrationInfoBlock(block.getReal(), name, null));
+		return block;
+	}
+
+	public static Compat_Block Compat_registerBlock(Compat_Block block, Class<?> clazz, String name) {
+		// TODO ItemBlock
+		CompatibilityMod.LAYER_1_7_10.blocksToRegister.add(new RegistrationInfoBlock(block.getReal(), name, null));
+		return block;
+	}
+
+	public static void Compat_registerFuelHandler(Compat_IFuelHandler handler) {
+		// TODO
+	}
+
+	public static void Compat_registerItem(Compat_Item item, String name) {
+		// TODO
+		CompatibilityMod.LAYER_1_7_10.itemsToRegister.add(new RegistrationInfoItem(item.getReal(), name, null));
+	}
+
+	public static void Compat_addShapelessRecipe(Compat_ItemStack stack, Object[] params) {
+		// TODO
+	}
+
+	public static void Compat_addRecipe(Compat_ItemStack stack, Object[] params) {
+		// TODO
+	}
+
+	public static Compat_IRecipe Compat_addShapedRecipe(Compat_ItemStack stack, Object[] objects) {
+		// TODO
+		return null;
+	}
+
+	public static void Compat_addSmelting(Compat_ItemStack input, Compat_ItemStack output, float xp) {
+		GameRegistry.addSmelting(input.getReal(), output.getReal(), xp);
 	}
 }

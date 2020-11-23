@@ -3,13 +3,11 @@ package compat.sandbox.net.minecraftforge.event.entity.player;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
-import compat.sandbox.net.minecraft.entity.player.Compat_EntityPlayer;
 import compat.sandbox.net.minecraft.item.Compat_ItemStack;
 import compat.sandbox.net.minecraft.util.Compat_EnumFacing;
 import compat.sandbox.net.minecraft.util.Compat_EnumHand;
 import compat.sandbox.net.minecraft.util.math.Compat_BlockPos;
 import compat.sandbox.net.minecraft.world.Compat_World;
-import compat.sandbox.net.minecraftforge.fml.common.eventhandler.Compat_Event;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 

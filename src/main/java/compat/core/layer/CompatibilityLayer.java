@@ -1,8 +1,16 @@
 package compat.core.layer;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import compat.core.ModInfo;
 import compat.core.Version;
@@ -36,9 +44,33 @@ public abstract class CompatibilityLayer {
 	protected final Version version;
 
 	protected final List<ModInfo> mods = new ArrayList<>();
+	private Map<String, String> classRedirects = new HashMap<>();
 
 	public CompatibilityLayer(Version version) {
 		this.version = version;
+		readRedirects();
+	}
+
+	private void readRedirects() {
+
+		InputStream inputStream = getClass().getClassLoader().getResourceAsStream("classRedirects.txt");
+		List<String> lines;
+		try {
+			lines = IOUtils.readLines(inputStream, StandardCharsets.UTF_8);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+
+		for (String line : lines) {
+			line = line.trim().replace(' ', '\t').replace('.', '/');
+			String[] split = StringUtils.split(line);
+			if (split.length == 0)
+				continue;
+			if (split.length != 2) {
+				throw new RuntimeException("Invalid line: " + line);
+			}
+			classRedirects.put(split[0], split[1]);
+		}
 	}
 
 	public Version getVersion() {
@@ -49,12 +81,25 @@ public abstract class CompatibilityLayer {
 		return pathSandbox;
 	}
 
+	public String getRedirected(String name) {
+		name = name.replace('$', '_');
+		String key = name;
+		if (key.startsWith(pathSandbox)) {
+			key = key.substring(pathSandbox.length());
+		}
+		if (classRedirects.containsKey(key)) {
+			name = pathSandbox + classRedirects.get(key);
+		}
+		return name;
+	}
+
 	public String getPrefixedClassname(String name) {
-		String[] names = name.replace('$', '_').split("\\/");
+		String[] names = name.split("\\/");
 		if (CompatibilityClassTransformer.isMcClass(name)) {
 			names[names.length - 1] = prefixFake + names[names.length - 1];
 		}
-		return pathSandbox + String.join("/", names);
+		String prefixedPath = pathSandbox + String.join("/", names);
+		return getRedirected(prefixedPath);
 	}
 
 	public String getPrefixFake() {

@@ -1,4 +1,4 @@
-package compat.sandbox.cpw.mods.fml.client.registry;
+package compat.sandbox.net.minecraftforge.fml.client.registry;
 
 public class Compat_RenderingRegistry {
 	static int dummy = 0;
