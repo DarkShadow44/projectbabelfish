@@ -93,7 +93,7 @@ public class CompatibilityClassLoader {
 					if (!classExists(clazz.name)) {
 						for (String dep : clazz.dependenciesHard) {
 							if (!missingClasses.contains(dep) && !classExists(dep) && !isClassToLoad(classesToLoad, dep)) {
-								missingClasses.add(dep);
+								missingClasses.add(layer.getPrefixedClassname(dep));
 							}
 						}
 					}
