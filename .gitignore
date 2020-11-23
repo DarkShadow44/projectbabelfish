@@ -22,7 +22,11 @@ eclipse
 run
 
 # Files from Forge MDK
-*.txt
+README.txt
+LICENSE.txt
+LICENSE-Paulscode SoundSystem CodecIBXM.txt
+LICENSE-Paulscode IBXM Library.txt
+CREDITS.txt
 
 gradle/
 gradlew*

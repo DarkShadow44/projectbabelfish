@@ -1,0 +1,38 @@
+cpw.mods.fml.client.config.Compat_GuiConfig										net.minecraftforge.fml.client.config.Compat_GuiConfig
+cpw.mods.fml.client.even.Compat_ConfigChangedEvent_OnConfigChangedEvent			net.minecraftforge.fml.client.event.Compat_ConfigChangedEvent_OnConfigChangedEvent
+cpw.mods.fml.client.registry.Compat_RenderingRegistry							net.minecraftforge.fml.client.registry.Compat_RenderingRegistry
+cpw.mods.fml.client.Compat_IModGuiFactory										net.minecraftforge.fml.client.Compat_IModGuiFactory
+cpw.mods.fml.common.event.Compat_FMLInitializationEvent							net.minecraftforge.fml.common.event.Compat_FMLInitializationEvent
+cpw.mods.fml.common.event.Compat_FMLInterModComms								net.minecraftforge.fml.common.event.Compat_FMLInterModComms
+cpw.mods.fml.common.event.Compat_FMLMissingMappingsEvent						net.minecraftforge.fml.common.event.Compat_FMLMissingMappingsEvent
+cpw.mods.fml.common.event.Compat_FMLPostInitializationEvent						net.minecraftforge.fml.common.event.Compat_FMLPostInitializationEvent
+cpw.mods.fml.common.event.Compat_FMLPreInitializationEvent						net.minecraftforge.fml.common.event.Compat_FMLPreInitializationEvent
+cpw.mods.fml.common.event.Compat_FMLServerStartingEvent							net.minecraftforge.fml.common.event.Compat_FMLServerStartingEvent
+cpw.mods.fml.common.eventhandler.Compat_EventBus								net.minecraftforge.fml.common.eventhandler.Compat_EventBus
+cpw.mods.fml.common.network.simpleimpl.Compat_IMessage							net.minecraftforge.fml.common.network.simpleimpl.Compat_IMessage
+cpw.mods.fml.common.network.simpleimpl.Compat_IMessageHandler					net.minecraftforge.fml.common.network.simpleimpl.Compat_IMessageHandler
+cpw.mods.fml.common.network.Compat_IGuiHandler									net.minecraftforge.fml.common.network.Compat_IGuiHandler
+cpw.mods.fml.common.network.Compat_NetworkRegistry								net.minecraftforge.fml.common.network.Compat_NetworkRegistry
+cpw.mods.fml.common.registry.Compat_EntityRegistry								net.minecraftforge.fml.common.registry.Compat_EntityRegistry
+cpw.mods.fml.common.registry.Compat_GameRegistry								net.minecraftforge.fml.common.registry.Compat_GameRegistry
+cpw.mods.fml.common.registry.Compat_VillagerRegistry_IVillageCreationHandler	net.minecraftforge.fml.common.registry.Compat_VillagerRegistry_IVillageCreationHandler
+cpw.mods.fml.common.registry.Compat_VillagerRegistry_IVillageTradeHandler		net.minecraftforge.fml.common.registry.Compat_VillagerRegistry_IVillageTradeHandler
+cpw.mods.fml.common.registry.Compat_VillagerRegistry							net.minecraftforge.fml.common.registry.Compat_VillagerRegistry
+cpw.mods.fml.common.Compat_FMLCommonHandler										net.minecraftforge.fml.common.Compat_FMLCommonHandler
+cpw.mods.fml.common.Compat_FMLLog												net.minecraftforge.fml.common.Compat_FMLLog
+cpw.mods.fml.common.Compat_IFuelHandler											net.minecraftforge.fml.common.Compat_IFuelHandler
+cpw.mods.fml.common.Compat_IWorldGenerator										net.minecraftforge.fml.common.Compat_IWorldGenerator
+cpw.mods.fml.common.Compat_Loader												net.minecraftforge.fml.common.Compat_Loader
+cpw.mods.fml.common.Compat_Mod_EventHandler										net.minecraftforge.fml.common.Compat_Mod_EventHandler
+cpw.mods.fml.common.Compat_Mod_Instance											net.minecraftforge.fml.common.Compat_Mod_Instance
+cpw.mods.fml.common.Compat_Mod													net.minecraftforge.fml.common.Compat_Mod
+cpw.mods.fml.common.Compat_ObfuscationReflectionHelper							net.minecraftforge.fml.common.Compat_ObfuscationReflectionHelper
+cpw.mods.fml.common.Compat_SidedProxy											net.minecraftforge.fml.common.Compat_SidedProxy
+cpw.mods.fml.common.eventhandler.Compat_Event_Result							net.minecraftforge.fml.common.eventhandler.Compat_Event_Result
+net.minecraft.util.Compat_AxisAlignedBB											net.minecraft.util.math.Compat_AxisAlignedBB
+
+
+
+
+
+
