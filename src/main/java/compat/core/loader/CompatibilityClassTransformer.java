@@ -235,14 +235,36 @@ public class CompatibilityClassTransformer {
 
 	private void getMcParentsForMod(List<Class<?>> parents, Map<String, LoadClassInfo> classesToLoad, String className) {
 		if (isMcClass(className)) {
-			String parentPath = className.replace("/", ".");
-			Class<?> classParent = null;
+			String parentPathCompat = (getTransformedClassname(className)).replace("/", ".");
+			Class<?> classParentCompat = null;
+			Class<?> classParentMc = null;
+
 			try {
-				classParent = Class.forName(parentPath, false, CompatibilityMod.classLoader);
-			} catch (ClassNotFoundException e) {
-				return; // Some classes don't exist in MC/forge today, this is okay.
+				classParentCompat = Class.forName(parentPathCompat, false, CompatibilityMod.classLoader);
+			} catch (Exception e) {
+				throw new RuntimeException(e);
 			}
-			getMcParentsForCompat(parents, classParent);
+
+			if (classParentCompat.isInterface()) {
+				// For interfaces, get MC class type from className
+				String parentPathMc = className.replace("/", ".");
+				try {
+					classParentMc = Class.forName(parentPathMc, false, CompatibilityMod.classLoader);
+				} catch (ClassNotFoundException e) {
+					return; // Some classes don't exist in MC/forge today, this is okay.
+				}
+			} else {
+				// For classes, get MC class type from Compat_XXX.getReal() return type
+				// For example, when BlockFire gets renamed into FireBlock, it still works
+				try {
+					Method methodGetReal = classParentCompat.getDeclaredMethod("getReal");
+					classParentMc = methodGetReal.getReturnType();
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+			}
+
+			getMcParentsForCompat(parents, classParentMc);
 			return;
 		}
 
