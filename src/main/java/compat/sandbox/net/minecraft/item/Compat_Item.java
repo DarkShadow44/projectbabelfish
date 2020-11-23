@@ -11,6 +11,7 @@ import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.autogen.HasCallback;
 import compat.core.ParentSelector;
+import compat.core.Version;
 import compat.sandbox.net.minecraft.block.Compat_Block;
 import compat.sandbox.net.minecraft.block.state.Compat_IBlockState;
 import compat.sandbox.net.minecraft.client.renderer.texture.Compat_IIconRegister;
@@ -96,7 +97,7 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 		return Compat_func_77667_c(Compat_ItemStack.getFake(stack));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public String Compat_func_77667_c(Compat_ItemStack stack) {
 		return wrapper.getUnlocalizedNameSuper(stack.getReal());
 	}
@@ -111,7 +112,7 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 		}
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_func_150895_a(Compat_Item item, Compat_CreativeTabs tab, List<Compat_ItemStack> list) {
 		NonNullList<ItemStack> list2 = NonNullList.create();
 		wrapper.getSubItemsSuper(tab.getReal(), list2);
@@ -126,7 +127,7 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 		Compat_func_77663_a(new Compat_ItemStack(stack), new Compat_World(world), new Compat_Entity(entity), itemSlot, isSelected);
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_func_77663_a(Compat_ItemStack stack, Compat_World world, Compat_Entity entity, int itemSlot, boolean isSelected) {
 		wrapper.onUpdateSuper(stack.getReal(), world.getReal(), entity.getReal(), itemSlot, isSelected);
 	}
@@ -136,7 +137,7 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 		return Compat_func_82788_x();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public boolean Compat_func_82788_x() {
 		return wrapper.canItemEditBlocksSuper();
 	}
@@ -148,7 +149,7 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 		return Compat_func_180614_a(stack, new Compat_EntityPlayer(player), Compat_World.getFake(world), Compat_BlockPos.getFake(pos), Compat_EnumHand.getFake(hand), Compat_EnumFacing.getFake(facing), hitX, hitY, hitZ).getReal();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public Compat_EnumActionResult Compat_func_180614_a(Compat_ItemStack stack, Compat_EntityPlayer player, Compat_World world, Compat_BlockPos pos, Compat_EnumHand hand, Compat_EnumFacing facing, float hitX, float hitY, float hitZ) {
 		EnumActionResult result = wrapper.onItemUseSuper(player.getReal(), world.getReal(), pos.getReal(), hand.getReal(), facing.getReal(), hitX, hitY, hitZ);
 		return Compat_EnumActionResult.map_real_to_fake(result);
@@ -233,7 +234,7 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 		return Compat_func_77653_i(Compat_ItemStack.getFake(stack));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public String Compat_func_77653_i(Compat_ItemStack itemstack) {
 		return wrapper.getItemStackDisplayNameSuper(itemstack.getReal());
 	}
@@ -258,7 +259,7 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 		return result.getReal();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public Compat_ActionResult<ItemStack> Compat_func_77659_a(Compat_ItemStack stack, Compat_World world, Compat_EntityPlayer player, Compat_EnumHand hand) {
 		ActionResult<ItemStack> result = wrapper.onItemRightClickSuper(world.getReal(), player.getReal(), hand.getReal());
 		return new Compat_ActionResult<ItemStack>(result);
@@ -274,7 +275,7 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 		return result.getReal();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public Compat_NBTTagCompound Compat_getNBTShareTag(Compat_ItemStack stack) {
 		NBTTagCompound result = wrapper.getNBTShareTagSuper(stack.getReal());
 		return new Compat_NBTTagCompound(result);
@@ -290,7 +291,7 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 		return Compat_isRepairable();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public boolean Compat_isRepairable() {
 		return wrapper.isRepairableSuper();
 	}
@@ -300,7 +301,7 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 		return Compat_func_77614_k();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public boolean Compat_func_77614_k() {
 		return wrapper.getHasSubtypesSuper();
 	}

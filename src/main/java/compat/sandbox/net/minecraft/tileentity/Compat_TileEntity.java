@@ -2,9 +2,10 @@ package compat.sandbox.net.minecraft.tileentity;
 
 import compat.autogen.Callback;
 import compat.autogen.Factory;
-import compat.autogen.HasCallback;
 import compat.autogen.Factory.CtorPos;
+import compat.autogen.HasCallback;
 import compat.core.ParentSelector;
+import compat.core.Version;
 import compat.sandbox.net.minecraft.nbt.Compat_NBTTagCompound;
 import compat.sandbox.net.minecraft.network.Compat_NetworkManager;
 import compat.sandbox.net.minecraft.network.play.server.Compat_SPacketUpdateTileEntity;
@@ -67,7 +68,7 @@ public class Compat_TileEntity {
 		return Compat_hasCapability(Compat_Capability.getFake(capability), Compat_EnumFacing.getFake(facing));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public boolean Compat_hasCapability(Compat_Capability<?> capability, Compat_EnumFacing facing) {
 		if (wrapper == null) {
 			// Must be a call during constructor
@@ -83,7 +84,7 @@ public class Compat_TileEntity {
 		return (T) Compat_getCapability(Compat_Capability.getFake(capability), Compat_EnumFacing.getFake(facing));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public Object Compat_getCapability(Compat_Capability<?> capability, Compat_EnumFacing facing) {
 		EnumFacing facing2 = facing == null ? null : facing.getReal();
 		return wrapper.getCapabilitySuper(capability.getReal(), facing2);
@@ -101,7 +102,7 @@ public class Compat_TileEntity {
 		return compound;
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public Compat_NBTTagCompound Compat_func_189515_b(Compat_NBTTagCompound tag) {
 		wrapper.writeToNBTSuper(tag.getReal());
 		return tag;
@@ -112,7 +113,7 @@ public class Compat_TileEntity {
 		Compat_func_145839_a(new Compat_NBTTagCompound(compound));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_func_145839_a(Compat_NBTTagCompound tag) {
 		wrapper.readFromNBTSuper(tag.getReal());
 	}
@@ -122,7 +123,7 @@ public class Compat_TileEntity {
 		return Compat_func_189517_E_().getReal();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public Compat_NBTTagCompound Compat_func_189517_E_() {
 		NBTTagCompound result = wrapper.getUpdateTagSuper();
 		return new Compat_NBTTagCompound(result);
@@ -133,7 +134,7 @@ public class Compat_TileEntity {
 		return Compat_func_189518_D_().getReal();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public Compat_SPacketUpdateTileEntity Compat_func_189518_D_() {
 		SPacketUpdateTileEntity result = wrapper.getUpdatePacketSuper();
 		return new Compat_SPacketUpdateTileEntity(result);
@@ -144,7 +145,7 @@ public class Compat_TileEntity {
 		Compat_onDataPacket(new Compat_NetworkManager(manager), Compat_SPacketUpdateTileEntity.getFake(packet));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_onDataPacket(Compat_NetworkManager manager, Compat_SPacketUpdateTileEntity packet) {
 		wrapper.onDataPacketSuper(manager.getReal(), packet.getReal());
 	}
@@ -154,7 +155,7 @@ public class Compat_TileEntity {
 		Compat_handleUpdateTag(new Compat_NBTTagCompound(tag));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_handleUpdateTag(Compat_NBTTagCompound tag) {
 		wrapper.handleUpdateTagSuper(tag.getReal());
 	}
@@ -164,7 +165,7 @@ public class Compat_TileEntity {
 		return Compat_getRenderBoundingBox().getReal();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public Compat_AxisAlignedBB Compat_getRenderBoundingBox() {
 		AxisAlignedBB result = wrapper.getRenderBoundingBoxSuper();
 		return new Compat_AxisAlignedBB(result);
@@ -175,7 +176,7 @@ public class Compat_TileEntity {
 		return Compat_shouldRenderInPass(pass);
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public boolean Compat_shouldRenderInPass(int pass) {
 		return wrapper.shouldRenderInPassSuper(pass);
 	}
@@ -185,7 +186,7 @@ public class Compat_TileEntity {
 		return Compat_hasFastRenderer();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public boolean Compat_hasFastRenderer() {
 		return wrapper.hasFastRendererSuper();
 	}
@@ -195,7 +196,7 @@ public class Compat_TileEntity {
 		Compat_onLoad();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_onLoad() {
 		wrapper.onLoadSuper();
 	}
@@ -205,7 +206,7 @@ public class Compat_TileEntity {
 		Compat_onChunkUnload();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_onChunkUnload() {
 		wrapper.onChunkUnloadSuper();
 	}
@@ -215,7 +216,7 @@ public class Compat_TileEntity {
 		return Compat_canRenderBreaking();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public boolean Compat_canRenderBreaking() {
 		return wrapper.canRenderBreakingSuper();
 

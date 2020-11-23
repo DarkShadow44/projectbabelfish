@@ -5,6 +5,7 @@ import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.autogen.HasCallback;
 import compat.core.ParentSelector;
+import compat.core.Version;
 import compat.sandbox.net.minecraft.block.state.Compat_IBlockState;
 import compat.sandbox.net.minecraft.entity.Compat_Entity;
 import compat.sandbox.net.minecraft.util.Compat_EnumFacing;
@@ -51,7 +52,7 @@ public class Compat_ParticleManager {
 		Compat_func_178926_a(Compat_Entity.getFake(entity), Compat_EnumParticleTypes.getFake(type));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_func_178926_a(Compat_Entity entity, Compat_EnumParticleTypes type) {
 		getReal().emitParticleAtEntity(entity.getReal(), type.getReal());
 	}
@@ -62,7 +63,7 @@ public class Compat_ParticleManager {
 		return result.getReal();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public Compat_Particle Compat_func_178927_a(int id, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int[] parameters) {
 		Particle result = getReal().spawnEffectParticle(id, x, y, z, xSpeed, ySpeed, zSpeed, parameters);
 		return Compat_Particle.getFake(result);
@@ -73,7 +74,7 @@ public class Compat_ParticleManager {
 		Compat_func_178929_a(id, Compat_IParticleFactory.getFake(factory));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_func_178929_a(int id, Compat_IParticleFactory factory) {
 		getReal().registerParticle(id, Compat_IParticleFactory.getReal(factory));
 	}
@@ -83,7 +84,7 @@ public class Compat_ParticleManager {
 		Compat_func_180532_a(Compat_BlockPos.getFake(pos), Compat_EnumFacing.getFake(facing));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_func_180532_a(Compat_BlockPos pos, Compat_EnumFacing facing) {
 		getReal().addBlockHitEffects(pos.getReal(), facing.getReal());
 	}
@@ -93,7 +94,7 @@ public class Compat_ParticleManager {
 		Compat_func_180533_a(Compat_BlockPos.getFake(pos), Compat_IBlockState.getFake(state));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_func_180533_a(Compat_BlockPos pos, Compat_IBlockState state) {
 		getReal().addBlockDestroyEffects(pos.getReal(), state.getReal());
 	}
@@ -103,7 +104,7 @@ public class Compat_ParticleManager {
 		Compat_func_78868_a();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_func_78868_a() {
 		getReal().updateEffects();
 	}
@@ -113,7 +114,7 @@ public class Compat_ParticleManager {
 		return Compat_func_78869_b();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public String Compat_func_78869_b() {
 		return getReal().getStatistics();
 	}
@@ -123,7 +124,7 @@ public class Compat_ParticleManager {
 		Compat_func_78870_a(Compat_World.getFake(world));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_func_78870_a(Compat_World world) {
 		getReal().clearEffects(world.getReal());
 	}
@@ -133,7 +134,7 @@ public class Compat_ParticleManager {
 		Compat_func_78872_b(Compat_Entity.getFake(entity), partialTick);
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_func_78872_b(Compat_Entity entity, float partialTick) {
 		getReal().renderLitParticles(entity.getReal(), partialTick);
 	}
@@ -143,7 +144,7 @@ public class Compat_ParticleManager {
 		Compat_func_78873_a(Compat_Particle.getFake(effect));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_func_78873_a(Compat_Particle particle) {
 		getReal().addEffect(particle.getReal());
 	}
@@ -153,7 +154,7 @@ public class Compat_ParticleManager {
 		Compat_func_78874_a(Compat_Entity.getFake(entity), partialTicks);
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_func_78874_a(Compat_Entity entity, float partialTick) {
 		getReal().renderParticles(entity.getReal(), partialTick);
 	}

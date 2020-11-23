@@ -5,6 +5,7 @@ import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.autogen.HasCallback;
 import compat.core.ParentSelector;
+import compat.core.Version;
 import compat.sandbox.net.minecraft.item.Compat_Item;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
@@ -39,7 +40,7 @@ public class Compat_CreativeTabs {
 		return new ItemStack(Compat_func_78016_d().getReal(), 1, Compat_func_151243_f());
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public Compat_Item Compat_func_78016_d() {
 		// To be overridden
 		return null;
@@ -52,7 +53,7 @@ public class Compat_CreativeTabs {
 		return new Compat_CreativeTabs(tab);
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public int Compat_func_151243_f() { // getIconItemDamage
 		return 0;
 	}

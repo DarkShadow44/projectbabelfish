@@ -5,6 +5,7 @@ import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.autogen.HasCallback;
 import compat.core.ParentSelector;
+import compat.core.Version;
 import compat.sandbox.net.minecraft.server.Compat_MinecraftServer;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -41,7 +42,7 @@ public class Compat_CommandBase {
 		Compat_func_184881_a(Compat_MinecraftServer.getFake(server), Compat_ICommandSender.getFake(sender), args);
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_func_184881_a(Compat_MinecraftServer server, Compat_ICommandSender sender, String[] args) throws CommandException {
 		wrapper.executeSuper(server.getReal(), Compat_ICommandSender.getReal(sender), args);
 	}
@@ -51,7 +52,7 @@ public class Compat_CommandBase {
 		return Compat_func_184882_a(Compat_MinecraftServer.getFake(server), Compat_ICommandSender.getFake(sender));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public boolean Compat_func_184882_a(Compat_MinecraftServer server, Compat_ICommandSender sender) {
 		return wrapper.checkPermissionSuper(server.getReal(), Compat_ICommandSender.getReal(sender));
 	}
@@ -61,7 +62,7 @@ public class Compat_CommandBase {
 		return Compat_func_71517_b();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public String Compat_func_71517_b() {
 		return wrapper.getNameSuper();
 	}
@@ -71,7 +72,7 @@ public class Compat_CommandBase {
 		return Compat_func_71518_a(Compat_ICommandSender.getFake(sender));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public String Compat_func_71518_a(Compat_ICommandSender sender) {
 		return wrapper.getUsageSuper(Compat_ICommandSender.getReal(sender));
 	}
@@ -81,7 +82,7 @@ public class Compat_CommandBase {
 		return Compat_func_82362_a();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public int Compat_func_82362_a() {
 		return wrapper.getRequiredPermissionLevelSuper();
 	}

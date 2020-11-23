@@ -2,9 +2,10 @@ package compat.sandbox.net.minecraft.client.renderer.tileentity;
 
 import compat.autogen.Callback;
 import compat.autogen.Factory;
-import compat.autogen.HasCallback;
 import compat.autogen.Factory.CtorPos;
+import compat.autogen.HasCallback;
 import compat.core.ParentSelector;
+import compat.core.Version;
 import compat.sandbox.net.minecraft.tileentity.Compat_TileEntity;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
@@ -39,7 +40,7 @@ public class Compat_TileEntitySpecialRenderer<T extends Compat_TileEntity> {
 		Compat_func_180535_a(Compat_TileEntity.getFake(te), x, y, z, partialTicks, destroyStage);
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_func_180535_a(Compat_TileEntity te, double x, double y, double z, float partialTicks, int destroyStage) {
 		wrapper.renderSuper(te.getReal(), x, y, z, partialTicks, destroyStage, 0);
 	}

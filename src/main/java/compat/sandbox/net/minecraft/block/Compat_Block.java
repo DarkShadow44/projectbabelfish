@@ -120,7 +120,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_func_180661_e().getReal();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public Compat_BlockStateContainer Compat_func_180661_e() {
 		return new Compat_BlockStateContainer(wrapper.createBlockStateSuper());
 	}
@@ -151,7 +151,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_func_176201_c(new Wrapper_IBlockState(state));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public int Compat_func_176201_c(Compat_IBlockState state) {
 		return wrapper.getMetaFromStateSuper(state.getReal());
 	}
@@ -168,7 +168,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_func_149915_a(new Compat_World(world), meta).getReal();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public Compat_TileEntity Compat_func_149915_a(Compat_World world, int meta) {
 		// To be overriden
 		throw new RuntimeException();
@@ -179,7 +179,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_func_149730_j(new Wrapper_IBlockState(state));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public boolean Compat_func_149730_j(Compat_IBlockState state) {
 		return wrapper.isFullBlockSuper(state.getReal());
 	}
@@ -189,7 +189,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_func_149686_d(new Wrapper_IBlockState(state));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public boolean Compat_func_149686_d(Compat_IBlockState state) {
 		return wrapper.isFullCubeSuper(state.getReal());
 	}
@@ -199,7 +199,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_func_149662_c(new Wrapper_IBlockState(state));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public boolean Compat_func_149662_c(Compat_IBlockState state) {
 		return wrapper.isOpaqueCubeSuper(state.getReal());
 	}
@@ -209,7 +209,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_func_149637_q(new Wrapper_IBlockState(state));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public boolean Compat_func_149637_q(Compat_IBlockState state) {
 		return wrapper.isBlockNormalCubeSuper(state.getReal());
 	}
@@ -219,7 +219,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_func_149645_b(new Wrapper_IBlockState(state)).getReal();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public Compat_EnumBlockRenderType Compat_func_149645_b(Compat_IBlockState state) {
 		return Compat_EnumBlockRenderType.get_fake(wrapper.getRenderTypeSuper(state.getReal()));
 	}
@@ -234,7 +234,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return result.getReal();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public Compat_IBlockState Compat_getExtendedState(Compat_IBlockState state, Compat_IBlockAccess world, Compat_BlockPos pos) {
 		IBlockState result = wrapper.getExtendedStateSuper(state.getReal(), world.getReal(), pos.getReal());
 
@@ -247,7 +247,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return result == null ? null : result.getReal();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public Compat_RayTraceResult Compat_func_180636_a(Compat_IBlockState state, Compat_World world, Compat_BlockPos pos, Compat_Vec3d start, Compat_Vec3d end) {
 		RayTraceResult result = wrapper.collisionRayTraceSuper(state.getReal(), world.getReal(), pos.getReal(), start.getReal(), end.getReal());
 		return result == null ? null : new Compat_RayTraceResult(result);
@@ -258,7 +258,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_func_180640_a(new Wrapper_IBlockState(state), Compat_World.getFake(world), Compat_BlockPos.getFake(pos)).getReal();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public Compat_AxisAlignedBB Compat_func_180640_a(Compat_IBlockState state, Compat_World world, Compat_BlockPos pos) {
 		AxisAlignedBB result = wrapper.getSelectedBoundingBoxSuper(state.getReal(), world.getReal(), pos.getReal());
 		return new Compat_AxisAlignedBB(result);
@@ -282,7 +282,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		}
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_func_185477_a(Compat_IBlockState state, Compat_World world, Compat_BlockPos pos, Compat_AxisAlignedBB entityBox, List<Compat_AxisAlignedBB> boxes, Compat_Entity entity) {
 		List<AxisAlignedBB> list2 = new ArrayList<>();
 
@@ -303,12 +303,12 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_canRenderInLayer(new Wrapper_IBlockState(state), Compat_BlockRenderLayer.getFake(layer));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public boolean Compat_canRenderInLayer(Compat_BlockRenderLayer layer) {
 		return wrapper.canRenderInLayerSuper(null, layer.getReal());
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public boolean Compat_canRenderInLayer(Compat_IBlockState state, Compat_BlockRenderLayer layer) {
 		return Compat_canRenderInLayer(layer);
 	}
@@ -406,7 +406,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		Compat_func_180649_a(Compat_World.getFake(world), new Compat_BlockPos(pos), Compat_EntityPlayer.getFake(player));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_func_180649_a(Compat_World world, Compat_BlockPos pos, Compat_EntityPlayer player) {
 		wrapper.onBlockClickedSuper(world.getReal(), pos.getReal(), player.getReal());
 	}
@@ -418,7 +418,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_func_180639_a(Compat_World.getFake(world), Compat_BlockPos.getFake(pos), Compat_IBlockState.getFake(state), Compat_EntityPlayer.getFake(player), Compat_EnumHand.getFake(hand), stack2, Compat_EnumFacing.getFake(facing), x, y, z);
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public boolean Compat_func_180639_a(Compat_World world, Compat_BlockPos pos, Compat_IBlockState state, Compat_EntityPlayer player, Compat_EnumHand hand, Compat_ItemStack stack, Compat_EnumFacing facing, float x, float y, float z) {
 		return wrapper.onBlockActivatedSuper(world.getReal(), pos.getReal(), state.getReal(), player.getReal(), hand.getReal(), facing.getReal(), x, y, z);
 	}
@@ -435,7 +435,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_addDestroyEffects(Compat_World.getFake(world), Compat_BlockPos.getFake(pos), new Compat_ParticleManager(manager));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public boolean Compat_addDestroyEffects(Compat_World world, Compat_BlockPos pos, Compat_ParticleManager manager) {
 		return wrapper.addDestroyEffectsSuper(world.getReal(), pos.getReal(), manager.getReal());
 	}
@@ -445,7 +445,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_addHitEffects(Compat_IBlockState.getFake(state), Compat_World.getFake(world), new Compat_RayTraceResult(target), new Compat_ParticleManager(manager));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public boolean Compat_addHitEffects(Compat_IBlockState state, Compat_World world, Compat_RayTraceResult ray, Compat_ParticleManager manager) {
 		return wrapper.addHitEffectsSuper(state.getReal(), world.getReal(), ray.getReal(), manager.getReal());
 	}
@@ -455,7 +455,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_addLandingEffects(Compat_IBlockState.getFake(state), new Compat_WorldServer(world), Compat_BlockPos.getFake(pos), Compat_IBlockState.getFake(state2), new Compat_EntityLivingBase(entity), p1);
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public boolean Compat_addLandingEffects(Compat_IBlockState state, Compat_WorldServer world, Compat_BlockPos pos, Compat_IBlockState state2, Compat_EntityLivingBase entity, int p1) {
 		return wrapper.addLandingEffectsSuper(state.getReal(), world.getReal(), pos.getReal(), state2.getReal(), entity.getReal(), p1);
 	}
@@ -465,7 +465,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_canConnectRedstone(Compat_IBlockState.getFake(state), Compat_IBlockAccess.getFake(world), Compat_BlockPos.getFake(pos), Compat_EnumFacing.getFake(facing));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public boolean Compat_canConnectRedstone(Compat_IBlockState state, Compat_IBlockAccess world, Compat_BlockPos pos, Compat_EnumFacing facing) {
 		return wrapper.canConnectRedstoneSuper(state.getReal(), world.getReal(), pos.getReal(), Compat_EnumFacing.getReal(facing));
 	}
@@ -475,7 +475,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_canPlaceTorchOnTop(Compat_IBlockState.getFake(state), Compat_IBlockAccess.getFake(world), Compat_BlockPos.getFake(pos));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public boolean Compat_canPlaceTorchOnTop(Compat_IBlockState state, Compat_IBlockAccess world, Compat_BlockPos pos) {
 		return wrapper.canPlaceTorchOnTopSuper(state.getReal(), world.getReal(), pos.getReal());
 	}
@@ -485,7 +485,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_func_149744_f(new Wrapper_IBlockState(state));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public boolean Compat_func_149744_f(Compat_IBlockState state) {
 		return wrapper.canProvidePowerSuper(state.getReal());
 	}
@@ -495,7 +495,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		Compat_func_176199_a(Compat_World.getFake(world), Compat_BlockPos.getFake(pos), new Compat_Entity(entity));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_func_176199_a(Compat_World world, Compat_BlockPos pos, Compat_Entity entity) {
 		wrapper.onEntityWalkSuper(world.getReal(), pos.getReal(), entity.getReal());
 	}
@@ -506,7 +506,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return result.getReal();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public Compat_IBlockState Compat_func_176203_a(int meta) {
 		return new Wrapper_IBlockState(wrapper.getStateFromMetaSuper(meta));
 	}
@@ -516,7 +516,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_func_176211_b(Compat_IBlockState.getFake(state), Compat_IBlockAccess.getFake(world), Compat_BlockPos.getFake(pos), Compat_EnumFacing.getFake(side));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public int Compat_func_176211_b(Compat_IBlockState state, Compat_IBlockAccess world, Compat_BlockPos pos, Compat_EnumFacing facing) {
 		return wrapper.getStrongPowerSuper(state.getReal(), world.getReal(), pos.getReal(), Compat_EnumFacing.getReal(facing));
 	}
@@ -526,7 +526,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		Compat_func_180634_a(Compat_World.getFake(world), Compat_BlockPos.getFake(pos), Compat_IBlockState.getFake(state), new Compat_Entity(entity));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_func_180634_a(Compat_World world, Compat_BlockPos pos, Compat_IBlockState state, Compat_Entity entity) {
 		wrapper.onEntityCollidedWithBlockSuper(world.getReal(), pos.getReal(), state.getReal(), entity.getReal());
 	}
@@ -536,7 +536,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_func_180647_a(Compat_IBlockState.getFake(state), Compat_EntityPlayer.getFake(player), Compat_World.getFake(world), Compat_BlockPos.getFake(pos));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public float Compat_func_180647_a(Compat_IBlockState state, Compat_EntityPlayer player, Compat_World world, Compat_BlockPos pos) {
 		return wrapper.getPlayerRelativeBlockHardnessSuper(state.getReal(), player.getReal(), world.getReal(), pos.getReal());
 	}
@@ -546,7 +546,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		Compat_func_180655_c(Compat_IBlockState.getFake(state), Compat_World.getFake(world), Compat_BlockPos.getFake(pos), random);
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_func_180655_c(Compat_IBlockState state, Compat_World world, Compat_BlockPos pos, Random random) {
 		wrapper.randomDisplayTickSuper(state.getReal(), world.getReal(), pos.getReal(), random);
 	}
@@ -556,7 +556,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_func_180656_a(Compat_IBlockState.getFake(state), Compat_IBlockAccess.getFake(world), Compat_BlockPos.getFake(pos), Compat_EnumFacing.getFake(facing));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public int Compat_func_180656_a(Compat_IBlockState state, Compat_IBlockAccess world, Compat_BlockPos pos, Compat_EnumFacing facing) {
 		return wrapper.getWeakPowerSuper(state.getReal(), world.getReal(), pos.getReal(), Compat_EnumFacing.getReal(facing));
 	}
@@ -566,7 +566,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		Compat_func_180657_a(Compat_World.getFake(world), Compat_EntityPlayer.getFake(player), Compat_BlockPos.getFake(pos), Compat_IBlockState.getFake(state), Compat_TileEntity.getFake(tile), Compat_ItemStack.getFake(stack));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_func_180657_a(Compat_World world, Compat_EntityPlayer player, Compat_BlockPos pos, Compat_IBlockState state, Compat_TileEntity tile, Compat_ItemStack stack) {
 		wrapper.harvestBlockSuper(world.getReal(), player.getReal(), pos.getReal(), state.getReal(), tile.getReal(), stack.getReal());
 	}
@@ -576,7 +576,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		Compat_func_189540_a(Compat_IBlockState.getFake(state), Compat_World.getFake(world), Compat_BlockPos.getFake(pos), Compat_Block.getFake(block));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_func_189540_a(Compat_IBlockState state, Compat_World world, Compat_BlockPos pos, Compat_Block block) {
 		wrapper.neighborChangedSuper(state.getReal(), world.getReal(), pos.getReal(), block.getReal(), pos.getReal());
 	}
@@ -593,7 +593,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return ret;
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public List<Compat_ItemStack> Compat_getDrops(Compat_IBlockAccess world, Compat_BlockPos pos, Compat_IBlockState state, int fortune) {
 		List<ItemStack> result = wrapper.getDropsSuper(world.getReal(), pos.getReal(), state.getReal(), fortune);
 		List<Compat_ItemStack> ret = new ArrayList<>();
@@ -610,7 +610,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_getHarvestLevel(Compat_IBlockState.getFake(state));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public int Compat_getHarvestLevel(Compat_IBlockState state) {
 		return wrapper.getHarvestLevelSuper(state.getReal());
 	}
@@ -620,7 +620,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_getHarvestTool(Compat_IBlockState.getFake(state));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public String Compat_getHarvestTool(Compat_IBlockState state) {
 		return wrapper.getHarvestToolSuper(state.getReal());
 	}
@@ -630,7 +630,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_getLightValue(Compat_IBlockState.getFake(state), Compat_IBlockAccess.getFake(world), Compat_BlockPos.getFake(pos));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public int Compat_getLightValue(Compat_IBlockState state, Compat_IBlockAccess world, Compat_BlockPos pos) {
 		return wrapper.getLightValueSuper(state.getReal(), world.getReal(), pos.getReal());
 	}
@@ -641,7 +641,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return result == null ? null : result.getReal();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public Compat_ItemStack Compat_getPickBlock(Compat_IBlockState state, Compat_RayTraceResult target, Compat_World world, Compat_BlockPos pos, Compat_EntityPlayer player) {
 		ItemStack result = wrapper.getPickBlockSuper(state.getReal(), target.getReal(), world.getReal(), pos.getReal(), player.getReal());
 		return Compat_ItemStack.getFake(result);
@@ -652,7 +652,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_getWeakChanges(Compat_IBlockAccess.getFake(world), Compat_BlockPos.getFake(pos));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public boolean Compat_getWeakChanges(Compat_IBlockAccess world, Compat_BlockPos pos) {
 		return wrapper.getWeakChangesSuper(world.getReal(), pos.getReal());
 	}
@@ -662,7 +662,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_isAABBInsideMaterial(Compat_World.getFake(world), Compat_BlockPos.getFake(pos), Compat_AxisAlignedBB.getFake(bb), Compat_Material.getFake(material));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public Boolean Compat_isAABBInsideMaterial(Compat_World world, Compat_BlockPos pos, Compat_AxisAlignedBB bb, Compat_Material material) {
 		return wrapper.isAABBInsideMaterialSuper(world.getReal(), pos.getReal(), bb.getReal(), material.getReal());
 	}
@@ -672,7 +672,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_isEntityInsideMaterial(Compat_IBlockAccess.getFake(world), Compat_BlockPos.getFake(pos), Compat_IBlockState.getFake(state), Compat_Entity.getFake(entity), d, Compat_Material.getFake(material), testingHead);
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public Boolean Compat_isEntityInsideMaterial(Compat_IBlockAccess world, Compat_BlockPos pos, Compat_IBlockState state, Compat_Entity entity, double d, Compat_Material material, boolean testingHead) {
 		return wrapper.isEntityInsideMaterialSuper(world.getReal(), pos.getReal(), state.getReal(), entity.getReal(), d, material.getReal(), testingHead);
 	}
@@ -682,7 +682,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_isSideSolid(Compat_IBlockState.getFake(state), Compat_IBlockAccess.getFake(world), Compat_BlockPos.getFake(pos), Compat_EnumFacing.getFake(facing));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public boolean Compat_isSideSolid(Compat_IBlockState state, Compat_IBlockAccess world, Compat_BlockPos pos, Compat_EnumFacing facing) {
 		return wrapper.isSideSolidSuper(state.getReal(), world.getReal(), pos.getReal(), Compat_EnumFacing.getReal(facing));
 	}
@@ -692,7 +692,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_isToolEffective(type, Compat_IBlockState.getFake(state));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public boolean Compat_isToolEffective(String type, Compat_IBlockState state) {
 		return wrapper.isToolEffectiveSuper(type, state.getReal());
 	}
@@ -702,7 +702,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		Compat_onNeighborChange(Compat_IBlockAccess.getFake(world), Compat_BlockPos.getFake(pos), Compat_BlockPos.getFake(neighbor));
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_onNeighborChange(Compat_IBlockAccess world, Compat_BlockPos pos, Compat_BlockPos posNeighbor) {
 		wrapper.onNeighborChangeSuper(world.getReal(), pos.getReal(), posNeighbor.getReal());
 	}
@@ -712,7 +712,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return Compat_removedByPlayer(Compat_IBlockState.getFake(state), Compat_World.getFake(world), Compat_BlockPos.getFake(pos), Compat_EntityPlayer.getFake(player), willHarvest);
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public boolean Compat_removedByPlayer(Compat_IBlockState state, Compat_World world, Compat_BlockPos pos, Compat_EntityPlayer player, boolean willHarvest) {
 		return wrapper.removedByPlayerSuper(state.getReal(), world.getReal(), pos.getReal(), player.getReal(), willHarvest);
 	}
@@ -723,7 +723,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return result.getReal();
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public Compat_IBlockState Compat_func_180642_a(Compat_World world, Compat_BlockPos pos, Compat_EnumFacing facing, float x, float y, float z, int meta, Compat_EntityLivingBase entity) {
 		IBlockState result = wrapper.getStateForPlacementSuper(world.getReal(), pos.getReal(), Compat_EnumFacing.getReal(facing), x, y, z, meta, entity.getReal());
 		return new Wrapper_IBlockState(result);
@@ -734,7 +734,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		Compat_func_180650_b(Compat_World.getFake(world), Compat_BlockPos.getFake(pos), Compat_IBlockState.getFake(state), random);
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public void Compat_func_180650_b(Compat_World world, Compat_BlockPos pos, Compat_IBlockState state, Random random) {
 		wrapper.updateTickSuper(world.getReal(), pos.getReal(), state.getReal(), random);
 	}

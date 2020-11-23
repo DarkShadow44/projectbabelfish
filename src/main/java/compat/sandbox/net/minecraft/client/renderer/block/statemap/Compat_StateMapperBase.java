@@ -10,6 +10,7 @@ import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.autogen.HasCallback;
 import compat.core.ParentSelector;
+import compat.core.Version;
 import compat.sandbox.net.minecraft.block.Compat_Block;
 import compat.sandbox.net.minecraft.block.properties.Compat_IProperty;
 import compat.sandbox.net.minecraft.block.state.Compat_IBlockState;
@@ -59,7 +60,7 @@ public class Compat_StateMapperBase implements Compat_IStateMapper {
 	}
 
 	@Override
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public Map<Compat_IBlockState, Compat_ModelResourceLocation> Compat_func_178130_a(Compat_Block block) {
 		Map<IBlockState, ModelResourceLocation> result = wrapper.putStateModelLocationsSuper(block.getReal());
 
@@ -83,7 +84,7 @@ public class Compat_StateMapperBase implements Compat_IStateMapper {
 		return Compat_func_178131_a(map2);
 	}
 
-	@HasCallback
+	@HasCallback({ Version.V1_10_2 })
 	public String Compat_func_178131_a(Map<Compat_IProperty<?>, Comparable<?>> map) {
 		Map<IProperty<?>, Comparable<?>> map2 = new LinkedHashMap<>();
 
