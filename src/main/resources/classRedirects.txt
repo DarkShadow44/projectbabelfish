@@ -30,7 +30,7 @@ cpw.mods.fml.common.Compat_ObfuscationReflectionHelper							net.minecraftforge.
 cpw.mods.fml.common.Compat_SidedProxy											net.minecraftforge.fml.common.Compat_SidedProxy
 cpw.mods.fml.common.eventhandler.Compat_Event_Result							net.minecraftforge.fml.common.eventhandler.Compat_Event_Result
 net.minecraft.util.Compat_AxisAlignedBB											net.minecraft.util.math.Compat_AxisAlignedBB
-
+net.minecraft.network.play.server.Compat_S35PacketUpdateTileEntity				net.minecraft.network.play.server.Compat_SPacketUpdateTileEntity
 
 
 

@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import compat.core.layer.CompatibilityLayer;
 
 public abstract class GenericChecker {
-	protected final List<String> methods = new ArrayList<>();
+	protected final List<String> missing = new ArrayList<>();
 	protected final CompatibilityLayer layer;
 	private final String name;
 
@@ -17,7 +17,7 @@ public abstract class GenericChecker {
 	}
 
 	public void printWarning() {
-		List<String> methodsDedup = methods.stream().distinct().sorted().collect(Collectors.toList());
+		List<String> methodsDedup = missing.stream().distinct().sorted().collect(Collectors.toList());
 		StringBuilder sb = new StringBuilder();
 		sb.append("\n########## Compatibility: Found " + methodsDedup.size() + " missing " + name + ".\n");
 

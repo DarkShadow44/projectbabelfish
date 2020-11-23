@@ -113,10 +113,10 @@ public class MissingOverrideChecker extends GenericChecker {
 				String methodInfo = className + "." + method.getName() + Type.getMethodDescriptor(method);
 				if (!methodExistsInCompat(classMod, method, hasCallback, versionMod)) {
 					if (!knownFalsePositives.contains(methodInfo)) {
-						methods.add("Missing override method: " + methodInfo);
+						missing.add("Missing override method: " + methodInfo);
 					}
 				} else if (!hasCallback.getValue()) {
-					methods.add("Missing callback method: " + methodInfo);
+					missing.add("Missing callback method: " + methodInfo);
 				}
 			}
 		}

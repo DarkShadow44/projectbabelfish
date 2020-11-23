@@ -9,6 +9,7 @@ import java.util.Map;
 import compat.core.CompatibilityMod;
 import compat.core.layer.CompatibilityLayer;
 import compat.core.loader.checker.CalledMethodChecker;
+import compat.core.loader.checker.MissingClassesChecker;
 import compat.core.loader.checker.MissingOverrideChecker;
 
 public class CompatibilityClassLoader {
@@ -71,6 +72,7 @@ public class CompatibilityClassLoader {
 		int target = loadedClassNames.size() + classesToLoad.size();
 
 		CalledMethodChecker calledMethodChecker = new CalledMethodChecker(layer);
+		MissingClassesChecker missingClassesChecker = new MissingClassesChecker(layer);
 
 		while (loadedClassNames.size() < target) {
 			int sizeBefore = loadedClassNames.size();
@@ -82,6 +84,7 @@ public class CompatibilityClassLoader {
 					String name = clazz.transformer.getThisClass();
 					byte[] data = clazz.transformer.getTransformedData();
 					calledMethodChecker.checkClass(data);
+					missingClassesChecker.checkClass(data);
 					Class<?> c = classLoader.addClass(name.replace('/', '.'), data);
 					loadedClasses.add(c);
 				}
@@ -104,7 +107,7 @@ public class CompatibilityClassLoader {
 			}
 		}
 
-		calledMethodChecker.checkMissingClasses();
+		missingClassesChecker.printWarning();
 
 		MissingOverrideChecker overrideChecker = new MissingOverrideChecker(layer);
 
