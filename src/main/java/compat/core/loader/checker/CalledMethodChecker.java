@@ -2,6 +2,9 @@ package compat.core.loader.checker;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.Opcodes;
@@ -16,6 +19,8 @@ import compat.core.layer.CompatibilityLayer;
 import compat.core.loader.CompatibilityClassTransformer;
 
 public class CalledMethodChecker extends GenericChecker {
+
+	private final List<String> missingClasses = new ArrayList<>();
 
 	public CalledMethodChecker(CompatibilityLayer layer) {
 		super(layer, "called methods");
@@ -66,6 +71,7 @@ public class CalledMethodChecker extends GenericChecker {
 				}
 			}
 		} catch (Exception e) {
+			missingClasses.add(methodSearch.owner);
 			return false;
 		}
 		return false;
@@ -80,6 +86,19 @@ public class CalledMethodChecker extends GenericChecker {
 			for (int i = 0; i < method.instructions.size(); i++) {
 				checkInstruction(method.instructions.get(i));
 			}
+		}
+	}
+
+	public void checkMissingClasses() {
+		if (missingClasses.size() > 0) {
+			List<String> classesDedup = missingClasses.stream().distinct().sorted().collect(Collectors.toList());
+			StringBuilder sb = new StringBuilder();
+			sb.append("\n########## Compatibility: Found " + missingClasses.size() + " missing classes.\n");
+
+			for (String method : classesDedup) {
+				sb.append("\t" + method + "\n");
+			}
+			throw new RuntimeException(sb.toString());
 		}
 	}
 

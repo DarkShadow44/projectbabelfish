@@ -178,6 +178,17 @@ public class CompatibilityClassTransformer {
 		return false;
 	}
 
+	private static boolean isHookedClassMethod(String name) {
+		List<String> names = new ArrayList<>();
+		names.add("getConstructor");
+		names.add("getDeclaredField");
+		names.add("getDeclaredFields");
+		names.add("forName");
+		names.add("getField");
+
+		return names.contains(name);
+	}
+
 	private boolean isMethodException(Map<String, LoadClassInfo> classesToLoad, String targetClassName, String name, String desc) {
 		// Skip constructors
 		if (name.equals("<init>") || name.equals("<clinit>"))
@@ -452,7 +463,7 @@ public class CompatibilityClassTransformer {
 				method.desc = transformDescriptor(method.desc);
 			}
 			if (method.owner.equals("java/lang/Class")) {
-				if (method.name.equals("getConstructor") || method.name.equals("getDeclaredField") || method.name.equals("getDeclaredFields") || method.name.equals("forName")) {
+				if (isHookedClassMethod(method.name)) {
 					method.name = layer.getPrefixFake() + method.name;
 
 					method.setOpcode(Opcodes.INVOKESTATIC);

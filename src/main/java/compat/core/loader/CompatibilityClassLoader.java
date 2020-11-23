@@ -104,6 +104,8 @@ public class CompatibilityClassLoader {
 			}
 		}
 
+		calledMethodChecker.checkMissingClasses();
+
 		MissingOverrideChecker overrideChecker = new MissingOverrideChecker(layer);
 
 		for (Class<?> clazz : loadedClasses) {
