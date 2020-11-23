@@ -99,7 +99,7 @@ public class CalledMethodChecker extends GenericChecker {
 			for (String method : classesDedup) {
 				sb.append("\t" + method + "\n");
 			}
-			throw new RuntimeException(sb.toString());
+			System.out.println(sb.toString());
 		}
 	}
 
