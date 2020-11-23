@@ -36,6 +36,8 @@ public class CompatibilityClassTransformer {
 	List<String> fields = new ArrayList<>();
 	private final CompatibilityLayer layer;
 
+	private List<String> missingClasses = new ArrayList<String>();
+
 	public CompatibilityClassTransformer(CompatibilityLayer layer, byte[] data) {
 		this.layer = layer;
 		ClassReader classReader = new ClassReader(data);
@@ -155,6 +157,9 @@ public class CompatibilityClassTransformer {
 	public static boolean isMcClass(String name) {
 		name = name.replace(".", "/");
 
+		if (name.startsWith("cpw/mods/fml/"))
+			return true;
+
 		if (name.startsWith("net/minecraft/"))
 			return true;
 
@@ -244,7 +249,8 @@ public class CompatibilityClassTransformer {
 			try {
 				classParentCompat = Class.forName(parentPathCompat, false, CompatibilityMod.classLoader);
 			} catch (Exception e) {
-				throw new RuntimeException(e);
+				missingClasses.add("Compat Class: " + parentPathCompat);
+				return;
 			}
 
 			if (classParentCompat.isInterface()) {
@@ -275,7 +281,8 @@ public class CompatibilityClassTransformer {
 
 		LoadClassInfo classInfo = classesToLoad.get(className);
 		if (classInfo == null) {
-			throw new RuntimeException("Unexpected " + className);
+			missingClasses.add("Mod class: " + className);
+			return;
 		}
 
 		for (String parent : classInfo.dependenciesHard) {
@@ -303,7 +310,8 @@ public class CompatibilityClassTransformer {
 			try {
 				classParent = Class.forName(parentPath, false, CompatibilityMod.classLoader);
 			} catch (ClassNotFoundException e) {
-				throw new RuntimeException(e);
+				missingClasses.add("Compat Class: " + parentPath);
+				return;
 			}
 			getCompatParentsForCompat(parents, classParent);
 			return;
@@ -314,7 +322,8 @@ public class CompatibilityClassTransformer {
 
 		LoadClassInfo classInfo = classesToLoad.get(className);
 		if (classInfo == null) {
-			throw new RuntimeException("Unexpected " + className);
+			missingClasses.add("Mod class: " + className);
+			return;
 		}
 
 		for (String parent : classInfo.dependenciesHard) {
@@ -572,6 +581,17 @@ public class CompatibilityClassTransformer {
 	}
 
 	public void transform(Map<String, LoadClassInfo> classesToLoad) {
+
+		if (missingClasses.size() > 0) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("\n########## Compatibility: Found " + missingClasses.size() + " missing classes .\n");
+
+			for (String method : missingClasses) {
+				sb.append("\t" + method + "\n");
+			}
+			throw new RuntimeException(sb.toString());
+		}
+
 		for (FieldNode field : classNode.fields) {
 			transformField(field);
 		}
