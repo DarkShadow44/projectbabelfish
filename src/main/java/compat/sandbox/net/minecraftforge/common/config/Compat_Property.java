@@ -24,4 +24,25 @@ public class Compat_Property {
 	public double Compat_getDouble(double _default) {
 		return original.getDouble(_default);
 	}
+
+	public boolean Compat_getBoolean() {
+		return original.getBoolean();
+	}
+
+	public double Compat_getDouble() {
+		return original.getDouble();
+	}
+
+	public String Compat_getString() {
+		return original.getString();
+	}
+
+	public Compat_Property Compat_setRequiresMcRestart(boolean value) {
+		original.setRequiresMcRestart(value);
+		return this;
+	}
+
+	public void Compat_set_comment(String str) {
+		original.setComment(str);
+	}
 }

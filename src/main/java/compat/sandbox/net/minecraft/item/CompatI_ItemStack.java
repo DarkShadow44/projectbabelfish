@@ -1,10 +1,12 @@
 package compat.sandbox.net.minecraft.item;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 
 public interface CompatI_ItemStack {
@@ -45,4 +47,16 @@ public interface CompatI_ItemStack {
 	public void setItemDamageSuper(int damage);
 
 	public boolean isItemEqualSuper(ItemStack stack);
+
+	public int getMaxDamageSuper();
+
+	public int getMaxStackSizeSuper();
+
+	public ItemStack splitStackSuper(int amount);
+
+	public void onCraftingSuper(World world, EntityPlayer player, int amount);
+
+	public boolean isItemStackDamageableSuper();
+
+	public boolean hasDisplayNameSuper();
 }

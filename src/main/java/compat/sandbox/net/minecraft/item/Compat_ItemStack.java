@@ -5,8 +5,10 @@ import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
 import compat.sandbox.net.minecraft.block.Compat_Block;
 import compat.sandbox.net.minecraft.entity.Compat_EntityLivingBase;
+import compat.sandbox.net.minecraft.entity.player.Compat_EntityPlayer;
 import compat.sandbox.net.minecraft.nbt.Compat_NBTTagCompound;
 import compat.sandbox.net.minecraft.util.Compat_EnumFacing;
+import compat.sandbox.net.minecraft.world.Compat_World;
 import compat.sandbox.net.minecraftforge.common.capabilities.Compat_Capability;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -39,6 +41,11 @@ public class Compat_ItemStack {
 	// When called from Mod
 	public Compat_ItemStack(Compat_Item item, int p1) {
 		this.initialize(Factory.create(CtorPos.POS5, CompatI_ItemStack.class, this, item.getReal(), p1));
+	}
+
+	// When called from Mod
+	public Compat_ItemStack(Compat_Block block, int p1) {
+		this.initialize(Factory.create(CtorPos.POS6, CompatI_ItemStack.class, this, block.getReal(), p1));
 	}
 
 	// When called from child
@@ -154,6 +161,40 @@ public class Compat_ItemStack {
 	public Object Compat_getCapability(Compat_Capability<?> capability, Compat_EnumFacing facing) {
 		EnumFacing facing2 = facing == null ? null : facing.getReal();
 		return wrapper.getCapabilitySuper(capability.getReal(), facing2);
+	}
+
+	public int Compat_func_77958_k() {
+		return wrapper.getMaxDamageSuper();
+	}
+
+	public int Compat_func_77976_d() {
+		return wrapper.getMaxStackSizeSuper();
+	}
+
+	public Compat_ItemStack Compat_func_77979_a(int amount) {
+		ItemStack stack = wrapper.splitStackSuper(amount);
+		return Compat_ItemStack.getFake(stack);
+	}
+
+	public void Compat_func_77980_a(Compat_World world, Compat_EntityPlayer player, int amount) {
+		wrapper.onCraftingSuper(world.getReal(), player.getReal(), amount);
+	}
+
+	public boolean Compat_func_77984_f() {
+		return wrapper.isItemStackDamageableSuper();
+	}
+
+	public boolean Compat_func_82837_s() {
+		return wrapper.hasDisplayNameSuper();
+	}
+
+	public Compat_NBTTagCompound Compat_get_field_77990_d() {
+		NBTTagCompound result = wrapper.getTagCompoundSuper();
+		return Compat_NBTTagCompound.getFake(result);
+	}
+
+	public void Compat_set_field_77990_d(Compat_NBTTagCompound tag) {
+		wrapper.setTagCompoundSuper(tag.getReal());
 	}
 
 }
