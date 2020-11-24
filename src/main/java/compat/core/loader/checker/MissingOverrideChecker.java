@@ -105,20 +105,24 @@ public class MissingOverrideChecker extends GenericChecker {
 	public void checkClass(Class<?> classMod) {
 		Version versionMod = classMod.getAnnotation(VersionInfo.class).value();
 		String parentName = classMod.getSuperclass() == null ? "Object" : classMod.getSuperclass().getName();
-		for (Method method : classMod.getDeclaredMethods()) {
-			if (method.getName().startsWith(layer.getPrefixFake())) {
-				MutableBoolean hasCallback = new MutableBoolean();
-				int lastDot = parentName.lastIndexOf('.') + 1;
-				String className = parentName.substring(lastDot);
-				String methodInfo = className + "." + method.getName() + Type.getMethodDescriptor(method);
-				if (!methodExistsInCompat(classMod, method, hasCallback, versionMod)) {
-					if (!knownFalsePositives.contains(methodInfo)) {
-						missing.add("Missing override method: " + methodInfo);
+		try {
+			for (Method method : classMod.getDeclaredMethods()) {
+				if (method.getName().startsWith(layer.getPrefixFake())) {
+					MutableBoolean hasCallback = new MutableBoolean();
+					int lastDot = parentName.lastIndexOf('.') + 1;
+					String className = parentName.substring(lastDot);
+					String methodInfo = className + "." + method.getName() + Type.getMethodDescriptor(method);
+					if (!methodExistsInCompat(classMod, method, hasCallback, versionMod)) {
+						if (!knownFalsePositives.contains(methodInfo)) {
+							missing.add("Missing override method: " + methodInfo);
+						}
+					} else if (!hasCallback.getValue()) {
+						missing.add("Missing callback method: " + methodInfo);
 					}
-				} else if (!hasCallback.getValue()) {
-					missing.add("Missing callback method: " + methodInfo);
 				}
 			}
+		} catch (NoClassDefFoundError e) {
+			missing.add("Skipped class " + classMod.getName() + " ( Not found: " + e.getMessage() + ")");
 		}
 	}
 }
