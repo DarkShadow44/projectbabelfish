@@ -43,4 +43,13 @@ net.minecraft.client.particle.Compat_EntitySmokeFX								net.minecraft.client.p
 net.minecraft.entity.ai.Compat_EntityAIAttackOnCollide							net.minecraft.entity.ai.Compat_EntityAIAttackMelee
 net.minecraft.world.biome.Compat_BiomeGenBase									net.minecraft.world.biome.Compat_Biome
 net.minecraft.util.Compat_MathHelper											net.minecraft.util.math.Compat_MathHelper
+net.minecraft.util.Compat_MovingObjectPosition									net.minecraft.util.math.Compat_RayTraceResult
+net.minecraft.world.biome.Compat_WorldChunkManager								net.minecraft.world.biome.Compat_BiomeProvider
+net.minecraft.world.gen.feature.Compat_WorldGenForest							net.minecraft.world.gen.feature.Compat_WorldGenBirchTree
+
+
+
+
+
+
 
