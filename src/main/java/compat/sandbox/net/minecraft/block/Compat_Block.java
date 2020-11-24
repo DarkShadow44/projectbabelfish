@@ -63,14 +63,12 @@ import net.minecraft.world.WorldServer;
 public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	private CompatI_Block wrapper;
 
-	@SuppressWarnings("unused")
 	private Version version = Version.UNKNOWN;
 
 	// When called from Mod
 	public Compat_Block(Compat_Material material) {
 		super(ParentSelector.NULL);
 		this.initialize(Factory.create(CtorPos.POS1, CompatI_Block.class, this, material.getReal()));
-		version = Version.get(this);
 
 		workaround_init();
 	}
@@ -99,6 +97,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	protected void initialize(CompatI_Block wrapper) {
 		super.initialize(wrapper);
 		this.wrapper = wrapper;
+		version = Version.get(this);
 	}
 
 	public Block getReal() {
@@ -136,7 +135,10 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 
 	public Compat_Block Compat_func_149663_c(String name) {
 		wrapper.setUnlocalizedNameSuper(name);
-		// TODO 1.7.10: wrapper.setRegistryNameSuper(name);
+
+		if (version == Version.V1_7_10) {
+			wrapper.setRegistryNameSuper(name);
+		}
 		return this;
 	}
 
