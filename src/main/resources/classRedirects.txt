@@ -31,8 +31,7 @@ cpw.mods.fml.common.Compat_SidedProxy											net.minecraftforge.fml.common.Co
 cpw.mods.fml.common.eventhandler.Compat_Event_Result							net.minecraftforge.fml.common.eventhandler.Compat_Event_Result
 net.minecraft.util.Compat_AxisAlignedBB											net.minecraft.util.math.Compat_AxisAlignedBB
 net.minecraft.network.play.server.Compat_S35PacketUpdateTileEntity				net.minecraft.network.play.server.Compat_SPacketUpdateTileEntity
-
-
-
-
+cpw.mods.fml.common.eventhandler.Compat_Event									net.minecraftforge.fml.common.eventhandler.Compat_Event
+cpw.mods.fml.common.registry.Compat_GameData									net.minecraftforge.fml.common.registry.Compat_GameData
+cpw.mods.fml.common.gameevent.Compat_PlayerEvent_ItemCraftedEvent				net.minecraftforge.fml.common.gameevent.Compat_PlayerEvent_ItemCraftedEvent
 
