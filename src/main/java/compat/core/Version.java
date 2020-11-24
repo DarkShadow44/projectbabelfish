@@ -19,4 +19,8 @@ public enum Version {
 		VersionInfo info = obj.getClass().getAnnotation(VersionInfo.class);
 		return info == null ? UNKNOWN : info.value();
 	}
+
+	public void throwError() {
+		throw new RuntimeException("Unimplemented for version " + name());
+	}
 }

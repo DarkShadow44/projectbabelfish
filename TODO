@@ -62,3 +62,9 @@ always disable dump classes for release
 reobj Real classes for production
 Mixin into mods only possible starting with 1.14 ?!
 
+
+https://github.com/jaquadro/Chameleon/tree/1.12/src/com/jaquadro/minecraft/chameleon/render ?
+https://github.com/Thog/ISBRH/tree/master/src/main/java/eu/thog92/isbrh/render ?
+
+Tesselator -> WorldRenderer - func_78374_a,addVertexWithUV -> BufferBuilder wr; wr.pos(0, 16, 0).tex(0, 1).endVertex(); Tessellator.getInstance().draw();
+
