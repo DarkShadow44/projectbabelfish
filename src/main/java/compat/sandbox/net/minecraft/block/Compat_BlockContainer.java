@@ -27,6 +27,7 @@ public class Compat_BlockContainer extends Compat_Block {
 	}
 
 	protected void initialize(CompatI_BlockContainer wrapper) {
+		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 
