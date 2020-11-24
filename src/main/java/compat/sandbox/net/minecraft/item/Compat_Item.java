@@ -158,7 +158,7 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 	// Item objects are unique and can only exist once.
 	private static Map<Item, Compat_Item> cacheToFake = new HashMap<>();
 
-	public static Compat_Item get_fake(Item item) {
+	public static Compat_Item getFake(Item item) {
 		if (item instanceof CompatI_Item) {
 			return ((CompatI_Item) item).getFake();
 		}
@@ -245,7 +245,7 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 
 	public static Compat_Item Compat_func_150898_a(Compat_Block block) {
 		Item result = Item.getItemFromBlock(block.getReal());
-		return Compat_Item.get_fake(result);
+		return Compat_Item.getFake(result);
 	}
 
 	public int Compat_func_77647_b(int damage) {

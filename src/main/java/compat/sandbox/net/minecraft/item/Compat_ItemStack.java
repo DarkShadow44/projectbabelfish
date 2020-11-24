@@ -98,7 +98,7 @@ public class Compat_ItemStack {
 
 	public Compat_Item Compat_func_77973_b() {
 		Item result = wrapper.getItemSuper();
-		return Compat_Item.get_fake(result);
+		return Compat_Item.getFake(result);
 	}
 
 	public static Compat_ItemStack Compat_func_77949_a(Compat_NBTTagCompound tag) {

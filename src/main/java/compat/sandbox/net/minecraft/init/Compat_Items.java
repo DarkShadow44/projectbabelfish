@@ -9,12 +9,18 @@ import net.minecraft.init.Items;
 
 public class Compat_Items {
 
-	private static final Compat_Item ENDER_EYE = new Compat_Item(Items.ENDER_EYE);
-	private static final Compat_Item REDSTONE = new Compat_Item(Items.REDSTONE);
-	private static final Compat_Item GLOWSTONE_DUST = new Compat_Item(Items.GLOWSTONE_DUST);
-	private static final Compat_Item IRON_INGOT = new Compat_Item(Items.IRON_INGOT);
-	private static final Compat_Item DYE = new Compat_Item(Items.DYE);
+	private static final Compat_Item ENDER_EYE = Compat_Item.getFake(Items.ENDER_EYE);
+	private static final Compat_Item REDSTONE = Compat_Item.getFake(Items.REDSTONE);
+	private static final Compat_Item GLOWSTONE_DUST = Compat_Item.getFake(Items.GLOWSTONE_DUST);
+	private static final Compat_Item IRON_INGOT = Compat_Item.getFake(Items.IRON_INGOT);
+	private static final Compat_Item DYE = Compat_Item.getFake(Items.DYE);
 	private static final Compat_ItemEmptyMap MAP = new Compat_ItemEmptyMap(Items.MAP);
+	private static final Compat_Item GOLDEN_AXE = Compat_Item.getFake(Items.GOLDEN_AXE);
+	private static final Compat_Item BRICK = Compat_Item.getFake(Items.BRICK);
+	private static final Compat_Item FLOWER_POT = Compat_Item.getFake(Items.FLOWER_POT);
+	private static final Compat_Item REEDS = Compat_Item.getFake(Items.REEDS);
+	private static final Compat_Item DIAMOND_AXE = Compat_Item.getFake(Items.DIAMOND_AXE);
+	private static final Compat_Item WOODEN_AXE = Compat_Item.getFake(Items.WOODEN_AXE);
 
 	public static Compat_Item Compat_get_field_151061_bv() {
 		return ENDER_EYE;
@@ -327,5 +333,29 @@ public class Compat_Items {
 
 	public static Compat_Item Compat_get_field_151005_D() {
 		return new Compat_Item(Items.GOLDEN_PICKAXE);
+	}
+
+	public static Compat_Item Compat_get_field_151006_E() {
+		return GOLDEN_AXE;
+	}
+
+	public static Compat_Item Compat_get_field_151053_p() {
+		return WOODEN_AXE;
+	}
+
+	public static Compat_Item Compat_get_field_151056_x() {
+		return DIAMOND_AXE;
+	}
+
+	public static Compat_Item Compat_get_field_151118_aC() {
+		return BRICK;
+	}
+
+	public static Compat_Item Compat_get_field_151120_aE() {
+		return REEDS;
+	}
+
+	public static Compat_Item Compat_get_field_151162_bE() {
+		return FLOWER_POT;
 	}
 }
