@@ -13,7 +13,7 @@ public class ModInfo {
 	private Object proxy;
 
 	public ModInfo(String id, String className, String dependencies) {
-		this.id = id;
+		this.id = id.toLowerCase();
 		this.className = className;
 		setupDependencies(dependencies.toLowerCase());
 	}
