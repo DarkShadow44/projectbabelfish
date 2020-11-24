@@ -24,10 +24,10 @@ public class Compat_GameRegistry {
 
 		if (p1 instanceof Compat_Block) {
 			Block block = ((Compat_Block) p1).getReal();
-			CompatibilityMod.LAYER_1_10_2.blocksToRegister.add(new RegistrationInfoBlock(block, null, p2.getReal()));
+			CompatibilityMod.CURRENT_LAYER.blocksToRegister.add(new RegistrationInfoBlock(block, null, p2.getReal()));
 		} else if (p1 instanceof Compat_Item) {
 			Item item = ((Compat_Item) p1).getReal();
-			CompatibilityMod.LAYER_1_10_2.itemsToRegister.add(new RegistrationInfoItem(item, null, p2.getReal()));
+			CompatibilityMod.CURRENT_LAYER.itemsToRegister.add(new RegistrationInfoItem(item, null, p2.getReal()));
 		} else if (p1 instanceof Compat_SoundEvent) {
 			// TODO
 		} else {
@@ -41,10 +41,10 @@ public class Compat_GameRegistry {
 
 		if (p1 instanceof Compat_Block) {
 			Block block = ((Compat_Block) p1).getReal();
-			CompatibilityMod.LAYER_1_10_2.blocksToRegister.add(new RegistrationInfoBlock(block, null, null));
+			CompatibilityMod.CURRENT_LAYER.blocksToRegister.add(new RegistrationInfoBlock(block, null, null));
 		} else if (p1 instanceof Compat_Item) {
 			Item item = ((Compat_Item) p1).getReal();
-			CompatibilityMod.LAYER_1_10_2.itemsToRegister.add(new RegistrationInfoItem(item, null, null));
+			CompatibilityMod.CURRENT_LAYER.itemsToRegister.add(new RegistrationInfoItem(item, null, null));
 		} else {
 			throw new RuntimeException();
 		}
@@ -71,13 +71,13 @@ public class Compat_GameRegistry {
 
 	public static Compat_Block Compat_registerBlock(Compat_Block block, String name) {
 		// TODO
-		CompatibilityMod.LAYER_1_7_10.blocksToRegister.add(new RegistrationInfoBlock(block.getReal(), name, null));
+		CompatibilityMod.CURRENT_LAYER.blocksToRegister.add(new RegistrationInfoBlock(block.getReal(), name, null));
 		return block;
 	}
 
 	public static Compat_Block Compat_registerBlock(Compat_Block block, Class<?> clazz, String name) {
 		// TODO ItemBlock
-		CompatibilityMod.LAYER_1_7_10.blocksToRegister.add(new RegistrationInfoBlock(block.getReal(), name, null));
+		CompatibilityMod.CURRENT_LAYER.blocksToRegister.add(new RegistrationInfoBlock(block.getReal(), name, null));
 		return block;
 	}
 
@@ -87,7 +87,7 @@ public class Compat_GameRegistry {
 
 	public static void Compat_registerItem(Compat_Item item, String name) {
 		// TODO
-		CompatibilityMod.LAYER_1_7_10.itemsToRegister.add(new RegistrationInfoItem(item.getReal(), name, null));
+		CompatibilityMod.CURRENT_LAYER.itemsToRegister.add(new RegistrationInfoItem(item.getReal(), name, null));
 	}
 
 	public static void Compat_addShapelessRecipe(Compat_ItemStack stack, Object[] params) {

@@ -13,6 +13,9 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import compat.core.ModInfo;
+import compat.core.RegistrationInfoBlock;
+import compat.core.RegistrationInfoIcon;
+import compat.core.RegistrationInfoItem;
 import compat.core.Version;
 import compat.core.loader.CompatibilityClassTransformer;
 import net.minecraft.block.Block;
@@ -33,6 +36,11 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ServerTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
 public abstract class CompatibilityLayer {
+
+	public List<RegistrationInfoBlock> blocksToRegister = new ArrayList<>();
+	public List<RegistrationInfoItem> itemsToRegister = new ArrayList<>();
+	public List<RegistrationInfoIcon> iconsToRegister = new ArrayList<>();
+	public List<ModelLocationInfo> modelLocationInfo = new ArrayList<>();
 
 	static final String prefixFake = "Compat_";
 	static final String prefixInterface = "CompatI_";
@@ -160,4 +168,6 @@ public abstract class CompatibilityLayer {
 	public abstract void onAttachCapabilities(AttachCapabilitiesEvent<TileEntity> event);
 
 	public abstract void onServerTick(ServerTickEvent event);
+
+	public abstract String getCurrentModId();
 }

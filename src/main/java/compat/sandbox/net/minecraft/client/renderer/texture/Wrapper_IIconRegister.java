@@ -9,7 +9,7 @@ public class Wrapper_IIconRegister implements Compat_IIconRegister {
 	@Override
 	public Compat_IIcon Compat_func_94245_a(String name) {
 		name = name.toLowerCase();
-		CompatibilityMod.LAYER_1_7_10.iconsToRegister.add(new RegistrationInfoIcon(name));
+		CompatibilityMod.CURRENT_LAYER.iconsToRegister.add(new RegistrationInfoIcon(name));
 		return new Wrapper_IIcon(name);
 	}
 

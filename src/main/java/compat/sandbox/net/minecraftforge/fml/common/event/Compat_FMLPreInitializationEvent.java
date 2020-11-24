@@ -25,7 +25,11 @@ public class Compat_FMLPreInitializationEvent {
 
 	public File Compat_getSuggestedConfigurationFile() {
 		File parent = original.getSuggestedConfigurationFile().getParentFile();
-		File folder = new File(parent, "1.10.2"); // TODO set to current layer!
-		return new File(folder, CompatibilityMod.LAYER_1_10_2.currentModId);
+		File folder = new File(parent, CompatibilityMod.CURRENT_LAYER.getVersion().getString());
+		return new File(folder, CompatibilityMod.CURRENT_LAYER.getCurrentModId());
+	}
+
+	public File Compat_getModConfigurationDirectory() {
+		return Compat_getSuggestedConfigurationFile();
 	}
 }

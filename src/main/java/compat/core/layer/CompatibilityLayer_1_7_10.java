@@ -48,13 +48,17 @@ import net.minecraftforge.fml.relauncher.Side;
 
 public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 
-	public List<RegistrationInfoBlock> blocksToRegister = new ArrayList<>();
-	public List<RegistrationInfoItem> itemsToRegister = new ArrayList<>();
-	public List<RegistrationInfoIcon> iconsToRegister = new ArrayList<>();
 	public Map<String, String> translationsToRegister = new HashMap<>();
+
+	private String currentModId = null;
 
 	public CompatibilityLayer_1_7_10(Version version) {
 		super(version);
+	}
+
+	@Override
+	public String getCurrentModId() {
+		return currentModId;
 	}
 
 	private void registerTranslation(String key) {
@@ -144,10 +148,12 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-		for (ModInfo mod : mods) {
-			MethodInfo<?> methodPreInit = new MethodInfo<>(mod.getMod(), Compat_Mod_EventHandler.class, Compat_FMLPreInitializationEvent.class);
+		for (ModInfo modInfo : mods) {
+			currentModId = modInfo.id;
+			MethodInfo<?> methodPreInit = new MethodInfo<>(modInfo.getMod(), Compat_Mod_EventHandler.class, Compat_FMLPreInitializationEvent.class);
 			methodPreInit.tryInvoke(new Compat_FMLPreInitializationEvent(event));
 		}
+		currentModId = null;
 
 		// Get icons to register
 		Wrapper_IIconRegister iconRegister = new Wrapper_IIconRegister();

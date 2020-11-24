@@ -33,7 +33,7 @@ public class Compat_IForgeRegistryEntry_Impl<T extends IForgeRegistryEntry<T>> i
 	}
 
 	public Compat_IForgeRegistryEntry<T> Compat_setRegistryName(String name) {
-		wrapper.setRegistryNameSuper(CompatibilityMod.LAYER_1_10_2.currentModId, name);
+		wrapper.setRegistryNameSuper(CompatibilityMod.CURRENT_LAYER.getCurrentModId(), name);
 		return this;
 	}
 }

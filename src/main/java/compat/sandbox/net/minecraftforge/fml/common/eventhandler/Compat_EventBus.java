@@ -16,7 +16,7 @@ public class Compat_EventBus {
 	}
 
 	public void Compat_register(Object obj) {
-		CompatibilityMod.LAYER_1_10_2.getModById(CompatibilityMod.LAYER_1_10_2.currentModId).addEventObject(obj);
+		CompatibilityMod.CURRENT_LAYER.getModById(CompatibilityMod.CURRENT_LAYER.getCurrentModId()).addEventObject(obj);
 	}
 
 	public boolean Compat_post(Compat_Event event) {

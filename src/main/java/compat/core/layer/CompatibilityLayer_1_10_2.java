@@ -54,14 +54,15 @@ import net.minecraftforge.fml.relauncher.Side;
 
 public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 
-	public List<RegistrationInfoBlock> blocksToRegister = new ArrayList<>();
-	public List<RegistrationInfoItem> itemsToRegister = new ArrayList<>();
-	public List<ModelLocationInfo> modelLocationInfo = new ArrayList<>();
-
-	public String currentModId = "";
+	private String currentModId = null;
 
 	public CompatibilityLayer_1_10_2(Version version) {
 		super(version);
+	}
+
+	@Override
+	public String getCurrentModId() {
+		return currentModId;
 	}
 
 	private List<ModInfo> findMods(List<Class<?>> classes) {
@@ -152,6 +153,7 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 			MethodInfo<?> methodPreInit = new MethodInfo<>(modInfo.getMod(), Compat_Mod_EventHandler.class, Compat_FMLPreInitializationEvent.class);
 			methodPreInit.tryInvoke(new Compat_FMLPreInitializationEvent(event));
 		}
+		currentModId = null;
 
 		// Fill capabilities
 		try {
@@ -236,6 +238,7 @@ public class CompatibilityLayer_1_10_2 extends CompatibilityLayer {
 			MethodInfo<?> methodInit = new MethodInfo<>(modInfo.getMod(), Compat_Mod_EventHandler.class, Compat_FMLInitializationEvent.class);
 			methodInit.tryInvoke(new Compat_FMLInitializationEvent(event));
 		}
+		currentModId = null;
 	}
 
 	@Override

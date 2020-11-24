@@ -29,6 +29,6 @@ public class Compat_ModelLoader extends Compat_ModelBakery {
 	}
 
 	public static void Compat_setCustomModelResourceLocation(Compat_Item item, int metadata, Compat_ModelResourceLocation location) {
-		CompatibilityMod.LAYER_1_10_2.modelLocationInfo.add(new ModelLocationInfo(item.getReal(), metadata, location.getReal()));
+		CompatibilityMod.CURRENT_LAYER.modelLocationInfo.add(new ModelLocationInfo(item.getReal(), metadata, location.getReal()));
 	}
 }

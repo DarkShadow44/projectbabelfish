@@ -49,8 +49,9 @@ public class CompatibilityMod {
 	private final ResourcePack resourcePack = new ResourcePack();
 
 	private static List<CompatibilityLayer> layers = new ArrayList<>();
-	public static CompatibilityLayer_1_7_10 LAYER_1_7_10 = new CompatibilityLayer_1_7_10(Version.V1_7_10);
-	public static CompatibilityLayer_1_10_2 LAYER_1_10_2 = new CompatibilityLayer_1_10_2(Version.V1_10_2);
+	public static CompatibilityLayer CURRENT_LAYER;
+	private static CompatibilityLayer_1_7_10 LAYER_1_7_10 = new CompatibilityLayer_1_7_10(Version.V1_7_10);
+	private static CompatibilityLayer_1_10_2 LAYER_1_10_2 = new CompatibilityLayer_1_10_2(Version.V1_10_2);
 
 	static {
 		layers.add(LAYER_1_7_10);
@@ -81,23 +82,27 @@ public class CompatibilityMod {
 		File directoryMods = new File(event.getModConfigurationDirectory().getParentFile(), "mods");
 
 		for (CompatibilityLayer layer : layers) {
+			CURRENT_LAYER = layer;
 			layer.loadMods(directoryMods, event.getSide());
 			layer.preInit(event);
 		}
+		CURRENT_LAYER = null;
 		Minecraft.getMinecraft().refreshResources(); // Refresh for models
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		for (CompatibilityLayer layer : layers) {
+			CURRENT_LAYER = layer;
 			layer.init(event);
 		}
+		CURRENT_LAYER = null;
 	}
 
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	void postInit(FMLPostInitializationEvent event) {
-		Minecraft.getMinecraft().refreshResources(); // Refresh to translations
+		Minecraft.getMinecraft().refreshResources(); // Refresh for translations
 	}
 
 	@SubscribeEvent
