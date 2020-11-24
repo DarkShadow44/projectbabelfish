@@ -117,7 +117,7 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 		// Fill instances
 		for (ModInfo mod : mods) {
 			FieldInfo<?> instance = new FieldInfo<>(mod.getMod(), Compat_Mod_Instance.class);
-			instance.trySetValue(mod);
+			instance.trySetValue(mod.getMod());
 		}
 
 		// Fill proxys
