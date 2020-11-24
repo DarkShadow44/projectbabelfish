@@ -24,6 +24,9 @@ public class Compat_Material {
 	private static final Compat_Material IRON = new Compat_Material(Material.IRON);
 	private static final Compat_Material AIR = new Compat_Material(Material.AIR);
 	private static final Compat_Material WATER = new Compat_Material(Material.WATER);
+	private static final Compat_Material CLAY = new Compat_Material(Material.CLAY);
+	private static final Compat_Material GOURD = new Compat_Material(Material.GOURD);
+	private static final Compat_Material FIRE = new Compat_Material(Material.FIRE);
 
 	private CompatI_Material wrapper;
 
@@ -149,5 +152,25 @@ public class Compat_Material {
 
 	public static Compat_Material getFake(Material material) {
 		return new Compat_Material(material);
+	}
+
+	public boolean Compat_func_76218_k() {
+		return wrapper.isOpaqueSuper();
+	}
+
+	public boolean Compat_func_76230_c() {
+		return wrapper.blocksMovementSuper();
+	}
+
+	public static Compat_Material Compat_get_field_151571_B() {
+		return CLAY;
+	}
+
+	public static Compat_Material Compat_get_field_151572_C() {
+		return GOURD;
+	}
+
+	public static Compat_Material Compat_get_field_151581_o() {
+		return FIRE;
 	}
 }

@@ -88,4 +88,9 @@ public class Compat_AxisAlignedBB {
 		return new Compat_AxisAlignedBB(bb);
 	}
 
+	public static Compat_AxisAlignedBB Compat_func_72330_a(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+		AxisAlignedBB result = new AxisAlignedBB(minX, minY, minZ, maxX, maxY, maxZ);
+		return new Compat_AxisAlignedBB(result);
+	}
+
 }

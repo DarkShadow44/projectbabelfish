@@ -17,4 +17,8 @@ public interface CompatI_Material {
 	public MapColor getMaterialMapColorSuper();
 
 	public boolean isToolNotRequiredSuper();
+
+	public boolean isOpaqueSuper();
+
+	public boolean blocksMovementSuper();
 }
