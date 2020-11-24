@@ -34,4 +34,4 @@ net.minecraft.network.play.server.Compat_S35PacketUpdateTileEntity				net.minecr
 cpw.mods.fml.common.eventhandler.Compat_Event									net.minecraftforge.fml.common.eventhandler.Compat_Event
 cpw.mods.fml.common.registry.Compat_GameData									net.minecraftforge.fml.common.registry.Compat_GameData
 cpw.mods.fml.common.gameevent.Compat_PlayerEvent_ItemCraftedEvent				net.minecraftforge.fml.common.gameevent.Compat_PlayerEvent_ItemCraftedEvent
-
+net.minecraft.util.Compat_EnumChatFormatting									net.minecraft.util.text.Compat_TextFormatting
