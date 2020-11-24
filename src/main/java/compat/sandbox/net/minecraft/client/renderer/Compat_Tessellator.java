@@ -17,8 +17,8 @@ public class Compat_Tessellator {
 		return new Compat_Tessellator(Tessellator.getInstance());
 	}
 
-	public Compat_VertexBuffer Compat_func_178180_c() {
-		return new Compat_VertexBuffer(original.getBuffer());
+	public Compat_BufferBuilder Compat_func_178180_c() {
+		return new Compat_BufferBuilder(original.getBuffer());
 	}
 
 	public void Compat_func_78381_a() {

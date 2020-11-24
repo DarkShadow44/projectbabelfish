@@ -3,11 +3,11 @@ package compat.sandbox.net.minecraft.client.renderer;
 import compat.sandbox.net.minecraft.client.renderer.vertex.Compat_VertexFormat;
 import net.minecraft.client.renderer.BufferBuilder;
 
-public class Compat_VertexBuffer {
+public class Compat_BufferBuilder {
 
 	private final BufferBuilder original;
 
-	public Compat_VertexBuffer(BufferBuilder original) {
+	public Compat_BufferBuilder(BufferBuilder original) {
 		this.original = original;
 	}
 
@@ -23,7 +23,7 @@ public class Compat_VertexBuffer {
 		original.setTranslation(x, y, z);
 	}
 
-	public Compat_VertexBuffer Compat_func_181662_b(double x, double y, double z) {
+	public Compat_BufferBuilder Compat_func_181662_b(double x, double y, double z) {
 		original.pos(x, y, z);
 		return this;
 	}

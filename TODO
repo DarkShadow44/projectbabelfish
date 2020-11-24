@@ -1,13 +1,9 @@
 all in net.minecraft are 3-part-classes, minecraft forge and cpw.mods.fml can be different
 load world automatically on start?
-all todo to throw exception?
 
 how does intermediary work? how handles 1.7.10 method/event to 1.2.5 block?
 
 
-
-no abstract "real" classes!
-continue rework!
 
 https://skmedix.github.io/ForgeJavaDocs/javadoc/forge/1.7.10-10.13.4.1614/net/minecraft/world/gen/structure/MapGenVillage.html
 
@@ -28,8 +24,6 @@ start, stop, refresh project explorer
 Debug configurations _> Add both to sources and class path
 
 
-one compatibility layer für alle? Try merge 1.7.10 and 1.10... afterwards, rename .de.dark...sandbox to /compatibility/sandbox/
-
 goblins witchery compatibility (java.lang.reflect.Constructor Mixin)
 
 forge tries create mod objects
@@ -41,6 +35,8 @@ Think again: Why "Mod_Block -> Wrapper_Block -> MC_Block" nicht möglich?
 
 
 no new Compat_Item allowed!
+use class redirect always!
+no abstract "real" classes!
 
 instanceof abfangen oder doublewrap verhinern...?
 
@@ -59,7 +55,7 @@ different sandbox for different mc version, but same mc sandbox... could be prob
 cache for same build version
 
 always disable dump classes for release
-reobj Real classes for production
+reobf Real classes for production
 Mixin into mods only possible starting with 1.14 ?!
 
 
@@ -67,4 +63,5 @@ https://github.com/jaquadro/Chameleon/tree/1.12/src/com/jaquadro/minecraft/chame
 https://github.com/Thog/ISBRH/tree/master/src/main/java/eu/thog92/isbrh/render ?
 
 Tesselator -> WorldRenderer - func_78374_a,addVertexWithUV -> BufferBuilder wr; wr.pos(0, 16, 0).tex(0, 1).endVertex(); Tessellator.getInstance().draw();
+
 

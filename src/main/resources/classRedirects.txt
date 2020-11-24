@@ -35,3 +35,12 @@ cpw.mods.fml.common.eventhandler.Compat_Event									net.minecraftforge.fml.com
 cpw.mods.fml.common.registry.Compat_GameData									net.minecraftforge.fml.common.registry.Compat_GameData
 cpw.mods.fml.common.gameevent.Compat_PlayerEvent_ItemCraftedEvent				net.minecraftforge.fml.common.gameevent.Compat_PlayerEvent_ItemCraftedEvent
 net.minecraft.util.Compat_EnumChatFormatting									net.minecraft.util.text.Compat_TextFormatting
+net.minecraft.client.renderer.Compat_VertexBuffer								net.minecraft.client.renderer.Compat_BufferBuilder
+net.minecraft.client.particle.Compat_EntityFX									net.minecraft.client.particle.Compat_Particle
+net.minecraft.client.particle.Compat_EffectRenderer								net.minecraft.client.particle.Compat_ParticleManager
+net.minecraft.client.particle.Compat_EntityDiggingFX							net.minecraft.client.particle.Compat_ParticleDigging
+net.minecraft.client.particle.Compat_EntitySmokeFX								net.minecraft.client.particle.Compat_ParticleSmokeNormal
+net.minecraft.entity.ai.Compat_EntityAIAttackOnCollide							net.minecraft.entity.ai.Compat_EntityAIAttackMelee
+net.minecraft.world.biome.Compat_BiomeGenBase									net.minecraft.world.biome.Compat_Biome
+net.minecraft.util.Compat_MathHelper											net.minecraft.util.math.Compat_MathHelper
+

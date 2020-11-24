@@ -3,14 +3,14 @@ package compat.sandbox.net.minecraftforge.client.model.pipeline;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
-import compat.sandbox.net.minecraft.client.renderer.Compat_VertexBuffer;
+import compat.sandbox.net.minecraft.client.renderer.Compat_BufferBuilder;
 import net.minecraftforge.client.model.pipeline.VertexBufferConsumer;
 
 public class Compat_VertexBufferConsumer {
 	private CompatI_VertexBufferConsumer wrapper;
 
 	// When called from Mod
-	public Compat_VertexBufferConsumer(Compat_VertexBuffer buffer) {
+	public Compat_VertexBufferConsumer(Compat_BufferBuilder buffer) {
 		this.initialize(Factory.create(CtorPos.POS1, CompatI_VertexBufferConsumer.class, this, buffer.getReal()));
 	}
 

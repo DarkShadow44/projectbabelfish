@@ -18,7 +18,7 @@ public class Compat_BlockModelRenderer {
 		return original;
 	}
 
-	public boolean Compat_func_178267_a(Compat_IBlockAccess world, Compat_IBakedModel model, Compat_IBlockState state, Compat_BlockPos pos, Compat_VertexBuffer buffer, boolean p1) {
+	public boolean Compat_func_178267_a(Compat_IBlockAccess world, Compat_IBakedModel model, Compat_IBlockState state, Compat_BlockPos pos, Compat_BufferBuilder buffer, boolean p1) {
 		return original.renderModel(world.getReal(), Compat_IBakedModel.getReal(model), state.getReal(), pos.getReal(), buffer.getReal(), p1);
 	}
 }
