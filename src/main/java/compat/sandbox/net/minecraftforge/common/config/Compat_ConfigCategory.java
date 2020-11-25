@@ -29,4 +29,12 @@ public class Compat_ConfigCategory {
 	public ConfigCategory getReal() {
 		return wrapper.get();
 	}
+
+	public String Compat_getQualifiedName() {
+		return wrapper.getQualifiedNameSuper();
+	}
+
+	public void Compat_setComment(String comment) {
+		wrapper.setCommentSuper(comment);
+	}
 }

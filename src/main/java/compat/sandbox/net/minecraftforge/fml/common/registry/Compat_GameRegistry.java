@@ -1,5 +1,7 @@
 package compat.sandbox.net.minecraftforge.fml.common.registry;
 
+import java.util.HashSet;
+
 import compat.core.CompatibilityMod;
 import compat.core.RegistrationInfoBlock;
 import compat.core.RegistrationInfoItem;
@@ -57,7 +59,14 @@ public class Compat_GameRegistry {
 		// TODO
 	}
 
+	private static HashSet<Class<?>> tiles = new HashSet<>();
+
 	public static void Compat_registerTileEntity(Class<? extends TileEntity> clazz, String key) {
+		if (tiles.contains(clazz)) {
+			System.out.println("########## Compatibility: Found duplicate tile entity registration: " + clazz.getName());
+			return; // TODO
+		}
+		tiles.add(clazz);
 		GameRegistry.registerTileEntity(clazz, new ResourceLocation(key)); // TODO class?
 	}
 

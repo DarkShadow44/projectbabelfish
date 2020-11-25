@@ -3,15 +3,17 @@ package compat.sandbox.net.minecraft.block;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
+import compat.sandbox.net.minecraft.block.material.Compat_MapColor;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 
 public class Compat_BlockCompressed extends Compat_Block {
 	private CompatI_Block wrapper;
 
 	// When called from Mod
-	public Compat_BlockCompressed() {
+	public Compat_BlockCompressed(Compat_MapColor color) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_Block.class, this));
+		this.initialize(Factory.create(CtorPos.POS6, CompatI_Block.class, this, Material.IRON, color.getReal()));
 	}
 
 	// When called from child

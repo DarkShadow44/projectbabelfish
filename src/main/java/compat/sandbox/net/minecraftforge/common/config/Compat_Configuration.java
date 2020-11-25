@@ -68,4 +68,20 @@ public class Compat_Configuration {
 		return wrapper.hasChangedSuper();
 	}
 
+	public Compat_Property Compat_get(String category, String key, String defaultValue) {
+		return new Compat_Property(wrapper.getSuper(category, key, defaultValue));
+	}
+
+	public Compat_ConfigCategory Compat_getCategory(String category) {
+		return new Compat_ConfigCategory(wrapper.getCategorySuper(category));
+	}
+
+	public boolean Compat_hasCategory(String category) {
+		return wrapper.hasCategorySuper(category);
+	}
+
+	public boolean Compat_hasKey(String category, String key) {
+		return wrapper.hasKeySuper(category, key);
+	}
+
 }

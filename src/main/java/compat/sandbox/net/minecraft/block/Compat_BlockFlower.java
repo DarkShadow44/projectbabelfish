@@ -1,15 +1,17 @@
 package compat.sandbox.net.minecraft.block;
 
+import compat.autogen.Callback;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
 import net.minecraft.block.BlockFlower;
+import net.minecraft.block.BlockFlower.EnumFlowerColor;
 
 public class Compat_BlockFlower extends Compat_Block {
 	private CompatI_BlockFlower wrapper;
 
 	// When called from Mod
-	public Compat_BlockFlower() {
+	public Compat_BlockFlower(int type) { // TODO
 		super(ParentSelector.NULL);
 		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockFlower.class, this));
 	}
@@ -33,4 +35,10 @@ public class Compat_BlockFlower extends Compat_Block {
 	public BlockFlower getReal() {
 		return wrapper.get();
 	}
+
+	@Callback
+	public EnumFlowerColor getBlockType() {
+		return EnumFlowerColor.RED; // TODO ?
+	}
+
 }

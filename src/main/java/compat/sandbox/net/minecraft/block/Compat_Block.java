@@ -741,4 +741,8 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		wrapper.updateTickSuper(world.getReal(), pos.getReal(), state.getReal(), random);
 	}
 
+	public void Compat_func_149683_g() {
+		// TODO setBlockBoundsForItemRender
+	}
+
 }

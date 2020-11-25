@@ -1,5 +1,6 @@
 package compat.sandbox.net.minecraftforge.common.config;
 
+import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 
@@ -23,4 +24,12 @@ public interface CompatI_Configuration {
 	public Property getSuper(String category, String key, String[] defaultValues);
 
 	public Property getSuper(String category, String key, boolean defaultValue);
+
+	public Property getSuper(String category, String key, String defaultValue);
+
+	public ConfigCategory getCategorySuper(String category);
+
+	public boolean hasCategorySuper(String category);
+
+	public boolean hasKeySuper(String category, String key);
 }

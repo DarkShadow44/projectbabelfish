@@ -21,4 +21,9 @@ public class Compat_Loader {
 	public Compat_ModContainer Compat_activeModContainer() {
 		return new Wrapper_ModContainer(original.activeModContainer());
 	}
+
+	public boolean Compat_isModLoaded(String name)
+	{
+		return false; // TODO
+	}
 }

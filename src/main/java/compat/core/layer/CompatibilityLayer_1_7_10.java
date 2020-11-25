@@ -163,9 +163,9 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 		}
 
 		// Register translations
-		for (String key : translationsToRegister.keySet()) {
+		/*for (String key : translationsToRegister.keySet()) {
 			registerTranslation(key);
-		}
+		}*/
 	}
 
 	@Override

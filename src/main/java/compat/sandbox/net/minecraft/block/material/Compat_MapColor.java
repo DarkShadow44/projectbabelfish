@@ -243,4 +243,13 @@ public class Compat_MapColor {
 	public int Compat_get_field_76291_p() {
 		return original.colorValue;
 	}
+
+	public static Compat_MapColor Compat_get_field_151656_f() {
+		return TNT;
+	}
+
+	public static Compat_MapColor Compat_get_field_151646_E() {
+		return BLACK;
+	}
+
 }
