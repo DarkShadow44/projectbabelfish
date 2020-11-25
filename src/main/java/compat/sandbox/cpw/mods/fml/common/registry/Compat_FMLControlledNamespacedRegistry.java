@@ -1,5 +1,7 @@
 package compat.sandbox.cpw.mods.fml.common.registry;
 
+import compat.core.CompatibilityMod;
+import compat.core.RegistrationInfoBlock;
 import compat.sandbox.net.minecraft.block.Compat_Block;
 import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
@@ -21,6 +23,11 @@ public class Compat_FMLControlledNamespacedRegistry<T extends IForgeRegistryEntr
 		}
 
 		if (obj instanceof Block) {
+			for (RegistrationInfoBlock info : CompatibilityMod.CURRENT_LAYER.blocksToRegister) {
+				if (info.getBlock() == obj) {
+					return info.getLocation().toString();
+				}
+			}
 			return ((Block) obj).getRegistryName().toString();
 		}
 

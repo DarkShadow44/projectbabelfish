@@ -61,6 +61,7 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 		return currentModId;
 	}
 
+	@SuppressWarnings("unused")
 	private void registerTranslation(String key) {
 		String text = translationsToRegister.get(key);
 		String lines[] = text.split("\n");
@@ -171,6 +172,7 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 	@Override
 	public void onBlocksRegistration(Register<Block> blockRegisterEvent) {
 		for (RegistrationInfoBlock block : blocksToRegister) {
+			block.getBlock().setRegistryName(block.getLocation());
 			blockRegisterEvent.getRegistry().register(block.getBlock());
 		}
 	}

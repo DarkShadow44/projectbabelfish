@@ -63,6 +63,7 @@ import net.minecraft.world.WorldServer;
 public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	private CompatI_Block wrapper;
 
+	@SuppressWarnings("unused")
 	private Version version = Version.UNKNOWN;
 
 	// When called from Mod
@@ -135,10 +136,6 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 
 	public Compat_Block Compat_func_149663_c(String name) {
 		wrapper.setUnlocalizedNameSuper(name);
-
-		if (version == Version.V1_7_10) {
-			wrapper.setRegistryNameSuper(name);
-		}
 		return this;
 	}
 
