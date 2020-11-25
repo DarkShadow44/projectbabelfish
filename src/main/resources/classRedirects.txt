@@ -46,7 +46,7 @@ net.minecraft.util.Compat_MathHelper											net.minecraft.util.math.Compat_Ma
 net.minecraft.util.Compat_MovingObjectPosition									net.minecraft.util.math.Compat_RayTraceResult
 net.minecraft.world.biome.Compat_WorldChunkManager								net.minecraft.world.biome.Compat_BiomeProvider
 net.minecraft.world.gen.feature.Compat_WorldGenForest							net.minecraft.world.gen.feature.Compat_WorldGenBirchTree
-
+net.minecraft.util.Compat_Vec3													net.minecraft.util.math.Compat_Vec3d
 
 
 

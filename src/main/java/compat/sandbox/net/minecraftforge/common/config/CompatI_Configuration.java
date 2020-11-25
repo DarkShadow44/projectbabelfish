@@ -18,6 +18,8 @@ public interface CompatI_Configuration {
 
 	public Property getSuper(String category, String key, double defaultValue);
 
+	public Property getSuper(String category, String key, int defaultValue);
+
 	public Property getSuper(String category, String key, String[] defaultValues);
 
 	public Property getSuper(String category, String key, boolean defaultValue);

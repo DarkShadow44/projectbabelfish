@@ -70,4 +70,16 @@ public class Compat_Vec3d {
 	public Compat_Vec3d Compat_func_186678_a(double factor) {
 		return new Compat_Vec3d(wrapper.scaleSuper(factor));
 	}
+
+	public Compat_Vec3d Compat_func_72431_c(Compat_Vec3d vec) {
+		return new Compat_Vec3d(wrapper.crossProductSuper(vec.getReal()));
+	}
+
+	public Compat_Vec3d Compat_func_72432_b() {
+		return new Compat_Vec3d(wrapper.normalizeSuper());
+	}
+
+	public static Compat_Vec3d Compat_func_72443_a(double x, double y, double z) {
+		return new Compat_Vec3d(new Vec3d(x, y, z));
+	}
 }

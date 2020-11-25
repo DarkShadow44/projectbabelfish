@@ -22,4 +22,8 @@ public interface CompatI_Vec3d {
 	public Vec3d subtractSuper(Vec3d other);
 
 	public Vec3d scaleSuper(double factor);
+
+	public Vec3d crossProductSuper(Vec3d vec);
+
+	public Vec3d normalizeSuper();
 }
