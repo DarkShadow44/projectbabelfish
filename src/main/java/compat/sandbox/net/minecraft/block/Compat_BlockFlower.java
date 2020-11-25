@@ -26,6 +26,7 @@ public class Compat_BlockFlower extends Compat_Block {
 	}
 
 	protected void initialize(CompatI_BlockFlower wrapper) {
+		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 

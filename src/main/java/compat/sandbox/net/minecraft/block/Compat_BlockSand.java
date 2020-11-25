@@ -26,6 +26,7 @@ public class Compat_BlockSand extends Compat_Block {
 	}
 
 	protected void initialize(CompatI_BlockSand wrapper) {
+		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 

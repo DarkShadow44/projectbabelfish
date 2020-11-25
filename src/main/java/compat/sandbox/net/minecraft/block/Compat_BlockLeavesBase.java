@@ -27,6 +27,7 @@ public class Compat_BlockLeavesBase extends Compat_Block {
 	}
 
 	protected void initialize(CompatI_BlockLeavesBase wrapper) {
+		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 

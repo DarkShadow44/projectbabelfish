@@ -26,6 +26,7 @@ public class Compat_BlockTallGrass extends Compat_BlockBush {
 	}
 
 	protected void initialize(CompatI_BlockTallGrass wrapper) {
+		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 

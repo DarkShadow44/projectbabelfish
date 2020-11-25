@@ -33,6 +33,7 @@ public class Compat_BlockBush extends Compat_Block {
 	}
 
 	protected void initialize(CompatI_BlockBush wrapper) {
+		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 

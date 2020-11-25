@@ -27,6 +27,7 @@ public class Compat_BlockPressurePlate extends Compat_Block {
 	}
 
 	protected void initialize(CompatI_BlockPressurePlate wrapper) {
+		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 

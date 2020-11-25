@@ -26,6 +26,7 @@ public class Compat_BlockDragonEgg extends Compat_Block {
 	}
 
 	protected void initialize(CompatI_BlockDragonEgg wrapper) {
+		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 

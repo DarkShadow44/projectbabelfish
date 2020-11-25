@@ -27,6 +27,7 @@ public class Compat_BlockRotatedPillar extends Compat_Block {
 	}
 
 	protected void initialize(CompatI_BlockRotatedPillar wrapper) {
+		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 

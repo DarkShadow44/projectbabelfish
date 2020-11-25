@@ -26,6 +26,7 @@ public class Compat_BlockDeadBush extends Compat_Block {
 	}
 
 	protected void initialize(CompatI_BlockDeadBush wrapper) {
+		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 

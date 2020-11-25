@@ -27,6 +27,7 @@ public class Compat_BlockDoor extends Compat_Block {
 	}
 
 	protected void initialize(CompatI_BlockDoor wrapper) {
+		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 

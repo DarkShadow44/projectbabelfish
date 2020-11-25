@@ -26,6 +26,7 @@ public class Compat_BlockFire extends Compat_Block {
 	}
 
 	protected void initialize(CompatI_BlockFire wrapper) {
+		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 

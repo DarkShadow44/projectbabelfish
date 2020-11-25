@@ -27,6 +27,7 @@ public class Compat_BlockStairs extends Compat_Block {
 	}
 
 	protected void initialize(CompatI_BlockStairs wrapper) {
+		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 

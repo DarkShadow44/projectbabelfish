@@ -26,6 +26,7 @@ public class Compat_BlockLilyPad extends Compat_Block {
 	}
 
 	protected void initialize(CompatI_BlockLilyPad wrapper) {
+		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 

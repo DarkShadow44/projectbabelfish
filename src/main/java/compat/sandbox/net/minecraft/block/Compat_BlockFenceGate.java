@@ -27,6 +27,7 @@ public class Compat_BlockFenceGate extends Compat_Block {
 	}
 
 	protected void initialize(CompatI_BlockFenceGate wrapper) {
+		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 

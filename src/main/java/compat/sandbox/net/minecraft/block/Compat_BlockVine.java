@@ -26,6 +26,7 @@ public class Compat_BlockVine extends Compat_Block {
 	}
 
 	protected void initialize(CompatI_BlockVine wrapper) {
+		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 
