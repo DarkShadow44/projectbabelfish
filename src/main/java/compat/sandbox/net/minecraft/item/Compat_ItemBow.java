@@ -26,6 +26,7 @@ public class Compat_ItemBow extends Compat_Item {
 	}
 
 	protected void initialize(CompatI_ItemBow wrapper) {
+		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 

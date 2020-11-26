@@ -26,6 +26,7 @@ public class Compat_ItemSword extends Compat_Item {
 	}
 
 	protected void initialize(CompatI_ItemSword wrapper) {
+		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 

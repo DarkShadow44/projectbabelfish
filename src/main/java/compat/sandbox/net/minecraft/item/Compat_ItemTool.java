@@ -26,6 +26,7 @@ public class Compat_ItemTool extends Compat_Item {
 	}
 
 	protected void initialize(CompatI_ItemTool wrapper) {
+		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 

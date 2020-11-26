@@ -26,6 +26,7 @@ public class Compat_ItemPickaxe extends Compat_ItemTool {
 	}
 
 	protected void initialize(CompatI_ItemPickaxe wrapper) {
+		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 

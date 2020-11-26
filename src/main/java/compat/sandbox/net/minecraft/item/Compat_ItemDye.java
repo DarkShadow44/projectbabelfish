@@ -26,6 +26,7 @@ public class Compat_ItemDye extends Compat_Item {
 	}
 
 	protected void initialize(CompatI_ItemDye wrapper) {
+		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 

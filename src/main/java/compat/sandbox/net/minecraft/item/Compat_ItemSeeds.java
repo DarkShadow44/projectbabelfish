@@ -27,6 +27,7 @@ public class Compat_ItemSeeds extends Compat_Item {
 	}
 
 	protected void initialize(CompatI_ItemSeeds wrapper) {
+		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 

@@ -26,6 +26,7 @@ public class Compat_ItemPotion extends Compat_Item {
 	}
 
 	protected void initialize(CompatI_ItemPotion wrapper) {
+		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 

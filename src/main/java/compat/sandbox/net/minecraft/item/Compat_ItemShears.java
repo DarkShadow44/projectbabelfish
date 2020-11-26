@@ -26,6 +26,7 @@ public class Compat_ItemShears extends Compat_Item {
 	}
 
 	protected void initialize(CompatI_ItemShears wrapper) {
+		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 

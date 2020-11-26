@@ -27,6 +27,7 @@ public class Compat_ItemColored extends Compat_ItemBlock {
 	}
 
 	protected void initialize(CompatI_ItemColored wrapper) {
+		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 

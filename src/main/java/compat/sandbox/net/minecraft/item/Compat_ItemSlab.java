@@ -34,6 +34,7 @@ public class Compat_ItemSlab extends Compat_ItemBlock {
 	}
 
 	protected void initialize(CompatI_ItemSlab wrapper) {
+		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 
