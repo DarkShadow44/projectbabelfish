@@ -20,7 +20,7 @@ public enum Version {
 		return info == null ? UNKNOWN : info.value();
 	}
 
-	public void throwError() {
-		throw new RuntimeException("Unimplemented for version " + name());
+	public RuntimeException makeException() {
+		return new RuntimeException("Unimplemented for version " + name());
 	}
 }

@@ -7,11 +7,14 @@ import compat.autogen.HasCallback;
 import compat.core.ParentSelector;
 import compat.core.Version;
 import compat.sandbox.net.minecraft.item.Compat_Item;
+import compat.sandbox.net.minecraft.item.Compat_ItemStack;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 
 public class Compat_CreativeTabs {
 	private CompatI_CreativeTabs wrapper;
+
+	private Version version = Version.UNKNOWN;
 
 	// When called from Mod
 	public Compat_CreativeTabs(String label) {
@@ -29,6 +32,7 @@ public class Compat_CreativeTabs {
 
 	protected void initialize(CompatI_CreativeTabs wrapper) {
 		this.wrapper = wrapper;
+		this.version = Version.get(this);
 	}
 
 	public CreativeTabs getReal() {
@@ -37,10 +41,17 @@ public class Compat_CreativeTabs {
 
 	@Callback
 	public ItemStack getTabIconItem() {
-		return new ItemStack(Compat_func_78016_d().getReal(), 1, Compat_func_151243_f());
+		switch (version) {
+		case V1_10_2:
+			return new ItemStack(Compat_func_78016_d().getReal(), 1, Compat_func_151243_f());
+		case V1_7_10:
+			return Compat_func_151244_d().getReal();
+		default:
+			throw version.makeException();
+		}
 	}
 
-	@HasCallback({ Version.V1_10_2 })
+	@HasCallback({ Version.V1_10_2 , Version.V1_7_10 })
 	public Compat_Item Compat_func_78016_d() {
 		// To be overridden
 		return null;
@@ -58,13 +69,9 @@ public class Compat_CreativeTabs {
 		return 0;
 	}
 
-	/* TODO 1.7.10
-	 * public Compat_ItemStack Compat_func_151244_d() {
-		// Must be original, method is abstract
-		return new Compat_ItemStack(wrapper.getIconItemStackSuper());
+	@HasCallback({ Version.V1_7_10 })
+	public Compat_ItemStack Compat_func_151244_d() {
+		return new Compat_ItemStack(new ItemStack(Compat_func_78016_d().getReal()));
 	}
-	
-	public ItemStack getTabIconItem() {
-		return Compat_func_151244_d().getReal();
-	}*/
+
 }
