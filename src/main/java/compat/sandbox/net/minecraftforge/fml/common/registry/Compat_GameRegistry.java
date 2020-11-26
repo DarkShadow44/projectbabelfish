@@ -1,5 +1,6 @@
 package compat.sandbox.net.minecraftforge.fml.common.registry;
 
+import java.lang.reflect.Constructor;
 import java.util.HashSet;
 
 import compat.core.CompatibilityMod;
@@ -7,6 +8,7 @@ import compat.core.RegistrationInfoBlock;
 import compat.core.RegistrationInfoItem;
 import compat.sandbox.net.minecraft.block.Compat_Block;
 import compat.sandbox.net.minecraft.item.Compat_Item;
+import compat.sandbox.net.minecraft.item.Compat_ItemBlock;
 import compat.sandbox.net.minecraft.item.Compat_ItemStack;
 import compat.sandbox.net.minecraft.item.crafting.Compat_IRecipe;
 import compat.sandbox.net.minecraft.util.Compat_ResourceLocation;
@@ -79,15 +81,22 @@ public class Compat_GameRegistry {
 	}
 
 	public static Compat_Block Compat_registerBlock(Compat_Block block, String name) {
-		ResourceLocation location = new ResourceLocation(CompatibilityMod.CURRENT_LAYER.getCurrentModId(), name);
-		CompatibilityMod.CURRENT_LAYER.blocksToRegister.add(new RegistrationInfoBlock(block.getReal(), location));
-		return block;
+		return Compat_registerBlock(block, Compat_ItemBlock.class, name);
 	}
 
-	public static Compat_Block Compat_registerBlock(Compat_Block block, Class<?> clazz, String name) {
-		// TODO ItemBlock
+	public static Compat_Block Compat_registerBlock(Compat_Block block, Class<?> itemClass, String name) {
 		ResourceLocation location = new ResourceLocation(CompatibilityMod.CURRENT_LAYER.getCurrentModId(), name);
 		CompatibilityMod.CURRENT_LAYER.blocksToRegister.add(new RegistrationInfoBlock(block.getReal(), location));
+
+		try {
+			Constructor<?> ctorItem = itemClass.getConstructor(Compat_Block.class);
+			Compat_ItemBlock itemBlock = (Compat_ItemBlock) ctorItem.newInstance(block);
+			Compat_registerItem(itemBlock, name);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw new RuntimeException(e);
+		}
+
 		return block;
 	}
 
