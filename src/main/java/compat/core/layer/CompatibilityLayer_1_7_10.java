@@ -16,6 +16,7 @@ import compat.core.RegistrationInfoIcon;
 import compat.core.RegistrationInfoItem;
 import compat.core.Version;
 import compat.core.loader.CompatibilityModLoader;
+import compat.core.model.variabletexture.block.VariableBlockStateMapper;
 import compat.core.model.variabletexture.item.ModelItemVariableTexture;
 import compat.sandbox.net.minecraft.client.renderer.texture.Wrapper_IIconRegister;
 import compat.sandbox.net.minecraft.item.CompatI_Item;
@@ -191,6 +192,11 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 			Item item = itemRegister.getItem();
 			ModelLoader.setCustomMeshDefinition(item, stack -> ModelItemVariableTexture.LOCATION);
 			ModelBakery.registerItemVariants(item, ModelItemVariableTexture.LOCATION);
+		}
+
+		for (RegistrationInfoBlock blockRegister : blocksToRegister) {
+			Block block = blockRegister.getBlock();
+			ModelLoader.setCustomStateMapper(block, new VariableBlockStateMapper());
 		}
 	}
 
