@@ -4,6 +4,7 @@ import net.minecraft.util.EnumBlockRenderType;
 
 public enum Compat_EnumBlockRenderType {
 
+	INVISIBLE(EnumBlockRenderType.INVISIBLE),
 	MODEL(EnumBlockRenderType.MODEL);
 
 	private EnumBlockRenderType original;
@@ -24,6 +25,8 @@ public enum Compat_EnumBlockRenderType {
 		switch (real) {
 		case MODEL:
 			return MODEL;
+		case INVISIBLE:
+			return INVISIBLE;
 		default:
 			throw new RuntimeException("Unmapped " + real.toString());
 		}

@@ -79,4 +79,8 @@ public class Compat_Entity {
 	public static Compat_Entity getFake(Entity entity) {
 		return new Compat_Entity(entity);
 	}
+
+	public static Entity getReal(Compat_Entity entity) {
+		return entity == null ? null : entity.getReal();
+	}
 }

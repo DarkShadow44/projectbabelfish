@@ -165,7 +165,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return wrapper.isReplaceableSuper(world.getReal(), pos.getReal());
 	}
 
-	// From ITileEnttiyProvider
+	// From ITileEntityProvider
 	public TileEntity createNewTileEntity(World world, int meta) {
 		if (!(this instanceof Compat_ITileEntityProvider)) {
 			return null;
@@ -295,7 +295,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 			list2.add(box.getReal());
 		}
 
-		wrapper.addCollisionBoxToListSuper(state.getReal(), world.getReal(), pos.getReal(), entityBox.getReal(), list2, entity.getReal(), true);
+		wrapper.addCollisionBoxToListSuper(state.getReal(), world.getReal(), pos.getReal(), entityBox.getReal(), list2, Compat_Entity.getReal(entity), true);
 
 		boxes.clear();
 		for (AxisAlignedBB box : list2) {

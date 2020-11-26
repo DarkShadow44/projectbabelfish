@@ -458,6 +458,17 @@ public class ClassGenerator {
 		CompatibilityMod.classLoader.addClass(classNode.name.replace("/", "."), data);
 	}
 
+	private void getInterfacesToImplement(List<Class<?>> ifaces, Class<?> clazz) {
+		Interface iface = clazz.getAnnotation(Interface.class);
+		if (iface != null) {
+			ifaces.add(iface.value());
+		}
+
+		for (Class<?> sup : clazz.getInterfaces()) {
+			getInterfacesToImplement(ifaces, sup);
+		}
+	}
+
 	public void generateClass() throws Exception {
 		ClassNode classNode = new ClassNode();
 		classNode.access = Opcodes.ACC_PUBLIC;
@@ -480,9 +491,9 @@ public class ClassGenerator {
 
 		generateAbstractWrappers(classNode.methods);
 
-		Interface iface = classIface.getAnnotation(Interface.class);
-		if (iface != null) {
-			Class<?> clazzIface = iface.value();
+		List<Class<?>> interfacesToImplement = new ArrayList<>();
+		getInterfacesToImplement(interfacesToImplement, classIface);
+		for (Class<?> clazzIface : interfacesToImplement) {
 			classNode.interfaces.add(clazzIface.getName().replace(".", "/"));
 
 			for (Method method : clazzIface.getMethods()) {
