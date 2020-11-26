@@ -33,4 +33,8 @@ public class Compat_BlockQuartz extends Compat_Block {
 	public BlockQuartz getReal() {
 		return wrapper.get();
 	}
+
+	public static String[] Compat_get_field_150191_a() {
+		return new String[] { "default", "chiseled", "lines" }; // TODO ?
+	}
 }
