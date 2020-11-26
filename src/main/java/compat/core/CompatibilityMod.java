@@ -12,7 +12,7 @@ import compat.core.layer.CompatibilityLayer;
 import compat.core.layer.CompatibilityLayer_1_10_2;
 import compat.core.layer.CompatibilityLayer_1_7_10;
 import compat.core.loader.MemoryClassLoader;
-import compat.core.model.variabletexture.ModelLoaderItemVariableTexture;
+import compat.core.model.variabletexture.item.ModelLoaderItemVariableTexture;
 import compat.core.resources.ResourcePack;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;

@@ -16,7 +16,7 @@ import compat.core.RegistrationInfoIcon;
 import compat.core.RegistrationInfoItem;
 import compat.core.Version;
 import compat.core.loader.CompatibilityModLoader;
-import compat.core.model.variabletexture.ModelItemVariableTexture;
+import compat.core.model.variabletexture.item.ModelItemVariableTexture;
 import compat.sandbox.net.minecraft.client.renderer.texture.Wrapper_IIconRegister;
 import compat.sandbox.net.minecraft.item.CompatI_Item;
 import compat.sandbox.net.minecraft.item.Compat_Item;

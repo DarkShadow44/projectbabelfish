@@ -1,4 +1,4 @@
-package compat.core.model.variabletexture;
+package compat.core.model.variabletexture.item;
 
 import java.util.Collection;
 import java.util.function.Function;
