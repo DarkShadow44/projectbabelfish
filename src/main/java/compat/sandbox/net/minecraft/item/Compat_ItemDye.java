@@ -35,6 +35,6 @@ public class Compat_ItemDye extends Compat_Item {
 	}
 
 	public static String[] Compat_get_field_150921_b() {
-		return new String[0]; // TODO
+		return new String[] { "black", "red", "green", "brown", "blue", "purple", "cyan", "silver", "gray", "pink", "lime", "yellow", "light_blue", "magenta", "orange", "white" };
 	}
 }

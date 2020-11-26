@@ -15,6 +15,7 @@ import compat.sandbox.net.minecraft.block.state.Compat_BlockStateContainer;
 import compat.sandbox.net.minecraft.block.state.Compat_IBlockState;
 import compat.sandbox.net.minecraft.block.state.Wrapper_IBlockState;
 import compat.sandbox.net.minecraft.client.particle.Compat_ParticleManager;
+import compat.sandbox.net.minecraft.client.renderer.texture.Wrapper_IIcon;
 import compat.sandbox.net.minecraft.creativetab.Compat_CreativeTabs;
 import compat.sandbox.net.minecraft.entity.Compat_Entity;
 import compat.sandbox.net.minecraft.entity.Compat_EntityLivingBase;
@@ -25,6 +26,7 @@ import compat.sandbox.net.minecraft.util.Compat_BlockRenderLayer;
 import compat.sandbox.net.minecraft.util.Compat_EnumBlockRenderType;
 import compat.sandbox.net.minecraft.util.Compat_EnumFacing;
 import compat.sandbox.net.minecraft.util.Compat_EnumHand;
+import compat.sandbox.net.minecraft.util.Compat_IIcon;
 import compat.sandbox.net.minecraft.util.math.Compat_AxisAlignedBB;
 import compat.sandbox.net.minecraft.util.math.Compat_BlockPos;
 import compat.sandbox.net.minecraft.util.math.Compat_RayTraceResult;
@@ -41,7 +43,10 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.ParticleManager;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -52,6 +57,7 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -740,6 +746,23 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 
 	public void Compat_func_149683_g() {
 		// TODO setBlockBoundsForItemRender
+	}
+
+	public Compat_IIcon Compat_func_149691_a(int side, int meta) {
+		Block block = wrapper.get();
+		IBlockState state = block.getDefaultState();
+
+		IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getModelForState(state);
+
+		List<BakedQuad> quads = model.getQuads(state, Compat_EnumFacing.getFromSide(side).getReal(), meta);
+
+		if (quads.size() != 1) {
+			throw new RuntimeException("Unexpected");
+		}
+
+		String name = quads.get(0).getSprite().getIconName();
+
+		return new Wrapper_IIcon(new ResourceLocation(name));
 	}
 
 }
