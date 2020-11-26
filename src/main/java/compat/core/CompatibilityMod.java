@@ -48,14 +48,14 @@ public class CompatibilityMod {
 
 	private final ResourcePack resourcePack = new ResourcePack();
 
-	private static List<CompatibilityLayer> layers = new ArrayList<>();
+	public static List<CompatibilityLayer> LAYERS = new ArrayList<>();
 	public static CompatibilityLayer CURRENT_LAYER;
 	private static CompatibilityLayer_1_7_10 LAYER_1_7_10 = new CompatibilityLayer_1_7_10(Version.V1_7_10);
 	private static CompatibilityLayer_1_10_2 LAYER_1_10_2 = new CompatibilityLayer_1_10_2(Version.V1_10_2);
 
 	static {
-		layers.add(LAYER_1_7_10);
-		layers.add(LAYER_1_10_2);
+		LAYERS.add(LAYER_1_7_10);
+		LAYERS.add(LAYER_1_10_2);
 	}
 
 	public static MemoryClassLoader classLoader;
@@ -81,7 +81,7 @@ public class CompatibilityMod {
 
 		File directoryMods = new File(event.getModConfigurationDirectory().getParentFile(), "mods");
 
-		for (CompatibilityLayer layer : layers) {
+		for (CompatibilityLayer layer : LAYERS) {
 			CURRENT_LAYER = layer;
 			layer.loadMods(directoryMods, event.getSide());
 			layer.preInit(event);
@@ -92,7 +92,7 @@ public class CompatibilityMod {
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		for (CompatibilityLayer layer : layers) {
+		for (CompatibilityLayer layer : LAYERS) {
 			CURRENT_LAYER = layer;
 			layer.init(event);
 		}
@@ -107,14 +107,14 @@ public class CompatibilityMod {
 
 	@SubscribeEvent
 	public static void onBlocksRegistration(final RegistryEvent.Register<Block> blockRegisterEvent) {
-		for (CompatibilityLayer layer : layers) {
+		for (CompatibilityLayer layer : LAYERS) {
 			layer.onBlocksRegistration(blockRegisterEvent);
 		}
 	}
 
 	@SubscribeEvent
 	public static void onItemsRegistration(final RegistryEvent.Register<Item> itemRegisterEvent) {
-		for (CompatibilityLayer layer : layers) {
+		for (CompatibilityLayer layer : LAYERS) {
 			layer.onItemsRegistration(itemRegisterEvent);
 		}
 	}
@@ -122,14 +122,14 @@ public class CompatibilityMod {
 	@SubscribeEvent
 	public static void registerModels(ModelRegistryEvent evt) {
 		ModelLoaderRegistry.registerLoader(ModelLoaderItemVariableTexture.INSTANCE);
-		for (CompatibilityLayer layer : layers) {
+		for (CompatibilityLayer layer : LAYERS) {
 			layer.registerModels(evt);
 		}
 	}
 
 	@SubscribeEvent
 	public static void registerTextures(TextureStitchEvent.Pre evt) {
-		for (CompatibilityLayer layer : layers) {
+		for (CompatibilityLayer layer : LAYERS) {
 			layer.registerTextures(evt);
 		}
 	}
@@ -150,42 +150,42 @@ public class CompatibilityMod {
 
 	@SubscribeEvent
 	public static void onClientTick(TickEvent.ClientTickEvent event) {
-		for (CompatibilityLayer layer : layers) {
+		for (CompatibilityLayer layer : LAYERS) {
 			layer.onClientTick(event);
 		}
 	}
 
 	@SubscribeEvent
 	public static void onServerTick(TickEvent.ServerTickEvent event) {
-		for (CompatibilityLayer layer : layers) {
+		for (CompatibilityLayer layer : LAYERS) {
 			layer.onServerTick(event);
 		}
 	}
 
 	@SubscribeEvent
 	public static void onRightclickBlock(PlayerInteractEvent.RightClickBlock event) {
-		for (CompatibilityLayer layer : layers) {
+		for (CompatibilityLayer layer : LAYERS) {
 			layer.onRightclickBlock(event);
 		}
 	}
 
 	@SubscribeEvent
 	public static void onModelBake(ModelBakeEvent event) {
-		for (CompatibilityLayer layer : layers) {
+		for (CompatibilityLayer layer : LAYERS) {
 			layer.onModelBake(event);
 		}
 	}
 
 	@SubscribeEvent
 	public static void onDrawBlockHighlight(DrawBlockHighlightEvent event) {
-		for (CompatibilityLayer layer : layers) {
+		for (CompatibilityLayer layer : LAYERS) {
 			layer.onDrawBlockHighlight(event);
 		}
 	}
 
 	@SubscribeEvent
 	public static void onAttachCapabilities(AttachCapabilitiesEvent<TileEntity> event) {
-		for (CompatibilityLayer layer : layers) {
+		for (CompatibilityLayer layer : LAYERS) {
 			layer.onAttachCapabilities(event);
 		}
 	}

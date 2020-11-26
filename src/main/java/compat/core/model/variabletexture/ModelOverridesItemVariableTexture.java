@@ -7,7 +7,6 @@ import javax.annotation.Nullable;
 
 import com.google.common.collect.ImmutableList;
 
-import compat.core.CompatibilityMod;
 import compat.sandbox.net.minecraft.item.CompatI_Item;
 import compat.sandbox.net.minecraft.item.Compat_Item;
 import compat.sandbox.net.minecraft.util.Compat_IIcon;
@@ -40,9 +39,7 @@ public class ModelOverridesItemVariableTexture extends ItemOverrideList {
 			return originalModel;
 		}
 
-		String path = icon.getName().replace(":", "_");
-
-		ResourceLocation loc = new ResourceLocation(CompatibilityMod.MODID, "items/" + path);
+		ResourceLocation loc = icon.getLocation();
 
 		BakedModelItemVariableTexture original = (BakedModelItemVariableTexture) originalModel;
 

@@ -30,7 +30,6 @@ import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -199,28 +198,23 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 	public void registerTextures(TextureStitchEvent.Pre evt) {
 		TextureMap map = evt.getMap();
 		for (RegistrationInfoIcon icon : iconsToRegister) {
-			String name = icon.getName().replace(":", "_");
-			map.registerSprite(new ResourceLocation(CompatibilityMod.MODID, "items/" + name));
+			map.registerSprite(icon.getLocation());
 		}
 	}
 
 	@Override
 	public void handleResource(String name, byte[] data) {
+		name = name.substring("assets/".length());
 		if (name.endsWith(".lang")) {
-			String split[] = name.split("/");
-			String lang = split[split.length - 1];
-			lang = lang.substring(0, lang.length() - ".lang".length());
-
-			String text = new String(data).replace("\r", "");
-
-			if (translationsToRegister.containsKey(lang)) {
-				text = translationsToRegister.get(lang) + "\n" + text;
-			}
-			translationsToRegister.put(lang, text);
+			registerTranslation(name, new String(data));
 		}
 
 		if (name.endsWith(".png"))
 			CompatibilityMod.classLoader.addResource(name, data);
+	}
+
+	private void registerTranslation(String name, String text) {
+		CompatibilityMod.classLoader.addResource(name, text.getBytes());
 	}
 
 	@Override

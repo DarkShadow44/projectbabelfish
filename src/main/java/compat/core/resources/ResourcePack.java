@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import compat.core.CompatibilityMod;
+import compat.core.ModInfo;
+import compat.core.layer.CompatibilityLayer;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.MetadataSerializer;
@@ -34,9 +36,12 @@ public class ResourcePack implements IResourcePack {
 	@Override
 	public Set<String> getResourceDomains() {
 		Set<String> set = new HashSet<>();
-		set.add("compatibility");
-		set.add("mcmultipart");
-		set.add("rscircuits");
+		set.add(CompatibilityMod.MODID);
+		for (CompatibilityLayer layer : CompatibilityMod.LAYERS) {
+			for (ModInfo mod : layer.mods) {
+				set.add(mod.id);
+			}
+		}
 		return set;
 	}
 

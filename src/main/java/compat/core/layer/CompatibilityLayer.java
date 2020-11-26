@@ -51,7 +51,7 @@ public abstract class CompatibilityLayer {
 	public static final String pathSandbox = "compat/sandbox/";
 	protected final Version version;
 
-	protected final List<ModInfo> mods = new ArrayList<>();
+	public final List<ModInfo> mods = new ArrayList<>();
 	private Map<String, String> classRedirects = new HashMap<>();
 
 	public CompatibilityLayer(Version version) {

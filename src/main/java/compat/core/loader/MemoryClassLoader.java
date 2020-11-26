@@ -41,22 +41,6 @@ public class MemoryClassLoader extends URLClassLoader {
 		}
 	}
 
-	public void addResourceOld(String path, byte[] data) {
-		if (path.startsWith("/")) {
-			path = path.substring(1);
-		}
-		path = path.toLowerCase();
-
-		String[] split = path.split("\\/");
-
-		String modName = split[1];
-		if (split[2].equals("textures")) {
-			if (split[3].equals("items")) {
-				resources.put("/compatibility/textures/items/" + modName + "_" + split[4], data);
-			}
-		}
-	}
-
 	public void addResource(String path, byte[] data) {
 		if (!path.startsWith("/")) {
 			path = "/" + path;

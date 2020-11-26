@@ -1,13 +1,15 @@
 package compat.core;
 
-public class RegistrationInfoIcon {
-	private final String name;
+import net.minecraft.util.ResourceLocation;
 
-	public RegistrationInfoIcon(String name) {
-		this.name = name;
+public class RegistrationInfoIcon {
+	private final ResourceLocation location;
+
+	public RegistrationInfoIcon(ResourceLocation location) {
+		this.location = location;
 	}
 
-	public String getName() {
-		return name;
+	public ResourceLocation getLocation() {
+		return location;
 	}
 }

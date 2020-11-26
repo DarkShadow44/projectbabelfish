@@ -61,7 +61,13 @@ Mixin into mods only possible starting with 1.14 ?!
 
 https://github.com/jaquadro/Chameleon/tree/1.12/src/com/jaquadro/minecraft/chameleon/render ?
 https://github.com/Thog/ISBRH/tree/master/src/main/java/eu/thog92/isbrh/render ?
+https://github.com/GollumTeam/RenderCore
 
 Tesselator -> WorldRenderer - func_78374_a,addVertexWithUV -> BufferBuilder wr; wr.pos(0, 16, 0).tex(0, 1).endVertex(); Tessellator.getInstance().draw();
 ISBRH's only updated on block update
+
+https://github.com/ModCoderPack/MCPBot-Issues/issues?q=is%3Aissue+milestone%3A1.12.0+is%3Aclosed
+https://gist.github.com/williewillus/57d7093efa80163e96e0 1.8 rendering primer
+https://gist.github.com/williewillus/e37edde85dc78d2e138c 1.8.9 to 1.9 quick primer
+
 
