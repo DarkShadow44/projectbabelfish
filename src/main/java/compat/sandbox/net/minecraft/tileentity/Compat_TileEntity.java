@@ -45,6 +45,8 @@ public class Compat_TileEntity {
 	}
 
 	public static Compat_TileEntity getFake(TileEntity real) {
+		if (real == null)
+			return null;
 		if (real instanceof CompatI_TileEntity) {
 			return ((CompatI_TileEntity) real).getFake();
 		}

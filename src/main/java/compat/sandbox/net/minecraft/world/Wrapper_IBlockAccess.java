@@ -45,4 +45,10 @@ public class Wrapper_IBlockAccess implements Compat_IBlockAccess {
 	public int Compat_func_72805_g(int x, int y, int z) {
 		return getBlockMeta(new BlockPos(x, y, z));
 	}
+
+	@Override
+	public Compat_TileEntity Compat_func_147438_o(int x, int y, int z) {
+		TileEntity result = original.getTileEntity(new BlockPos(x, y, z));
+		return Compat_TileEntity.getFake(result);
+	}
 }

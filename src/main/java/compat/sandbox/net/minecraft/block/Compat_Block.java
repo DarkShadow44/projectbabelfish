@@ -175,16 +175,13 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 
 	// From ITileEntityProvider
 	public TileEntity createNewTileEntity(World world, int meta) {
-		if (!(this instanceof Compat_ITileEntityProvider)) {
-			return null;
-		}
 		return Compat_func_149915_a(new Compat_World(world), meta).getReal();
 	}
 
 	@HasCallback({ Version.V1_10_2 })
 	public Compat_TileEntity Compat_func_149915_a(Compat_World world, int meta) {
 		// To be overriden
-		throw new RuntimeException();
+		return null;
 	}
 
 	@Callback

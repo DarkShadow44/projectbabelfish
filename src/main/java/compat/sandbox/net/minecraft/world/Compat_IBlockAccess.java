@@ -17,4 +17,6 @@ public interface Compat_IBlockAccess {
 	}
 
 	public int Compat_func_72805_g(int x, int y, int z);
+
+	public Compat_TileEntity Compat_func_147438_o(int x, int y, int z);
 }

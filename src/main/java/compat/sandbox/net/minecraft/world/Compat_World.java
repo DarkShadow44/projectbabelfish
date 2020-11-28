@@ -241,4 +241,10 @@ public class Compat_World implements Compat_IBlockAccess {
 		return getBlockMeta(new BlockPos(x, y, z));
 	}
 
+	@Override
+	public Compat_TileEntity Compat_func_147438_o(int x, int y, int z) {
+		TileEntity result = wrapper.getTileEntitySuper(new BlockPos(x, y, z));
+		return Compat_TileEntity.getFake(result);
+	}
+
 }
