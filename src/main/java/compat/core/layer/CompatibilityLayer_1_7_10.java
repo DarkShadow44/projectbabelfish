@@ -18,6 +18,8 @@ import compat.core.Version;
 import compat.core.loader.CompatibilityModLoader;
 import compat.core.model.variabletexture.block.VariableBlockStateMapper;
 import compat.core.model.variabletexture.item.ModelItemVariableTexture;
+import compat.sandbox.net.minecraft.block.CompatI_Block;
+import compat.sandbox.net.minecraft.block.Compat_Block;
 import compat.sandbox.net.minecraft.client.renderer.texture.Wrapper_IIconRegister;
 import compat.sandbox.net.minecraft.item.CompatI_Item;
 import compat.sandbox.net.minecraft.item.Compat_Item;
@@ -162,6 +164,10 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 		for (RegistrationInfoItem itemRegister : itemsToRegister) {
 			Compat_Item item = ((CompatI_Item) itemRegister.getItem()).getFake();
 			item.Compat_func_94581_a(iconRegister);
+		}
+		for (RegistrationInfoBlock blockRegister : blocksToRegister) {
+			Compat_Block block = ((CompatI_Block) blockRegister.getBlock()).getFake();
+			block.Compat_func_149651_a(iconRegister);
 		}
 
 		// Register translations

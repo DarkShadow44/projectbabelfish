@@ -15,6 +15,7 @@ import compat.sandbox.net.minecraft.block.state.Compat_BlockStateContainer;
 import compat.sandbox.net.minecraft.block.state.Compat_IBlockState;
 import compat.sandbox.net.minecraft.block.state.Wrapper_IBlockState;
 import compat.sandbox.net.minecraft.client.particle.Compat_ParticleManager;
+import compat.sandbox.net.minecraft.client.renderer.texture.Compat_IIconRegister;
 import compat.sandbox.net.minecraft.client.renderer.texture.Wrapper_IIcon;
 import compat.sandbox.net.minecraft.creativetab.Compat_CreativeTabs;
 import compat.sandbox.net.minecraft.entity.Compat_Entity;
@@ -71,6 +72,12 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 
 	@SuppressWarnings("unused")
 	private Version version = Version.UNKNOWN;
+
+	private Compat_IIcon blockIcon;
+
+	private String unlocalizedName;
+
+	private String textureName;
 
 	// When called from Mod
 	public Compat_Block(Compat_Material material) {
@@ -142,6 +149,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 
 	public Compat_Block Compat_func_149663_c(String name) {
 		wrapper.setUnlocalizedNameSuper(name);
+		this.unlocalizedName = name;
 		return this;
 	}
 
@@ -749,6 +757,10 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	}
 
 	public Compat_IIcon Compat_func_149691_a(int side, int meta) {
+		if (wrapper instanceof CompatI_Block) {
+			return blockIcon;
+		}
+
 		Block block = wrapper.get();
 		IBlockState state = block.getDefaultState();
 
@@ -767,6 +779,18 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 
 	public int Compat_func_149645_b() {
 		return 0;
+	}
+
+	public void Compat_func_149651_a(Compat_IIconRegister iconRegister) {
+		 this.blockIcon = iconRegister.Compat_func_94245_a(Compat_func_149641_N());
+	}
+
+	public void Compat_set_field_149761_L(Compat_IIcon icon) {
+		this.blockIcon = icon;
+	}
+
+	public String Compat_func_149641_N() {
+		return (this.textureName == null) ? ("MISSING_ICON_BLOCK_" + this.unlocalizedName) : this.textureName;
 	}
 
 }

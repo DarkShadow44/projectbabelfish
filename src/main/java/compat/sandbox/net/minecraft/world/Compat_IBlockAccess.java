@@ -15,4 +15,6 @@ public interface Compat_IBlockAccess {
 	public static Compat_IBlockAccess getFake(IBlockAccess world) {
 		return new Wrapper_IBlockAccess(world);
 	}
+
+	public int Compat_func_72805_g(int x, int y, int z);
 }

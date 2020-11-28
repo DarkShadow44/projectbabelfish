@@ -29,6 +29,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.border.WorldBorder;
@@ -228,6 +229,16 @@ public class Compat_World implements Compat_IBlockAccess {
 
 	public boolean Compat_isSideSolid(Compat_BlockPos pos, Compat_EnumFacing facing) {
 		return wrapper.isSideSolidSuper(pos.getReal(), facing.getReal());
+	}
+
+	private int getBlockMeta(BlockPos pos) {
+		IBlockState state = wrapper.getBlockStateSuper(pos);
+		return state.getBlock().getMetaFromState(state);
+	}
+
+	@Override
+	public int Compat_func_72805_g(int x, int y, int z) {
+		return getBlockMeta(new BlockPos(x, y, z));
 	}
 
 }

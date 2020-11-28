@@ -6,6 +6,7 @@ import compat.sandbox.net.minecraft.tileentity.Compat_TileEntity;
 import compat.sandbox.net.minecraft.util.math.Compat_BlockPos;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
 public class Wrapper_IBlockAccess implements Compat_IBlockAccess {
@@ -34,5 +35,14 @@ public class Wrapper_IBlockAccess implements Compat_IBlockAccess {
 		IBlockState state = original.getBlockState(pos.getReal());
 
 		return new Wrapper_IBlockState(state);
+	}
+
+	private int getBlockMeta(BlockPos pos) {
+		IBlockState state = original.getBlockState(pos);
+		return state.getBlock().getMetaFromState(state);
+	}
+
+	public int Compat_func_72805_g(int x, int y, int z) {
+		return getBlockMeta(new BlockPos(x, y, z));
 	}
 }
