@@ -17,4 +17,11 @@ public class Compat_RenderingRegistry {
 	public static void Compat_registerBlockHandler(int id, Compat_ISimpleBlockRenderingHandler handler) {
 		renderers.put(id, handler);
 	}
+
+	public static Compat_ISimpleBlockRenderingHandler getHandler(int id) {
+		Compat_ISimpleBlockRenderingHandler ret = renderers.get(id);
+		if (ret == null)
+			throw new RuntimeException("Missing renderer");
+		return ret;
+	}
 }

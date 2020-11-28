@@ -1,5 +1,11 @@
 package compat.sandbox.cpw.mods.fml.client.registry;
 
-public interface Compat_ISimpleBlockRenderingHandler {
+import compat.sandbox.net.minecraft.block.Compat_Block;
+import compat.sandbox.net.minecraft.client.renderer.Compat_RenderBlocks;
+import compat.sandbox.net.minecraft.world.Compat_IBlockAccess;
 
+public interface Compat_ISimpleBlockRenderingHandler {
+	void renderInventoryBlock(Compat_Block block, int metadata, int modelId, Compat_RenderBlocks renderer);
+
+	boolean renderWorldBlock(Compat_IBlockAccess world, int x, int y, int z, Compat_Block block, int modelId, Compat_RenderBlocks renderer);
 }

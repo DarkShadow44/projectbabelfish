@@ -765,4 +765,8 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return new Wrapper_IIcon(new ResourceLocation(name));
 	}
 
+	public int Compat_func_149645_b() {
+		return 0;
+	}
+
 }
