@@ -25,6 +25,7 @@ import compat.sandbox.net.minecraftforge.fml.common.Compat_Mod;
 import compat.sandbox.net.minecraftforge.fml.common.Compat_Mod_EventHandler;
 import compat.sandbox.net.minecraftforge.fml.common.Compat_Mod_Instance;
 import compat.sandbox.net.minecraftforge.fml.common.Compat_SidedProxy;
+import compat.sandbox.net.minecraftforge.fml.common.event.Compat_FMLInitializationEvent;
 import compat.sandbox.net.minecraftforge.fml.common.event.Compat_FMLPreInitializationEvent;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelBakery;
@@ -225,7 +226,12 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 
 	@Override
 	public void init(FMLInitializationEvent event) {
-
+		for (ModInfo modInfo : mods) {
+			currentModId = modInfo.id;
+			MethodInfo<?> methodPreInit = new MethodInfo<>(modInfo.getMod(), Compat_Mod_EventHandler.class, Compat_FMLInitializationEvent.class);
+			methodPreInit.tryInvoke(new Compat_FMLInitializationEvent(event));
+		}
+		currentModId = null;
 	}
 
 	@Override

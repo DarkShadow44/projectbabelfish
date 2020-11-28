@@ -3,6 +3,9 @@ package compat.core.model.variabletexture.block;
 import java.util.ArrayList;
 import java.util.List;
 
+import compat.sandbox.cpw.mods.fml.client.registry.Compat_ISimpleBlockRenderingHandler;
+import compat.sandbox.net.minecraft.block.CompatI_Block;
+import compat.sandbox.net.minecraft.block.Compat_Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -24,6 +27,16 @@ public class BakedModelBlockVariableTexture implements IBakedModel {
 
 	@Override
 	public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
+		Compat_Block block = ((CompatI_Block) state.getBlock()).getFake();
+
+		if (block instanceof Compat_ISimpleBlockRenderingHandler) {
+			return getQuadsISBRH((Compat_ISimpleBlockRenderingHandler) block);
+		}
+
+		throw new RuntimeException("Not Implemented!");
+	}
+
+	private List<BakedQuad> getQuadsISBRH(Compat_ISimpleBlockRenderingHandler handler) {
 		List<BakedQuad> quads = new ArrayList<>();
 		return quads;
 	}
