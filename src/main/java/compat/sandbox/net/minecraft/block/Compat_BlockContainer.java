@@ -1,10 +1,13 @@
 package compat.sandbox.net.minecraft.block;
 
+import compat.autogen.Callback;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
 import compat.sandbox.net.minecraft.block.material.Compat_Material;
 import net.minecraft.block.BlockContainer;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.EnumBlockRenderType;
 
 public class Compat_BlockContainer extends Compat_Block {
 	private CompatI_BlockContainer wrapper;
@@ -33,5 +36,10 @@ public class Compat_BlockContainer extends Compat_Block {
 
 	public BlockContainer getReal() {
 		return wrapper.get();
+	}
+
+	@Callback
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return EnumBlockRenderType.MODEL;
 	}
 }
