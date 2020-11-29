@@ -8,6 +8,7 @@ import compat.core.ParentSelector;
 import compat.core.Version;
 import compat.sandbox.net.minecraft.nbt.Compat_NBTTagCompound;
 import compat.sandbox.net.minecraft.network.Compat_NetworkManager;
+import compat.sandbox.net.minecraft.network.Compat_Packet;
 import compat.sandbox.net.minecraft.network.play.server.Compat_SPacketUpdateTileEntity;
 import compat.sandbox.net.minecraft.util.Compat_EnumFacing;
 import compat.sandbox.net.minecraft.util.Compat_ITickable;
@@ -26,6 +27,8 @@ import net.minecraftforge.common.capabilities.Capability;
 public class Compat_TileEntity {
 	private CompatI_TileEntity wrapper;
 
+	private Version version = Version.UNKNOWN;
+
 	// When called from Mod
 	public Compat_TileEntity() {
 		this.initialize(Factory.create(CtorPos.POS1, CompatI_TileEntity.class, this));
@@ -41,6 +44,7 @@ public class Compat_TileEntity {
 	}
 
 	protected void initialize(CompatI_TileEntity wrapper) {
+		this.version = Version.get(this);
 		this.wrapper = wrapper;
 	}
 
@@ -100,7 +104,17 @@ public class Compat_TileEntity {
 
 	@Callback
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-		Compat_func_189515_b(new Compat_NBTTagCompound(compound));
+		switch (version) {
+		case V1_10_2:
+			Compat_func_189515_b(new Compat_NBTTagCompound(compound));
+			break;
+		case V1_7_10:
+			Compat_func_145841_b(new Compat_NBTTagCompound(compound));
+			break;
+		default:
+			throw version.makeException();
+		}
+
 		return compound;
 	}
 
@@ -133,13 +147,25 @@ public class Compat_TileEntity {
 
 	@Callback
 	public SPacketUpdateTileEntity getUpdatePacket() {
-		return Compat_func_189518_D_().getReal();
+		switch (version) {
+		case V1_10_2:
+			return Compat_func_189518_D_().getReal();
+		case V1_7_10:
+			return ((Compat_SPacketUpdateTileEntity) Compat_func_145844_m()).getReal();
+		default:
+			throw version.makeException();
+		}
 	}
 
 	@HasCallback({ Version.V1_10_2 })
 	public Compat_SPacketUpdateTileEntity Compat_func_189518_D_() {
 		SPacketUpdateTileEntity result = wrapper.getUpdatePacketSuper();
 		return new Compat_SPacketUpdateTileEntity(result);
+	}
+
+	@HasCallback({ Version.V1_7_10 })
+	public Compat_Packet Compat_func_145844_m() {
+		return null;
 	}
 
 	@Callback
@@ -226,6 +252,23 @@ public class Compat_TileEntity {
 
 	public static TileEntity getReal(Compat_TileEntity tile) {
 		return tile == null ? null : tile.getReal();
+	}
+
+	@HasCallback({ Version.V1_7_10 })
+	public void Compat_func_145841_b(Compat_NBTTagCompound tag) {
+		wrapper.writeToNBTSuper(tag.getReal());
+	}
+
+	public int Compat_get_field_145851_c() {
+		return wrapper.getPosSuper().getX();
+	}
+
+	public int Compat_get_field_145848_d() {
+		return wrapper.getPosSuper().getY();
+	}
+
+	public int Compat_get_field_145849_e() {
+		return wrapper.getPosSuper().getZ();
 	}
 
 }

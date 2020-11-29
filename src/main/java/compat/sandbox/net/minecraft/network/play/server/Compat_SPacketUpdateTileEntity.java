@@ -7,6 +7,7 @@ import compat.sandbox.net.minecraft.nbt.Compat_NBTTagCompound;
 import compat.sandbox.net.minecraft.util.math.Compat_BlockPos;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.util.math.BlockPos;
 
 public class Compat_SPacketUpdateTileEntity {
 	private CompatI_SPacketUpdateTileEntity wrapper;
@@ -14,6 +15,11 @@ public class Compat_SPacketUpdateTileEntity {
 	// When called from Mod
 	public Compat_SPacketUpdateTileEntity(Compat_BlockPos pos, int p1, Compat_NBTTagCompound tag) {
 		this.initialize(Factory.create(CtorPos.POS1, CompatI_SPacketUpdateTileEntity.class, this, pos.getReal(), p1, tag.getReal()));
+	}
+
+	// When called from Mod
+	public Compat_SPacketUpdateTileEntity(int x, int y, int z, int p1, Compat_NBTTagCompound tag) {
+		this.initialize(Factory.create(CtorPos.POS2, CompatI_SPacketUpdateTileEntity.class, this, new BlockPos(x, y, z), p1, tag.getReal()));
 	}
 
 	// When called from child
