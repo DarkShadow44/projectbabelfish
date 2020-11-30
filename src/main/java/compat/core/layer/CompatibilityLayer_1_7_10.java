@@ -32,6 +32,7 @@ import compat.sandbox.net.minecraftforge.fml.common.event.Compat_FMLInitializati
 import compat.sandbox.net.minecraftforge.fml.common.event.Compat_FMLPreInitializationEvent;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelBakery;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
@@ -214,7 +215,8 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 	public void registerTextures(TextureStitchEvent.Pre evt) {
 		TextureMap map = evt.getMap();
 		for (RegistrationInfoIcon icon : iconsToRegister) {
-			map.registerSprite(icon.getLocation());
+			TextureAtlasSprite sprite = map.registerSprite(icon.getIcon().getLocation());
+			icon.getIcon().updateSprite(sprite);
 		}
 	}
 

@@ -6,7 +6,6 @@ import compat.sandbox.net.minecraft.util.Compat_IIcon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.util.ResourceLocation;
 
 public class Compat_RenderBlocks {
 
@@ -20,8 +19,6 @@ public class Compat_RenderBlocks {
 
 		TextureAtlasSprite sprite = ((TextureMap) Minecraft.getMinecraft().getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE)).getAtlasSprite("missingno");
 
-		String name = sprite.getIconName();
-
-		return new Wrapper_IIcon(new ResourceLocation(name));
+		return new Wrapper_IIcon(sprite);
 	}
 }

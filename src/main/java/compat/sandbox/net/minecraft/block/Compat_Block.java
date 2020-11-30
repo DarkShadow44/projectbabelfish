@@ -58,7 +58,6 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -769,9 +768,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 			throw new RuntimeException("Unexpected");
 		}
 
-		String name = quads.get(0).getSprite().getIconName();
-
-		return new Wrapper_IIcon(new ResourceLocation(name));
+		return new Wrapper_IIcon(quads.get(0).getSprite());
 	}
 
 	public int Compat_func_149645_b() {

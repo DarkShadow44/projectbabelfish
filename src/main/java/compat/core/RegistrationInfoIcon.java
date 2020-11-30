@@ -1,15 +1,15 @@
 package compat.core;
 
-import net.minecraft.util.ResourceLocation;
+import compat.sandbox.net.minecraft.util.Compat_IIcon;
 
 public class RegistrationInfoIcon {
-	private final ResourceLocation location;
+	private final Compat_IIcon icon;
 
-	public RegistrationInfoIcon(ResourceLocation location) {
-		this.location = location;
+	public RegistrationInfoIcon(Compat_IIcon icon) {
+		this.icon = icon;
 	}
 
-	public ResourceLocation getLocation() {
-		return location;
+	public Compat_IIcon getIcon() {
+		return icon;
 	}
 }

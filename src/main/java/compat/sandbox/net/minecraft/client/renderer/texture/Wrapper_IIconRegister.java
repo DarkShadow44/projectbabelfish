@@ -38,8 +38,10 @@ public class Wrapper_IIconRegister implements Compat_IIconRegister {
 			location = new ResourceLocation(split[0], type.PATH + split[1]);
 		}
 
-		CompatibilityMod.CURRENT_LAYER.iconsToRegister.add(new RegistrationInfoIcon(location));
-		return new Wrapper_IIcon(location);
+		Compat_IIcon icon = new Wrapper_IIcon(location);
+
+		CompatibilityMod.CURRENT_LAYER.iconsToRegister.add(new RegistrationInfoIcon(icon));
+		return icon;
 	}
 
 }
