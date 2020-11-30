@@ -347,7 +347,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	}
 
 	public Compat_Block Compat_func_149658_d(String name) {
-		// TODO
+		this.textureName = name;
 		return this;
 	}
 

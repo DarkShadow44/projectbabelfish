@@ -76,3 +76,4 @@ https://gist.github.com/williewillus/e37edde85dc78d2e138c 1.8.9 to 1.9 quick pri
 implement large flower pot rendering
 MinecraftForgeClient#getRenderLayer() - for getting render layer?
 
+ISBRH handler eine ebene höher einmixen, in bakedmodel dann nur das ISBRH result aus dem cache nehmen

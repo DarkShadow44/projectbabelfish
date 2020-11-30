@@ -7,18 +7,35 @@ import net.minecraft.util.ResourceLocation;
 
 public class Wrapper_IIconRegister implements Compat_IIconRegister {
 
+	public enum Type {
+		ITEM("items/"),
+		BLOCK("blocks/");
+
+		public final String PATH;
+
+		private Type(String path) {
+			this.PATH = path;
+		}
+	}
+
+	private final Type type;
+
+	public Wrapper_IIconRegister(Type type) {
+		this.type = type;
+	}
+
 	@Override
 	public Compat_IIcon Compat_func_94245_a(String name) {
 
 		ResourceLocation location;
 		if (!name.contains(":")) {
-			location = new ResourceLocation(CompatibilityMod.CURRENT_LAYER.getCurrentModId(), "items/" + name);
+			location = new ResourceLocation(CompatibilityMod.CURRENT_LAYER.getCurrentModId(), type.PATH + name);
 		} else {
 			String[] split = name.toLowerCase().split(":");
 			if (split.length != 2) {
 				throw new RuntimeException("Unexpected");
 			}
-			location = new ResourceLocation(split[0], "items/" + split[1]);
+			location = new ResourceLocation(split[0], type.PATH + split[1]);
 		}
 
 		CompatibilityMod.CURRENT_LAYER.iconsToRegister.add(new RegistrationInfoIcon(location));

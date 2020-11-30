@@ -21,6 +21,7 @@ import compat.core.model.variabletexture.item.ModelItemVariableTexture;
 import compat.sandbox.net.minecraft.block.CompatI_Block;
 import compat.sandbox.net.minecraft.block.Compat_Block;
 import compat.sandbox.net.minecraft.client.renderer.texture.Wrapper_IIconRegister;
+import compat.sandbox.net.minecraft.client.renderer.texture.Wrapper_IIconRegister.Type;
 import compat.sandbox.net.minecraft.item.CompatI_Item;
 import compat.sandbox.net.minecraft.item.Compat_Item;
 import compat.sandbox.net.minecraftforge.fml.common.Compat_Mod;
@@ -160,14 +161,16 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 		currentModId = null;
 
 		// Get icons to register
-		Wrapper_IIconRegister iconRegister = new Wrapper_IIconRegister();
+		Wrapper_IIconRegister iconRegisterItem = new Wrapper_IIconRegister(Type.ITEM);
 		for (RegistrationInfoItem itemRegister : itemsToRegister) {
 			Compat_Item item = ((CompatI_Item) itemRegister.getItem()).getFake();
-			item.Compat_func_94581_a(iconRegister);
+			item.Compat_func_94581_a(iconRegisterItem);
 		}
+
+		Wrapper_IIconRegister iconRegisterBlock = new Wrapper_IIconRegister(Type.BLOCK);
 		for (RegistrationInfoBlock blockRegister : blocksToRegister) {
 			Compat_Block block = ((CompatI_Block) blockRegister.getBlock()).getFake();
-			block.Compat_func_149651_a(iconRegister);
+			block.Compat_func_149651_a(iconRegisterBlock);
 		}
 
 		// Register translations
