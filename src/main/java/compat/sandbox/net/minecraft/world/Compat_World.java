@@ -251,4 +251,8 @@ public class Compat_World implements Compat_IBlockAccess {
 		return Compat_Block.getFake(wrapper.getBlockStateSuper(new BlockPos(x, y, z)).getBlock());
 	}
 
+	public void Compat_func_147479_m(int x, int y, int z) {
+		wrapper.markBlockRangeForRenderUpdateSuper(x, y, z, x, y, z);
+	}
+
 }

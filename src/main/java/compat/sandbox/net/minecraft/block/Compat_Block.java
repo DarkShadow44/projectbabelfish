@@ -805,4 +805,8 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return world.getReal().getBlockState(pos).getPackedLightmapCoords(world.getReal(), pos);
 	}
 
+	public boolean Compat_func_149662_c() {
+		return wrapper.getDefaultStateSuper().isOpaqueCube();
+	}
+
 }

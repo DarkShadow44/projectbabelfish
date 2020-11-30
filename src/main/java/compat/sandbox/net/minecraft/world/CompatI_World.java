@@ -93,4 +93,6 @@ public interface CompatI_World {
 	public Random get_rand();
 
 	public WorldProvider get_provider();
+
+	public void markBlockRangeForRenderUpdateSuper(int x1, int y1, int z1, int x2, int y2, int z2);
 }

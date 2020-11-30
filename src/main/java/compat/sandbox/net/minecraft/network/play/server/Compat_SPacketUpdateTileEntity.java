@@ -41,7 +41,7 @@ public class Compat_SPacketUpdateTileEntity {
 
 	public Compat_NBTTagCompound Compat_func_148857_g() {
 		NBTTagCompound result = wrapper.getNbtCompoundSuper();
-		return new Compat_NBTTagCompound(result);
+		return Compat_NBTTagCompound.getFake(result);
 	}
 
 	public static Compat_SPacketUpdateTileEntity getFake(SPacketUpdateTileEntity packet) {

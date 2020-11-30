@@ -37,8 +37,19 @@ public class Compat_Tessellator {
 		return instanceOld;
 	}
 
+	// setBrightness
 	public void Compat_func_78380_c(int brightness) {
 		// Ignore?
+	}
+
+	// setColorOpaque_F
+	public void Compat_func_78386_a(float r, float g, float b) {
+		// TODO
+	}
+
+	// addVertexWithUV
+	public void Compat_func_78374_a(double x, double y, double z, double u, double v) {
+		// TODO
 	}
 
 }
