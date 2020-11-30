@@ -1,6 +1,5 @@
 package compat.core.model.variabletexture.block;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import compat.mixinhelper.ForgeBlockModelRendererHelper;
@@ -8,6 +7,7 @@ import compat.sandbox.cpw.mods.fml.client.registry.Compat_ISimpleBlockRenderingH
 import compat.sandbox.net.minecraft.block.CompatI_Block;
 import compat.sandbox.net.minecraft.block.Compat_Block;
 import compat.sandbox.net.minecraft.client.renderer.Compat_RenderBlocks;
+import compat.sandbox.net.minecraft.client.renderer.Compat_Tessellator;
 import compat.sandbox.net.minecraft.world.Compat_IBlockAccess;
 import compat.sandbox.net.minecraft.world.Wrapper_IBlockAccess;
 import compat.sandbox.net.minecraftforge.fml.client.registry.Compat_RenderingRegistry;
@@ -49,9 +49,11 @@ public class BakedModelBlockVariableTexture implements IBakedModel {
 		Compat_IBlockAccess world = new Wrapper_IBlockAccess(ForgeBlockModelRendererHelper.currentWorld);
 		BlockPos pos = ForgeBlockModelRendererHelper.currentPos;
 
+		Compat_Tessellator.resetForISBRH();
+
 		handler.renderWorldBlock(world, pos.getX(), pos.getY(), pos.getZ(), block, 0, new Compat_RenderBlocks());
 
-		List<BakedQuad> quads = new ArrayList<>();
+		List<BakedQuad> quads = Compat_Tessellator.getQuads();
 		return quads;
 	}
 
