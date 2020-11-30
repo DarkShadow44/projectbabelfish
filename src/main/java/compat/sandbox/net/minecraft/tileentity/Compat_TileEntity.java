@@ -271,4 +271,8 @@ public class Compat_TileEntity {
 		return wrapper.getPosSuper().getZ();
 	}
 
+	public Compat_World Compat_get_field_145850_b() {
+		return Compat_World.getFake(wrapper.getWorldSuper());
+	}
+
 }

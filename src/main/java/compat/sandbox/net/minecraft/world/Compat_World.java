@@ -247,4 +247,8 @@ public class Compat_World implements Compat_IBlockAccess {
 		return Compat_TileEntity.getFake(result);
 	}
 
+	public Compat_Block Compat_func_147439_a(int x, int y, int z) {
+		return Compat_Block.getFake(wrapper.getBlockStateSuper(new BlockPos(x, y, z)).getBlock());
+	}
+
 }

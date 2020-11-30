@@ -779,7 +779,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	}
 
 	public void Compat_func_149651_a(Compat_IIconRegister iconRegister) {
-		 this.blockIcon = iconRegister.Compat_func_94245_a(Compat_func_149641_N());
+		this.blockIcon = iconRegister.Compat_func_94245_a(Compat_func_149641_N());
 	}
 
 	public void Compat_set_field_149761_L(Compat_IIcon icon) {
@@ -788,6 +788,24 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 
 	public String Compat_func_149641_N() {
 		return (this.textureName == null) ? ("MISSING_ICON_BLOCK_" + this.unlocalizedName) : this.textureName;
+	}
+
+	public int Compat_getLightValue(Compat_IBlockAccess world, int x, int y, int z) {
+		BlockPos pos = new BlockPos(x, y, z);
+		return wrapper.getLightValueSuper(world.getReal().getBlockState(pos), world.getReal(), pos);
+	}
+
+	public boolean Compat_func_149751_l() {
+		return wrapper.getDefaultStateSuper().getMaterial().blocksLight();
+	}
+
+	public float Compat_func_149685_I() {
+		return wrapper.getDefaultStateSuper().getAmbientOcclusionLightValue();
+	}
+
+	public int Compat_func_149677_c(Compat_IBlockAccess world, int x, int y, int z) {
+		BlockPos pos = new BlockPos(x, y, z);
+		return world.getReal().getBlockState(pos).getPackedLightmapCoords(world.getReal(), pos);
 	}
 
 }

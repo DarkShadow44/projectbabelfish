@@ -14,4 +14,8 @@ public class Compat_MathHelper {
 	public static int Compat_func_76128_c(double d) {
 		return MathHelper.floor(d);
 	}
+
+	public static float Compat_func_76131_a(float p1, float p2, float p3) {
+		return MathHelper.clamp(p1, p2, p3);
+	}
 }

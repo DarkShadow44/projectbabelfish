@@ -51,7 +51,7 @@ public class Compat_CreativeTabs {
 		}
 	}
 
-	@HasCallback({ Version.V1_10_2 , Version.V1_7_10 })
+	@HasCallback({ Version.V1_10_2, Version.V1_7_10 })
 	public Compat_Item Compat_func_78016_d() {
 		// To be overridden
 		return null;

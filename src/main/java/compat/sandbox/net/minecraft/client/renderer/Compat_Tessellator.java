@@ -1,6 +1,9 @@
 package compat.sandbox.net.minecraft.client.renderer;
 
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad.Builder;
 
 public class Compat_Tessellator {
 	private final Tessellator original;
@@ -24,4 +27,18 @@ public class Compat_Tessellator {
 	public void Compat_func_78381_a() {
 		original.draw();
 	}
+
+	private static Compat_Tessellator instanceOld = new Compat_Tessellator(null); // Instance of 1.7.10
+
+	private Builder builderOld = new Builder(DefaultVertexFormats.BLOCK);
+	private BufferBuilder bufferOld = new BufferBuilder(0);
+
+	public static Compat_Tessellator Compat_get_field_78398_a() {
+		return instanceOld;
+	}
+
+	public void Compat_func_78380_c(int brightness) {
+		// Ignore?
+	}
+
 }

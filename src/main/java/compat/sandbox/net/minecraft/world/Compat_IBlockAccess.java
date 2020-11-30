@@ -1,5 +1,6 @@
 package compat.sandbox.net.minecraft.world;
 
+import compat.sandbox.net.minecraft.block.Compat_Block;
 import compat.sandbox.net.minecraft.block.state.Compat_IBlockState;
 import compat.sandbox.net.minecraft.tileentity.Compat_TileEntity;
 import compat.sandbox.net.minecraft.util.math.Compat_BlockPos;
@@ -19,4 +20,6 @@ public interface Compat_IBlockAccess {
 	public int Compat_func_72805_g(int x, int y, int z);
 
 	public Compat_TileEntity Compat_func_147438_o(int x, int y, int z);
+
+	public Compat_Block Compat_func_147439_a(int x, int y, int z);
 }

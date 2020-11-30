@@ -1,5 +1,6 @@
 package compat.sandbox.net.minecraft.world;
 
+import compat.sandbox.net.minecraft.block.Compat_Block;
 import compat.sandbox.net.minecraft.block.state.Compat_IBlockState;
 import compat.sandbox.net.minecraft.block.state.Wrapper_IBlockState;
 import compat.sandbox.net.minecraft.tileentity.Compat_TileEntity;
@@ -50,5 +51,9 @@ public class Wrapper_IBlockAccess implements Compat_IBlockAccess {
 	public Compat_TileEntity Compat_func_147438_o(int x, int y, int z) {
 		TileEntity result = original.getTileEntity(new BlockPos(x, y, z));
 		return Compat_TileEntity.getFake(result);
+	}
+
+	public Compat_Block Compat_func_147439_a(int x, int y, int z) {
+		return Compat_Block.getFake(original.getBlockState(new BlockPos(x, y, z)).getBlock());
 	}
 }
