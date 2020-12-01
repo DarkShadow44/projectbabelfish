@@ -41,8 +41,6 @@ no abstract "real" classes!
 instanceof abfangen oder doublewrap verhinern...?
 
 
-
-
 All mod classes tagged? When usin @Callback, switch on version (CASE V1_7_10 Call_XX, CASE V1_10_2 Call_YY). in constructor, get and save version.
 factory checks if child, if yes, creates wrapper.
 if this.getClass != Compat_XXX.class then is child
@@ -77,3 +75,11 @@ implement large flower pot rendering
 MinecraftForgeClient#getRenderLayer() - for getting render layer?
 
 ISBRH handler eine ebene höher einmixen, in bakedmodel dann nur das ISBRH result aus dem cache nehmen
+
+
+ISBRH:
+prevent TileEntity NPE LargePot
+prevent MultiThread Race condition
+implement lender layer (pass0/1)
+
+can't have factory create wrapper when not child, we need getFake() !
