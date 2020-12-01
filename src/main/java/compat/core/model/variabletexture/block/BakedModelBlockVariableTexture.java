@@ -1,5 +1,6 @@
 package compat.core.model.variabletexture.block;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import compat.mixinhelper.ForgeBlockModelRendererHelper;
@@ -38,7 +39,10 @@ public class BakedModelBlockVariableTexture implements IBakedModel {
 		int renderId = block.Compat_func_149645_b();
 
 		if (renderId != 0) {
-			return getQuadsISBRH(state, Compat_RenderingRegistry.getHandler(renderId));
+			if (side == null) {
+				return getQuadsISBRH(state, Compat_RenderingRegistry.getHandler(renderId));
+			}
+			return new ArrayList<>();
 		}
 
 		throw new RuntimeException("Not Implemented!");
@@ -59,7 +63,7 @@ public class BakedModelBlockVariableTexture implements IBakedModel {
 
 	@Override
 	public boolean isAmbientOcclusion() {
-		return false;
+		return true;
 	}
 
 	@Override
