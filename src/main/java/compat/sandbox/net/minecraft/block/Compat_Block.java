@@ -69,7 +69,6 @@ import net.minecraft.world.WorldServer;
 public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	private CompatI_Block wrapper;
 
-	@SuppressWarnings("unused")
 	private Version version = Version.UNKNOWN;
 
 	private Compat_IIcon blockIcon;
@@ -195,7 +194,14 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 
 	@Callback
 	public boolean isFullCube(IBlockState state) {
-		return Compat_func_149686_d(new Wrapper_IBlockState(state));
+		switch (version) {
+		case V1_10_2:
+			return Compat_func_149686_d(new Wrapper_IBlockState(state));
+		case V1_7_10:
+			return Compat_func_149686_d();
+		default:
+			throw version.makeException();
+		}
 	}
 
 	@HasCallback({ Version.V1_10_2 })
@@ -203,14 +209,31 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return wrapper.isFullCubeSuper(state.getReal());
 	}
 
+	@HasCallback({ Version.V1_7_10 })
+	public boolean Compat_func_149686_d() {
+		return wrapper.isFullCubeSuper(wrapper.getDefaultStateSuper());
+	}
+
 	@Callback(skipDuringConstructor = true)
 	public boolean isOpaqueCube(IBlockState state) {
-		return Compat_func_149662_c(new Wrapper_IBlockState(state));
+		switch (version) {
+		case V1_10_2:
+			return Compat_func_149662_c(new Wrapper_IBlockState(state));
+		case V1_7_10:
+			return Compat_func_149662_c();
+		default:
+			throw version.makeException();
+		}
 	}
 
 	@HasCallback({ Version.V1_10_2 })
 	public boolean Compat_func_149662_c(Compat_IBlockState state) {
 		return wrapper.isOpaqueCubeSuper(state.getReal());
+	}
+
+	@HasCallback({ Version.V1_7_10 })
+	public boolean Compat_func_149662_c() {
+		return wrapper.isOpaqueCubeSuper(wrapper.getDefaultStateSuper());
 	}
 
 	@Callback
@@ -805,8 +828,5 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return world.getReal().getBlockState(pos).getPackedLightmapCoords(world.getReal(), pos);
 	}
 
-	public boolean Compat_func_149662_c() {
-		return wrapper.getDefaultStateSuper().isOpaqueCube();
-	}
 
 }
