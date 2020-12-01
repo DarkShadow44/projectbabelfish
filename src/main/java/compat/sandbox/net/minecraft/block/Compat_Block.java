@@ -81,16 +81,17 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	public Compat_Block(Compat_Material material) {
 		super(ParentSelector.NULL);
 		this.initialize(Factory.create(CtorPos.POS1, CompatI_Block.class, this, material.getReal()));
-
-		workaround_init();
 	}
 
-	protected void workaround_init() {
+	private void workaround_init() {
+		if (!wrapper.isChild())
+			return;
+
 		// Workaround, since we need skipDuringConstructor
 		Block block = (Block) wrapper;
 		block.blockState = this.createBlockState();
 		wrapper.setDefaultStateSuper(block.blockState.getBaseState());
-		boolean fullBlock = block.getDefaultState().isOpaqueCube();
+		boolean fullBlock = isOpaqueCube(block.getDefaultState());
 		wrapper.set_fullBlock(fullBlock);
 		block.setLightOpacity(fullBlock ? 255 : 0);
 	}
@@ -110,6 +111,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		super.initialize(wrapper);
 		this.wrapper = wrapper;
 		version = Version.get(this);
+		workaround_init();
 	}
 
 	public Block getReal() {
@@ -221,6 +223,8 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 			return Compat_func_149662_c(new Wrapper_IBlockState(state));
 		case V1_7_10:
 			return Compat_func_149662_c();
+		case UNKNOWN:
+			return wrapper.isOpaqueCubeSuper(state);
 		default:
 			throw version.makeException();
 		}
@@ -827,6 +831,5 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		BlockPos pos = new BlockPos(x, y, z);
 		return world.getReal().getBlockState(pos).getPackedLightmapCoords(world.getReal(), pos);
 	}
-
 
 }

@@ -34,6 +34,8 @@ import net.minecraft.world.WorldServer;
 public interface CompatI_Block extends CompatI_IForgeRegistryEntry_Impl<Block> {
 	public Block get();
 
+	public boolean isChild();
+
 	public IBlockState getDefaultStateSuper();
 
 	public BlockStateContainer createBlockStateSuper();

@@ -16,8 +16,6 @@ public class Compat_BlockDirectional extends Compat_Block {
 	public Compat_BlockDirectional(Compat_Material material) {
 		super(ParentSelector.NULL);
 		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockDirectional.class, this, material.getReal()));
-
-		workaround_init();
 	}
 
 	// When called from child

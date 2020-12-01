@@ -189,6 +189,25 @@ public class ClassGenerator {
 		return method;
 	}
 
+	private MethodNode generateIsChild(boolean isChild) {
+		MethodNode method = new MethodNode();
+		method.name = "isChild";
+		method.access = Opcodes.ACC_PUBLIC;
+		method.exceptions = new ArrayList<>();
+
+		method.desc = "()Z";
+
+		method.instructions = new InsnList();
+		if (isChild) {
+			method.instructions.add(new InsnNode(Opcodes.ICONST_1));
+		} else {
+			method.instructions.add(new InsnNode(Opcodes.ICONST_0));
+		}
+		method.instructions.add(new InsnNode(Opcodes.IRETURN));
+
+		return method;
+	}
+
 	private MethodNode generateSuper(Parameter[] params, String methodName, Class<?> returnType, boolean isWrapper) {
 		MethodNode method = new MethodNode();
 		method.name = methodName;
@@ -314,6 +333,11 @@ public class ClassGenerator {
 					continue;
 				}
 				methods.add(generateGetFake(method.getReturnType()));
+				continue;
+			}
+
+			if (method.getName().equals("isChild")) {
+				methods.add(generateIsChild(!isWrapper));
 				continue;
 			}
 
