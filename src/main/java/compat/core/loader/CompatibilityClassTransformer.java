@@ -78,8 +78,12 @@ public class CompatibilityClassTransformer {
 		if (name.startsWith("javax/"))
 			return true;
 
-		if (name.startsWith("org/lwjgl/"))
+		if (name.startsWith("org/lwjgl/")) {
+			if (name.startsWith("org/lwjgl/opengl/GL")) {
+				return false;
+			}
 			return true;
+		}
 
 		if (name.startsWith("org/apache/"))
 			return true;
@@ -155,7 +159,7 @@ public class CompatibilityClassTransformer {
 	}
 
 	public static boolean isMcClass(String name) {
-		name = name.replace(".", "/");
+		name = name.replace(".", "/").replace("Compat_", "");
 
 		if (name.startsWith("cpw/mods/fml/"))
 			return true;
@@ -173,6 +177,9 @@ public class CompatibilityClassTransformer {
 			return true;
 
 		if (name.equals("java/lang/Class"))
+			return true;
+
+		if (name.startsWith("org/lwjgl/opengl/GL"))
 			return true;
 
 		return false;

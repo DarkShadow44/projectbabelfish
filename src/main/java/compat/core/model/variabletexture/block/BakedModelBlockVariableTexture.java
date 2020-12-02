@@ -11,6 +11,7 @@ import compat.sandbox.net.minecraft.client.renderer.Compat_Tessellator;
 import compat.sandbox.net.minecraft.world.Compat_IBlockAccess;
 import compat.sandbox.net.minecraft.world.Wrapper_IBlockAccess;
 import compat.sandbox.net.minecraftforge.fml.client.registry.Compat_RenderingRegistry;
+import compat.sandbox.org.lwjgl.opengl.Compat_GL11;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -50,13 +51,15 @@ public class BakedModelBlockVariableTexture implements IBakedModel {
 		}
 
 		return new ArrayList<>();
-		//throw new RuntimeException("Not Implemented!");
+		// throw new RuntimeException("Not Implemented!");
 	}
 
 	private List<BakedQuad> getQuadsISBRHWorld(Compat_IBlockAccess world, Compat_Block block, BlockPos pos, Compat_ISimpleBlockRenderingHandler handler) {
 		Compat_Tessellator.resetForISBRH(true);
 
+		Compat_GL11.setInISBRH(true);
 		handler.renderWorldBlock(world, pos.getX(), pos.getY(), pos.getZ(), block, 0, new Compat_RenderBlocks());
+		Compat_GL11.setInISBRH(false);
 
 		List<BakedQuad> quads = Compat_Tessellator.getQuads();
 		return quads;
@@ -65,7 +68,9 @@ public class BakedModelBlockVariableTexture implements IBakedModel {
 	private List<BakedQuad> getQuadsISBRHInventory(Compat_Block block, int meta, Compat_ISimpleBlockRenderingHandler handler) {
 		Compat_Tessellator.resetForISBRH(false);
 
+		Compat_GL11.setInISBRH(true);
 		handler.renderInventoryBlock(block, meta, 0, new Compat_RenderBlocks());
+		Compat_GL11.setInISBRH(false);
 
 		List<BakedQuad> quads = Compat_Tessellator.getQuads();
 		return quads;

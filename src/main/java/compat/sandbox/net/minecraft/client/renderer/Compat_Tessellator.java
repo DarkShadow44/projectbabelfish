@@ -39,6 +39,7 @@ public class Compat_Tessellator {
 
 	private static BufferBuilder bufferOld;
 	private static float oldR, oldG, oldB;
+	private static float oldX, oldY, oldZ;
 	private static int oldBright;
 	private static boolean isBlock;
 
@@ -67,6 +68,7 @@ public class Compat_Tessellator {
 			bufferOld.pos(x, y, z);
 		}
 
+		bufferOld.setTranslation(oldX, oldY, oldZ);
 		bufferOld.color(oldR, oldG, oldB, 0.5f);
 		bufferOld.tex(u, v);
 		bufferOld.tex(oldBright >> 16, oldBright);
@@ -79,6 +81,14 @@ public class Compat_Tessellator {
 		Compat_Tessellator.isBlock = isBlock;
 		bufferOld = new BufferBuilder(1000);
 		bufferOld.begin(0, format);
+
+		oldR = 0;
+		oldG = 0;
+		oldB = 0;
+		oldBright = 0;
+		oldX = 0;
+		oldY = 0;
+		oldZ = 0;
 	}
 
 	private static void getRaw(int[] source, int[] dest, int face) {
@@ -118,6 +128,12 @@ public class Compat_Tessellator {
 	public int Compat_func_78381_a_I() {
 		// draw
 		return 0;
+	}
+
+	public static void glTranslate(float x, float y, float z) {
+		oldX += x;
+		oldY += y;
+		oldZ += z;
 	}
 
 }
