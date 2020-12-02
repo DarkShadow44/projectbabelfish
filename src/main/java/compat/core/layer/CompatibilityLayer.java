@@ -53,15 +53,16 @@ public abstract class CompatibilityLayer {
 
 	public final List<ModInfo> mods = new ArrayList<>();
 	private Map<String, String> classRedirects = new HashMap<>();
+	private Map<String, String> methodRedirects = new HashMap<>();
 
 	public CompatibilityLayer(Version version) {
 		this.version = version;
-		readRedirects();
+		readClassRedirects(classRedirects, "classRedirects.txt");
+		readClassRedirects(methodRedirects, "methodRedirects.txt");
 	}
 
-	private void readRedirects() {
-
-		InputStream inputStream = getClass().getClassLoader().getResourceAsStream("classRedirects.txt");
+	private void readClassRedirects(Map<String, String> target, String name) {
+		InputStream inputStream = getClass().getClassLoader().getResourceAsStream(name);
 		List<String> lines;
 		try {
 			lines = IOUtils.readLines(inputStream, StandardCharsets.UTF_8);
@@ -77,7 +78,7 @@ public abstract class CompatibilityLayer {
 			if (split.length != 2) {
 				throw new RuntimeException("Invalid line: " + line);
 			}
-			classRedirects.put(split[0], split[1]);
+			target.put(split[0], split[1]);
 		}
 	}
 
@@ -89,7 +90,7 @@ public abstract class CompatibilityLayer {
 		return pathSandbox;
 	}
 
-	public String getRedirected(String name) {
+	public String getRedirectedClass(String name) {
 		name = name.replace('$', '_');
 		String key = name;
 		if (key.startsWith(pathSandbox)) {
@@ -101,13 +102,20 @@ public abstract class CompatibilityLayer {
 		return name;
 	}
 
+	public String getRedirectedMethod(String name, String desc) {
+		if (methodRedirects.containsKey(name + desc)) {
+			name = methodRedirects.get(name + desc);
+		}
+		return name;
+	}
+
 	public String getPrefixedClassname(String name) {
 		String[] names = name.split("\\/");
 		if (CompatibilityClassTransformer.isMcClass(name)) {
 			names[names.length - 1] = prefixFake + names[names.length - 1];
 		}
 		String prefixedPath = pathSandbox + String.join("/", names);
-		return getRedirected(prefixedPath);
+		return getRedirectedClass(prefixedPath);
 	}
 
 	public String getPrefixFake() {

@@ -457,7 +457,7 @@ public class CompatibilityClassTransformer {
 			if (!isClassException(method.owner)) {
 				// Skip constructors and special enum methods
 				if (!isMethodException(classesToLoad, method.owner, method.name, method.desc)) {
-					method.name = layer.getPrefixFake() + method.name;
+					method.name = layer.getRedirectedMethod(layer.getPrefixFake() + method.name, method.desc);
 				}
 				method.owner = getTransformedClassname(method.owner);
 				method.desc = transformDescriptor(method.desc);

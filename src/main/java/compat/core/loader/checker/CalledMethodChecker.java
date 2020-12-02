@@ -45,7 +45,7 @@ public class CalledMethodChecker extends GenericChecker {
 		if (nameOwner.startsWith(layer.getPathSandbox())) {
 			nameOwner = nameOwner.substring(layer.getPathSandbox().length());
 		}
-		String pathOwner = layer.getRedirected(methodSearch.owner);
+		String pathOwner = layer.getRedirectedClass(methodSearch.owner);
 		if (!CompatibilityClassTransformer.isMcClass(nameOwner)) {
 			return true;
 		}

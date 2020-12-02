@@ -49,11 +49,12 @@ public class BakedModelBlockVariableTexture implements IBakedModel {
 			return new ArrayList<>();
 		}
 
-		throw new RuntimeException("Not Implemented!");
+		return new ArrayList<>();
+		//throw new RuntimeException("Not Implemented!");
 	}
 
 	private List<BakedQuad> getQuadsISBRHWorld(Compat_IBlockAccess world, Compat_Block block, BlockPos pos, Compat_ISimpleBlockRenderingHandler handler) {
-		Compat_Tessellator.resetForISBRH();
+		Compat_Tessellator.resetForISBRH(true);
 
 		handler.renderWorldBlock(world, pos.getX(), pos.getY(), pos.getZ(), block, 0, new Compat_RenderBlocks());
 
@@ -62,7 +63,7 @@ public class BakedModelBlockVariableTexture implements IBakedModel {
 	}
 
 	private List<BakedQuad> getQuadsISBRHInventory(Compat_Block block, int meta, Compat_ISimpleBlockRenderingHandler handler) {
-		Compat_Tessellator.resetForISBRH();
+		Compat_Tessellator.resetForISBRH(false);
 
 		handler.renderInventoryBlock(block, meta, 0, new Compat_RenderBlocks());
 

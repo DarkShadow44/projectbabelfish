@@ -1,0 +1,1 @@
+Compat_func_78381_a()I				Compat_func_78381_a_I
