@@ -7,14 +7,17 @@ import javax.annotation.Nullable;
 
 import com.google.common.collect.ImmutableList;
 
+import compat.core.model.variabletexture.block.BakedModelBlockVariableTexture;
 import compat.sandbox.net.minecraft.item.CompatI_Item;
 import compat.sandbox.net.minecraft.item.Compat_Item;
 import compat.sandbox.net.minecraft.util.Compat_IIcon;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -30,10 +33,14 @@ public class ModelOverridesItemVariableTexture extends ItemOverrideList {
 
 	@Override
 	public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, ItemStack stack, @Nullable World world, @Nullable EntityLivingBase entity) {
-
 		CompatI_Item itemI = (CompatI_Item) stack.getItem();
 		Compat_Item item = itemI.getFake();
 		Compat_IIcon icon = item.Compat_func_77617_a(stack.getItemDamage());
+
+		if (itemI instanceof ItemBlock) {
+			Block block = ((ItemBlock) itemI).getBlock();
+			return new BakedModelBlockVariableTexture(block, stack.getItemDamage());
+		}
 
 		if (icon == null) {
 			return originalModel;

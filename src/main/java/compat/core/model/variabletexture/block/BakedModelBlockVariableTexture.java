@@ -5,42 +5,46 @@ import java.util.List;
 
 import compat.mixinhelper.ForgeBlockModelRendererHelper;
 import compat.sandbox.cpw.mods.fml.client.registry.Compat_ISimpleBlockRenderingHandler;
-import compat.sandbox.net.minecraft.block.CompatI_Block;
 import compat.sandbox.net.minecraft.block.Compat_Block;
 import compat.sandbox.net.minecraft.client.renderer.Compat_RenderBlocks;
 import compat.sandbox.net.minecraft.client.renderer.Compat_Tessellator;
 import compat.sandbox.net.minecraft.world.Compat_IBlockAccess;
 import compat.sandbox.net.minecraft.world.Wrapper_IBlockAccess;
 import compat.sandbox.net.minecraftforge.fml.client.registry.Compat_RenderingRegistry;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.common.model.IModelState;
 
 public class BakedModelBlockVariableTexture implements IBakedModel {
 
-	public final IModelState state;
-	public final VertexFormat format;
+	private final Block blockFromItem;
+	private final int itemMeta;
 
-	public BakedModelBlockVariableTexture(VertexFormat format, IModelState state) {
-		this.format = format;
-		this.state = state;
+	public BakedModelBlockVariableTexture(Block blockFromItem, int itemMeta) {
+		this.blockFromItem = blockFromItem;
+		this.itemMeta = itemMeta;
 	}
 
 	@Override
 	public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
-		Compat_Block block = ((CompatI_Block) state.getBlock()).getFake();
-
+		Block blockReal = state == null ? blockFromItem : state.getBlock();
+		Compat_Block block = Compat_Block.getFake(blockReal);
 		int renderId = block.Compat_func_149645_b();
 
 		if (renderId != 0) {
+			if (state == null) {
+				return getQuadsISBRHInventory(block, itemMeta, Compat_RenderingRegistry.getHandler(renderId));
+			}
+
 			if (side == null) {
-				return getQuadsISBRH(state, Compat_RenderingRegistry.getHandler(renderId));
+				Compat_IBlockAccess world = new Wrapper_IBlockAccess(ForgeBlockModelRendererHelper.currentWorld);
+				BlockPos pos = ForgeBlockModelRendererHelper.currentPos;
+				return getQuadsISBRHWorld(world, block, pos, Compat_RenderingRegistry.getHandler(renderId));
 			}
 			return new ArrayList<>();
 		}
@@ -48,14 +52,19 @@ public class BakedModelBlockVariableTexture implements IBakedModel {
 		throw new RuntimeException("Not Implemented!");
 	}
 
-	private List<BakedQuad> getQuadsISBRH(IBlockState state, Compat_ISimpleBlockRenderingHandler handler) {
-		Compat_Block block = Compat_Block.getFake(state.getBlock());
-		Compat_IBlockAccess world = new Wrapper_IBlockAccess(ForgeBlockModelRendererHelper.currentWorld);
-		BlockPos pos = ForgeBlockModelRendererHelper.currentPos;
-
+	private List<BakedQuad> getQuadsISBRHWorld(Compat_IBlockAccess world, Compat_Block block, BlockPos pos, Compat_ISimpleBlockRenderingHandler handler) {
 		Compat_Tessellator.resetForISBRH();
 
 		handler.renderWorldBlock(world, pos.getX(), pos.getY(), pos.getZ(), block, 0, new Compat_RenderBlocks());
+
+		List<BakedQuad> quads = Compat_Tessellator.getQuads();
+		return quads;
+	}
+
+	private List<BakedQuad> getQuadsISBRHInventory(Compat_Block block, int meta, Compat_ISimpleBlockRenderingHandler handler) {
+		Compat_Tessellator.resetForISBRH();
+
+		handler.renderInventoryBlock(block, meta, 0, new Compat_RenderBlocks());
 
 		List<BakedQuad> quads = Compat_Tessellator.getQuads();
 		return quads;

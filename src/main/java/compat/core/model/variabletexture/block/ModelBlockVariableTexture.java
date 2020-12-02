@@ -23,6 +23,6 @@ public class ModelBlockVariableTexture implements IModel {
 
 	@Override
 	public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
-		return new BakedModelBlockVariableTexture(format, state);
+		return new BakedModelBlockVariableTexture(null, 0);
 	}
 }
