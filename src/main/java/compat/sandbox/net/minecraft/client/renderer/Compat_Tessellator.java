@@ -131,9 +131,7 @@ public class Compat_Tessellator {
 	}
 
 	public static void glTranslate(float x, float y, float z) {
-		oldX += x;
-		oldY += y;
-		oldZ += z;
+
 	}
 
 }

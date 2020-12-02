@@ -3,6 +3,11 @@ package compat.core.model.variabletexture.block;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.vecmath.Matrix4f;
+
+import org.apache.commons.lang3.tuple.Pair;
+
+import compat.core.model.TransformHelper;
 import compat.mixinhelper.ForgeBlockModelRendererHelper;
 import compat.sandbox.cpw.mods.fml.client.registry.Compat_ISimpleBlockRenderingHandler;
 import compat.sandbox.net.minecraft.block.Compat_Block;
@@ -16,10 +21,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.client.model.PerspectiveMapWrapper;
 
 public class BakedModelBlockVariableTexture implements IBakedModel {
 
@@ -29,6 +36,11 @@ public class BakedModelBlockVariableTexture implements IBakedModel {
 	public BakedModelBlockVariableTexture(Block blockFromItem, int itemMeta) {
 		this.blockFromItem = blockFromItem;
 		this.itemMeta = itemMeta;
+	}
+
+	@Override
+	public Pair<? extends IBakedModel, Matrix4f> handlePerspective(TransformType cameraTransformType) {
+		return PerspectiveMapWrapper.handlePerspective(this, TransformHelper.BLOCK_GENERATED, cameraTransformType);
 	}
 
 	@Override
