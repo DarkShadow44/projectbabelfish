@@ -40,6 +40,7 @@ public class Compat_Tessellator {
 	private static BufferBuilder bufferOld;
 	private static float oldR, oldG, oldB;
 	private static float oldX, oldY, oldZ;
+	private static float oldNormalX, oldNormalY, oldNormalZ;
 	private static int oldBright;
 	private static boolean isBlock;
 
@@ -63,22 +64,34 @@ public class Compat_Tessellator {
 	public void Compat_func_78374_a(double x, double y, double z, double u, double v) {
 		if (isBlock) {
 			BlockPos pos = ForgeBlockModelRendererHelper.currentPos;
-			bufferOld.pos(x - pos.getX(), y - pos.getY(), z - pos.getZ());
-		} else {
-			bufferOld.pos(x, y, z);
-		}
 
-		bufferOld.setTranslation(oldX, oldY, oldZ);
-		bufferOld.color(oldR, oldG, oldB, 0.5f);
-		bufferOld.tex(u, v);
-		bufferOld.tex(oldBright >> 16, oldBright);
-		bufferOld.endVertex();
+			bufferOld.setTranslation(oldX, oldY, oldZ);
+
+			bufferOld.pos(x - pos.getX(), y - pos.getY(), z - pos.getZ());
+			bufferOld.color(oldR, oldG, oldB, 0.5f);
+			bufferOld.tex(u, v);
+			bufferOld.tex(oldBright >> 16, oldBright);
+
+			bufferOld.endVertex();
+		} else {
+			bufferOld.setTranslation(oldX, oldY, oldZ);
+
+			bufferOld.pos(x, y, z);
+			bufferOld.color(oldR, oldG, oldB, 0.5f);
+			bufferOld.tex(u, v);
+			bufferOld.normal(oldNormalX, oldNormalY, oldNormalZ);
+
+			bufferOld.endVertex();
+		}
 	}
 
-	private static VertexFormat format = DefaultVertexFormats.BLOCK;
+	private static VertexFormat format;
 
 	public static void resetForISBRH(boolean isBlock) {
 		Compat_Tessellator.isBlock = isBlock;
+
+		format = isBlock ? DefaultVertexFormats.BLOCK : DefaultVertexFormats.ITEM;
+
 		bufferOld = new BufferBuilder(1000);
 		bufferOld.begin(0, format);
 
@@ -122,7 +135,9 @@ public class Compat_Tessellator {
 	}
 
 	public void Compat_func_78375_b(float x, float y, float z) {
-		// setNormal
+		oldNormalX = x;
+		oldNormalY = y;
+		oldNormalZ = z;
 	}
 
 	public int Compat_func_78381_a_I() {

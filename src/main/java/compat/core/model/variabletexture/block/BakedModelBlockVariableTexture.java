@@ -85,6 +85,7 @@ public class BakedModelBlockVariableTexture implements IBakedModel {
 		Compat_GL11.setInISBRH(false);
 
 		List<BakedQuad> quads = Compat_Tessellator.getQuads();
+
 		return quads;
 	}
 
@@ -95,7 +96,7 @@ public class BakedModelBlockVariableTexture implements IBakedModel {
 
 	@Override
 	public boolean isGui3d() {
-		return false;
+		return true;
 	}
 
 	@Override
