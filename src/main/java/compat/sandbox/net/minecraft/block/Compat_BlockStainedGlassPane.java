@@ -33,4 +33,8 @@ public class Compat_BlockStainedGlassPane extends Compat_BlockPane {
 	public BlockStainedGlassPane getReal() {
 		return wrapper.get();
 	}
+
+	public static Compat_BlockStainedGlassPane getFake(BlockStainedGlassPane block) {
+		return getFakeInternal(block, () -> new Compat_BlockStainedGlassPane(block));
+	}
 }

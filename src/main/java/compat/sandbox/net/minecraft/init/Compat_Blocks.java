@@ -5,25 +5,31 @@ import compat.sandbox.net.minecraft.block.Compat_BlockBush;
 import compat.sandbox.net.minecraft.block.Compat_BlockChest;
 import compat.sandbox.net.minecraft.block.Compat_BlockDaylightDetector;
 import compat.sandbox.net.minecraft.block.Compat_BlockDeadBush;
+import compat.sandbox.net.minecraft.block.Compat_BlockDoublePlant;
 import compat.sandbox.net.minecraft.block.Compat_BlockFire;
 import compat.sandbox.net.minecraft.block.Compat_BlockFlower;
+import compat.sandbox.net.minecraft.block.Compat_BlockGrass;
+import compat.sandbox.net.minecraft.block.Compat_BlockLeaves;
+import compat.sandbox.net.minecraft.block.Compat_BlockMycelium;
 import compat.sandbox.net.minecraft.block.Compat_BlockPistonBase;
 import compat.sandbox.net.minecraft.block.Compat_BlockRedstoneWire;
 import compat.sandbox.net.minecraft.block.Compat_BlockSand;
 import compat.sandbox.net.minecraft.block.Compat_BlockSlab;
 import compat.sandbox.net.minecraft.block.Compat_BlockStainedGlass;
+import compat.sandbox.net.minecraft.block.Compat_BlockStainedGlassPane;
+import compat.sandbox.net.minecraft.block.Compat_BlockTallGrass;
 import net.minecraft.init.Blocks;
 
 public class Compat_Blocks {
 
 	private static final Compat_Block REDSTONE_LAMP = Compat_Block.getFake(Blocks.REDSTONE_LAMP);
-	private static final Compat_BlockSlab STONE_SLAB = new Compat_BlockSlab(Blocks.STONE_SLAB);
+	private static final Compat_BlockSlab STONE_SLAB = Compat_BlockSlab.getFake(Blocks.STONE_SLAB);
 	private static final Compat_Block WOOL = Compat_Block.getFake(Blocks.WOOL);
 	private static final Compat_Block REDSTONE_TORCH = Compat_Block.getFake(Blocks.REDSTONE_TORCH);
 	private static final Compat_Block STONE_BUTTON = Compat_Block.getFake(Blocks.STONE_BUTTON);
-	private static final Compat_BlockPistonBase PISTON = new Compat_BlockPistonBase(Blocks.PISTON);
+	private static final Compat_BlockPistonBase PISTON = Compat_BlockPistonBase.getFake(Blocks.PISTON);
 	private static final Compat_Block STONE = Compat_Block.getFake(Blocks.STONE);
-	private static final Compat_BlockFire FIRE = new Compat_BlockFire(Blocks.FIRE);
+	private static final Compat_BlockFire FIRE = Compat_BlockFire.getFake(Blocks.FIRE);
 	private static final Compat_Block SNOW = Compat_Block.getFake(Blocks.SNOW);
 	private static final Compat_Block OAK_DOOR = Compat_Block.getFake(Blocks.OAK_DOOR);
 	private static final Compat_Block IRON_DOOR = Compat_Block.getFake(Blocks.IRON_DOOR);
@@ -34,22 +40,22 @@ public class Compat_Blocks {
 	private static final Compat_Block STONE_PRESSURE_PLATE = Compat_Block.getFake(Blocks.STONE_PRESSURE_PLATE);
 	private static final Compat_Block DIRT = Compat_Block.getFake(Blocks.DIRT);
 	private static final Compat_Block SANDSTONE = Compat_Block.getFake(Blocks.SANDSTONE);
-	private static final Compat_BlockSand SAND = new Compat_BlockSand(Blocks.SAND);
+	private static final Compat_BlockSand SAND = Compat_BlockSand.getFake(Blocks.SAND);
 	private static final Compat_Block PLANKS = Compat_Block.getFake(Blocks.PLANKS);
 	private static final Compat_Block BOOKSHELF = Compat_Block.getFake(Blocks.BOOKSHELF);
-	private static final Compat_BlockChest CHEST = new Compat_BlockChest(Blocks.CHEST);
+	private static final Compat_BlockChest CHEST = Compat_BlockChest.getFake(Blocks.CHEST);
 	private static final Compat_Block PUMPKIN = Compat_Block.getFake(Blocks.PUMPKIN);
 	private static final Compat_Block LIT_PUMPKIN = Compat_Block.getFake(Blocks.LIT_PUMPKIN);
 	private static final Compat_Block WATER = Compat_Block.getFake(Blocks.WATER);
 	private static final Compat_Block LAVA = Compat_Block.getFake(Blocks.LAVA);
 	private static final Compat_Block FARMLAND = Compat_Block.getFake(Blocks.FARMLAND);
 	private static final Compat_Block AIR = Compat_Block.getFake(Blocks.AIR);
-	private static final Compat_BlockFlower RED_FLOWER = new Compat_BlockFlower(Blocks.RED_FLOWER);
-	private static final Compat_BlockFlower YELLOW_FLOWER = new Compat_BlockFlower(Blocks.YELLOW_FLOWER);
-	private static final Compat_BlockDeadBush DEADBUSH = new Compat_BlockDeadBush(Blocks.DEADBUSH);
+	private static final Compat_BlockFlower RED_FLOWER = Compat_BlockFlower.getFake(Blocks.RED_FLOWER);
+	private static final Compat_BlockFlower YELLOW_FLOWER = Compat_BlockFlower.getFake(Blocks.YELLOW_FLOWER);
+	private static final Compat_BlockDeadBush DEADBUSH = Compat_BlockDeadBush.getFake(Blocks.DEADBUSH);
 	private static final Compat_Block WATERLILY = Compat_Block.getFake(Blocks.WATERLILY);
-	private static final Compat_BlockBush RED_MUSHROOM = new Compat_BlockBush(Blocks.RED_MUSHROOM);
-	private static final Compat_BlockBush BROWN_MUSHROOM = new Compat_BlockBush(Blocks.BROWN_MUSHROOM);
+	private static final Compat_BlockBush RED_MUSHROOM = Compat_BlockBush.getFake(Blocks.RED_MUSHROOM);
+	private static final Compat_BlockBush BROWN_MUSHROOM = Compat_BlockBush.getFake(Blocks.BROWN_MUSHROOM);
 	private static final Compat_Block NETHER_BRICK = Compat_Block.getFake(Blocks.NETHER_BRICK);
 	private static final Compat_Block IRON_BARS = Compat_Block.getFake(Blocks.IRON_BARS);
 	private static final Compat_Block SNOW_LAYER = Compat_Block.getFake(Blocks.SNOW_LAYER);
@@ -69,8 +75,8 @@ public class Compat_Blocks {
 	private static final Compat_Block FURNACE = Compat_Block.getFake(Blocks.FURNACE);
 	private static final Compat_Block HEAVY_WEIGHTED_PRESSURE_PLATE = Compat_Block.getFake(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE);
 	private static final Compat_Block STONE_BRICK_STAIRS = Compat_Block.getFake(Blocks.STONE_BRICK_STAIRS);
-	private static final Compat_BlockDaylightDetector DAYLIGHT_DETECTOR = new Compat_BlockDaylightDetector(Blocks.DAYLIGHT_DETECTOR);
-	private static final Compat_BlockStainedGlass STAINED_GLASS = new Compat_BlockStainedGlass(Blocks.STAINED_GLASS);
+	private static final Compat_BlockDaylightDetector DAYLIGHT_DETECTOR = Compat_BlockDaylightDetector.getFake(Blocks.DAYLIGHT_DETECTOR);
+	private static final Compat_BlockStainedGlass STAINED_GLASS = Compat_BlockStainedGlass.getFake(Blocks.STAINED_GLASS);
 	private static final Compat_Block SOUL_SAND = Compat_Block.getFake(Blocks.SOUL_SAND);
 	private static final Compat_Block VINE = Compat_Block.getFake(Blocks.VINE);
 	private static final Compat_Block IRON_ORE = Compat_Block.getFake(Blocks.IRON_ORE);
@@ -80,7 +86,7 @@ public class Compat_Blocks {
 	private static final Compat_Block COBBLESTONE = Compat_Block.getFake(Blocks.COBBLESTONE);
 	private static final Compat_Block GLASS_PANE = Compat_Block.getFake(Blocks.GLASS_PANE);
 	private static final Compat_Block COAL_ORE = Compat_Block.getFake(Blocks.COAL_ORE);
-	private static final Compat_BlockRedstoneWire REDSTONE_WIRE = new Compat_BlockRedstoneWire(Blocks.REDSTONE_WIRE);
+	private static final Compat_BlockRedstoneWire REDSTONE_WIRE = Compat_BlockRedstoneWire.getFake(Blocks.REDSTONE_WIRE);
 	private static final Compat_Block BRICK_BLOCK = Compat_Block.getFake(Blocks.BRICK_BLOCK);
 	private static final Compat_Block GOLD_BLOCK = Compat_Block.getFake(Blocks.GOLD_BLOCK);
 	private static final Compat_Block MOSSY_COBBLESTONE = Compat_Block.getFake(Blocks.MOSSY_COBBLESTONE);
@@ -99,6 +105,20 @@ public class Compat_Blocks {
 	private static final Compat_Block RED_SANDSTONE = Compat_Block.getFake(Blocks.RED_SANDSTONE);
 	private static final Compat_Block PRISMARINE = Compat_Block.getFake(Blocks.PRISMARINE);
 	private static final Compat_Block SEA_LANTERN = Compat_Block.getFake(Blocks.SEA_LANTERN);
+	private static final Compat_BlockTallGrass TALLGRASS = Compat_BlockTallGrass.getFake(Blocks.TALLGRASS);
+	private static final Compat_BlockGrass GRASS = Compat_BlockGrass.getFake(Blocks.GRASS);
+	private static final Compat_BlockLeaves LEAVES2 = Compat_BlockLeaves.getFake(Blocks.LEAVES2);
+	private static final Compat_BlockLeaves LEAVES = Compat_BlockLeaves.getFake(Blocks.LEAVES);
+	private static final Compat_BlockSlab WOODEN_SLAB = Compat_BlockSlab.getFake(Blocks.WOODEN_SLAB);
+	private static final Compat_Block NETHER_WART = Compat_Block.getFake(Blocks.NETHER_WART);
+	private static final Compat_BlockMycelium MYCELIUM = Compat_BlockMycelium.getFake(Blocks.MYCELIUM);
+	private static final Compat_BlockStainedGlassPane STAINED_GLASS_PANE = Compat_BlockStainedGlassPane.getFake(Blocks.STAINED_GLASS_PANE);
+	private static final Compat_BlockDoublePlant DOUBLE_PLANT = Compat_BlockDoublePlant.getFake(Blocks.DOUBLE_PLANT);
+	private static final Compat_Block CLAY = Compat_Block.getFake(Blocks.CLAY);
+	private static final Compat_Block MELON_BLOCK = Compat_Block.getFake(Blocks.MELON_BLOCK);
+	private static final Compat_Block CARROTS = Compat_Block.getFake(Blocks.CARROTS);
+	private static final Compat_Block WHEAT = Compat_Block.getFake(Blocks.WHEAT);
+	private static final Compat_Block POTATOES = Compat_Block.getFake(Blocks.POTATOES);
 
 	public static Compat_Block Compat_get_field_150336_V() {
 		return BRICK_BLOCK;
@@ -430,5 +450,61 @@ public class Compat_Blocks {
 
 	public static Compat_BlockRedstoneWire Compat_get_field_150488_af() {
 		return REDSTONE_WIRE;
+	}
+
+	public static Compat_BlockTallGrass Compat_get_field_150329_H() {
+		return TALLGRASS;
+	}
+
+	public static Compat_BlockGrass Compat_get_field_150349_c() {
+		return GRASS;
+	}
+
+	public static Compat_BlockLeaves Compat_get_field_150361_u() {
+		return LEAVES2;
+	}
+
+	public static Compat_BlockLeaves Compat_get_field_150362_t() {
+		return LEAVES;
+	}
+
+	public static Compat_BlockSlab Compat_get_field_150376_bx() {
+		return WOODEN_SLAB;
+	}
+
+	public static Compat_Block Compat_get_field_150388_bm() {
+		return NETHER_WART;
+	}
+
+	public static Compat_BlockMycelium Compat_get_field_150391_bh() {
+		return MYCELIUM;
+	}
+
+	public static Compat_BlockStainedGlassPane Compat_get_field_150397_co() {
+		return STAINED_GLASS_PANE;
+	}
+
+	public static Compat_BlockDoublePlant Compat_get_field_150398_cm() {
+		return DOUBLE_PLANT;
+	}
+
+	public static Compat_Block Compat_get_field_150435_aG() {
+		return CLAY;
+	}
+
+	public static Compat_Block Compat_get_field_150440_ba() {
+		return MELON_BLOCK;
+	}
+
+	public static Compat_Block Compat_get_field_150459_bM() {
+		return CARROTS;
+	}
+
+	public static Compat_Block Compat_get_field_150464_aj() {
+		return WHEAT;
+	}
+
+	public static Compat_Block Compat_get_field_150469_bN() {
+		return POTATOES;
 	}
 }

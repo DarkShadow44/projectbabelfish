@@ -41,4 +41,8 @@ public class Compat_BlockPistonBase extends Compat_BlockDirectional {
 	public static Compat_EnumFacing Compat_func_185647_a(Compat_BlockPos pos, Compat_EntityLivingBase entity) {
 		return Compat_EnumFacing.getFake(EnumFacing.getDirectionFromEntityLiving(pos.getReal(), entity.getReal()));
 	}
+
+	public static Compat_BlockPistonBase getFake(BlockPistonBase block) {
+		return getFakeInternal(block, () -> new Compat_BlockPistonBase(block));
+	}
 }

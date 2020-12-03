@@ -40,4 +40,8 @@ public class Compat_BlockRedstoneWire extends Compat_Block {
 	public Compat_PropertyInteger Compat_get_field_176351_O() {
 		return POWER;
 	}
+
+	public static Compat_BlockRedstoneWire getFake(BlockRedstoneWire block) {
+		return getFakeInternal(block, () -> new Compat_BlockRedstoneWire(block));
+	}
 }

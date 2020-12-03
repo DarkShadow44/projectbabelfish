@@ -33,4 +33,8 @@ public class Compat_BlockMycelium extends Compat_Block {
 	public BlockMycelium getReal() {
 		return wrapper.get();
 	}
+
+	public static Compat_BlockMycelium getFake(BlockMycelium block) {
+		return getFakeInternal(block, () -> new Compat_BlockMycelium(block));
+	}
 }

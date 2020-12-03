@@ -33,4 +33,8 @@ public class Compat_BlockDaylightDetector extends Compat_Block {
 	public BlockDaylightDetector getReal() {
 		return wrapper.get();
 	}
+
+	public static Compat_BlockDaylightDetector getFake(BlockDaylightDetector block) {
+		return getFakeInternal(block, () -> new Compat_BlockDaylightDetector(block));
+	}
 }

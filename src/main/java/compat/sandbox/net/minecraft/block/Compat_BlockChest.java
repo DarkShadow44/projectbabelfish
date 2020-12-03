@@ -34,4 +34,8 @@ public class Compat_BlockChest extends Compat_Block {
 	public BlockChest getReal() {
 		return wrapper.get();
 	}
+
+	public static Compat_BlockChest getFake(BlockChest block) {
+		return getFakeInternal(block, () -> new Compat_BlockChest(block));
+	}
 }

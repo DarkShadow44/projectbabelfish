@@ -33,4 +33,8 @@ public class Compat_BlockGrass extends Compat_Block {
 	public BlockGrass getReal() {
 		return wrapper.get();
 	}
+
+	public static Compat_BlockGrass getFake(BlockGrass block) {
+		return getFakeInternal(block, () -> new Compat_BlockGrass(block));
+	}
 }

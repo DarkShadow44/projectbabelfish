@@ -41,4 +41,8 @@ public class Compat_BlockFlower extends Compat_Block {
 		return EnumFlowerColor.RED; // TODO ?
 	}
 
+	public static Compat_BlockFlower getFake(BlockFlower block) {
+		return getFakeInternal(block, () -> new Compat_BlockFlower(block));
+	}
+
 }

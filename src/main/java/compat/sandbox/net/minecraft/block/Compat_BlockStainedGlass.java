@@ -33,4 +33,8 @@ public class Compat_BlockStainedGlass extends Compat_BlockBreakable {
 	public BlockStainedGlass getReal() {
 		return wrapper.get();
 	}
+
+	public static Compat_BlockStainedGlass getFake(BlockStainedGlass block) {
+		return getFakeInternal(block, () -> new Compat_BlockStainedGlass(block));
+	}
 }

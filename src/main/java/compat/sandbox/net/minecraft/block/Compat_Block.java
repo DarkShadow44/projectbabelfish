@@ -3,6 +3,7 @@ package compat.sandbox.net.minecraft.block;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Supplier;
 
 import compat.autogen.Callback;
 import compat.autogen.Factory;
@@ -464,11 +465,16 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return wrapper.onBlockActivatedSuper(world.getReal(), pos.getReal(), state.getReal(), player.getReal(), hand.getReal(), facing.getReal(), x, y, z);
 	}
 
-	public static Compat_Block getFake(Block block) {
+	@SuppressWarnings("unchecked")
+	public static <T extends Compat_Block> T getFakeInternal(Block block, Supplier<Compat_Block> supplier) {
 		if (block instanceof CompatI_Block) {
-			return ((CompatI_Block) block).getFake();
+			return (T) ((CompatI_Block) block).getFake();
 		}
-		return new Compat_Block(block);
+		return (T) supplier.get();
+	}
+
+	public static Compat_Block getFake(Block block) {
+		return getFakeInternal(block, () -> new Compat_Block(block));
 	}
 
 	@Callback

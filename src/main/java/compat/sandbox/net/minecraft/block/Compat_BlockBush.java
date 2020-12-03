@@ -40,4 +40,8 @@ public class Compat_BlockBush extends Compat_Block {
 	public BlockBush getReal() {
 		return wrapper.get();
 	}
+
+	public static Compat_BlockBush getFake(BlockBush block) {
+		return getFakeInternal(block, () -> new Compat_BlockBush(block));
+	}
 }

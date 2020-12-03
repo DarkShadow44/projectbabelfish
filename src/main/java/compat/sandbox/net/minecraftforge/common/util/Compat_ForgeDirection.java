@@ -56,4 +56,23 @@ public enum Compat_ForgeDirection {
 			throw new RuntimeException("Unhandled " + fake.name());
 		}
 	}
+
+	public Compat_ForgeDirection Compat_getOpposite() {
+		switch (this) {
+		case UP:
+			return DOWN;
+		case DOWN:
+			return UP;
+		case EAST:
+			return WEST;
+		case NORTH:
+			return SOUTH;
+		case WEST:
+			return EAST;
+		case SOUTH:
+			return NORTH;
+		default:
+			throw new RuntimeException("Unhandled " + this.name());
+		}
+	}
 }

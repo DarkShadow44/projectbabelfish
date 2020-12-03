@@ -33,4 +33,8 @@ public class Compat_BlockSlab extends Compat_Block {
 	public BlockSlab getReal() {
 		return wrapper.get();
 	}
+
+	public static Compat_BlockSlab getFake(BlockSlab block) {
+		return getFakeInternal(block, () -> new Compat_BlockSlab(block));
+	}
 }

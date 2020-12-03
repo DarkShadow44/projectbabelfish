@@ -37,4 +37,8 @@ public class Compat_BlockFire extends Compat_Block {
 	public void Compat_setFireInfo(Compat_Block block, int encouragement, int flammability) {
 		wrapper.setFireInfoSuper(block.getReal(), encouragement, flammability);
 	}
+
+	public static Compat_BlockFire getFake(BlockFire block) {
+		return getFakeInternal(block, () -> new Compat_BlockFire(block));
+	}
 }

@@ -33,4 +33,8 @@ public class Compat_BlockLeaves extends Compat_Block {
 	public BlockLeaves getReal() {
 		return wrapper.get();
 	}
+
+	public static Compat_BlockLeaves getFake(BlockLeaves block) {
+		return getFakeInternal(block, () -> new Compat_BlockLeaves(block));
+	}
 }

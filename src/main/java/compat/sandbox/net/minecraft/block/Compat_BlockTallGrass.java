@@ -33,4 +33,8 @@ public class Compat_BlockTallGrass extends Compat_BlockBush {
 	public BlockTallGrass getReal() {
 		return wrapper.get();
 	}
+
+	public static Compat_BlockTallGrass getFake(BlockTallGrass block) {
+		return getFakeInternal(block, () -> new Compat_BlockTallGrass(block));
+	}
 }

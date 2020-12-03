@@ -33,4 +33,8 @@ public class Compat_BlockDoublePlant extends Compat_BlockBush {
 	public BlockDoublePlant getReal() {
 		return wrapper.get();
 	}
+
+	public static Compat_BlockDoublePlant getFake(BlockDoublePlant block) {
+		return getFakeInternal(block, () -> new Compat_BlockDoublePlant(block));
+	}
 }

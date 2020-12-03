@@ -33,4 +33,8 @@ public class Compat_BlockDeadBush extends Compat_Block {
 	public BlockDeadBush getReal() {
 		return wrapper.get();
 	}
+
+	public static Compat_BlockDeadBush getFake(BlockDeadBush block) {
+		return getFakeInternal(block, () -> new Compat_BlockDeadBush(block));
+	}
 }
