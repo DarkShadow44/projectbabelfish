@@ -79,7 +79,7 @@ public class Compat_GL11 {
 
 	public static void Compat_glScalef(float x, float y, float z) {
 		if (inISBRH) {
-			throw new RuntimeException("Not implemented");
+			// TODO
 		} else {
 			GL11.glScalef(x, y, z);
 		}

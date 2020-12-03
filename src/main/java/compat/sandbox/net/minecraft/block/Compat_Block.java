@@ -48,6 +48,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -62,6 +63,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.ColorizerFoliage;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -780,7 +782,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	}
 
 	public Compat_IIcon Compat_func_149691_a(int side, int meta) {
-		if (wrapper instanceof CompatI_Block) {
+		if (wrapper.isChild()) {
 			return blockIcon;
 		}
 
@@ -830,6 +832,19 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	public int Compat_func_149677_c(Compat_IBlockAccess world, int x, int y, int z) {
 		BlockPos pos = new BlockPos(x, y, z);
 		return world.getReal().getBlockState(pos).getPackedLightmapCoords(world.getReal(), pos);
+	}
+
+	public void registerColorHandler(BlockColors blockColors) {
+		blockColors.registerBlockColorHandler(this::getRenderColor, this.getReal());
+	}
+
+	public int getRenderColor(IBlockState state, IBlockAccess world, BlockPos pos, int tintIndex) {
+		return Compat_func_149741_i(state.getBlock().getMetaFromState(state));
+	}
+
+	public int Compat_func_149741_i(int meta) {
+		// getRenderColor TODO?
+		return ColorizerFoliage.getFoliageColorBasic();
 	}
 
 }

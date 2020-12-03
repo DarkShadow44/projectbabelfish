@@ -31,7 +31,9 @@ import compat.sandbox.net.minecraftforge.fml.common.Compat_SidedProxy;
 import compat.sandbox.net.minecraftforge.fml.common.event.Compat_FMLInitializationEvent;
 import compat.sandbox.net.minecraftforge.fml.common.event.Compat_FMLPreInitializationEvent;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelBakery;
+import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.Item;
@@ -243,6 +245,14 @@ public class CompatibilityLayer_1_7_10 extends CompatibilityLayer {
 			methodPreInit.tryInvoke(new Compat_FMLInitializationEvent(event));
 		}
 		currentModId = null;
+
+		for (RegistrationInfoBlock block : blocksToRegister) {
+			if (event.getSide() == Side.CLIENT) {
+				BlockColors blockColors = Minecraft.getMinecraft().getBlockColors();
+				CompatI_Block blockI = (CompatI_Block) block.getBlock();
+				blockI.getFake().registerColorHandler(blockColors);
+			}
+		}
 	}
 
 	@Override
