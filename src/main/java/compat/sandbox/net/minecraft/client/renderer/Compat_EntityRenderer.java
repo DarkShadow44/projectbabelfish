@@ -30,4 +30,8 @@ public class Compat_EntityRenderer {
 	public EntityRenderer getReal() {
 		return wrapper.get();
 	}
+
+	public static boolean Compat_get_field_78517_a() {
+		return EntityRenderer.anaglyphEnable;
+	}
 }

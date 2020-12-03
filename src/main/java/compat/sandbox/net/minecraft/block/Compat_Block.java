@@ -49,6 +49,7 @@ import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.color.BlockColors;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -63,7 +64,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.ColorizerFoliage;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -793,6 +793,12 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 
 		List<BakedQuad> quads = model.getQuads(state, Compat_EnumFacing.getFromSide(side).getReal(), meta);
 
+		if (quads.size() == 0) {
+			// TODO
+			TextureAtlasSprite sprite = Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
+			return new Wrapper_IIcon(sprite);
+		}
+
 		if (quads.size() != 1) {
 			throw new RuntimeException("Unexpected");
 		}
@@ -844,7 +850,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 
 	public int Compat_func_149741_i(int meta) {
 		// getRenderColor TODO?
-		return ColorizerFoliage.getFoliageColorBasic();
+		return 0xffffff; // ItemDye.DYE_COLORS[meta];
 	}
 
 }
