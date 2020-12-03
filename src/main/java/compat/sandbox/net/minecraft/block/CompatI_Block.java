@@ -29,6 +29,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.IPlantable;
 
 @Interface(ITileEntityProvider.class)
 public interface CompatI_Block extends CompatI_IForgeRegistryEntry_Impl<Block> {
@@ -159,4 +160,18 @@ public interface CompatI_Block extends CompatI_IForgeRegistryEntry_Impl<Block> {
 	public IBlockState getStateForPlacementSuper(World world, BlockPos pos, EnumFacing facing, float x, float y, float z, int meta, EntityLivingBase entity);
 
 	public void updateTickSuper(World world, BlockPos pos, IBlockState state, Random random);
+
+	public void beginLeavesDecaySuper(IBlockState state, World world, BlockPos pos);
+
+	public void breakBlockSuper(World world, BlockPos pos, IBlockState state);
+
+	public AxisAlignedBB getCollisionBoundingBoxSuper(IBlockState state, IBlockAccess world, BlockPos pos);
+
+	public boolean canSustainPlantSuper(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing facing, IPlantable plantable);
+
+	public boolean isAirSuper(IBlockState state, IBlockAccess world, BlockPos pos);
+
+	public boolean isLeavesSuper(IBlockState state, IBlockAccess world, BlockPos pos);
+
+	public void onBlockHarvestedSuper(World world, BlockPos pos, IBlockState state, EntityPlayer player);
 }

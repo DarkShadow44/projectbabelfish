@@ -21,6 +21,7 @@ import compat.sandbox.net.minecraft.creativetab.Compat_CreativeTabs;
 import compat.sandbox.net.minecraft.entity.Compat_Entity;
 import compat.sandbox.net.minecraft.entity.Compat_EntityLivingBase;
 import compat.sandbox.net.minecraft.entity.player.Compat_EntityPlayer;
+import compat.sandbox.net.minecraft.item.Compat_Item;
 import compat.sandbox.net.minecraft.item.Compat_ItemStack;
 import compat.sandbox.net.minecraft.tileentity.Compat_TileEntity;
 import compat.sandbox.net.minecraft.util.Compat_BlockRenderLayer;
@@ -38,6 +39,8 @@ import compat.sandbox.net.minecraft.world.Compat_IBlockAccess;
 import compat.sandbox.net.minecraft.world.Compat_World;
 import compat.sandbox.net.minecraft.world.Compat_WorldServer;
 import compat.sandbox.net.minecraft.world.Wrapper_IBlockAccess;
+import compat.sandbox.net.minecraftforge.common.Compat_IPlantable;
+import compat.sandbox.net.minecraftforge.common.util.Compat_ForgeDirection;
 import compat.sandbox.net.minecraftforge.fml.common.registry.Compat_IForgeRegistryEntry_Impl;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -851,6 +854,195 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	public int Compat_func_149741_i(int meta) {
 		// getRenderColor TODO?
 		return 0xffffff; // ItemDye.DYE_COLORS[meta];
+	}
+
+	public void Compat_beginLeavesDecay(Compat_World world, int x, int y, int z) {
+		BlockPos pos = new BlockPos(x, y, z);
+		IBlockState state = world.getReal().getBlockState(pos);
+		wrapper.beginLeavesDecaySuper(state, world.getReal(), pos);
+	}
+
+	public boolean Compat_canSustainPlant(Compat_IBlockAccess world, int x, int y, int z, Compat_ForgeDirection direction, Compat_IPlantable plantable) {
+		BlockPos pos = new BlockPos(x, y, z);
+		IBlockState state = world.getReal().getBlockState(pos);
+		return wrapper.canSustainPlantSuper(state, world.getReal(), pos, Compat_ForgeDirection.getReal(direction), Compat_IPlantable.getReal(plantable));
+	}
+
+	public Compat_AxisAlignedBB Compat_func_149633_g(Compat_World world, int x, int y, int z) {
+		BlockPos pos = new BlockPos(x, y, z);
+		IBlockState state = world.getReal().getBlockState(pos);
+		AxisAlignedBB result = wrapper.getSelectedBoundingBoxSuper(state, world.getReal(), pos);
+
+		return Compat_AxisAlignedBB.getFake(result);
+	}
+
+	public static Compat_Block Compat_func_149634_a(Compat_Item item) {
+		Block result = Block.getBlockFromItem(item.getReal());
+		return Compat_Block.getFake(result);
+	}
+
+	public int Compat_func_149635_D() {
+		// TODO
+		return 16777215;
+	}
+
+	public double Compat_func_149665_z() {
+		// TODO getBlockBoundsMinY
+		return 0;
+	}
+
+	public Compat_AxisAlignedBB Compat_func_149668_a(Compat_World world, int x, int y, int z) {
+		BlockPos pos = new BlockPos(x, y, z);
+		IBlockState state = world.getReal().getBlockState(pos);
+		AxisAlignedBB result = wrapper.getCollisionBoundingBoxSuper(state, world.getReal(), pos);
+
+		return Compat_AxisAlignedBB.getFake(result);
+	}
+
+	public double Compat_func_149669_A() {
+		// TODO getBlockBoundsMaxY
+		return 1;
+	}
+
+	public void Compat_func_149670_a(Compat_World world, int x, int y, int z, Compat_Entity entity) {
+		BlockPos pos = new BlockPos(x, y, z);
+		IBlockState state = world.getReal().getBlockState(pos);
+		wrapper.onEntityCollidedWithBlockSuper(world.getReal(), pos, state, entity.getReal());
+	}
+
+	public Compat_IIcon Compat_func_149673_e(Compat_IBlockAccess world, int x, int y, int z, int side) {
+		BlockPos pos = new BlockPos(x, y, z);
+		IBlockState state = world.getReal().getBlockState(pos);
+		int meta = state.getBlock().getMetaFromState(state);
+		return Compat_func_149691_a(side, meta);
+	}
+
+	public void Compat_func_149674_a(Compat_World world, int x, int y, int z, Random random) {
+		BlockPos pos = new BlockPos(x, y, z);
+		IBlockState state = world.getReal().getBlockState(pos);
+		wrapper.updateTickSuper(world.getReal(), pos, state, random);
+	}
+
+	public void Compat_func_149681_a(Compat_World world, int x, int y, int z, int p1, Compat_EntityPlayer player) {
+		BlockPos pos = new BlockPos(x, y, z);
+		IBlockState state = world.getReal().getBlockState(pos);
+		wrapper.onBlockHarvestedSuper(world.getReal(), pos, state, player.getReal());
+	}
+
+	public static int Compat_func_149682_b(Compat_Block block) {
+		return Block.getIdFromBlock(block.getReal());
+	}
+
+	public Compat_Material Compat_func_149688_o() {
+		IBlockState state = wrapper.getDefaultStateSuper();
+		return Compat_Material.getFake(wrapper.getMaterialSuper(state));
+	}
+
+	public double Compat_func_149693_C() {
+		// TODO getBlockBoundsMaxZ
+		return 1;
+	}
+
+	public double Compat_func_149704_x() {
+		// TODO getBlockBoundsMinX
+		return 0;
+	}
+
+	public double Compat_func_149706_B() {
+		// TODO getBlockBoundsMinZ
+		return 0;
+	}
+
+	public int Compat_func_149709_b(Compat_IBlockAccess world, int x, int y, int z, int side) {
+		BlockPos pos = new BlockPos(x, y, z);
+		IBlockState state = world.getReal().getBlockState(pos);
+		return wrapper.getWeakPowerSuper(state, world.getReal(), pos, Compat_EnumFacing.getFromSide(side).getReal());
+	}
+
+	public boolean Compat_func_149718_j(Compat_World world, int x, int y, int z) {
+		throw new RuntimeException("Unimplemented");
+	}
+
+	public int Compat_func_149720_d(Compat_IBlockAccess world, int x, int y, int z) {
+		// TODO
+		return 0xffffffff;
+	}
+
+	public boolean Compat_func_149727_a(Compat_World world, int x, int y, int z, Compat_EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+		BlockPos pos = new BlockPos(x, y, z);
+		IBlockState state = world.getReal().getBlockState(pos);
+		return wrapper.onBlockActivatedSuper(null, pos, state, player.getReal(), EnumHand.MAIN_HAND, Compat_EnumFacing.getFromSide(side).getReal(), hitX, hitY, hitZ);
+	}
+
+	public static Compat_Block Compat_func_149729_e(int id) {
+		return Compat_Block.getFake(Block.getBlockById(id));
+	}
+
+	public boolean Compat_func_149730_j() {
+		IBlockState state = wrapper.getDefaultStateSuper();
+		return wrapper.isFullBlockSuper(state);
+	}
+
+	public Compat_RayTraceResult Compat_func_149731_a(Compat_World world, int x, int y, int z, Compat_Vec3d start, Compat_Vec3d end) {
+		BlockPos pos = new BlockPos(x, y, z);
+		IBlockState state = world.getReal().getBlockState(pos);
+		RayTraceResult result = wrapper.collisionRayTraceSuper(state, world.getReal(), pos, start.getReal(), end.getReal());
+		return Compat_RayTraceResult.getFake(result);
+	}
+
+	public Compat_IIcon Compat_func_149733_h(int side) {
+		return Compat_func_149691_a(side, 0);
+	}
+
+	public void Compat_func_149734_b(Compat_World world, int x, int y, int z, Random random) {
+		BlockPos pos = new BlockPos(x, y, z);
+		IBlockState state = world.getReal().getBlockState(pos);
+		wrapper.randomDisplayTickSuper(state, world.getReal(), pos, random);
+	}
+
+	public void Compat_func_149743_a(Compat_World world, int x, int y, int z, Compat_AxisAlignedBB bb, List<Compat_AxisAlignedBB> list, Compat_Entity entity) {
+		Compat_BlockPos pos = new Compat_BlockPos(new BlockPos(x, y, z));
+		Compat_IBlockState state = Compat_IBlockState.getFake(world.getReal().getBlockState(pos.getReal()));
+		Compat_func_185477_a(state, world, pos, bb, list, entity);
+	}
+
+	public void Compat_func_149749_a(Compat_World world, int x, int y, int z, Compat_Block block, int p1) {
+		BlockPos pos = new BlockPos(x, y, z);
+		IBlockState state = world.getReal().getBlockState(pos);
+		wrapper.breakBlockSuper(world.getReal(), pos, state);
+	}
+
+	public int Compat_func_149750_m() {
+		// TODO
+		return 0;
+	}
+
+	public double Compat_func_149753_y() {
+		// TODO getBlockBoundsMaxX
+		return 1;
+	}
+
+	public Compat_Block_SoundType Compat_get_field_149762_H() {
+		return new Compat_Block_SoundType(wrapper.getSoundTypeSuper());
+	}
+
+	public boolean Compat_isAir(Compat_IBlockAccess world, int x, int y, int z) {
+		BlockPos pos = new BlockPos(x, y, z);
+		IBlockState state = world.getReal().getBlockState(pos);
+		return wrapper.isAirSuper(state, world.getReal(), pos);
+	}
+
+	public boolean Compat_isLeaves(Compat_IBlockAccess world, int x, int y, int z) {
+		BlockPos pos = new BlockPos(x, y, z);
+		IBlockState state = world.getReal().getBlockState(pos);
+		return wrapper.isLeavesSuper(state, world.getReal(), pos);
+	}
+
+	public boolean Compat_isSideSolid(Compat_IBlockAccess world, int x, int y, int z, Compat_ForgeDirection direction) {
+		BlockPos pos = new BlockPos(x, y, z);
+		IBlockState state = world.getReal().getBlockState(pos);
+		EnumFacing side = Compat_ForgeDirection.getReal(direction);
+		return wrapper.isSideSolidSuper(state, world.getReal(), pos, side);
 	}
 
 }

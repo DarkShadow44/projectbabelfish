@@ -1,5 +1,6 @@
 package compat.sandbox.net.minecraft.util;
 
+import compat.sandbox.net.minecraftforge.common.util.Compat_ForgeDirection;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 
@@ -144,5 +145,10 @@ public enum Compat_EnumFacing implements IStringSerializable {
 		default:
 			throw new RuntimeException("Unexpected " + side);
 		}
+	}
+
+	EnumFacing getFromDirection(Compat_ForgeDirection direction) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
