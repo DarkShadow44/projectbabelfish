@@ -181,7 +181,8 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 
 	// From ITileEntityProvider
 	public TileEntity createNewTileEntity(World world, int meta) {
-		return Compat_func_149915_a(new Compat_World(world), meta).getReal();
+		Compat_TileEntity result = Compat_func_149915_a(new Compat_World(world), meta);
+		return Compat_TileEntity.getReal(result);
 	}
 
 	@HasCallback({ Version.V1_10_2 })

@@ -5,7 +5,7 @@ import compat.sandbox.net.minecraft.client.renderer.Compat_RenderBlocks;
 import compat.sandbox.net.minecraft.world.Compat_IBlockAccess;
 
 public interface Compat_ISimpleBlockRenderingHandler {
-	void renderInventoryBlock(Compat_Block block, int metadata, int modelId, Compat_RenderBlocks renderer);
+	void Compat_renderInventoryBlock(Compat_Block block, int metadata, int modelId, Compat_RenderBlocks renderer);
 
-	boolean renderWorldBlock(Compat_IBlockAccess world, int x, int y, int z, Compat_Block block, int modelId, Compat_RenderBlocks renderer);
+	boolean Compat_renderWorldBlock(Compat_IBlockAccess world, int x, int y, int z, Compat_Block block, int modelId, Compat_RenderBlocks renderer);
 }

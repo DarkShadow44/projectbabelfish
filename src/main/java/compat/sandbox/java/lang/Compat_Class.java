@@ -3,6 +3,7 @@ package compat.sandbox.java.lang;
 import compat.core.CompatibilityMod;
 import compat.core.layer.CompatibilityLayer;
 import compat.core.loader.CompatibilityClassTransformer;
+import compat.sandbox.java.lang.reflect.Compat_Field;
 
 public class Compat_Class {
 
@@ -25,5 +26,9 @@ public class Compat_Class {
 		String target = getTarget(name);
 
 		return Class.forName(target, true, CompatibilityMod.classLoader);
+	}
+
+	public static Compat_Field Compat_getField(Class<?> clazz, String name) throws NoSuchFieldException, SecurityException {
+		return new Compat_Field(clazz.getField(name));
 	}
 }

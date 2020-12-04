@@ -5,10 +5,14 @@ import compat.sandbox.net.minecraft.block.state.Compat_IBlockState;
 import compat.sandbox.net.minecraft.block.state.Wrapper_IBlockState;
 import compat.sandbox.net.minecraft.tileentity.Compat_TileEntity;
 import compat.sandbox.net.minecraft.util.math.Compat_BlockPos;
+import compat.sandbox.net.minecraft.world.biome.Compat_Biome;
+import compat.sandbox.net.minecraftforge.common.util.Compat_ForgeDirection;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.biome.Biome;
 
 public class Wrapper_IBlockAccess implements Compat_IBlockAccess {
 
@@ -55,5 +59,27 @@ public class Wrapper_IBlockAccess implements Compat_IBlockAccess {
 
 	public Compat_Block Compat_func_147439_a(int x, int y, int z) {
 		return Compat_Block.getFake(original.getBlockState(new BlockPos(x, y, z)).getBlock());
+	}
+
+	@Override
+	public boolean Compat_func_147437_c(int x, int y, int z) {
+		return original.isAirBlock(new BlockPos(x, y, z));
+	}
+
+	@Override
+	public int Compat_func_72800_K() {
+		return 256; // TODO
+	}
+
+	@Override
+	public Compat_Biome Compat_func_72807_a(int x, int z) {
+		Biome result = original.getBiome(new BlockPos(x, 0, z));
+		return Compat_Biome.getFake(result);
+	}
+
+	@Override
+	public boolean Compat_isSideSolid(int x, int y, int z, Compat_ForgeDirection direction, boolean p1) {
+		EnumFacing side = Compat_ForgeDirection.getReal(direction);
+		return original.isSideSolid(new BlockPos(x, y, z), side, p1);
 	}
 }

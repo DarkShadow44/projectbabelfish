@@ -37,4 +37,24 @@ public class Wrapper_IIcon implements Compat_IIcon {
 	public float Compat_func_94207_b(double v) {
 		return sprite.getInterpolatedV(v);
 	}
+
+	@Override
+	public float Compat_func_94206_g() {
+		return sprite.getMinV();
+	}
+
+	@Override
+	public float Compat_func_94209_e() {
+		return sprite.getMinU();
+	}
+
+	@Override
+	public float Compat_func_94210_h() {
+		return sprite.getMaxV();
+	}
+
+	@Override
+	public float Compat_func_94212_f() {
+		return sprite.getMaxU();
+	}
 }

@@ -11,4 +11,12 @@ public interface Compat_IIcon {
 	public float Compat_func_94207_b(double p2);
 
 	public void updateSprite(TextureAtlasSprite sprite);
+
+	public float Compat_func_94206_g();
+
+	public float Compat_func_94209_e();
+
+	public float Compat_func_94210_h();
+
+	public float Compat_func_94212_f();
 }

@@ -70,7 +70,7 @@ public class BakedModelBlockVariableTexture implements IBakedModel {
 		Compat_Tessellator.resetForISBRH(true);
 
 		Compat_GL11.setInISBRH(true);
-		handler.renderWorldBlock(world, pos.getX(), pos.getY(), pos.getZ(), block, 0, new Compat_RenderBlocks());
+		handler.Compat_renderWorldBlock(world, pos.getX(), pos.getY(), pos.getZ(), block, 0, new Compat_RenderBlocks());
 		Compat_GL11.setInISBRH(false);
 
 		List<BakedQuad> quads = Compat_Tessellator.getQuads();
@@ -81,7 +81,7 @@ public class BakedModelBlockVariableTexture implements IBakedModel {
 		Compat_Tessellator.resetForISBRH(false);
 
 		Compat_GL11.setInISBRH(true);
-		handler.renderInventoryBlock(block, meta, 0, new Compat_RenderBlocks());
+		handler.Compat_renderInventoryBlock(block, meta, 0, new Compat_RenderBlocks());
 		Compat_GL11.setInISBRH(false);
 
 		List<BakedQuad> quads = Compat_Tessellator.getQuads();

@@ -38,4 +38,8 @@ public class Compat_Biome {
 	public String Compat_get_field_76791_y() {
 		return wrapper.getBiomeNameSuper();
 	}
+
+	public static Compat_Biome getFake(Biome result) {
+		return new Compat_Biome(result);
+	}
 }

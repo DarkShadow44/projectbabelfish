@@ -21,6 +21,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.border.WorldBorder;
 
 public interface CompatI_World {
@@ -95,4 +96,12 @@ public interface CompatI_World {
 	public WorldProvider get_provider();
 
 	public void markBlockRangeForRenderUpdateSuper(int x1, int y1, int z1, int x2, int y2, int z2);
+
+	public boolean isAirBlockSuper(BlockPos pos);
+
+	public int getHeightSuper();
+
+	public Biome getBiomeSuper(BlockPos pos);
+
+	public boolean isSideSolidSuper(BlockPos pos, EnumFacing side, boolean p1);
 }

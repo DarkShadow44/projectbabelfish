@@ -24,14 +24,18 @@ import compat.sandbox.net.minecraft.util.math.Compat_AxisAlignedBB;
 import compat.sandbox.net.minecraft.util.math.Compat_BlockPos;
 import compat.sandbox.net.minecraft.util.math.Compat_RayTraceResult;
 import compat.sandbox.net.minecraft.util.math.Compat_Vec3d;
+import compat.sandbox.net.minecraft.world.biome.Compat_Biome;
 import compat.sandbox.net.minecraft.world.border.Compat_WorldBorder;
+import compat.sandbox.net.minecraftforge.common.util.Compat_ForgeDirection;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.border.WorldBorder;
 
 public class Compat_World implements Compat_IBlockAccess {
@@ -253,6 +257,28 @@ public class Compat_World implements Compat_IBlockAccess {
 
 	public void Compat_func_147479_m(int x, int y, int z) {
 		wrapper.markBlockRangeForRenderUpdateSuper(x, y, z, x, y, z);
+	}
+
+	@Override
+	public boolean Compat_func_147437_c(int x, int y, int z) {
+		return wrapper.isAirBlockSuper(new BlockPos(x, y, z));
+	}
+
+	@Override
+	public int Compat_func_72800_K() {
+		return wrapper.getHeightSuper();
+	}
+
+	@Override
+	public Compat_Biome Compat_func_72807_a(int x, int z) {
+		Biome result = wrapper.getBiomeSuper(new BlockPos(x, 0, z));
+		return Compat_Biome.getFake(result);
+	}
+
+	@Override
+	public boolean Compat_isSideSolid(int x, int y, int z, Compat_ForgeDirection direction, boolean p1) {
+		EnumFacing side = Compat_ForgeDirection.getReal(direction);
+		return wrapper.isSideSolidSuper(new BlockPos(x, y, z), side, p1);
 	}
 
 }
