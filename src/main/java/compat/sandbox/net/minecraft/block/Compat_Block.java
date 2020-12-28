@@ -791,14 +791,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		// TODO setBlockBoundsForItemRender
 	}
 
-	public Compat_IIcon Compat_func_149691_a(int side, int meta) {
-		if (wrapper.isChild()) {
-			return blockIcon;
-		}
-
-		Block block = wrapper.get();
-		IBlockState state = block.getDefaultState();
-
+	protected Compat_IIcon getIconForState(IBlockState state, int side, int meta) {
 		IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getModelForState(state);
 
 		List<BakedQuad> quads = model.getQuads(state, Compat_EnumFacing.getFromSideInt(side).getReal(), meta);
@@ -814,6 +807,16 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		}
 
 		return new Wrapper_IIcon(quads.get(0).getSprite());
+	}
+
+	public Compat_IIcon Compat_func_149691_a(int side, int meta) {
+		if (wrapper.isChild()) {
+			return blockIcon;
+		}
+
+		Block block = wrapper.get();
+		IBlockState state = block.getDefaultState();
+		return getIconForState(state, side, meta);
 	}
 
 	public int Compat_func_149645_b() {

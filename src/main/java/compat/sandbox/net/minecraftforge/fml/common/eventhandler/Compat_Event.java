@@ -33,4 +33,8 @@ public class Compat_Event {
 	public void Compat_setCanceled(boolean value) {
 		wrapper.setCanceledSuper(value);
 	}
+
+	public void Compat_setResult(Compat_Event_Result result) {
+		wrapper.setResultSuper(result.getReal());
+	}
 }
