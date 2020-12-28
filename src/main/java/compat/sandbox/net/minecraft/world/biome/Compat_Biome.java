@@ -4,6 +4,7 @@ import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
 import net.minecraft.init.Biomes;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 
 public class Compat_Biome {
@@ -41,5 +42,23 @@ public class Compat_Biome {
 
 	public static Compat_Biome getFake(Biome result) {
 		return new Compat_Biome(result);
+	}
+
+	public int Compat_func_150558_b(int x, int y, int z) {
+		BlockPos pos = new BlockPos(x, y, z);
+		return wrapper.getGrassColorAtPosSuper(pos);
+	}
+
+	public int Compat_func_150571_c(int x, int y, int z) { // getBiomeFoliageColor
+		BlockPos pos = new BlockPos(x, y, z);
+		return wrapper.getFoliageColorAtPosSuper(pos);
+	}
+
+	public float Compat_get_field_76750_F() {
+		return wrapper.getDefaultTemperatureSuper();
+	}
+
+	public float Compat_get_field_76751_G() {
+		return wrapper.getRainfallSuper();
 	}
 }

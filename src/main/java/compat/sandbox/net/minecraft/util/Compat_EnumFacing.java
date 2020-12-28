@@ -128,7 +128,7 @@ public enum Compat_EnumFacing implements IStringSerializable {
 		return facing == null ? null : facing.getReal();
 	}
 
-	public static Compat_EnumFacing getFromSide(int side) {
+	public static Compat_EnumFacing getFromSideInt(int side) {
 		switch (side) { // TODO Correct?
 		case 0:
 			return Compat_EnumFacing.DOWN;
@@ -144,6 +144,25 @@ public enum Compat_EnumFacing implements IStringSerializable {
 			return Compat_EnumFacing.EAST;
 		default:
 			throw new RuntimeException("Unexpected " + side);
+		}
+	}
+
+	public static int getSideInt(EnumFacing side) {
+		switch (side) { // TODO Correct?
+		case DOWN:
+			return 0;
+		case UP:
+			return 1;
+		case NORTH:
+			return 2;
+		case SOUTH:
+			return 3;
+		case WEST:
+			return 4;
+		case EAST:
+			return 5;
+		default:
+			throw new RuntimeException("Unexpected " + side.ordinal());
 		}
 	}
 

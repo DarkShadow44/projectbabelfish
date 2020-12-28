@@ -19,4 +19,6 @@ public interface Compat_IIcon {
 	public float Compat_func_94210_h();
 
 	public float Compat_func_94212_f();
+
+	public TextureAtlasSprite getSprite();
 }

@@ -801,7 +801,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 
 		IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getModelForState(state);
 
-		List<BakedQuad> quads = model.getQuads(state, Compat_EnumFacing.getFromSide(side).getReal(), meta);
+		List<BakedQuad> quads = model.getQuads(state, Compat_EnumFacing.getFromSideInt(side).getReal(), meta);
 
 		if (quads.size() == 0) {
 			// TODO
@@ -963,7 +963,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	public int Compat_func_149709_b(Compat_IBlockAccess world, int x, int y, int z, int side) {
 		BlockPos pos = new BlockPos(x, y, z);
 		IBlockState state = world.getReal().getBlockState(pos);
-		return wrapper.getWeakPowerSuper(state, world.getReal(), pos, Compat_EnumFacing.getFromSide(side).getReal());
+		return wrapper.getWeakPowerSuper(state, world.getReal(), pos, Compat_EnumFacing.getFromSideInt(side).getReal());
 	}
 
 	public boolean Compat_func_149718_j(Compat_World world, int x, int y, int z) {
@@ -978,7 +978,7 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 	public boolean Compat_func_149727_a(Compat_World world, int x, int y, int z, Compat_EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		BlockPos pos = new BlockPos(x, y, z);
 		IBlockState state = world.getReal().getBlockState(pos);
-		return wrapper.onBlockActivatedSuper(null, pos, state, player.getReal(), EnumHand.MAIN_HAND, Compat_EnumFacing.getFromSide(side).getReal(), hitX, hitY, hitZ);
+		return wrapper.onBlockActivatedSuper(null, pos, state, player.getReal(), EnumHand.MAIN_HAND, Compat_EnumFacing.getFromSideInt(side).getReal(), hitX, hitY, hitZ);
 	}
 
 	public static Compat_Block Compat_func_149729_e(int id) {

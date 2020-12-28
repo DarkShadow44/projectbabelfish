@@ -2,6 +2,7 @@ package compat.sandbox.net.minecraft.entity;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
 public interface CompatI_Entity {
@@ -26,4 +27,20 @@ public interface CompatI_Entity {
 	public double get_posY();
 
 	public double get_posZ();
+
+	public void setFireSuper(int seconds);
+
+	public void playSoundSuper(SoundEvent event, float volume, float pitch);
+
+	public void set_motionX(double value);
+
+	public void set_motionY(double value);
+
+	public void set_motionZ(double value);
+
+	public float get_rotationYaw();
+
+	public void onUpdateSuper();
+
+	public boolean isEntityAliveSuper();
 }

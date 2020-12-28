@@ -57,4 +57,12 @@ public class Wrapper_IIcon implements Compat_IIcon {
 	public float Compat_func_94212_f() {
 		return sprite.getMaxU();
 	}
+
+	@Override
+	public TextureAtlasSprite getSprite() {
+		if (sprite == null) {
+			throw new RuntimeException();
+		}
+		return sprite;
+	}
 }

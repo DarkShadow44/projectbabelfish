@@ -5,6 +5,7 @@ import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
 import compat.sandbox.net.minecraft.util.Compat_EnumFacing;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.util.math.Vec3d;
@@ -80,5 +81,25 @@ public class Compat_RayTraceResult {
 			return ((CompatI_RayTraceResult) objectMouseOver).getFake();
 		}
 		return new Compat_RayTraceResult(objectMouseOver);
+	}
+
+	public int Compat_get_field_72310_e() {
+		EnumFacing result = getReal().sideHit;
+		return Compat_EnumFacing.getSideInt(result);
+	}
+
+	public int Compat_get_field_72311_b() {
+		BlockPos result = wrapper.getBlockPosSuper();
+		return result.getX();
+	}
+
+	public int Compat_get_field_72312_c() {
+		BlockPos result = wrapper.getBlockPosSuper();
+		return result.getY();
+	}
+
+	public int Compat_get_field_72309_d() {
+		BlockPos result = wrapper.getBlockPosSuper();
+		return result.getZ();
 	}
 }

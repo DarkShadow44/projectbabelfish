@@ -4,15 +4,16 @@ import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
 import compat.sandbox.net.minecraft.entity.Compat_Entity;
+import compat.sandbox.net.minecraft.world.Compat_World;
 import net.minecraft.entity.effect.EntityWeatherEffect;
 
 public class Compat_EntityWeatherEffect extends Compat_Entity {
 	private CompatI_EntityWeatherEffect wrapper;
 
 	// When called from Mod
-	public Compat_EntityWeatherEffect() {
+	public Compat_EntityWeatherEffect(Compat_World world) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityWeatherEffect.class, this));
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_EntityWeatherEffect.class, this, world.getReal()));
 	}
 
 	// When called from child
@@ -33,4 +34,5 @@ public class Compat_EntityWeatherEffect extends Compat_Entity {
 	public EntityWeatherEffect getReal() {
 		return wrapper.get();
 	}
+
 }

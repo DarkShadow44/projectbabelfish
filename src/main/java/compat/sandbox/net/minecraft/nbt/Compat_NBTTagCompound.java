@@ -163,4 +163,20 @@ public class Compat_NBTTagCompound extends Compat_NBTBase {
 		wrapper.removeTagSuper(key);
 	}
 
+	public boolean Compat_func_150297_b(String key, int type) {
+		return wrapper.hasKeySuper(key, type);
+	}
+
+	public short Compat_func_74765_d(String key) {
+		return wrapper.getShortSuper(key);
+	}
+
+	public void Compat_func_74777_a(String key, short value) {
+		wrapper.setShortSuper(key, value);
+	}
+
+	public boolean Compat_func_82582_d() {
+		return wrapper.hasNoTagsSuper();
+	}
+
 }

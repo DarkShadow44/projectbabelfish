@@ -66,4 +66,12 @@ public interface CompatI_NBTTagCompound {
 	public void removeTagSuper(String key);
 
 	public NBTBase getTagSuper(String key);
+
+	public boolean hasKeySuper(String key, int type);
+
+	public short getShortSuper(String key);
+
+	public void setShortSuper(String key, short value);
+
+	public boolean hasNoTagsSuper();
 }

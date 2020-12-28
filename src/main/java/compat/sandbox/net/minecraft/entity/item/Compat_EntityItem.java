@@ -7,6 +7,7 @@ import compat.sandbox.net.minecraft.entity.Compat_Entity;
 import compat.sandbox.net.minecraft.item.Compat_ItemStack;
 import compat.sandbox.net.minecraft.world.Compat_World;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.item.ItemStack;
 
 public class Compat_EntityItem extends Compat_Entity {
 	private CompatI_EntityItem wrapper;
@@ -40,4 +41,10 @@ public class Compat_EntityItem extends Compat_Entity {
 	public void Compat_func_174869_p() {
 		wrapper.setDefaultPickupDelaySuper();
 	}
+
+	public Compat_ItemStack Compat_func_92059_d() {
+		ItemStack result = wrapper.getItemSuper();
+		return Compat_ItemStack.getFake(result);
+	}
+
 }

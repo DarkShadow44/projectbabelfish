@@ -7,6 +7,8 @@ import compat.sandbox.net.minecraft.util.Compat_EnumFacing;
 import compat.sandbox.net.minecraft.world.Compat_World;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
 public class Compat_Entity {
@@ -82,5 +84,41 @@ public class Compat_Entity {
 
 	public static Entity getReal(Compat_Entity entity) {
 		return entity == null ? null : entity.getReal();
+	}
+
+	public void Compat_func_70015_d(int seconds) {
+		wrapper.setFireSuper(seconds);
+	}
+
+	public void Compat_func_85030_a(String name, float volume, float pitch) {
+		SoundEvent event = SoundEvent.REGISTRY.getObject(new ResourceLocation(name));
+		if (event == null) {
+			throw new RuntimeException(name);
+		}
+		wrapper.playSoundSuper(event, volume, pitch);
+	}
+
+	public void Compat_set_field_70159_w(double value) {
+		wrapper.set_motionX(value);
+	}
+
+	public void Compat_set_field_70181_x(double value) {
+		wrapper.set_motionY(value);
+	}
+
+	public void Compat_set_field_70179_y(double value) {
+		wrapper.set_motionZ(value);
+	}
+
+	public float Compat_get_field_70177_z() {
+		return wrapper.get_rotationYaw();
+	}
+
+	public void Compat_func_70071_h_() {
+		wrapper.onUpdateSuper();
+	}
+
+	public boolean Compat_func_70089_S() {
+		return wrapper.isEntityAliveSuper();
 	}
 }

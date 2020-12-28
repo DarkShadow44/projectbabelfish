@@ -45,4 +45,8 @@ public class Compat_GameSettings {
 	public void Compat_set_field_74341_c(float value) {
 		original.mouseSensitivity = value;
 	}
+
+	public int Compat_get_field_74362_aa() {
+		return original.particleSetting;
+	}
 }
