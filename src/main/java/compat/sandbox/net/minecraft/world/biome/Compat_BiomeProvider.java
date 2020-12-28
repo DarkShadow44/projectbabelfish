@@ -29,4 +29,8 @@ public class Compat_BiomeProvider {
 	public BiomeProvider getReal() {
 		return wrapper.get();
 	}
+
+	public static Compat_BiomeProvider getFake(BiomeProvider real) {
+		return new Compat_BiomeProvider(real);
+	}
 }

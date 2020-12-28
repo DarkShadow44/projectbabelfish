@@ -29,4 +29,11 @@ public class Compat_SoundEvent {
 	public SoundEvent getReal() {
 		return wrapper.get();
 	}
+
+	public static SoundEvent getByName(String name) {
+		switch (name) {
+		default:
+			throw new RuntimeException("Unknown sound: " + name);
+		}
+	}
 }

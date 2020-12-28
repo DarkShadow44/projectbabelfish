@@ -34,19 +34,26 @@ public enum Compat_EnumParticleTypes {
 		}
 	}
 
-	public Compat_EnumParticleTypes Compat_get_CLOUD() {
+	public static Compat_EnumParticleTypes Compat_get_CLOUD() {
 		return CLOUD;
 	}
 
-	public Compat_EnumParticleTypes Compat_get_REDSTONE() {
+	public static Compat_EnumParticleTypes Compat_get_REDSTONE() {
 		return REDSTONE;
 	}
 
-	public Compat_EnumParticleTypes Compat_get_SMOKE_NORMAL() {
+	public static Compat_EnumParticleTypes Compat_get_SMOKE_NORMAL() {
 		return SMOKE_NORMAL;
 	}
 
-	public Compat_EnumParticleTypes Compat_get_SNOW_SHOVEL() {
+	public static Compat_EnumParticleTypes Compat_get_SNOW_SHOVEL() {
 		return SNOW_SHOVEL;
+	}
+
+	public static EnumParticleTypes getByName(String particleName) {
+		switch (particleName) {
+		default:
+			throw new RuntimeException("Unknown particle: " + particleName);
+		}
 	}
 }

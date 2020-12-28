@@ -25,17 +25,23 @@ import compat.sandbox.net.minecraft.util.math.Compat_BlockPos;
 import compat.sandbox.net.minecraft.util.math.Compat_RayTraceResult;
 import compat.sandbox.net.minecraft.util.math.Compat_Vec3d;
 import compat.sandbox.net.minecraft.world.biome.Compat_Biome;
+import compat.sandbox.net.minecraft.world.biome.Compat_BiomeProvider;
 import compat.sandbox.net.minecraft.world.border.Compat_WorldBorder;
 import compat.sandbox.net.minecraftforge.common.util.Compat_ForgeDirection;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.border.WorldBorder;
 
 public class Compat_World implements Compat_IBlockAccess {
@@ -279,6 +285,106 @@ public class Compat_World implements Compat_IBlockAccess {
 	public boolean Compat_isSideSolid(int x, int y, int z, Compat_ForgeDirection direction, boolean p1) {
 		EnumFacing side = Compat_ForgeDirection.getReal(direction);
 		return wrapper.isSideSolidSuper(new BlockPos(x, y, z), side, p1);
+	}
+
+	public boolean Compat_func_147449_b(int x, int y, int z, Compat_Block block) {
+		BlockPos pos = new BlockPos(x, y, z);
+		IBlockState state = block.getReal().getDefaultState();
+		return wrapper.setBlockStateSuper(pos, state);
+	}
+
+	public void Compat_func_147453_f(int x, int y, int z, Compat_Block block) {
+		BlockPos pos = new BlockPos(x, y, z);
+		wrapper.updateComparatorOutputLevelSuper(pos, block.getReal());
+	}
+
+	public void Compat_func_147455_a(int x, int y, int z, Compat_TileEntity tile) {
+		BlockPos pos = new BlockPos(x, y, z);
+		wrapper.setTileEntitySuper(pos, tile.getReal());
+	}
+
+	public void Compat_func_147459_d(int x, int y, int z, Compat_Block block) {
+		BlockPos pos = new BlockPos(x, y, z);
+		wrapper.notifyNeighborsOfStateChangeSuper(pos, block.getReal(), true);
+	}
+
+	public void Compat_func_147460_e(int x, int y, int z, Compat_Block block) {
+		BlockPos pos = new BlockPos(x, y, z);
+		wrapper.neighborChangedSuper(pos, block.getReal(), pos);
+	}
+
+	public void Compat_func_147464_a(int x, int y, int z, Compat_Block block, int delay) {
+		BlockPos pos = new BlockPos(x, y, z);
+		wrapper.scheduleUpdateSuper(pos, block.getReal(), delay);
+	}
+
+	@SuppressWarnings("deprecation")
+	public boolean Compat_func_147465_d(int x, int y, int z, Compat_Block block, int meta, int flags) {
+		BlockPos pos = new BlockPos(x, y, z);
+		IBlockState state = block.getReal().getStateFromMeta(meta);
+		return wrapper.setBlockStateSuper(pos, state, flags);
+	}
+
+	public boolean Compat_func_147468_f(int x, int y, int z) {
+		BlockPos pos = new BlockPos(x, y, z);
+		return wrapper.setBlockToAirSuper(pos);
+	}
+
+	public void Compat_func_147471_g(int x, int y, int z) {
+		// TODO
+	}
+
+	public void Compat_func_147475_p(int x, int y, int z) {
+		BlockPos pos = new BlockPos(x, y, z);
+		wrapper.removeTileEntitySuper(pos);
+	}
+
+	public void Compat_func_72869_a(String particleName, double x, double y, double z, double velX, double velY, double velZ) {
+		EnumParticleTypes type = Compat_EnumParticleTypes.getByName(particleName);
+		wrapper.spawnParticleSuper(type, x, y, z, velX, velY, velZ);
+	}
+
+	public void Compat_func_72889_a(Compat_EntityPlayer player, int type, int x, int y, int z, int data) {
+		BlockPos pos = new BlockPos(x, y, z);
+		wrapper.playEventSuper(player.getReal(), type, pos, data);
+	}
+
+	public boolean Compat_func_72904_c(int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
+		// checkChunksExist TODO
+		return true;
+	}
+
+	public void Compat_func_72908_a(double x, double y, double z, String soundName, float volume, float pitch) {
+		SoundEvent event = Compat_SoundEvent.getByName(soundName);
+		wrapper.playSoundSuper(x, y, z, event, SoundCategory.NEUTRAL, volume, pitch, true); // TODO
+	}
+
+	@SuppressWarnings("deprecation")
+	public boolean Compat_func_72921_c(int x, int y, int z, int meta, int flags) {
+		BlockPos pos = new BlockPos(x, y, z);
+		Block block = getReal().getBlockState(pos).getBlock();
+		IBlockState state = block.getStateFromMeta(meta);
+		return wrapper.setBlockStateSuper(pos, state, flags); // TODO ?
+	}
+
+	public int Compat_func_72940_L() {
+		return wrapper.getActualHeightSuper();
+	}
+
+	public void Compat_func_72956_a(Compat_Entity entity, String soundName, float volume, float pitch) {
+		SoundEvent event = Compat_SoundEvent.getByName(soundName);
+		Entity entityReal = entity.getReal();
+		wrapper.playSoundSuper(entityReal.posX, entityReal.posY, entityReal.posZ, event, SoundCategory.NEUTRAL, volume, pitch, true); // TODO
+	}
+
+	public Compat_BiomeProvider Compat_func_72959_q() {
+		BiomeProvider result = wrapper.getBiomeProviderSuper();
+		return Compat_BiomeProvider.getFake(result);
+	}
+
+	public void Compat_func_72980_b(double x, double y, double z, String soundName, float volume, float pitch, boolean loudness) {
+		SoundEvent event = Compat_SoundEvent.getByName(soundName);
+		wrapper.playSoundSuper(x, y, z, event, SoundCategory.NEUTRAL, volume, pitch, loudness); // TODO
 	}
 
 }

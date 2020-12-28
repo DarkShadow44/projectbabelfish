@@ -22,6 +22,7 @@ import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.border.WorldBorder;
 
 public interface CompatI_World {
@@ -104,4 +105,14 @@ public interface CompatI_World {
 	public Biome getBiomeSuper(BlockPos pos);
 
 	public boolean isSideSolidSuper(BlockPos pos, EnumFacing side, boolean p1);
+
+	public void scheduleUpdateSuper(BlockPos pos, Block block, int delay);
+
+	public void playEventSuper(EntityPlayer player, int type, BlockPos pos, int data);
+
+	public void playSoundSuper(double x, double y, double z, SoundEvent event, SoundCategory category, float volume, float pitch, boolean b);
+
+	public int getActualHeightSuper();
+
+	public BiomeProvider getBiomeProviderSuper();
 }
