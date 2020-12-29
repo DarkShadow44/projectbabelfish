@@ -20,4 +20,8 @@ public class Compat_BiomeDictionary {
 
 		return biomesConverted.toArray(new Compat_Biome[0]);
 	}
+
+	public static boolean Compat_isBiomeOfType(Compat_Biome biome, Compat_BiomeDictionary_Type type) {
+		return BiomeDictionary.hasType(biome.getReal(), type.getReal());
+	}
 }

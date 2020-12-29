@@ -19,6 +19,8 @@ public class Compat_BiomeDictionary_Type {
 	private static final Compat_BiomeDictionary_Type SPOOKY = new Compat_BiomeDictionary_Type(Type.SPOOKY);
 	private static final Compat_BiomeDictionary_Type MAGICAL = new Compat_BiomeDictionary_Type(Type.MAGICAL);
 	private static final Compat_BiomeDictionary_Type NETHER = new Compat_BiomeDictionary_Type(Type.NETHER);
+	private static final Compat_BiomeDictionary_Type WET = new Compat_BiomeDictionary_Type(Type.WET);
+	private static final Compat_BiomeDictionary_Type COLD = new Compat_BiomeDictionary_Type(Type.COLD);
 
 	private final Type original;
 
@@ -88,5 +90,13 @@ public class Compat_BiomeDictionary_Type {
 
 	public static Compat_BiomeDictionary_Type Compat_get_NETHER() {
 		return NETHER;
+	}
+
+	public static Compat_BiomeDictionary_Type Compat_get_COLD() {
+		return COLD;
+	}
+
+	public static Compat_BiomeDictionary_Type Compat_get_WET() {
+		return WET;
 	}
 }

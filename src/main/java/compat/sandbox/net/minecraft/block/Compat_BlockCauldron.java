@@ -33,4 +33,8 @@ public class Compat_BlockCauldron extends Compat_Block {
 	public BlockCauldron getReal() {
 		return wrapper.get();
 	}
+
+	public static int Compat_func_150027_b(int p1) {
+		return p1;
+	}
 }

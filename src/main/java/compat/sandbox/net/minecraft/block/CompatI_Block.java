@@ -174,4 +174,6 @@ public interface CompatI_Block extends CompatI_IForgeRegistryEntry_Impl<Block> {
 	public boolean isLeavesSuper(IBlockState state, IBlockAccess world, BlockPos pos);
 
 	public void onBlockHarvestedSuper(World world, BlockPos pos, IBlockState state, EntityPlayer player);
+
+	public void onBlockAddedSuper(World world, BlockPos pos, IBlockState state);
 }

@@ -33,4 +33,12 @@ public class Compat_BlockColored extends Compat_Block {
 	public BlockColored getReal() {
 		return wrapper.get();
 	}
+
+	public static int Compat_func_150032_b(int p1) {
+		return Compat_func_150031_c(p1);
+	}
+
+	public static int Compat_func_150031_c(int p1) {
+		return ~p1 & 15;
+	}
 }

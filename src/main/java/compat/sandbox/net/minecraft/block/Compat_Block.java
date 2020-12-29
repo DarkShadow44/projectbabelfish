@@ -1055,4 +1055,24 @@ public class Compat_Block extends Compat_IForgeRegistryEntry_Impl<Block> {
 		return wrapper.isSideSolidSuper(state, world.getReal(), pos, side);
 	}
 
+	public void Compat_func_149636_a(Compat_World world, Compat_EntityPlayer player, int x, int y, int z, int meta) {
+		BlockPos pos = new BlockPos(x, y, z);
+		IBlockState state = world.getReal().getBlockState(pos); // TODO ?
+		ItemStack stack = player.getReal().getActiveItemStack();
+
+		wrapper.harvestBlockSuper(world.getReal(), player.getReal(), pos, state, null, stack); // TODO ?
+	}
+
+	public void Compat_func_149726_b(Compat_World world, int x, int y, int z) {
+		BlockPos pos = new BlockPos(x, y, z);
+		IBlockState state = world.getReal().getBlockState(pos); // TODO ?
+		wrapper.onBlockAddedSuper(world.getReal(), pos, state);
+	}
+
+	public boolean Compat_removedByPlayer(Compat_World world, Compat_EntityPlayer player, int x, int y, int z, boolean p1) {
+		BlockPos pos = new BlockPos(x, y, z);
+		IBlockState state = world.getReal().getBlockState(pos); // TODO ?
+		return wrapper.removedByPlayerSuper(state, world.getReal(), pos, player.getReal(), p1);
+	}
+
 }

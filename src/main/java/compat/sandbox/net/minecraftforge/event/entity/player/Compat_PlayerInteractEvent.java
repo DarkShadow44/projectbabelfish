@@ -8,8 +8,14 @@ import compat.sandbox.net.minecraft.util.Compat_EnumFacing;
 import compat.sandbox.net.minecraft.util.Compat_EnumHand;
 import compat.sandbox.net.minecraft.util.math.Compat_BlockPos;
 import compat.sandbox.net.minecraft.world.Compat_World;
+import compat.sandbox.net.minecraftforge.fml.common.eventhandler.Compat_Event_Result;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.LeftClickEmpty;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickEmpty;
 
 public class Compat_PlayerInteractEvent extends Compat_PlayerEvent {
 	private CompatI_PlayerInteractEvent wrapper;
@@ -59,5 +65,45 @@ public class Compat_PlayerInteractEvent extends Compat_PlayerEvent {
 
 	public Compat_EnumFacing Compat_getFace() {
 		return Compat_EnumFacing.getFake(wrapper.getFaceSuper());
+	}
+
+	public Compat_PlayerInteractEvent_Action Compat_get_action() {
+		if (getReal() instanceof RightClickBlock) {
+			return Compat_PlayerInteractEvent_Action.RIGHT_CLICK_BLOCK;
+		}
+		if (getReal() instanceof LeftClickEmpty) {
+			return Compat_PlayerInteractEvent_Action.LEFT_CLICK_BLOCK;
+		}
+
+		if (getReal() instanceof RightClickEmpty) {
+			return Compat_PlayerInteractEvent_Action.RIGHT_CLICK_AIR;
+		}
+		throw new RuntimeException("Don't know what to do!");
+	}
+
+	public int Compat_get_face() {
+		EnumFacing result = wrapper.getFaceSuper();
+		return Compat_EnumFacing.getSideInt(result);
+	}
+
+	public Compat_World Compat_get_world() {
+		World result = wrapper.getWorldSuper();
+		return Compat_World.getFake(result);
+	}
+
+	public int Compat_get_x() {
+		return wrapper.getPosSuper().getX();
+	}
+
+	public int Compat_get_y() {
+		return wrapper.getPosSuper().getY();
+	}
+
+	public int Compat_get_z() {
+		return wrapper.getPosSuper().getZ();
+	}
+
+	public void Compat_set_useItem(Compat_Event_Result result) {
+		wrapper.setResultSuper(result.getReal());
 	}
 }

@@ -3,6 +3,8 @@ package compat.sandbox.net.minecraft.world.biome;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeProvider;
 
 public class Compat_BiomeProvider {
@@ -32,5 +34,11 @@ public class Compat_BiomeProvider {
 
 	public static Compat_BiomeProvider getFake(BiomeProvider real) {
 		return new Compat_BiomeProvider(real);
+	}
+
+	public Compat_Biome Compat_func_76935_a(int x, int z) {
+		BlockPos pos = new BlockPos(x, 0, z);
+		Biome result = wrapper.getBiomeSuper(pos);
+		return Compat_Biome.getFake(result);
 	}
 }

@@ -43,13 +43,13 @@ public class Compat_BlockDoublePlant extends Compat_BlockBush {
 		return getFakeInternal(block, () -> new Compat_BlockDoublePlant(block));
 	}
 
-	public static boolean func_149887_c(int p1) // true if plant is upper part, aka "state.getValue(HALF) ==
+	public static boolean Compat_func_149887_c(int p1) // true if plant is upper part, aka "state.getValue(HALF) ==
 												// BlockDoublePlant.EnumBlockHalf.UPPER"
 	{
 		return (p1 & 8) != 0;
 	}
 
-	public static int func_149890_d(int p1) // get variant part from meta
+	public static int Compat_func_149890_d(int p1) // get variant part from meta
 	{
 		return p1 & 7;
 	}

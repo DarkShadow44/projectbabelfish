@@ -65,6 +65,17 @@ public class Compat_ItemStack {
 		return wrapper.get();
 	}
 
+	public static Compat_ItemStack getFake(ItemStack stack) {
+		if (stack instanceof CompatI_ItemStack) {
+			return ((CompatI_ItemStack) stack).getFake();
+		}
+		return new Compat_ItemStack(stack);
+	}
+
+	public static ItemStack getReal(Compat_ItemStack result) {
+		return result.getReal();
+	}
+
 	public void Compat_func_77982_d(Compat_NBTTagCompound nbt) {
 		wrapper.setTagCompoundSuper(nbt.getReal());
 	}
@@ -132,13 +143,6 @@ public class Compat_ItemStack {
 	public Compat_NBTTagCompound Compat_func_77955_b(Compat_NBTTagCompound tag) {
 		wrapper.writeToNBTSuper(tag.getReal());
 		return tag;
-	}
-
-	public static Compat_ItemStack getFake(ItemStack stack) {
-		if (stack instanceof CompatI_ItemStack) {
-			return ((CompatI_ItemStack) stack).getFake();
-		}
-		return new Compat_ItemStack(stack);
 	}
 
 	public void Compat_func_77964_b(int damage) {

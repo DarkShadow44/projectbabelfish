@@ -70,7 +70,7 @@ public class Compat_EntityPlayer extends Compat_EntityLivingBase {
 	}
 
 	public void Compat_func_145747_a(Compat_ITextComponent text) {
-		wrapper.sendMessageSuper(text.getReal());
+		wrapper.sendMessageSuper(Compat_ITextComponent.getReal(text));
 	}
 
 	public void Compat_func_180468_a(Compat_IInteractionObject obj) {

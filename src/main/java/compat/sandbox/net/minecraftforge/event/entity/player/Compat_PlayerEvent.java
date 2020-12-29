@@ -5,6 +5,7 @@ import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
 import compat.sandbox.net.minecraft.entity.player.Compat_EntityPlayer;
 import compat.sandbox.net.minecraftforge.event.entity.living.Compat_LivingEvent;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
 public class Compat_PlayerEvent extends Compat_LivingEvent {
@@ -37,6 +38,11 @@ public class Compat_PlayerEvent extends Compat_LivingEvent {
 	}
 
 	public Compat_EntityPlayer Compat_getEntityPlayer() {
-		return new Compat_EntityPlayer(wrapper.getEntityPlayerSuper());
+		EntityPlayer result = wrapper.getEntityPlayerSuper();
+		return Compat_EntityPlayer.getFake(result);
+	}
+
+	public Compat_EntityPlayer Compat_get_entityPlayer() {
+		return Compat_getEntityPlayer();
 	}
 }
