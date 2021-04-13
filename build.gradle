@@ -4,12 +4,12 @@ buildscript {
         jcenter()
         mavenCentral()
 		maven {
-			setUrl("http://repo.spongepowered.org/maven")
+			setUrl("https://repo.spongepowered.org/maven")
 		}
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
-		classpath("org.spongepowered:mixingradle:0.7-SNAPSHOT")
+		classpath("org.spongepowered:mixingradle:0.7-20200821.105029-4")
     }
 }
         
@@ -75,7 +75,7 @@ repositories {
 		url = "https://modmaven.k-4u.nl"
 	}
 	maven {
-		setUrl("http://repo.spongepowered.org/maven")
+		setUrl("https://repo.spongepowered.org/maven")
 	}
 }
 
