@@ -30,8 +30,8 @@ public class Compat_BlockDirectional extends Compat_Block {
 	}
 
 	protected void initialize(CompatI_BlockDirectional wrapper) {
-		super.initialize(wrapper);
 		this.wrapper = wrapper;
+		super.initialize(wrapper);
 	}
 
 	public BlockDirectional getReal() {
