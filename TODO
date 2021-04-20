@@ -84,3 +84,12 @@ implement lender layer (pass0/1)
 
 can't have factory create wrapper when not child, we need getFake() !
 Factory check if child, if so, pass flag to constructor to tell it to ignore callbacks? or just use Version.UNKNOWN?
+
+
+
+Extra compat classes instead of deriving from real classes because:
+- Can run indev without deobfuscating modcode
+- Can't really patch MC classes, no asm transformer possible
+- Wenn Block nach 1.7.10 übergeben, dann brauchen wir einen Wrapper. Dieser geht nicht weil unsere Wrapper Klasse nicht von Block anleitet. wir müssten also in den Block einmixen.
+- ...?
+
