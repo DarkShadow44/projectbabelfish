@@ -6,16 +6,16 @@ import compat.sandbox.net.minecraft.tileentity.Compat_TileEntity;
 import compat.sandbox.net.minecraft.util.math.Compat_BlockPos;
 import compat.sandbox.net.minecraft.world.biome.Compat_Biome;
 import compat.sandbox.net.minecraftforge.common.util.Compat_ForgeDirection;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IWorldReader;
 
 public interface Compat_IBlockAccess {
-	public IBlockAccess getReal();
+	public IWorldReader getReal();
 
 	public Compat_TileEntity Compat_func_175625_s(Compat_BlockPos pos);
 
 	public Compat_IBlockState Compat_func_180495_p(Compat_BlockPos pos);
 
-	public static Compat_IBlockAccess getFake(IBlockAccess world) {
+	public static Compat_IBlockAccess getFake(IWorldReader world) {
 		return new Wrapper_IBlockAccess(world);
 	}
 

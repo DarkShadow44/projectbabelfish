@@ -8,7 +8,7 @@ import compat.sandbox.net.minecraft.client.renderer.vertex.Compat_VertexFormat;
 import compat.sandbox.net.minecraft.util.Compat_EnumFacing;
 import compat.sandbox.net.minecraftforge.client.model.pipeline.Compat_IVertexConsumer;
 import compat.sandbox.net.minecraftforge.client.model.pipeline.Wrapper_IVertexConsumer;
-import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.util.EnumFacing;
 

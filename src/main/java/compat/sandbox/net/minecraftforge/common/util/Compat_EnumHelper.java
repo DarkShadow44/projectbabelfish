@@ -2,7 +2,7 @@ package compat.sandbox.net.minecraftforge.common.util;
 
 import compat.sandbox.net.minecraft.item.Compat_ItemArmor_ArmorMaterial;
 import compat.sandbox.net.minecraft.util.Compat_SoundEvent;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraft.item.ArmorMaterial;
 import net.minecraftforge.common.util.EnumHelper;
 
 public class Compat_EnumHelper {

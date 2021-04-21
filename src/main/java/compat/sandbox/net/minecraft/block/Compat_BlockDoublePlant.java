@@ -6,9 +6,9 @@ import compat.core.ParentSelector;
 import compat.sandbox.net.minecraft.util.Compat_IIcon;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockDoublePlant.EnumBlockHalf;
-import net.minecraft.block.BlockDoublePlant.EnumPlantType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraftforge.common.EnumPlantType;
 
 public class Compat_BlockDoublePlant extends Compat_BlockBush {
 	private CompatI_BlockDoublePlant wrapper;

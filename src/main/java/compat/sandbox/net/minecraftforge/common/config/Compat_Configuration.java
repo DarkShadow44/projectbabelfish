@@ -5,7 +5,6 @@ import java.io.File;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
-import net.minecraftforge.common.config.Configuration;
 
 public class Compat_Configuration {
 	private CompatI_Configuration wrapper;

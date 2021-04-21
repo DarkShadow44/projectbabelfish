@@ -11,18 +11,19 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.biome.Biome;
 
 public class Wrapper_IBlockAccess implements Compat_IBlockAccess {
 
-	private final IBlockAccess original;
+	private final IWorldReader original;
 
-	public Wrapper_IBlockAccess(IBlockAccess original) {
+	public Wrapper_IBlockAccess(IWorldReader original) {
 		this.original = original;
 	}
 
-	public IBlockAccess getReal() {
+	public IWorldReader getReal() {
 		return original;
 	}
 

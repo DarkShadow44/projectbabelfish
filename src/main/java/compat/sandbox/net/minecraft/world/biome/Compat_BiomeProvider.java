@@ -5,7 +5,7 @@ import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeProvider;
+import net.minecraft.world.biome.provider.BiomeProvider;
 
 public class Compat_BiomeProvider {
 	private CompatI_BiomeProvider wrapper;

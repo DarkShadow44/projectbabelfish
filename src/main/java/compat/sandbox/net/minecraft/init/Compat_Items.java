@@ -5,7 +5,12 @@ import compat.sandbox.net.minecraft.item.Compat_ItemBow;
 import compat.sandbox.net.minecraft.item.Compat_ItemEmptyMap;
 import compat.sandbox.net.minecraft.item.Compat_ItemPotion;
 import compat.sandbox.net.minecraft.item.Compat_ItemShears;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemBow;
+import net.minecraft.item.ItemEmptyMap;
+import net.minecraft.item.ItemPotion;
+import net.minecraft.item.ItemShears;
 
 public class Compat_Items {
 
@@ -13,12 +18,12 @@ public class Compat_Items {
 	private static final Compat_Item REDSTONE = Compat_Item.getFake(Items.REDSTONE);
 	private static final Compat_Item GLOWSTONE_DUST = Compat_Item.getFake(Items.GLOWSTONE_DUST);
 	private static final Compat_Item IRON_INGOT = Compat_Item.getFake(Items.IRON_INGOT);
-	private static final Compat_Item DYE = Compat_Item.getFake(Items.DYE);
-	private static final Compat_ItemEmptyMap MAP = new Compat_ItemEmptyMap(Items.MAP);
+	private static final Compat_Item DYE = Compat_Item.getFake(Items.CYAN_DYE); // TODO
+	private static final Compat_ItemEmptyMap MAP = new Compat_ItemEmptyMap((ItemEmptyMap)Items.MAP);
 	private static final Compat_Item GOLDEN_AXE = Compat_Item.getFake(Items.GOLDEN_AXE);
 	private static final Compat_Item BRICK = Compat_Item.getFake(Items.BRICK);
-	private static final Compat_Item FLOWER_POT = Compat_Item.getFake(Items.FLOWER_POT);
-	private static final Compat_Item REEDS = Compat_Item.getFake(Items.REEDS);
+	private static final Compat_Item FLOWER_POT = Compat_Item.getFake(Blocks.FLOWER_POT.asItem());
+	private static final Compat_Item REEDS = Compat_Item.getFake(Blocks.SUGAR_CANE.asItem());
 	private static final Compat_Item DIAMOND_AXE = Compat_Item.getFake(Items.DIAMOND_AXE);
 	private static final Compat_Item WOODEN_AXE = Compat_Item.getFake(Items.WOODEN_AXE);
 
@@ -76,7 +81,7 @@ public class Compat_Items {
 	}
 
 	public static Compat_ItemPotion Compat_get_field_151068_bn() {
-		return new Compat_ItemPotion(Items.POTIONITEM);
+		return new Compat_ItemPotion((ItemPotion)Items.POTION);
 	}
 
 	public static Compat_Item Compat_get_field_151145_ak() {
@@ -100,7 +105,7 @@ public class Compat_Items {
 	}
 
 	public static Compat_Item Compat_get_field_151060_bw() {
-		return new Compat_Item(Items.SPECKLED_MELON);
+		return new Compat_Item(Items.GLISTERING_MELON_SLICE);
 	}
 
 	public static Compat_Item Compat_get_field_151078_bh() {
@@ -128,7 +133,7 @@ public class Compat_Items {
 	}
 
 	public static Compat_Item Compat_get_field_151066_bu() {
-		return new Compat_Item(Items.CAULDRON);
+		return new Compat_Item(Blocks.CAULDRON.asItem());
 	}
 
 	public static Compat_Item Compat_get_field_151166_bC() {
@@ -180,11 +185,11 @@ public class Compat_Items {
 	}
 
 	public static Compat_Item Compat_get_field_151144_bL() {
-		return new Compat_Item(Items.SKULL);
+		return new Compat_Item(Items.SKELETON_SKULL);
 	}
 
 	public static Compat_Item Compat_get_field_151115_aP() {
-		return new Compat_Item(Items.FISH);
+		return new Compat_Item(Items.TROPICAL_FISH);
 	}
 
 	public static Compat_Item Compat_get_field_151075_bm() {
@@ -200,7 +205,7 @@ public class Compat_Items {
 	}
 
 	public static Compat_Item Compat_get_field_151105_aU() {
-		return new Compat_Item(Items.CAKE);
+		return new Compat_Item(Blocks.CAKE.asItem());
 	}
 
 	public static Compat_Item Compat_get_field_151116_aA() {
@@ -244,7 +249,7 @@ public class Compat_Items {
 	}
 
 	public static Compat_ItemBow Compat_get_field_151031_f() {
-		return new Compat_ItemBow(Items.BOW);
+		return new Compat_ItemBow((ItemBow)Items.BOW);
 	}
 
 	public static Compat_Item Compat_get_field_151121_aF() {
@@ -260,7 +265,7 @@ public class Compat_Items {
 	}
 
 	public static Compat_ItemShears Compat_get_field_151097_aZ() {
-		return new Compat_ItemShears(Items.SHEARS);
+		return new Compat_ItemShears((ItemShears)Items.SHEARS);
 	}
 
 	public static Compat_Item Compat_get_field_151172_bF() {
@@ -272,11 +277,11 @@ public class Compat_Items {
 	}
 
 	public static Compat_Item Compat_get_field_151104_aV() {
-		return new Compat_Item(Items.BED);
+		return new Compat_Item(Items.RED_BED);
 	}
 
 	public static Compat_Item Compat_get_field_151107_aW() {
-		return new Compat_Item(Items.REPEATER);
+		return new Compat_Item(Blocks.REPEATER.asItem());
 	}
 
 	public static Compat_Item Compat_get_field_151048_u() {

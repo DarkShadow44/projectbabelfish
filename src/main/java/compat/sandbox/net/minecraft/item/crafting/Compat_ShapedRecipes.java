@@ -5,7 +5,7 @@ import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
 import compat.sandbox.net.minecraft.item.Compat_ItemStack;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.util.NonNullList;
 
 public class Compat_ShapedRecipes {
@@ -29,7 +29,7 @@ public class Compat_ShapedRecipes {
 	}
 
 	// When called from Minecraft
-	public Compat_ShapedRecipes(ShapedRecipes original) {
+	public Compat_ShapedRecipes(ShapedRecipe original) {
 		this.initialize(Factory.createWrapper(CompatI_ShapedRecipes.class, original));
 	}
 
@@ -37,7 +37,7 @@ public class Compat_ShapedRecipes {
 		this.wrapper = wrapper;
 	}
 
-	public ShapedRecipes getReal() {
+	public ShapedRecipe getReal() {
 		return wrapper.get();
 	}
 

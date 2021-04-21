@@ -1,7 +1,7 @@
 package compat.sandbox.net.minecraft.item;
 
 import compat.sandbox.net.minecraft.util.Compat_SoundEvent;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraft.item.ArmorMaterial;
 
 public class Compat_ItemArmor_ArmorMaterial {
 

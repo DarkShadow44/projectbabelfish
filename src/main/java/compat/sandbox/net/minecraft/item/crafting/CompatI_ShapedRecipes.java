@@ -1,7 +1,7 @@
 package compat.sandbox.net.minecraft.item.crafting;
 
-import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraft.item.crafting.ShapedRecipe;
 
 public interface CompatI_ShapedRecipes {
-	public ShapedRecipes get();
+	public ShapedRecipe get();
 }

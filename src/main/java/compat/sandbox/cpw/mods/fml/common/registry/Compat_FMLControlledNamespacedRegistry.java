@@ -77,7 +77,7 @@ public class Compat_FMLControlledNamespacedRegistry<T extends IForgeRegistryEntr
 	public Object Compat_get(int id) {
 		switch (type) {
 		case BLOCKS:
-			return Compat_Block.getFake(Block.getBlockById(id));
+			return Compat_Block.getFake(Block.getStateById(id).getBlock());
 		case ITEMS:
 			return Compat_Item.getFake(Item.getItemById(id));
 		case UNKNOWN:
@@ -90,7 +90,8 @@ public class Compat_FMLControlledNamespacedRegistry<T extends IForgeRegistryEntr
 		obj = getRealObj(obj);
 		switch (type) {
 		case BLOCKS:
-			return Block.getIdFromBlock((Block) obj);
+			Block block = (Block) obj;
+			return Block.getStateId(block.getDefaultState());
 		case ITEMS:
 			return Item.getIdFromItem((Item) obj);
 		case UNKNOWN:

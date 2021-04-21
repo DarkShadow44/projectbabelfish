@@ -7,7 +7,7 @@ import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
 import compat.sandbox.net.minecraft.item.Compat_ItemStack;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraft.util.NonNullList;
 
 public class Compat_ShapelessRecipes {
@@ -30,7 +30,7 @@ public class Compat_ShapelessRecipes {
 	}
 
 	// When called from Minecraft
-	public Compat_ShapelessRecipes(ShapelessRecipes original) {
+	public Compat_ShapelessRecipes(ShapelessRecipe original) {
 		this.initialize(Factory.createWrapper(CompatI_ShapelessRecipes.class, original));
 	}
 
@@ -38,7 +38,7 @@ public class Compat_ShapelessRecipes {
 		this.wrapper = wrapper;
 	}
 
-	public ShapelessRecipes getReal() {
+	public ShapelessRecipe getReal() {
 		return wrapper.get();
 	}
 }

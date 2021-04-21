@@ -6,8 +6,8 @@ import java.util.List;
 import compat.sandbox.net.minecraft.block.state.Compat_IBlockState;
 import compat.sandbox.net.minecraft.client.renderer.texture.Compat_TextureAtlasSprite;
 import compat.sandbox.net.minecraft.util.Compat_EnumFacing;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.model.BakedQuad;
+import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.util.EnumFacing;
 
 public class Wrapper2_IBakedModel implements Compat_IBakedModel {
