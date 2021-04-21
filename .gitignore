@@ -1,38 +1,12 @@
-# eclipse
-bin
-*.launch
-.settings
-.metadata
+.git
+
+#eclipse
 .classpath
 .project
+.settings/
 
-# idea
-out
-*.ipr
-*.iws
-*.iml
-.idea
-
-# gradle
-build
 .gradle
+gradle-wrapper.jar
+build/
+bin/
 
-# other
-eclipse
-run
-
-# Files from Forge MDK
-README.txt
-LICENSE.txt
-LICENSE-Paulscode SoundSystem CodecIBXM.txt
-LICENSE-Paulscode IBXM Library.txt
-CREDITS.txt
-
-gradle/
-gradlew*
-conf1*/
-
-.factorypath
-logs/
-TEMP_CLASSES/
-srg-jars/
