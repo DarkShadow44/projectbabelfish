@@ -7,7 +7,7 @@ import compat.autogen.HasCallback;
 import compat.core.ParentSelector;
 import compat.core.Version;
 import compat.sandbox.net.minecraft.tileentity.Compat_TileEntity;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.tileentity.TileEntity;
 
 public class Compat_TileEntitySpecialRenderer<T extends Compat_TileEntity> {
@@ -23,7 +23,7 @@ public class Compat_TileEntitySpecialRenderer<T extends Compat_TileEntity> {
 	}
 
 	// When called from Minecraft
-	public Compat_TileEntitySpecialRenderer(TileEntitySpecialRenderer<TileEntity> original) {
+	public Compat_TileEntitySpecialRenderer(TileEntityRenderer<TileEntity> original) {
 		this.initialize(Factory.createWrapper(CompatI_TileEntitySpecialRenderer.class, original));
 	}
 
@@ -31,7 +31,7 @@ public class Compat_TileEntitySpecialRenderer<T extends Compat_TileEntity> {
 		this.wrapper = wrapper;
 	}
 
-	public TileEntitySpecialRenderer<TileEntity> getReal() {
+	public TileEntityRenderer<TileEntity> getReal() {
 		return wrapper.get();
 	}
 

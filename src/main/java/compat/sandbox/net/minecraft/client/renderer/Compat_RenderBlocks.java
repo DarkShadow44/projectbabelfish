@@ -27,7 +27,7 @@ public class Compat_RenderBlocks {
 		if (icon != null)
 			return icon;
 
-		TextureAtlasSprite sprite = ((TextureMap) Minecraft.getMinecraft().getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE)).getAtlasSprite("missingno");
+		TextureAtlasSprite sprite = ((TextureMap) Minecraft.getInstance().getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE)).getAtlasSprite("missingno");
 
 		return new Wrapper_IIcon(sprite);
 	}
@@ -138,7 +138,7 @@ public class Compat_RenderBlocks {
 
 	public Compat_Minecraft Compat_get_field_147877_p() {
 		// TODO
-		return new Compat_Minecraft(Minecraft.getMinecraft());
+		return new Compat_Minecraft(Minecraft.getInstance());
 	}
 
 	public void Compat_set_field_147838_g(boolean value) {

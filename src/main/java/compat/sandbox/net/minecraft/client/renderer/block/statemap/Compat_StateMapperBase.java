@@ -17,10 +17,10 @@ import compat.sandbox.net.minecraft.block.state.Compat_IBlockState;
 import compat.sandbox.net.minecraft.block.state.Wrapper_IBlockState;
 import compat.sandbox.net.minecraft.client.renderer.block.model.Compat_ModelResourceLocation;
 import net.minecraft.block.Block;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
+import net.minecraft.state.IProperty;
 
 public class Compat_StateMapperBase implements Compat_IStateMapper {
 	private CompatI_StateMapperBase wrapper;

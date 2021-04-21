@@ -4,7 +4,7 @@ import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
 import compat.sandbox.net.minecraft.util.Compat_ResourceLocation;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 
 public class Compat_ModelResourceLocation extends Compat_ResourceLocation {
 	private CompatI_ModelResourceLocation wrapper;

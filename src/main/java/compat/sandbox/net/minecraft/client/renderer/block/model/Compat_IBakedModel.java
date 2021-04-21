@@ -5,7 +5,7 @@ import java.util.List;
 import compat.sandbox.net.minecraft.block.state.Compat_IBlockState;
 import compat.sandbox.net.minecraft.client.renderer.texture.Compat_TextureAtlasSprite;
 import compat.sandbox.net.minecraft.util.Compat_EnumFacing;
-import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.model.IBakedModel;
 
 public interface Compat_IBakedModel {
 	public boolean Compat_func_177555_b();

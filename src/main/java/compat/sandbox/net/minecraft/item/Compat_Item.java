@@ -40,8 +40,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 	private CompatI_Item wrapper;
@@ -124,11 +124,13 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 
 	@Callback
 	public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
-		Compat_func_77663_a(new Compat_ItemStack(stack), new Compat_World(world), new Compat_Entity(entity), itemSlot, isSelected);
+		Compat_func_77663_a(new Compat_ItemStack(stack), new Compat_World(world), new Compat_Entity(entity), itemSlot,
+				isSelected);
 	}
 
 	@HasCallback({ Version.V1_10_2 })
-	public void Compat_func_77663_a(Compat_ItemStack stack, Compat_World world, Compat_Entity entity, int itemSlot, boolean isSelected) {
+	public void Compat_func_77663_a(Compat_ItemStack stack, Compat_World world, Compat_Entity entity, int itemSlot,
+			boolean isSelected) {
 		wrapper.onUpdateSuper(stack.getReal(), world.getReal(), entity.getReal(), itemSlot, isSelected);
 	}
 
@@ -143,15 +145,21 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 	}
 
 	@Callback
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing,
+			float hitX, float hitY, float hitZ) {
 		Compat_ItemStack stack = new Compat_ItemStack(player.getHeldItem(hand));
 
-		return Compat_func_180614_a(stack, new Compat_EntityPlayer(player), Compat_World.getFake(world), Compat_BlockPos.getFake(pos), Compat_EnumHand.getFake(hand), Compat_EnumFacing.getFake(facing), hitX, hitY, hitZ).getReal();
+		return Compat_func_180614_a(stack, new Compat_EntityPlayer(player), Compat_World.getFake(world),
+				Compat_BlockPos.getFake(pos), Compat_EnumHand.getFake(hand), Compat_EnumFacing.getFake(facing), hitX,
+				hitY, hitZ).getReal();
 	}
 
 	@HasCallback({ Version.V1_10_2 })
-	public Compat_EnumActionResult Compat_func_180614_a(Compat_ItemStack stack, Compat_EntityPlayer player, Compat_World world, Compat_BlockPos pos, Compat_EnumHand hand, Compat_EnumFacing facing, float hitX, float hitY, float hitZ) {
-		EnumActionResult result = wrapper.onItemUseSuper(player.getReal(), world.getReal(), pos.getReal(), hand.getReal(), facing.getReal(), hitX, hitY, hitZ);
+	public Compat_EnumActionResult Compat_func_180614_a(Compat_ItemStack stack, Compat_EntityPlayer player,
+			Compat_World world, Compat_BlockPos pos, Compat_EnumHand hand, Compat_EnumFacing facing, float hitX,
+			float hitY, float hitZ) {
+		EnumActionResult result = wrapper.onItemUseSuper(player.getReal(), world.getReal(), pos.getReal(),
+				hand.getReal(), facing.getReal(), hitX, hitY, hitZ);
 		return Compat_EnumActionResult.map_real_to_fake(result);
 	}
 
@@ -184,7 +192,7 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 		return this;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	protected String Compat_func_111208_A() { // getIconString
 		return (this.iconString == null) ? ("MISSING_ICON_ITEM") : this.iconString;
 	}
@@ -208,12 +216,12 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 		return this;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void Compat_func_94581_a(Compat_IIconRegister iconRegister) {
 		icon = iconRegister.Compat_func_94245_a(Compat_func_111208_A());
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public Compat_IIcon Compat_func_77617_a(int damage) {
 		// To be overriden
 		return icon;
@@ -255,17 +263,21 @@ public class Compat_Item extends Compat_IForgeRegistryEntry_Impl<Item> {
 	@Callback
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
 		Compat_ItemStack stack = Compat_ItemStack.getFake(player.getHeldItem(hand));
-		Compat_ActionResult<ItemStack> result = Compat_func_77659_a(stack, Compat_World.getFake(world), Compat_EntityPlayer.getFake(player), Compat_EnumHand.getFake(hand));
+		Compat_ActionResult<ItemStack> result = Compat_func_77659_a(stack, Compat_World.getFake(world),
+				Compat_EntityPlayer.getFake(player), Compat_EnumHand.getFake(hand));
 		return result.getReal();
 	}
 
 	@HasCallback({ Version.V1_10_2 })
-	public Compat_ActionResult<ItemStack> Compat_func_77659_a(Compat_ItemStack stack, Compat_World world, Compat_EntityPlayer player, Compat_EnumHand hand) {
-		ActionResult<ItemStack> result = wrapper.onItemRightClickSuper(world.getReal(), player.getReal(), hand.getReal());
+	public Compat_ActionResult<ItemStack> Compat_func_77659_a(Compat_ItemStack stack, Compat_World world,
+			Compat_EntityPlayer player, Compat_EnumHand hand) {
+		ActionResult<ItemStack> result = wrapper.onItemRightClickSuper(world.getReal(), player.getReal(),
+				hand.getReal());
 		return new Compat_ActionResult<ItemStack>(result);
 	}
 
-	public int Compat_getHarvestLevel(Compat_ItemStack stack, String toolClass, Compat_EntityPlayer player, Compat_IBlockState state) {
+	public int Compat_getHarvestLevel(Compat_ItemStack stack, String toolClass, Compat_EntityPlayer player,
+			Compat_IBlockState state) {
 		return wrapper.getHarvestLevelSuper(stack.getReal(), toolClass, player.getReal(), state.getReal());
 	}
 

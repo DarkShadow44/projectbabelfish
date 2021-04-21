@@ -1,7 +1,7 @@
 package compat.sandbox.net.minecraft.client.renderer.block.model;
 
-import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.block.model.ModelManager;
+import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.model.ModelManager;
 
 public class Compat_ModelManager {
 

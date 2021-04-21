@@ -3,7 +3,7 @@ package compat.sandbox.net.minecraft.client.model;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
-import net.minecraft.client.model.ModelSpider;
+import net.minecraft.client.renderer.entity.model.ModelSpider;
 
 public class Compat_ModelSpider extends Compat_ModelBase {
 	private CompatI_ModelSpider wrapper;

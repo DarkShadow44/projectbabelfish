@@ -3,7 +3,7 @@ package compat.sandbox.net.minecraft.client.model;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
-import net.minecraft.client.model.ModelOcelot;
+import net.minecraft.client.renderer.entity.model.ModelOcelot;
 
 public class Compat_ModelOcelot extends Compat_ModelBase {
 	private CompatI_ModelOcelot wrapper;

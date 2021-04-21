@@ -3,7 +3,7 @@ package compat.sandbox.net.minecraft.client.renderer.block.model;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
-import net.minecraft.client.renderer.block.model.ModelBakery;
+import net.minecraft.client.renderer.model.ModelBakery;
 
 public class Compat_ModelBakery {
 	private CompatI_ModelBakery wrapper;

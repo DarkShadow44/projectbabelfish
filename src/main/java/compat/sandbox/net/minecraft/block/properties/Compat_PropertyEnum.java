@@ -3,7 +3,7 @@ package compat.sandbox.net.minecraft.block.properties;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
-import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.state.EnumProperty;
 import net.minecraft.util.IStringSerializable;
 
 public class Compat_PropertyEnum<T extends Enum<T> & IStringSerializable> extends Compat_PropertyHelper<T> {
@@ -21,7 +21,7 @@ public class Compat_PropertyEnum<T extends Enum<T> & IStringSerializable> extend
 	}
 
 	// When called from Minecraft
-	public Compat_PropertyEnum(PropertyEnum<T> original) {
+	public Compat_PropertyEnum(EnumProperty<T> original) {
 		super(ParentSelector.NULL);
 		this.initialize(Factory.createWrapper(CompatI_PropertyEnum.class, original));
 	}
@@ -31,11 +31,11 @@ public class Compat_PropertyEnum<T extends Enum<T> & IStringSerializable> extend
 		this.wrapper = wrapper;
 	}
 
-	public PropertyEnum<T> getReal() {
+	public EnumProperty<T> getReal() {
 		return wrapper.get();
 	}
 
 	public static <T extends Enum<T> & IStringSerializable> Compat_PropertyEnum<T> Compat_func_177709_a(String p1, Class<T> p2) {
-		return new Compat_PropertyEnum<T>(PropertyEnum.create(p1, p2)); // TODO is class correct?
+		return new Compat_PropertyEnum<T>(EnumProperty.create(p1, p2)); // TODO is class correct?
 	}
 }

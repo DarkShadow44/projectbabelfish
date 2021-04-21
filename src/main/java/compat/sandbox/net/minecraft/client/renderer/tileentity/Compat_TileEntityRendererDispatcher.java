@@ -18,7 +18,7 @@ public class Compat_TileEntityRendererDispatcher {
 	}
 
 	public Compat_TextureManager Compat_get_field_147553_e() {
-		return new Compat_TextureManager(original.renderEngine);
+		return new Compat_TextureManager(original.textureManager);
 	}
 
 	public Compat_World Compat_get_field_147550_f() {

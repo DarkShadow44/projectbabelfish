@@ -2,6 +2,7 @@ package compat.sandbox.net.minecraft.client.renderer.block.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import compat.sandbox.net.minecraft.block.state.Compat_IBlockState;
 import compat.sandbox.net.minecraft.client.renderer.texture.Compat_TextureAtlasSprite;
@@ -46,7 +47,7 @@ public class Wrapper2_IBakedModel implements Compat_IBakedModel {
 	@Override
 	public List<Compat_BakedQuad> Compat_func_188616_a(Compat_IBlockState state, Compat_EnumFacing side, long rand) {
 		EnumFacing side2 = side == null ? null : side.getReal();
-		List<BakedQuad> quads = real.getQuads(state.getReal(), side2, rand);
+		List<BakedQuad> quads = real.getQuads(state.getReal(), side2, new Random(rand));
 		List<Compat_BakedQuad> ret = new ArrayList<>();
 		for (BakedQuad quad : quads) {
 			ret.add(Compat_BakedQuad.getFake(quad));

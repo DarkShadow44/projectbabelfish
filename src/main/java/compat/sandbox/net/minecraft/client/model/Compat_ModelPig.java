@@ -3,7 +3,7 @@ package compat.sandbox.net.minecraft.client.model;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
-import net.minecraft.client.model.ModelPig;
+import net.minecraft.client.renderer.entity.model.ModelPig;
 
 public class Compat_ModelPig extends Compat_ModelQuadruped {
 	private CompatI_ModelPig wrapper;

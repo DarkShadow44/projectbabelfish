@@ -23,6 +23,6 @@ public class Compat_BlockModelShapes {
 	}
 
 	public Compat_IBakedModel Compat_func_178125_b(Compat_IBlockState state) {
-		return new Wrapper2_IBakedModel(original.getModelForState(state.getReal()));
+		return new Wrapper2_IBakedModel(original.getModel(state.getReal()));
 	}
 }

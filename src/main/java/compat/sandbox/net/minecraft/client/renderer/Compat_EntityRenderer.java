@@ -4,7 +4,7 @@ import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
 import compat.sandbox.net.minecraft.client.Compat_Minecraft;
-import net.minecraft.client.renderer.EntityRenderer;
+import net.minecraft.client.renderer.GameRenderer;
 
 public class Compat_EntityRenderer {
 	private CompatI_EntityRenderer wrapper;
@@ -19,7 +19,7 @@ public class Compat_EntityRenderer {
 	}
 
 	// When called from Minecraft
-	public Compat_EntityRenderer(EntityRenderer original) {
+	public Compat_EntityRenderer(GameRenderer original) {
 		this.initialize(Factory.createWrapper(CompatI_EntityRenderer.class, original));
 	}
 
@@ -27,11 +27,12 @@ public class Compat_EntityRenderer {
 		this.wrapper = wrapper;
 	}
 
-	public EntityRenderer getReal() {
+	public GameRenderer getReal() {
 		return wrapper.get();
 	}
 
 	public static boolean Compat_get_field_78517_a() {
-		return EntityRenderer.anaglyphEnable;
+		//return GameRenderer.anaglyphEnable;
+		return false;
 	}
 }

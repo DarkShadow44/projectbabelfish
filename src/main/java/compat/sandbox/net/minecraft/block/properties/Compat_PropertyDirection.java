@@ -3,7 +3,7 @@ package compat.sandbox.net.minecraft.block.properties;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
-import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.state.DirectionProperty;
 import net.minecraft.util.EnumFacing;
 
 public class Compat_PropertyDirection extends Compat_PropertyEnum<EnumFacing> {
@@ -21,7 +21,7 @@ public class Compat_PropertyDirection extends Compat_PropertyEnum<EnumFacing> {
 	}
 
 	// When called from Minecraft
-	public Compat_PropertyDirection(PropertyDirection original) {
+	public Compat_PropertyDirection(DirectionProperty original) {
 		super(ParentSelector.NULL);
 		this.initialize(Factory.createWrapper(CompatI_PropertyDirection.class, original));
 	}
@@ -31,7 +31,7 @@ public class Compat_PropertyDirection extends Compat_PropertyEnum<EnumFacing> {
 		this.wrapper = wrapper;
 	}
 
-	public PropertyDirection getReal() {
+	public DirectionProperty getReal() {
 		return wrapper.get();
 	}
 }

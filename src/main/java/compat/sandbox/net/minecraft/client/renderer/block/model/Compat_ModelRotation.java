@@ -2,7 +2,7 @@ package compat.sandbox.net.minecraft.client.renderer.block.model;
 
 import javax.vecmath.Matrix4f;
 
-import net.minecraft.client.renderer.block.model.ModelRotation;
+import net.minecraft.client.renderer.model.ModelRotation;
 
 public enum Compat_ModelRotation {
 	X0_Y0(ModelRotation.X0_Y0),
@@ -76,6 +76,6 @@ public enum Compat_ModelRotation {
 	}
 
 	public Matrix4f Compat_getMatrix() {
-		return original.getMatrix();
+		return original.getMatrixVec();
 	}
 }

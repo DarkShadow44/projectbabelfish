@@ -4,7 +4,7 @@ import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
 import compat.sandbox.net.minecraft.item.Compat_Item;
-import net.minecraft.client.renderer.entity.RenderSnowball;
+import net.minecraft.client.renderer.entity.RenderSprite;
 import net.minecraft.entity.Entity;
 
 public class Compat_RenderSnowball<T extends Entity> extends Compat_Render<T> {
@@ -22,7 +22,7 @@ public class Compat_RenderSnowball<T extends Entity> extends Compat_Render<T> {
 	}
 
 	// When called from Minecraft
-	public Compat_RenderSnowball(RenderSnowball<T> original) {
+	public Compat_RenderSnowball(RenderSprite<T> original) {
 		super(ParentSelector.NULL);
 		this.initialize(Factory.createWrapper(CompatI_RenderSnowball.class, original));
 	}
@@ -31,7 +31,7 @@ public class Compat_RenderSnowball<T extends Entity> extends Compat_Render<T> {
 		this.wrapper = wrapper;
 	}
 
-	public RenderSnowball<T> getReal() {
+	public RenderSprite<T> getReal() {
 		return wrapper.get();
 	}
 }

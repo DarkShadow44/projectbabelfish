@@ -6,7 +6,7 @@ import compat.core.ParentSelector;
 import compat.sandbox.net.minecraft.block.state.Compat_IBlockState;
 import compat.sandbox.net.minecraft.client.renderer.texture.Compat_TextureAtlasSprite;
 import compat.sandbox.net.minecraft.util.math.Compat_BlockPos;
-import net.minecraft.client.renderer.block.model.SimpleBakedModel.Builder;
+import net.minecraft.client.renderer.model.SimpleBakedModel.Builder;
 
 public class Compat_SimpleBakedModel_Builder {
 	private CompatI_SimpleBakedModel_Builder wrapper;

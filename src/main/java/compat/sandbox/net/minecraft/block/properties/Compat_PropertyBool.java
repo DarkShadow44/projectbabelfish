@@ -3,7 +3,7 @@ package compat.sandbox.net.minecraft.block.properties;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
-import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.state.BooleanProperty;
 
 public class Compat_PropertyBool extends Compat_PropertyHelper<Boolean> {
 	private CompatI_PropertyBool wrapper;
@@ -20,7 +20,7 @@ public class Compat_PropertyBool extends Compat_PropertyHelper<Boolean> {
 	}
 
 	// When called from Minecraft
-	public Compat_PropertyBool(PropertyBool original) {
+	public Compat_PropertyBool(BooleanProperty original) {
 		super(ParentSelector.NULL);
 		this.initialize(Factory.createWrapper(CompatI_PropertyBool.class, original));
 	}
@@ -30,11 +30,11 @@ public class Compat_PropertyBool extends Compat_PropertyHelper<Boolean> {
 		this.wrapper = wrapper;
 	}
 
-	public PropertyBool getReal() {
+	public BooleanProperty getReal() {
 		return wrapper.get();
 	}
 
 	public static Compat_PropertyBool Compat_func_177716_a(String p1) {
-		return new Compat_PropertyBool(PropertyBool.create(p1));
+		return new Compat_PropertyBool(BooleanProperty.create(p1));
 	}
 }

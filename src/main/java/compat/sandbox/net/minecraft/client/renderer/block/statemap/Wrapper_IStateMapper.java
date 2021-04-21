@@ -8,8 +8,8 @@ import compat.sandbox.net.minecraft.block.state.Compat_IBlockState;
 import compat.sandbox.net.minecraft.client.renderer.block.model.Compat_ModelResourceLocation;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 
 public class Wrapper_IStateMapper implements IStateMapper {
 

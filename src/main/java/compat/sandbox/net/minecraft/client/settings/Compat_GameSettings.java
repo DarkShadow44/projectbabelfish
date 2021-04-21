@@ -3,7 +3,7 @@ package compat.sandbox.net.minecraft.client.settings;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.client.settings.GameSettings;
+import net.minecraft.client.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
 
 public class Compat_GameSettings {
@@ -39,7 +39,7 @@ public class Compat_GameSettings {
 	}
 
 	public float Compat_get_field_74341_c() {
-		return original.mouseSensitivity;
+		return (float)original.mouseSensitivity;
 	}
 
 	public void Compat_set_field_74341_c(float value) {

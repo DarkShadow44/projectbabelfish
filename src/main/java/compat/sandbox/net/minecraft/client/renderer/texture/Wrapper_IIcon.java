@@ -11,7 +11,7 @@ public class Wrapper_IIcon implements Compat_IIcon {
 
 	public Wrapper_IIcon(TextureAtlasSprite sprite) {
 		this.sprite = sprite;
-		this.location = new ResourceLocation(sprite.getIconName());
+		this.location = sprite.getName();
 	}
 
 	public Wrapper_IIcon(ResourceLocation location) {

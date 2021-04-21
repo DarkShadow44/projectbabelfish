@@ -1,7 +1,7 @@
 package compat.sandbox.net.minecraft.client.renderer;
 
-import net.minecraft.client.renderer.EntityRenderer;
+import net.minecraft.client.renderer.GameRenderer;
 
 public interface CompatI_EntityRenderer {
-	public EntityRenderer get();
+	public GameRenderer get();
 }

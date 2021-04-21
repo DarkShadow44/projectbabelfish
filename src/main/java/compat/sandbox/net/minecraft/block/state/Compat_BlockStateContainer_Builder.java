@@ -7,8 +7,7 @@ import compat.sandbox.net.minecraft.block.Compat_Block;
 import compat.sandbox.net.minecraft.block.properties.Compat_IProperty;
 import compat.sandbox.net.minecraftforge.common.property.Compat_IUnlistedProperty;
 import compat.sandbox.net.minecraftforge.common.property.Wrapper_IUnlistedProperty;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockStateContainer.Builder;
+import net.minecraft.state.IProperty;
 import net.minecraftforge.common.property.IUnlistedProperty;
 
 public class Compat_BlockStateContainer_Builder {

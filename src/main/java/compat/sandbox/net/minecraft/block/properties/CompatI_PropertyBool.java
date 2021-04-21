@@ -1,7 +1,7 @@
 package compat.sandbox.net.minecraft.block.properties;
 
-import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.state.BooleanProperty;
 
 public interface CompatI_PropertyBool extends CompatI_PropertyHelper<Boolean> {
-	public PropertyBool get();
+	public BooleanProperty get();
 }

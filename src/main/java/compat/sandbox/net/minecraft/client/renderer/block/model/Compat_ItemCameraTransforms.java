@@ -1,6 +1,6 @@
 package compat.sandbox.net.minecraft.client.renderer.block.model;
 
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
 
 public class Compat_ItemCameraTransforms {
 

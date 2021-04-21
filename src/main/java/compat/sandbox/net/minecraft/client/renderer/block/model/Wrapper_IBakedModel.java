@@ -2,6 +2,7 @@ package compat.sandbox.net.minecraft.client.renderer.block.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import compat.sandbox.net.minecraft.block.state.Compat_IBlockState;
 import compat.sandbox.net.minecraft.util.Compat_EnumFacing;
@@ -21,8 +22,8 @@ public class Wrapper_IBakedModel implements IBakedModel {
 	}
 
 	@Override
-	public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
-		List<Compat_BakedQuad> result = fake.Compat_func_188616_a(Compat_IBlockState.getFake(state), Compat_EnumFacing.getFake(side), rand);
+	public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, Random rand) {
+		List<Compat_BakedQuad> result = fake.Compat_func_188616_a(Compat_IBlockState.getFake(state), Compat_EnumFacing.getFake(side), 0); // TODO
 
 		List<BakedQuad> ret = new ArrayList<>();
 

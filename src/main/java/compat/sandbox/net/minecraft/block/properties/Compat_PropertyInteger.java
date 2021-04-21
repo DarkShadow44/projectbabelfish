@@ -3,7 +3,7 @@ package compat.sandbox.net.minecraft.block.properties;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
-import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.state.IntegerProperty;
 
 public class Compat_PropertyInteger extends Compat_PropertyHelper<Integer> {
 	private CompatI_PropertyInteger wrapper;
@@ -20,7 +20,7 @@ public class Compat_PropertyInteger extends Compat_PropertyHelper<Integer> {
 	}
 
 	// When called from Minecraft
-	public Compat_PropertyInteger(PropertyInteger original) {
+	public Compat_PropertyInteger(IntegerProperty original) {
 		super(ParentSelector.NULL);
 		this.initialize(Factory.createWrapper(CompatI_PropertyInteger.class, original));
 	}
@@ -30,11 +30,11 @@ public class Compat_PropertyInteger extends Compat_PropertyHelper<Integer> {
 		this.wrapper = wrapper;
 	}
 
-	public PropertyInteger getReal() {
+	public IntegerProperty getReal() {
 		return wrapper.get();
 	}
 
 	public static Compat_PropertyInteger Compat_func_177719_a(String p1, int p2, int p3) {
-		return new Compat_PropertyInteger(PropertyInteger.create(p1, p2, p3));
+		return new Compat_PropertyInteger(IntegerProperty.create(p1, p2, p3));
 	}
 }

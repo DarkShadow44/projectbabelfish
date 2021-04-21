@@ -8,8 +8,8 @@ import compat.sandbox.net.minecraft.client.renderer.block.model.Wrapper2_IBakedM
 import compat.sandbox.net.minecraft.entity.Compat_EntityLivingBase;
 import compat.sandbox.net.minecraft.item.Compat_ItemStack;
 import compat.sandbox.net.minecraft.world.Compat_World;
-import net.minecraft.client.renderer.RenderItem;
-import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -27,7 +27,7 @@ public class Compat_RenderItem {
 	}
 
 	// When called from Minecraft
-	public Compat_RenderItem(RenderItem original) {
+	public Compat_RenderItem(ItemRenderer original) {
 		this.initialize(Factory.createWrapper(CompatI_RenderItem.class, original));
 	}
 
@@ -35,7 +35,7 @@ public class Compat_RenderItem {
 		this.wrapper = wrapper;
 	}
 
-	public RenderItem getReal() {
+	public ItemRenderer getReal() {
 		return wrapper.get();
 	}
 

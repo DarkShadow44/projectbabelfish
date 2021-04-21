@@ -3,7 +3,7 @@ package compat.sandbox.net.minecraft.block.properties;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
-import net.minecraft.block.properties.PropertyHelper;
+import net.minecraft.state.AbstractProperty;
 
 public class Compat_PropertyHelper<T extends Comparable<T>> implements Compat_IProperty<T> {
 	private CompatI_PropertyHelper<T> wrapper;
@@ -18,7 +18,7 @@ public class Compat_PropertyHelper<T extends Comparable<T>> implements Compat_IP
 	}
 
 	// When called from Minecraft
-	public Compat_PropertyHelper(PropertyHelper<T> original) {
+	public Compat_PropertyHelper(AbstractProperty<T> original) {
 		this.initialize(Factory.createWrapper(CompatI_PropertyHelper.class, original));
 	}
 
@@ -26,7 +26,7 @@ public class Compat_PropertyHelper<T extends Comparable<T>> implements Compat_IP
 		this.wrapper = wrapper;
 	}
 
-	public PropertyHelper<T> getReal() {
+	public AbstractProperty<T> getReal() {
 		return wrapper.get();
 	}
 }

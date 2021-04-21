@@ -3,7 +3,7 @@ package compat.sandbox.net.minecraft.client.model;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
-import net.minecraft.client.model.ModelZombie;
+import net.minecraft.client.renderer.entity.model.ModelZombie;
 
 public class Compat_ModelZombie extends Compat_ModelBiped {
 	private CompatI_ModelZombie wrapper;

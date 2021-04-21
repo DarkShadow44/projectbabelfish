@@ -27,7 +27,7 @@ public class Compat_Minecraft {
 	}
 
 	public static Compat_Minecraft Compat_func_71410_x() {
-		return new Compat_Minecraft(Minecraft.getMinecraft());
+		return new Compat_Minecraft(Minecraft.getInstance());
 	}
 
 	public ListenableFuture<Object> Compat_func_152344_a(Runnable run) {
@@ -55,11 +55,11 @@ public class Compat_Minecraft {
 	}
 
 	public Compat_TextureMap Compat_func_147117_R() {
-		return new Compat_TextureMap(original.getTextureMapBlocks());
+		return new Compat_TextureMap(original.getTextureMap());
 	}
 
 	public Compat_RenderItem Compat_func_175599_af() {
-		return new Compat_RenderItem(original.getRenderItem());
+		return new Compat_RenderItem(original.getItemRenderer());
 	}
 
 	public Compat_TextureManager Compat_func_110434_K() {
@@ -71,7 +71,7 @@ public class Compat_Minecraft {
 	}
 
 	public Compat_TextureManager Compat_get_field_71446_o() {
-		return new Compat_TextureManager(original.renderEngine);
+		return new Compat_TextureManager(original.textureManager);
 	}
 
 	public Compat_GuiIngame Compat_get_field_71456_v() {

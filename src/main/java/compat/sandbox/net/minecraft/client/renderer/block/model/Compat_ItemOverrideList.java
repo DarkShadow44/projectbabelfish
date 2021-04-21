@@ -3,12 +3,12 @@ package compat.sandbox.net.minecraft.client.renderer.block.model;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
-import net.minecraft.client.renderer.block.model.ItemOverrideList;
+import net.minecraft.client.renderer.model.ItemOverrideList;
 
 public class Compat_ItemOverrideList {
 	private CompatI_ItemOverrideList wrapper;
 
-	private static Compat_ItemOverrideList NONE = new Compat_ItemOverrideList(ItemOverrideList.NONE);
+	private static Compat_ItemOverrideList NONE = new Compat_ItemOverrideList(ItemOverrideList.EMPTY);
 
 	// When called from Mod
 	public Compat_ItemOverrideList() {

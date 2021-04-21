@@ -1,6 +1,6 @@
 package compat.sandbox.net.minecraft.block.properties;
 
-import net.minecraft.block.properties.IProperty;
+import net.minecraft.state.IProperty;
 
 public class Wrapper_IProperty<T extends Comparable<T>> implements Compat_IProperty<T> {
 
