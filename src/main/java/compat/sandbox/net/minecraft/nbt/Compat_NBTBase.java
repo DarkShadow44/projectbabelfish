@@ -1,15 +1,15 @@
 package compat.sandbox.net.minecraft.nbt;
 
-import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.INBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
 public abstract class Compat_NBTBase {
-	public abstract NBTBase getReal();
+	public abstract INBTBase getReal();
 
 	public abstract Compat_NBTBase Compat_func_74737_b();
 
-	public static Compat_NBTBase getFake(NBTBase tag) {
+	public static Compat_NBTBase getFake(INBTBase tag) {
 		if (tag instanceof NBTTagCompound) {
 			return new Compat_NBTTagCompound((NBTTagCompound) tag);
 		}

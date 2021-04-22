@@ -18,65 +18,86 @@ import compat.sandbox.net.minecraft.block.Compat_BlockSlab;
 import compat.sandbox.net.minecraft.block.Compat_BlockStainedGlass;
 import compat.sandbox.net.minecraft.block.Compat_BlockStainedGlassPane;
 import compat.sandbox.net.minecraft.block.Compat_BlockTallGrass;
+import net.minecraft.block.BlockBush;
+import net.minecraft.block.BlockChest;
+import net.minecraft.block.BlockDaylightDetector;
+import net.minecraft.block.BlockDeadBush;
+import net.minecraft.block.BlockDoublePlant;
+import net.minecraft.block.BlockFire;
+import net.minecraft.block.BlockFlower;
+import net.minecraft.block.BlockGrass;
+import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.BlockMycelium;
+import net.minecraft.block.BlockPistonBase;
+import net.minecraft.block.BlockRedstoneWire;
+import net.minecraft.block.BlockSand;
+import net.minecraft.block.BlockSlab;
+import net.minecraft.block.BlockStainedGlass;
+import net.minecraft.block.BlockStainedGlassPane;
+import net.minecraft.block.BlockTallGrass;
 import net.minecraft.init.Blocks;
 
 public class Compat_Blocks {
 
 	private static final Compat_Block REDSTONE_LAMP = Compat_Block.getFake(Blocks.REDSTONE_LAMP);
-	private static final Compat_BlockSlab STONE_SLAB = Compat_BlockSlab.getFake(Blocks.STONE_SLAB);
-	private static final Compat_Block WOOL = Compat_Block.getFake(Blocks.WOOL);
+	private static final Compat_BlockSlab STONE_SLAB = Compat_BlockSlab.getFake((BlockSlab) Blocks.STONE_SLAB);
+	private static final Compat_Block WOOL = Compat_Block.getFake(Blocks.WHITE_WOOL); // TODO
 	private static final Compat_Block REDSTONE_TORCH = Compat_Block.getFake(Blocks.REDSTONE_TORCH);
 	private static final Compat_Block STONE_BUTTON = Compat_Block.getFake(Blocks.STONE_BUTTON);
-	private static final Compat_BlockPistonBase PISTON = Compat_BlockPistonBase.getFake(Blocks.PISTON);
+	private static final Compat_BlockPistonBase PISTON = Compat_BlockPistonBase
+			.getFake((BlockPistonBase) Blocks.PISTON);
 	private static final Compat_Block STONE = Compat_Block.getFake(Blocks.STONE);
-	private static final Compat_BlockFire FIRE = Compat_BlockFire.getFake(Blocks.FIRE);
+	private static final Compat_BlockFire FIRE = Compat_BlockFire.getFake((BlockFire) Blocks.FIRE);
 	private static final Compat_Block SNOW = Compat_Block.getFake(Blocks.SNOW);
 	private static final Compat_Block OAK_DOOR = Compat_Block.getFake(Blocks.OAK_DOOR);
 	private static final Compat_Block IRON_DOOR = Compat_Block.getFake(Blocks.IRON_DOOR);
-	private static final Compat_Block STANDING_SIGN = Compat_Block.getFake(Blocks.STANDING_SIGN);
+	private static final Compat_Block STANDING_SIGN = Compat_Block.getFake(Blocks.SIGN);
 	private static final Compat_Block WALL_SIGN = Compat_Block.getFake(Blocks.WALL_SIGN);
-	private static final Compat_Block REEDS = Compat_Block.getFake(Blocks.REEDS);
-	private static final Compat_Block WOODEN_PRESSURE_PLATE = Compat_Block.getFake(Blocks.WOODEN_PRESSURE_PLATE);
+	private static final Compat_Block REEDS = Compat_Block.getFake(Blocks.SUGAR_CANE);
+	private static final Compat_Block WOODEN_PRESSURE_PLATE = Compat_Block.getFake(Blocks.OAK_PRESSURE_PLATE); // TODO
 	private static final Compat_Block STONE_PRESSURE_PLATE = Compat_Block.getFake(Blocks.STONE_PRESSURE_PLATE);
 	private static final Compat_Block DIRT = Compat_Block.getFake(Blocks.DIRT);
 	private static final Compat_Block SANDSTONE = Compat_Block.getFake(Blocks.SANDSTONE);
-	private static final Compat_BlockSand SAND = Compat_BlockSand.getFake(Blocks.SAND);
-	private static final Compat_Block PLANKS = Compat_Block.getFake(Blocks.PLANKS);
+	private static final Compat_BlockSand SAND = Compat_BlockSand.getFake((BlockSand) Blocks.SAND);
+	private static final Compat_Block PLANKS = Compat_Block.getFake(Blocks.OAK_PLANKS); // TODO
 	private static final Compat_Block BOOKSHELF = Compat_Block.getFake(Blocks.BOOKSHELF);
-	private static final Compat_BlockChest CHEST = Compat_BlockChest.getFake(Blocks.CHEST);
+	private static final Compat_BlockChest CHEST = Compat_BlockChest.getFake((BlockChest) Blocks.CHEST);
 	private static final Compat_Block PUMPKIN = Compat_Block.getFake(Blocks.PUMPKIN);
-	private static final Compat_Block LIT_PUMPKIN = Compat_Block.getFake(Blocks.LIT_PUMPKIN);
+	private static final Compat_Block LIT_PUMPKIN = Compat_Block.getFake(Blocks.PUMPKIN);
 	private static final Compat_Block WATER = Compat_Block.getFake(Blocks.WATER);
 	private static final Compat_Block LAVA = Compat_Block.getFake(Blocks.LAVA);
 	private static final Compat_Block FARMLAND = Compat_Block.getFake(Blocks.FARMLAND);
 	private static final Compat_Block AIR = Compat_Block.getFake(Blocks.AIR);
-	private static final Compat_BlockFlower RED_FLOWER = Compat_BlockFlower.getFake(Blocks.RED_FLOWER);
-	private static final Compat_BlockFlower YELLOW_FLOWER = Compat_BlockFlower.getFake(Blocks.YELLOW_FLOWER);
-	private static final Compat_BlockDeadBush DEADBUSH = Compat_BlockDeadBush.getFake(Blocks.DEADBUSH);
-	private static final Compat_Block WATERLILY = Compat_Block.getFake(Blocks.WATERLILY);
-	private static final Compat_BlockBush RED_MUSHROOM = Compat_BlockBush.getFake(Blocks.RED_MUSHROOM);
-	private static final Compat_BlockBush BROWN_MUSHROOM = Compat_BlockBush.getFake(Blocks.BROWN_MUSHROOM);
-	private static final Compat_Block NETHER_BRICK = Compat_Block.getFake(Blocks.NETHER_BRICK);
+	private static final Compat_BlockFlower RED_FLOWER = Compat_BlockFlower.getFake((BlockFlower) Blocks.POPPY);
+	private static final Compat_BlockFlower YELLOW_FLOWER = Compat_BlockFlower.getFake((BlockFlower) Blocks.DANDELION);
+	private static final Compat_BlockDeadBush DEADBUSH = Compat_BlockDeadBush.getFake((BlockDeadBush) Blocks.DEAD_BUSH);
+	private static final Compat_Block WATERLILY = Compat_Block.getFake(Blocks.LILY_PAD);
+	private static final Compat_BlockBush RED_MUSHROOM = Compat_BlockBush.getFake((BlockBush) Blocks.RED_MUSHROOM);
+	private static final Compat_BlockBush BROWN_MUSHROOM = Compat_BlockBush.getFake((BlockBush) Blocks.BROWN_MUSHROOM);
+	private static final Compat_Block NETHER_BRICK = Compat_Block.getFake(Blocks.NETHER_BRICKS);
 	private static final Compat_Block IRON_BARS = Compat_Block.getFake(Blocks.IRON_BARS);
-	private static final Compat_Block SNOW_LAYER = Compat_Block.getFake(Blocks.SNOW_LAYER);
-	private static final Compat_Block STONEBRICK = Compat_Block.getFake(Blocks.STONEBRICK);
+	private static final Compat_Block SNOW_LAYER = Compat_Block.getFake(Blocks.SNOW);
+	private static final Compat_Block STONEBRICK = Compat_Block.getFake(Blocks.STONE_BRICKS);
 	private static final Compat_Block TORCH = Compat_Block.getFake(Blocks.TORCH);
-	private static final Compat_Block SAPLING = Compat_Block.getFake(Blocks.SAPLING);
-	private static final Compat_Block WEB = Compat_Block.getFake(Blocks.WEB);
+	private static final Compat_Block SAPLING = Compat_Block.getFake(Blocks.OAK_SAPLING); // TODO
+	private static final Compat_Block WEB = Compat_Block.getFake(Blocks.COBWEB);
 	private static final Compat_Block IRON_BLOCK = Compat_Block.getFake(Blocks.IRON_BLOCK);
 	private static final Compat_Block GLOWSTONE = Compat_Block.getFake(Blocks.GLOWSTONE);
 	private static final Compat_Block GLASS = Compat_Block.getFake(Blocks.GLASS);
 	private static final Compat_Block NETHERRACK = Compat_Block.getFake(Blocks.NETHERRACK);
 	private static final Compat_Block GRAVEL = Compat_Block.getFake(Blocks.GRAVEL);
 	private static final Compat_Block QUARTZ_BLOCK = Compat_Block.getFake(Blocks.QUARTZ_BLOCK);
-	private static final Compat_Block LOG = Compat_Block.getFake(Blocks.LOG);
+	private static final Compat_Block LOG = Compat_Block.getFake(Blocks.OAK_LOG); // TODO
 	private static final Compat_Block HAY_BLOCK = Compat_Block.getFake(Blocks.HAY_BLOCK);
-	private static final Compat_Block LOG2 = Compat_Block.getFake(Blocks.LOG2);
+	private static final Compat_Block LOG2 = Compat_Block.getFake(Blocks.OAK_LOG); // TODO
 	private static final Compat_Block FURNACE = Compat_Block.getFake(Blocks.FURNACE);
-	private static final Compat_Block HEAVY_WEIGHTED_PRESSURE_PLATE = Compat_Block.getFake(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE);
+	private static final Compat_Block HEAVY_WEIGHTED_PRESSURE_PLATE = Compat_Block
+			.getFake(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE);
 	private static final Compat_Block STONE_BRICK_STAIRS = Compat_Block.getFake(Blocks.STONE_BRICK_STAIRS);
-	private static final Compat_BlockDaylightDetector DAYLIGHT_DETECTOR = Compat_BlockDaylightDetector.getFake(Blocks.DAYLIGHT_DETECTOR);
-	private static final Compat_BlockStainedGlass STAINED_GLASS = Compat_BlockStainedGlass.getFake(Blocks.STAINED_GLASS);
+	private static final Compat_BlockDaylightDetector DAYLIGHT_DETECTOR = Compat_BlockDaylightDetector
+			.getFake((BlockDaylightDetector) Blocks.DAYLIGHT_DETECTOR);
+	private static final Compat_BlockStainedGlass STAINED_GLASS = Compat_BlockStainedGlass
+			.getFake((BlockStainedGlass) Blocks.WHITE_STAINED_GLASS); // TODO
 	private static final Compat_Block SOUL_SAND = Compat_Block.getFake(Blocks.SOUL_SAND);
 	private static final Compat_Block VINE = Compat_Block.getFake(Blocks.VINE);
 	private static final Compat_Block IRON_ORE = Compat_Block.getFake(Blocks.IRON_ORE);
@@ -86,16 +107,17 @@ public class Compat_Blocks {
 	private static final Compat_Block COBBLESTONE = Compat_Block.getFake(Blocks.COBBLESTONE);
 	private static final Compat_Block GLASS_PANE = Compat_Block.getFake(Blocks.GLASS_PANE);
 	private static final Compat_Block COAL_ORE = Compat_Block.getFake(Blocks.COAL_ORE);
-	private static final Compat_BlockRedstoneWire REDSTONE_WIRE = Compat_BlockRedstoneWire.getFake(Blocks.REDSTONE_WIRE);
-	private static final Compat_Block BRICK_BLOCK = Compat_Block.getFake(Blocks.BRICK_BLOCK);
+	private static final Compat_BlockRedstoneWire REDSTONE_WIRE = Compat_BlockRedstoneWire
+			.getFake((BlockRedstoneWire) Blocks.REDSTONE_WIRE);
+	private static final Compat_Block BRICK_BLOCK = Compat_Block.getFake(Blocks.BRICKS);
 	private static final Compat_Block GOLD_BLOCK = Compat_Block.getFake(Blocks.GOLD_BLOCK);
 	private static final Compat_Block MOSSY_COBBLESTONE = Compat_Block.getFake(Blocks.MOSSY_COBBLESTONE);
 	private static final Compat_Block LAPIS_BLOCK = Compat_Block.getFake(Blocks.LAPIS_BLOCK);
 	private static final Compat_Block END_STONE = Compat_Block.getFake(Blocks.END_STONE);
 	private static final Compat_Block COAL_BLOCK = Compat_Block.getFake(Blocks.COAL_BLOCK);
 	private static final Compat_Block PACKED_ICE = Compat_Block.getFake(Blocks.PACKED_ICE);
-	private static final Compat_Block HARDENED_CLAY = Compat_Block.getFake(Blocks.HARDENED_CLAY);
-	private static final Compat_Block STAINED_HARDENED_CLAY = Compat_Block.getFake(Blocks.STAINED_HARDENED_CLAY);
+	private static final Compat_Block HARDENED_CLAY = Compat_Block.getFake(Blocks.TERRACOTTA);
+	private static final Compat_Block STAINED_HARDENED_CLAY = Compat_Block.getFake(Blocks.WHITE_TERRACOTTA); // TODO
 	private static final Compat_Block ICE = Compat_Block.getFake(Blocks.ICE);
 	private static final Compat_Block LEVER = Compat_Block.getFake(Blocks.LEVER);
 	private static final Compat_Block REDSTONE_BLOCK = Compat_Block.getFake(Blocks.REDSTONE_BLOCK);
@@ -105,17 +127,20 @@ public class Compat_Blocks {
 	private static final Compat_Block RED_SANDSTONE = Compat_Block.getFake(Blocks.RED_SANDSTONE);
 	private static final Compat_Block PRISMARINE = Compat_Block.getFake(Blocks.PRISMARINE);
 	private static final Compat_Block SEA_LANTERN = Compat_Block.getFake(Blocks.SEA_LANTERN);
-	private static final Compat_BlockTallGrass TALLGRASS = Compat_BlockTallGrass.getFake(Blocks.TALLGRASS);
-	private static final Compat_BlockGrass GRASS = Compat_BlockGrass.getFake(Blocks.GRASS);
-	private static final Compat_BlockLeaves LEAVES2 = Compat_BlockLeaves.getFake(Blocks.LEAVES2);
-	private static final Compat_BlockLeaves LEAVES = Compat_BlockLeaves.getFake(Blocks.LEAVES);
-	private static final Compat_BlockSlab WOODEN_SLAB = Compat_BlockSlab.getFake(Blocks.WOODEN_SLAB);
+	private static final Compat_BlockTallGrass TALLGRASS = Compat_BlockTallGrass
+			.getFake((BlockTallGrass) Blocks.TALL_GRASS);
+	private static final Compat_BlockGrass GRASS = Compat_BlockGrass.getFake((BlockGrass) Blocks.GRASS_BLOCK);
+	private static final Compat_BlockLeaves LEAVES2 = Compat_BlockLeaves.getFake((BlockLeaves) Blocks.OAK_LEAVES); // TODO
+	private static final Compat_BlockLeaves LEAVES = Compat_BlockLeaves.getFake((BlockLeaves) Blocks.OAK_LEAVES); // TODO
+	private static final Compat_BlockSlab WOODEN_SLAB = Compat_BlockSlab.getFake((BlockSlab) Blocks.OAK_SLAB); // TODO
 	private static final Compat_Block NETHER_WART = Compat_Block.getFake(Blocks.NETHER_WART);
-	private static final Compat_BlockMycelium MYCELIUM = Compat_BlockMycelium.getFake(Blocks.MYCELIUM);
-	private static final Compat_BlockStainedGlassPane STAINED_GLASS_PANE = Compat_BlockStainedGlassPane.getFake(Blocks.STAINED_GLASS_PANE);
-	private static final Compat_BlockDoublePlant DOUBLE_PLANT = Compat_BlockDoublePlant.getFake(Blocks.DOUBLE_PLANT);
+	private static final Compat_BlockMycelium MYCELIUM = Compat_BlockMycelium.getFake((BlockMycelium) Blocks.MYCELIUM);
+	private static final Compat_BlockStainedGlassPane STAINED_GLASS_PANE = Compat_BlockStainedGlassPane
+			.getFake((BlockStainedGlassPane) Blocks.WHITE_STAINED_GLASS_PANE); // TODO
+	private static final Compat_BlockDoublePlant DOUBLE_PLANT = Compat_BlockDoublePlant
+			.getFake((BlockDoublePlant) Blocks.SUNFLOWER); // TODO
 	private static final Compat_Block CLAY = Compat_Block.getFake(Blocks.CLAY);
-	private static final Compat_Block MELON_BLOCK = Compat_Block.getFake(Blocks.MELON_BLOCK);
+	private static final Compat_Block MELON_BLOCK = Compat_Block.getFake(Blocks.MELON);
 	private static final Compat_Block CARROTS = Compat_Block.getFake(Blocks.CARROTS);
 	private static final Compat_Block WHEAT = Compat_Block.getFake(Blocks.WHEAT);
 	private static final Compat_Block POTATOES = Compat_Block.getFake(Blocks.POTATOES);

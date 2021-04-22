@@ -2,7 +2,7 @@ package compat.sandbox.net.minecraft.nbt;
 
 import java.util.Set;
 
-import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.INBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
@@ -35,7 +35,7 @@ public interface CompatI_NBTTagCompound {
 
 	public void setFloatSuper(String key, float value);
 
-	public void setTagSuper(String key, NBTBase value);
+	public void setTagSuper(String key, INBTBase value);
 
 	public byte getIdSuper();
 
@@ -65,7 +65,7 @@ public interface CompatI_NBTTagCompound {
 
 	public void removeTagSuper(String key);
 
-	public NBTBase getTagSuper(String key);
+	public INBTBase getTagSuper(String key);
 
 	public boolean hasKeySuper(String key, int type);
 

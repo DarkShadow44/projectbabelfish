@@ -35,11 +35,11 @@ public class Compat_Potion {
 	}
 
 	public static Compat_Potion Compat_get_field_76428_l() {
-		return new Compat_Potion(Potion.REGISTRY.getObjectById(10)); // Regeneration
+		return new Compat_Potion(Potion.getPotionById(10)); // Regeneration
 	}
 
 	public static Compat_Potion Compat_get_field_76437_t() {
-		return new Compat_Potion(Potion.REGISTRY.getObjectById(18)); // Weakness
+		return new Compat_Potion(Potion.getPotionById(18)); // Weakness
 	}
 
 	public int Compat_get_field_76415_H() {
@@ -47,58 +47,58 @@ public class Compat_Potion {
 	}
 
 	public static Compat_Potion Compat_get_field_76424_c() {
-		return new Compat_Potion(Potion.REGISTRY.getObjectById(1)); // Speed
+		return new Compat_Potion(Potion.getPotionById(1)); // Speed
 	}
 
 	public static Compat_Potion Compat_get_field_76421_d() {
-		return new Compat_Potion(Potion.REGISTRY.getObjectById(2)); // Slowness
+		return new Compat_Potion(Potion.getPotionById(2)); // Slowness
 	}
 
 	public static Compat_Potion Compat_get_field_76422_e() {
-		return new Compat_Potion(Potion.REGISTRY.getObjectById(3)); // Haste
+		return new Compat_Potion(Potion.getPotionById(3)); // Haste
 	}
 
 	public static Compat_Potion Compat_get_field_76419_f() {
-		return new Compat_Potion(Potion.REGISTRY.getObjectById(4)); // Mining fatigue
+		return new Compat_Potion(Potion.getPotionById(4)); // Mining fatigue
 	}
 
 	public static Compat_Potion Compat_get_field_76443_y() {
-		return new Compat_Potion(Potion.REGISTRY.getObjectById(23)); // Saturation
+		return new Compat_Potion(Potion.getPotionById(23)); // Saturation
 	}
 
 	public static Compat_Potion Compat_get_field_76438_s() {
-		return new Compat_Potion(Potion.REGISTRY.getObjectById(17)); // Hunger
+		return new Compat_Potion(Potion.getPotionById(17)); // Hunger
 	}
 
 	public static Compat_Potion Compat_get_field_76440_q() {
-		return new Compat_Potion(Potion.REGISTRY.getObjectById(15)); // Blindness
+		return new Compat_Potion(Potion.getPotionById(15)); // Blindness
 	}
 
 	public static Compat_Potion Compat_get_field_76434_w() {
-		return new Compat_Potion(Potion.REGISTRY.getObjectById(21)); // Health boost
+		return new Compat_Potion(Potion.getPotionById(21)); // Health boost
 	}
 
 	public static Compat_Potion Compat_get_field_76420_g() {
-		return new Compat_Potion(Potion.REGISTRY.getObjectById(5)); // Strength
+		return new Compat_Potion(Potion.getPotionById(5)); // Strength
 	}
 
 	public static Compat_Potion Compat_get_field_76426_n() {
-		return new Compat_Potion(Potion.REGISTRY.getObjectById(12)); // Fire resistance
+		return new Compat_Potion(Potion.getPotionById(12)); // Fire resistance
 	}
 
 	public static Compat_Potion Compat_get_field_76431_k() {
-		return new Compat_Potion(Potion.REGISTRY.getObjectById(9)); // Nausea
+		return new Compat_Potion(Potion.getPotionById(9)); // Nausea
 	}
 
 	public static Compat_Potion Compat_get_field_76436_u() {
-		return new Compat_Potion(Potion.REGISTRY.getObjectById(19)); // Poison
+		return new Compat_Potion(Potion.getPotionById(19)); // Poison
 	}
 
 	public static Compat_Potion Compat_get_field_82731_v() {
-		return new Compat_Potion(Potion.REGISTRY.getObjectById(20)); // Wither
+		return new Compat_Potion(Potion.getPotionById(20)); // Wither
 	}
 
 	public static Compat_Potion Compat_get_field_76439_r() {
-		return new Compat_Potion(Potion.REGISTRY.getObjectById(16)); // Night vision
+		return new Compat_Potion(Potion.getPotionById(16)); // Night vision
 	}
 }
