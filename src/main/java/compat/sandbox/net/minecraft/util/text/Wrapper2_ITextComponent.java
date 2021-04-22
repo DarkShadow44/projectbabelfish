@@ -2,6 +2,7 @@ package compat.sandbox.net.minecraft.util.text;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Stream;
 
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
@@ -48,10 +49,6 @@ public class Wrapper2_ITextComponent implements ITextComponent {
 		throw new RuntimeException();
 	}
 
-	@Override
-	public String getUnformattedText() {
-		throw new RuntimeException();
-	}
 
 	@Override
 	public String getFormattedText() {
@@ -65,6 +62,11 @@ public class Wrapper2_ITextComponent implements ITextComponent {
 
 	@Override
 	public ITextComponent createCopy() {
+		throw new RuntimeException();
+	}
+
+	@Override
+	public Stream<ITextComponent> func_212640_c() {
 		throw new RuntimeException();
 	}
 

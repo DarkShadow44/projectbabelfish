@@ -10,9 +10,9 @@ import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
 import compat.sandbox.net.minecraft.block.Compat_Block;
 import compat.sandbox.net.minecraft.block.properties.Compat_IProperty;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.state.IProperty;
+import net.minecraft.world.chunk.BlockStateContainer;
 
 public class Compat_BlockStateContainer {
 	private CompatI_BlockStateContainer wrapper;

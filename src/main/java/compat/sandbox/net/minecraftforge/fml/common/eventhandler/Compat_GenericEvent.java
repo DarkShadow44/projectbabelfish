@@ -3,7 +3,7 @@ package compat.sandbox.net.minecraftforge.fml.common.eventhandler;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
-import net.minecraftforge.fml.common.eventhandler.GenericEvent;
+import net.minecraftforge.eventbus.api.GenericEvent;
 
 public class Compat_GenericEvent<T> extends Compat_Event {
 	private CompatI_GenericEvent<T> wrapper;

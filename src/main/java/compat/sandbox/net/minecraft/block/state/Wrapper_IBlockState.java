@@ -15,8 +15,8 @@ import compat.sandbox.net.minecraft.util.math.Compat_AxisAlignedBB;
 import compat.sandbox.net.minecraft.util.math.Compat_BlockPos;
 import compat.sandbox.net.minecraft.world.Compat_IBlockAccess;
 import compat.sandbox.net.minecraft.world.Compat_World;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.state.IProperty;
 import net.minecraft.util.EnumFacing;
 
 public class Wrapper_IBlockState implements Compat_IBlockState {
@@ -38,13 +38,13 @@ public class Wrapper_IBlockState implements Compat_IBlockState {
 		if (value instanceof Compat_EnumFacing) {
 			value = ((Compat_EnumFacing) value).getReal();
 		}
-		IBlockState result = original.withProperty(var1.getReal(), (V) value);
+		IBlockState result = original.with(var1.getReal(), (V) value);
 		return Compat_IBlockState.getFake(result);
 	}
 
 	@Override
 	public Comparable<?> Compat_func_177229_b(Compat_IProperty<?> property) {
-		Comparable<?> value = original.getValue(property.getReal());
+		Comparable<?> value = original.get(property.getReal());
 		if (value instanceof EnumFacing) {
 			return Compat_EnumFacing.getFake((EnumFacing) value);
 		}
@@ -53,7 +53,8 @@ public class Wrapper_IBlockState implements Compat_IBlockState {
 
 	@Override
 	public boolean Compat_isSideSolid(Compat_IBlockAccess world, Compat_BlockPos pos, Compat_EnumFacing facing) {
-		return original.isSideSolid(world.getReal(), pos.getReal(), facing.getReal());
+		// TODO return original.isSideSolid(world.getReal(), pos.getReal(), facing.getReal());
+		return true;
 	}
 
 	@Override
@@ -62,7 +63,7 @@ public class Wrapper_IBlockState implements Compat_IBlockState {
 	}
 
 	public ImmutableMap<Compat_IProperty<?>, Comparable<?>> Compat_func_177228_b() {
-		ImmutableMap<IProperty<?>, Comparable<?>> properties = original.getProperties();
+		ImmutableMap<IProperty<?>, Comparable<?>> properties = original.getValues();
 
 		Map<Compat_IProperty<?>, Comparable<?>> ret = new LinkedHashMap<>();
 
@@ -80,6 +81,7 @@ public class Wrapper_IBlockState implements Compat_IBlockState {
 
 	@Override
 	public Compat_AxisAlignedBB Compat_func_185918_c(Compat_World world, Compat_BlockPos pos) {
-		return new Compat_AxisAlignedBB(original.getSelectedBoundingBox(world.getReal(), pos.getReal()));
+		//return new Compat_AxisAlignedBB(original.getSelectedBoundingBox(world.getReal(), pos.getReal()));
+		throw new RuntimeException("TODO");
 	}
 }

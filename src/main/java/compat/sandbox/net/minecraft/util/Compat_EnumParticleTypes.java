@@ -1,25 +1,18 @@
 package compat.sandbox.net.minecraft.util;
 
-import net.minecraft.util.EnumParticleTypes;
-
 public enum Compat_EnumParticleTypes {
 
-	CLOUD(EnumParticleTypes.CLOUD),
-	REDSTONE(EnumParticleTypes.REDSTONE),
-	SMOKE_NORMAL(EnumParticleTypes.SMOKE_NORMAL),
-	SNOW_SHOVEL(EnumParticleTypes.SNOW_SHOVEL);
+	CLOUD(),
+	REDSTONE(),
+	SMOKE_NORMAL(),
+	SNOW_SHOVEL();
 
-	private EnumParticleTypes original;
+	private Compat_EnumParticleTypes() {
 
-	private Compat_EnumParticleTypes(EnumParticleTypes original) {
-		this.original = original;
 	}
 
-	public EnumParticleTypes getReal() {
-		return original;
-	}
 
-	public static Compat_EnumParticleTypes getFake(EnumParticleTypes real) {
+	/*public static Compat_EnumParticleTypes getFake(Particles) {
 		switch (real) {
 		case CLOUD:
 			return CLOUD;
@@ -32,7 +25,7 @@ public enum Compat_EnumParticleTypes {
 		default:
 			throw new RuntimeException("Unhandled " + real.name());
 		}
-	}
+	}*/
 
 	public static Compat_EnumParticleTypes Compat_get_CLOUD() {
 		return CLOUD;
@@ -50,10 +43,10 @@ public enum Compat_EnumParticleTypes {
 		return SNOW_SHOVEL;
 	}
 
-	public static EnumParticleTypes getByName(String particleName) {
+	/*public static EnumParticleTypes getByName(String particleName) {
 		switch (particleName) {
 		default:
 			throw new RuntimeException("Unknown particle: " + particleName);
 		}
-	}
+	}*/
 }

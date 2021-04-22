@@ -34,7 +34,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -93,7 +92,8 @@ public class Compat_World implements Compat_IBlockAccess {
 		return wrapper.checkNoEntityCollisionSuper(axis.getReal());
 	}
 
-	public void Compat_func_184133_a(Compat_EntityPlayer player, Compat_BlockPos pos, Compat_SoundEvent sound, Compat_SoundCategory category, float volume, float pitch) {
+	public void Compat_func_184133_a(Compat_EntityPlayer player, Compat_BlockPos pos, Compat_SoundEvent sound,
+			Compat_SoundCategory category, float volume, float pitch) {
 		wrapper.playSoundSuper(player.getReal(), pos.getReal(), sound.getReal(), category.getReal(), volume, pitch);
 	}
 
@@ -161,7 +161,8 @@ public class Compat_World implements Compat_IBlockAccess {
 	}
 
 	// TODO?
-	public <T extends Entity> List<Compat_Entity> Compat_func_175647_a(Class<? extends T> classEntity, Compat_AxisAlignedBB bb, Predicate<? super T> filter) {
+	public <T extends Entity> List<Compat_Entity> Compat_func_175647_a(Class<? extends T> classEntity,
+			Compat_AxisAlignedBB bb, Predicate<? super T> filter) {
 		List<T> result = wrapper.getEntitiesWithinAABBSuper(classEntity, bb.getReal(), filter);
 
 		List<Compat_Entity> ret = new ArrayList<>();
@@ -181,8 +182,10 @@ public class Compat_World implements Compat_IBlockAccess {
 		wrapper.updateComparatorOutputLevelSuper(pos.getReal(), block.getReal());
 	}
 
-	public void Compat_func_175688_a(Compat_EnumParticleTypes type, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... parameters) {
-		wrapper.spawnParticleSuper(type.getReal(), x, y, z, xSpeed, ySpeed, zSpeed, parameters);
+	public void Compat_func_175688_a(Compat_EnumParticleTypes type, double x, double y, double z, double xSpeed,
+			double ySpeed, double zSpeed, int... parameters) {
+		//wrapper.spawnParticleSuper(type.getReal(), x, y, z, xSpeed, ySpeed, zSpeed, parameters);
+		throw new RuntimeException("TODO");
 	}
 
 	public void Compat_func_175695_a(Compat_BlockPos pos, Compat_Block block, Compat_EnumFacing facing) {
@@ -193,8 +196,10 @@ public class Compat_World implements Compat_IBlockAccess {
 		wrapper.removeTileEntitySuper(pos.getReal());
 	}
 
-	public boolean Compat_func_175716_a(Compat_Block block, Compat_BlockPos pos, boolean skipCollisionCheck, Compat_EnumFacing facing, Compat_Entity entity, Compat_ItemStack stack) {
-		return wrapper.mayPlaceSuper(block.getReal(), pos.getReal(), skipCollisionCheck, facing.getReal(), entity.getReal());
+	public boolean Compat_func_175716_a(Compat_Block block, Compat_BlockPos pos, boolean skipCollisionCheck,
+			Compat_EnumFacing facing, Compat_Entity entity, Compat_ItemStack stack) {
+		return wrapper.mayPlaceSuper(block.getReal(), pos.getReal(), skipCollisionCheck, facing.getReal(),
+				entity.getReal());
 	}
 
 	public void Compat_func_180496_d(Compat_BlockPos pos, Compat_Block block) {
@@ -209,7 +214,8 @@ public class Compat_World implements Compat_IBlockAccess {
 		return wrapper.setBlockStateSuper(pos.getReal(), state.getReal(), flags);
 	}
 
-	public void Compat_func_184138_a(Compat_BlockPos pos, Compat_IBlockState stateOld, Compat_IBlockState stateNew, int flags) {
+	public void Compat_func_184138_a(Compat_BlockPos pos, Compat_IBlockState stateOld, Compat_IBlockState stateNew,
+			int flags) {
 		wrapper.notifyBlockUpdateSuper(pos.getReal(), stateOld.getReal(), stateNew.getReal(), flags);
 	}
 
@@ -226,7 +232,8 @@ public class Compat_World implements Compat_IBlockAccess {
 	}
 
 	public Compat_WorldProvider Compat_get_field_73011_w() {
-		return new Compat_WorldProvider(wrapper.get_provider());
+		// return new Compat_WorldProvider(wrapper.get_provider());
+		throw new RuntimeException("TODO");
 	}
 
 	public Random Compat_get_field_73012_v() {
@@ -242,8 +249,9 @@ public class Compat_World implements Compat_IBlockAccess {
 	}
 
 	private int getBlockMeta(BlockPos pos) {
-		IBlockState state = wrapper.getBlockStateSuper(pos);
-		return state.getBlock().getMetaFromState(state);
+		// IBlockState state = wrapper.getBlockStateSuper(pos);
+		// return state.getBlock().getMetaFromState(state);
+		throw new RuntimeException("TODO");
 	}
 
 	@Override
@@ -321,8 +329,9 @@ public class Compat_World implements Compat_IBlockAccess {
 	@SuppressWarnings("deprecation")
 	public boolean Compat_func_147465_d(int x, int y, int z, Compat_Block block, int meta, int flags) {
 		BlockPos pos = new BlockPos(x, y, z);
-		IBlockState state = block.getReal().getStateFromMeta(meta);
-		return wrapper.setBlockStateSuper(pos, state, flags);
+		// IBlockState state = block.getReal().getStateFromMeta(meta);
+		// return wrapper.setBlockStateSuper(pos, state, flags);
+		throw new RuntimeException("TODO");
 	}
 
 	public boolean Compat_func_147468_f(int x, int y, int z) {
@@ -339,9 +348,11 @@ public class Compat_World implements Compat_IBlockAccess {
 		wrapper.removeTileEntitySuper(pos);
 	}
 
-	public void Compat_func_72869_a(String particleName, double x, double y, double z, double velX, double velY, double velZ) {
-		EnumParticleTypes type = Compat_EnumParticleTypes.getByName(particleName);
-		wrapper.spawnParticleSuper(type, x, y, z, velX, velY, velZ);
+	public void Compat_func_72869_a(String particleName, double x, double y, double z, double velX, double velY,
+			double velZ) {
+		throw new RuntimeException("TODO");
+		// EnumParticleTypes type = Compat_EnumParticleTypes.getByName(particleName);
+		// wrapper.spawnParticleSuper(type, x, y, z, velX, velY, velZ);
 	}
 
 	public void Compat_func_72889_a(Compat_EntityPlayer player, int type, int x, int y, int z, int data) {
@@ -363,8 +374,9 @@ public class Compat_World implements Compat_IBlockAccess {
 	public boolean Compat_func_72921_c(int x, int y, int z, int meta, int flags) {
 		BlockPos pos = new BlockPos(x, y, z);
 		Block block = getReal().getBlockState(pos).getBlock();
-		IBlockState state = block.getStateFromMeta(meta);
-		return wrapper.setBlockStateSuper(pos, state, flags); // TODO ?
+		throw new RuntimeException("TODO");
+		// IBlockState state = block.getStateFromMeta(meta);
+		// return wrapper.setBlockStateSuper(pos, state, flags); // TODO ?
 	}
 
 	public int Compat_func_72940_L() {
@@ -374,7 +386,8 @@ public class Compat_World implements Compat_IBlockAccess {
 	public void Compat_func_72956_a(Compat_Entity entity, String soundName, float volume, float pitch) {
 		SoundEvent event = Compat_SoundEvent.getByName(soundName);
 		Entity entityReal = entity.getReal();
-		wrapper.playSoundSuper(entityReal.posX, entityReal.posY, entityReal.posZ, event, SoundCategory.NEUTRAL, volume, pitch, true); // TODO
+		wrapper.playSoundSuper(entityReal.posX, entityReal.posY, entityReal.posZ, event, SoundCategory.NEUTRAL, volume,
+				pitch, true); // TODO
 	}
 
 	public Compat_BiomeProvider Compat_func_72959_q() {
@@ -382,7 +395,8 @@ public class Compat_World implements Compat_IBlockAccess {
 		return Compat_BiomeProvider.getFake(result);
 	}
 
-	public void Compat_func_72980_b(double x, double y, double z, String soundName, float volume, float pitch, boolean loudness) {
+	public void Compat_func_72980_b(double x, double y, double z, String soundName, float volume, float pitch,
+			boolean loudness) {
 		SoundEvent event = Compat_SoundEvent.getByName(soundName);
 		wrapper.playSoundSuper(x, y, z, event, SoundCategory.NEUTRAL, volume, pitch, loudness); // TODO
 	}

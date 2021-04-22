@@ -1,7 +1,7 @@
 package compat.sandbox.net.minecraft.block.material;
 
-import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 
 public interface CompatI_Material {
 	public Material get();
@@ -14,7 +14,7 @@ public interface CompatI_Material {
 
 	public Material setReplaceableSuper();
 
-	public MapColor getMaterialMapColorSuper();
+	public MaterialColor getMaterialMapColorSuper();
 
 	public boolean isToolNotRequiredSuper();
 

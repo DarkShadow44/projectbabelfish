@@ -11,7 +11,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -20,7 +19,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.border.WorldBorder;
@@ -66,7 +64,7 @@ public interface CompatI_World {
 
 	public void updateComparatorOutputLevelSuper(BlockPos pos, Block block);
 
-	public void spawnParticleSuper(EnumParticleTypes type, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... parameters);
+	//public void spawnParticleSuper(EnumParticleTypes type, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... parameters);
 
 	public void notifyNeighborsOfStateExceptSuper(BlockPos pos, Block block, EnumFacing facing);
 
@@ -94,7 +92,7 @@ public interface CompatI_World {
 
 	public Random get_rand();
 
-	public WorldProvider get_provider();
+	//public WorldProvider get_provider();
 
 	public void markBlockRangeForRenderUpdateSuper(int x1, int y1, int z1, int x2, int y2, int z2);
 

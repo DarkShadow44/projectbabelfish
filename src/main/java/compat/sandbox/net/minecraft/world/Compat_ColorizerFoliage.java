@@ -1,10 +1,10 @@
 package compat.sandbox.net.minecraft.world;
 
-import net.minecraft.world.ColorizerFoliage;
+import net.minecraft.world.FoliageColors;
 
 public class Compat_ColorizerFoliage {
 
 	public static int Compat_func_77468_c() {
-		return ColorizerFoliage.getFoliageColorBasic();
+		return FoliageColors.getDefault();
 	}
 }

@@ -80,7 +80,7 @@ public enum Compat_EnumFacing implements IStringSerializable {
 	}
 
 	public static Compat_EnumFacing Compat_func_82600_a(int index) {
-		return getFake(EnumFacing.getFront(index));
+		return getFake(EnumFacing.byIndex(index));
 	}
 
 	@Override
@@ -97,15 +97,15 @@ public enum Compat_EnumFacing implements IStringSerializable {
 	}
 
 	public int Compat_func_82601_c() {
-		return original.getFrontOffsetX();
+		return original.getXOffset();
 	}
 
 	public int Compat_func_96559_d() {
-		return original.getFrontOffsetY();
+		return original.getYOffset();
 	}
 
 	public int Compat_func_82599_e() {
-		return original.getFrontOffsetZ();
+		return original.getZOffset();
 	}
 
 	public Compat_EnumFacing Compat_func_176734_d() {

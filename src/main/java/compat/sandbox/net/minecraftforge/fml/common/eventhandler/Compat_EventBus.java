@@ -1,7 +1,7 @@
 package compat.sandbox.net.minecraftforge.fml.common.eventhandler;
 
 import compat.core.CompatibilityMod;
-import net.minecraftforge.fml.common.eventhandler.EventBus;
+import net.minecraftforge.eventbus.EventBus;
 
 public class Compat_EventBus {
 

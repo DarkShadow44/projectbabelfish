@@ -4,8 +4,8 @@ import compat.sandbox.cpw.mods.fml.common.registry.Compat_FMLControlledNamespace
 import compat.sandbox.cpw.mods.fml.common.registry.Compat_FMLControlledNamespacedRegistry.Type;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public class Compat_GameData {

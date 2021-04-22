@@ -6,9 +6,8 @@ import compat.core.ParentSelector;
 import compat.sandbox.net.minecraft.block.Compat_Block;
 import compat.sandbox.net.minecraft.block.properties.Compat_IProperty;
 import compat.sandbox.net.minecraftforge.common.property.Compat_IUnlistedProperty;
-import compat.sandbox.net.minecraftforge.common.property.Wrapper_IUnlistedProperty;
 import net.minecraft.state.IProperty;
-import net.minecraftforge.common.property.IUnlistedProperty;
+import net.minecraft.state.StateContainer.Builder;
 
 public class Compat_BlockStateContainer_Builder {
 	private CompatI_BlockStateContainer_Builder wrapper;
@@ -47,13 +46,14 @@ public class Compat_BlockStateContainer_Builder {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Compat_BlockStateContainer_Builder Compat_add(Compat_IUnlistedProperty<?>[] properties) {
-		IUnlistedProperty<?>[] propertiesConverted = new IUnlistedProperty<?>[properties.length];
+		/*IUnlistedProperty<?>[] propertiesConverted = new IUnlistedProperty<?>[properties.length];
 		for (int i = 0; i < properties.length; i++) {
 			propertiesConverted[i] = new Wrapper_IUnlistedProperty(properties[i]);
 		}
 
 		wrapper.addSuper(propertiesConverted);
-		return this;
+		return this;*/
+		throw new RuntimeException("TODO");
 	}
 
 	public Compat_BlockStateContainer Compat_build() {

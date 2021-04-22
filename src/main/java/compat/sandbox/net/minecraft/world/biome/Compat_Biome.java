@@ -33,7 +33,7 @@ public class Compat_Biome {
 	}
 
 	public static Compat_Biome Compat_get_field_76780_h() {
-		return new Compat_Biome(Biomes.SWAMPLAND);
+		return new Compat_Biome(Biomes.SWAMP);
 	}
 
 	public String Compat_get_field_76791_y() {

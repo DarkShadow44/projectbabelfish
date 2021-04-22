@@ -9,9 +9,7 @@ import compat.sandbox.net.minecraft.world.biome.Compat_Biome;
 import compat.sandbox.net.minecraftforge.common.util.Compat_ForgeDirection;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.biome.Biome;
 
@@ -44,8 +42,9 @@ public class Wrapper_IBlockAccess implements Compat_IBlockAccess {
 	}
 
 	private int getBlockMeta(BlockPos pos) {
-		IBlockState state = original.getBlockState(pos);
-		return state.getBlock().getMetaFromState(state);
+		// IBlockState state = original.getBlockState(pos);
+		// return state.getBlock().getMetaFromState(state);
+		throw new RuntimeException("TODO");
 	}
 
 	public int Compat_func_72805_g(int x, int y, int z) {
@@ -80,7 +79,9 @@ public class Wrapper_IBlockAccess implements Compat_IBlockAccess {
 
 	@Override
 	public boolean Compat_isSideSolid(int x, int y, int z, Compat_ForgeDirection direction, boolean p1) {
-		EnumFacing side = Compat_ForgeDirection.getReal(direction);
-		return original.isSideSolid(new BlockPos(x, y, z), side, p1);
+		// EnumFacing side = Compat_ForgeDirection.getReal(direction);
+		// return original.isSideSolid(new BlockPos(x, y, z), side, p1);
+		// TODO
+		return true;
 	}
 }

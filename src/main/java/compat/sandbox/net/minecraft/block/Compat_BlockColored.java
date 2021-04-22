@@ -3,15 +3,15 @@ package compat.sandbox.net.minecraft.block;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
-import net.minecraft.block.BlockColored;
+import net.minecraft.block.Block;
 
 public class Compat_BlockColored extends Compat_Block {
-	private CompatI_BlockColored wrapper;
+	private CompatI_Block wrapper;
 
 	// When called from Mod
 	public Compat_BlockColored() {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.create(CtorPos.POS1, CompatI_BlockColored.class, this));
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_Block.class, this));
 	}
 
 	// When called from child
@@ -20,17 +20,17 @@ public class Compat_BlockColored extends Compat_Block {
 	}
 
 	// When called from Minecraft
-	public Compat_BlockColored(BlockColored original) {
+	public Compat_BlockColored(Block original) {
 		super(ParentSelector.NULL);
-		this.initialize(Factory.createWrapper(CompatI_BlockColored.class, original));
+		this.initialize(Factory.createWrapper(CompatI_Block.class, original));
 	}
 
-	protected void initialize(CompatI_BlockColored wrapper) {
+	protected void initialize(CompatI_Block wrapper) {
 		super.initialize(wrapper);
 		this.wrapper = wrapper;
 	}
 
-	public BlockColored getReal() {
+	public Block getReal() {
 		return wrapper.get();
 	}
 
