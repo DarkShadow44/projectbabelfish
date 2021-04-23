@@ -19,7 +19,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "de.darkshadow44.projectbabelfish.Main"
+      "net.projectbabelfish.Main"
     ]
   },
   "mixins": [

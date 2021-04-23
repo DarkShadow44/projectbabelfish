@@ -23,6 +23,7 @@ classes/
 bin/
 .classpath
 .project
+.factorypath
 
 # macos
 
@@ -32,5 +33,3 @@ bin/
 
 run/
 logs/
-
-gradle-wrapper.jar

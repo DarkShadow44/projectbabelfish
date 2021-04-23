@@ -1,4 +1,4 @@
-package de.darkshadow44.projectbabelfish.mixin;
+package net.projectbabelfish.mixin;
 
 import net.minecraft.client.gui.screen.TitleScreen;
 import org.spongepowered.asm.mixin.Mixin;

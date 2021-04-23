@@ -1,6 +1,7 @@
 plugins {
 	id 'fabric-loom' version '0.6-SNAPSHOT'
 	id 'maven-publish'
+    id "net.ltgt.apt-eclipse" version "0.18"
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -29,6 +30,9 @@ dependencies {
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
+
+	annotationProcessor project(':ap')
+	compile project(':ap')
 }
 
 processResources {
