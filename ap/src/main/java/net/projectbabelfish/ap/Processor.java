@@ -20,7 +20,7 @@ import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
-@SupportedAnnotationTypes("com.example.examplemod.TestAnnotation")
+@SupportedAnnotationTypes("net.projectbabelfish.ap.TestAnnotation")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class Processor extends AbstractProcessor {
 

@@ -33,3 +33,4 @@ bin/
 
 run/
 logs/
+/.apt_generated/
