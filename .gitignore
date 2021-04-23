@@ -31,5 +31,6 @@ bin/
 # fabric
 
 run/
+logs/
 
 gradle-wrapper.jar

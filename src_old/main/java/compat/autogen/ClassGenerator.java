@@ -559,6 +559,7 @@ public class ClassGenerator {
 				generator.generateClass();
 			}
 		}
+		PathAwareEntity
 	}
 
 	public static void tryGenerateRealClasses() {
