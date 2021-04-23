@@ -1,7 +1,7 @@
 plugins {
 	id 'fabric-loom' version '0.6-SNAPSHOT'
 	id 'maven-publish'
-    id "net.ltgt.apt-eclipse" version "0.18"
+    id "com.diffplug.eclipse.apt" version "3.29.1"
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
