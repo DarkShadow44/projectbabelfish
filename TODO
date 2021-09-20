@@ -84,3 +84,11 @@ implement lender layer (pass0/1)
 
 can't have factory create wrapper when not child, we need getFake() !
 Factory check if child, if so, pass flag to constructor to tell it to ignore callbacks? or just use Version.UNKNOWN?
+
+
+
+
+Name methods like "getXFake()" and then use @Names annotation to supply srg/mojang srg names?
+same for classes? Just mark class
+
+
