@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<factorypath>
+	<factorypathentry kind="EXTJAR" id="E:\Programming\projectbabelfish\mod\ap\build\libs\ap.jar" enabled="true" runInBatchMode="false"/>
+	<factorypathentry kind="EXTJAR" id="C:\Users\fabian\.gradle\caches\modules-2\files-2.1\com.squareup\javapoet\1.13.0\d6562d385049f35eb50403fa86bb11cce76b866a\javapoet-1.13.0.jar" enabled="true" runInBatchMode="false"/>
+</factorypath>
