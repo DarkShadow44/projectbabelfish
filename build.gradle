@@ -3,16 +3,19 @@ buildscript {
         maven { url = 'https://maven.minecraftforge.net' }
         mavenCentral()
 		maven { url = "https://plugins.gradle.org/m2/" }
+		maven {url='https://repo.spongepowered.org/repository/maven-public'}
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
 		classpath "com.diffplug.gradle:goomph:3.33.0"
+		classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
-apply plugin: 'com.diffplug.eclipse.apt'
+//apply plugin: 'com.diffplug.eclipse.apt'
+apply plugin: 'org.spongepowered.mixin'
 
 version = '1.0'
 group = 'net.projectbabelfish'
@@ -41,6 +44,10 @@ minecraft {
     }
 }
 
+mixin {
+    add sourceSets.main, "projectbabelfish.refmap.json"
+	config "projectbabelfish.mixins.json"
+}
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
@@ -55,6 +62,7 @@ dependencies {
 
 	annotationProcessor project(':ap')
 	compileOnly project(':ap')
+	annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
 }
 
 // Example for how to get properties into the manifest for reading at runtime.
@@ -67,7 +75,8 @@ jar {
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
                 "Implementation-Vendor"   : "projectbabelfish",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                "MixinConfigs": "projectbabelfish.mixins.json"
         ])
     }
 }
