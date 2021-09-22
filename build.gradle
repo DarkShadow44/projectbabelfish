@@ -2,19 +2,21 @@ buildscript {
     repositories {
         maven { url = 'https://maven.minecraftforge.net' }
         mavenCentral()
-		maven { url = "https://plugins.gradle.org/m2/" }
-		maven {url='https://repo.spongepowered.org/repository/maven-public'}
+        maven { url = "https://plugins.gradle.org/m2/" }
+        maven {url='https://repo.spongepowered.org/repository/maven-public'}
+        mavenLocal()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-		classpath "com.diffplug.gradle:goomph:3.33.0"
-		classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+        classpath "com.diffplug.gradle:goomph:3.33.0"
+        // classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+        classpath 'org.spongepowered:MixinGradle:0.7-SNAPSHOT-temp'
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
-//apply plugin: 'com.diffplug.eclipse.apt'
+apply plugin: 'com.diffplug.eclipse.apt'
 apply plugin: 'org.spongepowered.mixin'
 
 version = '1.0'
@@ -46,13 +48,13 @@ minecraft {
 
 mixin {
     add sourceSets.main, "projectbabelfish.refmap.json"
-	config "projectbabelfish.mixins.json"
+    // config "projectbabelfish.mixins.json"
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
-	maven { url = "https://dvs1.progwml6.com/files/maven/" }
+    maven { url = "https://dvs1.progwml6.com/files/maven/" }
 }
 
 dependencies {
@@ -60,9 +62,9 @@ dependencies {
 
     runtimeOnly fg.deobf("mezz.jei:jei-1.17.1:8.0.0.16")
 
-	annotationProcessor project(':ap')
-	compileOnly project(':ap')
-	annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
+    annotationProcessor project(':ap')
+    compileOnly project(':ap')
+    annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
 }
 
 // Example for how to get properties into the manifest for reading at runtime.
@@ -94,4 +96,16 @@ publishing {
             url "file://${project.projectDir}/mcmodsrepo"
         }
     }
+}
+
+compileJava {
+  aptOptions {
+    processorArgs = [
+      'reobfSrgFile' : "${project.projectDir}/build/createSrgToMcp/output.srg"
+    ]
+  }
+}
+
+eclipse {
+    synchronizationTasks createSrgToMcp, eclipseJdtApt, eclipseJdt, eclipseFactorypath
 }
