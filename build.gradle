@@ -47,6 +47,8 @@ minecraft {
 }
 
 mixin {
+    // disableEclipseAddon = true
+    // disableTargetValidator = true
     add sourceSets.main, "projectbabelfish.refmap.json"
     // config "projectbabelfish.mixins.json"
 }
@@ -98,14 +100,17 @@ publishing {
     }
 }
 
+/*
 compileJava {
   aptOptions {
     processorArgs = [
       'reobfSrgFile' : "${project.projectDir}/build/createSrgToMcp/output.srg"
     ]
   }
-}
+}*/
 
 eclipse {
-    synchronizationTasks createSrgToMcp, eclipseJdtApt, eclipseJdt, eclipseFactorypath
+    afterEvaluate {
+        synchronizationTasks createSrgToMcp, createMcpToSrg, mixinEclipseJdtApt, eclipseJdt, eclipseFactorypath
+    }
 }
