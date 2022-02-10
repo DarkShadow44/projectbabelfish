@@ -5,6 +5,7 @@ bin
 .metadata
 .classpath
 .project
+.factorypath
 
 # idea
 out
@@ -22,17 +23,7 @@ eclipse
 run
 
 # Files from Forge MDK
-README.txt
-LICENSE.txt
-LICENSE-Paulscode SoundSystem CodecIBXM.txt
-LICENSE-Paulscode IBXM Library.txt
-CREDITS.txt
+forge*changelog.txt
 
-gradle/
-gradlew*
-conf1*/
-
-.factorypath
-logs/
-TEMP_CLASSES/
-srg-jars/
+*.launch
+.apt*/

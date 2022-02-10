@@ -1,0 +1,12 @@
+modLoader="javafml"
+loaderVersion="[37,)"
+license="LGPL"
+issueTrackerURL="https://github.com/DarkShadow44/projectbabelfish/issues"
+[[mods]]
+modId="projectbabelfish"
+version="${file.jarVersion}"
+displayName="Project Babelfish"
+authors="DarkShadow44"
+description='''
+TODO
+'''

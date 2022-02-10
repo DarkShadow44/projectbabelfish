@@ -1,0 +1,11 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+    }
+}
+
+include 'ap'
+
+rootProject.children.each { project ->
+    project.buildFileName = "${project.name}.gradle"
+}
