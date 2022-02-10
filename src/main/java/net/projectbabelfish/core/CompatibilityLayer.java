@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import net.minecraftforge.fml.LogicalSide;
 import net.projectbabelfish.ProjectBabelfish;
 import net.projectbabelfish.compat.sandbox.net.minecraftforge.fml.common.Compat_SidedProxy;
+import net.projectbabelfish.core.loader.CompatibilityClassTransformer;
 import net.projectbabelfish.core.loader.CompatibilityModLoader;
 import net.projectbabelfish.sandbox.net.minecraftforge.fml.common.Compat_Mod;
 
@@ -30,7 +31,7 @@ public class CompatibilityLayer {
 	static final String prefixGet = "Compat_get_";
 	static final String prefixSet = "Compat_set_";
 
-	public static final String pathSandbox = "compat/sandbox/";
+	public static final String pathSandbox = "net/projectbabelfish/sandbox/";
 	protected final Version version;
 
 	public final List<ModInfo> mods = new ArrayList<>();
@@ -39,8 +40,8 @@ public class CompatibilityLayer {
 
 	public CompatibilityLayer(Version version) {
 		this.version = version;
-		readClassRedirects(classRedirects, "classRedirects.txt");
-		readClassRedirects(methodRedirects, "methodRedirects.txt");
+		//readClassRedirects(classRedirects, "classRedirects.txt");
+		//readClassRedirects(methodRedirects, "methodRedirects.txt");
 	}
 
 	private void readClassRedirects(Map<String, String> target, String name) {
@@ -93,9 +94,9 @@ public class CompatibilityLayer {
 
 	public String getPrefixedClassname(String name) {
 		String[] names = name.split("\\/");
-		//if (CompatibilityClassTransformer.isMcClass(name)) {
-		//	names[names.length - 1] = prefixFake + names[names.length - 1];
-		//}
+		if (CompatibilityClassTransformer.isMcClass(name)) {
+			names[names.length - 1] = prefixFake + names[names.length - 1];
+		}
 		String prefixedPath = pathSandbox + String.join("/", names);
 		return getRedirectedClass(prefixedPath);
 	}
@@ -157,7 +158,7 @@ public class CompatibilityLayer {
 		if (name.endsWith(".png") || name.endsWith(".json")) {
 			String[] split = name.split("\\/");
 
-			if (split[1].equals("blockstates")) {
+			if (split.length >= 2 && split[1].equals("blockstates")) {
 				String text = new String(data);
 				text = fixBlockstate(text);
 				data = text.getBytes();

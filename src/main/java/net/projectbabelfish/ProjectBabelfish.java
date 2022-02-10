@@ -50,7 +50,7 @@ public class ProjectBabelfish {
 	public static MemoryClassLoader classLoader;
 	
 	static {
-		File file = new File("/home/fabian/Programming/Minecraft/Mods/CompatibilityMod/mod/TEMP_CLASSES/");
+		File file = new File(DUMP_CLASS_PATH);
 		URL[] urls = null;
 		try {
 			urls = new URL[] { file.toURI().toURL() };
@@ -103,11 +103,7 @@ public class ProjectBabelfish {
 			//layer.preInit(event);
 		}
 		CURRENT_LAYER = null;
-		try {
-			Minecraft.getInstance().reloadResourcePacks().wait(); // Refresh for models
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		Minecraft.getInstance().reloadResourcePacks(); // Refresh for models
 	}
 
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
