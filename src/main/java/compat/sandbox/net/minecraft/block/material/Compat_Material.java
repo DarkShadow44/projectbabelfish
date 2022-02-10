@@ -3,25 +3,25 @@ package compat.sandbox.net.minecraft.block.material;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
-import net.minecraft.block.material.Material;
+import net.minecraft.world.level.material.Material;
 
 public class Compat_Material {
 
-	private static final Compat_Material PLANTS = new Compat_Material(Material.PLANTS);
+	private static final Compat_Material PLANTS = new Compat_Material(Material.PLANT);
 	private static final Compat_Material WOOD = new Compat_Material(Material.WOOD);
 	private static final Compat_Material LEAVES = new Compat_Material(Material.LEAVES);
 	private static final Compat_Material CLOTH = new Compat_Material(Material.CLOTH);
 	private static final Compat_Material VINE = new Compat_Material(Material.VINE);
 	private static final Compat_Material CACTUS = new Compat_Material(Material.CACTUS);
 	private static final Compat_Material GROUND = new Compat_Material(Material.GROUND);
-	private static final Compat_Material CIRCUITS = new Compat_Material(Material.CIRCUITS);
+	private static final Compat_Material CIRCUITS = new Compat_Material(Material.);
 	private static final Compat_Material ANVIL = new Compat_Material(Material.ANVIL);
 	private static final Compat_Material GLASS = new Compat_Material(Material.GLASS);
-	private static final Compat_Material ROCK = new Compat_Material(Material.ROCK);
+	private static final Compat_Material ROCK = new Compat_Material(Material.STONE);
 	private static final Compat_Material ICE = new Compat_Material(Material.ICE);
 	private static final Compat_Material SNOW = new Compat_Material(Material.SNOW);
 	private static final Compat_Material PORTAL = new Compat_Material(Material.PORTAL);
-	private static final Compat_Material IRON = new Compat_Material(Material.IRON);
+	private static final Compat_Material IRON = new Compat_Material(Material.HEAVY_METAL);
 	private static final Compat_Material AIR = new Compat_Material(Material.AIR);
 	private static final Compat_Material WATER = new Compat_Material(Material.WATER);
 	private static final Compat_Material CLAY = new Compat_Material(Material.CLAY);

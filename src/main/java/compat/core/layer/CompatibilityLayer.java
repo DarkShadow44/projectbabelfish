@@ -18,21 +18,21 @@ import compat.core.RegistrationInfoIcon;
 import compat.core.RegistrationInfoItem;
 import compat.core.Version;
 import compat.core.loader.CompatibilityClassTransformer;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent.Pre;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent.Register;
+import net.minecraftforge.event.TickEvent.ClientTickEvent;
+import net.minecraftforge.event.TickEvent.ServerTickEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent.ServerTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
 public abstract class CompatibilityLayer {
@@ -173,7 +173,7 @@ public abstract class CompatibilityLayer {
 
 	public abstract void onDrawBlockHighlight(DrawBlockHighlightEvent event);
 
-	public abstract void onAttachCapabilities(AttachCapabilitiesEvent<TileEntity> event);
+	public abstract void onAttachCapabilities(AttachCapabilitiesEvent<BlockEntity> event);
 
 	public abstract void onServerTick(ServerTickEvent event);
 

@@ -1,6 +1,6 @@
 package compat.sandbox.net.minecraft.util.text.event;
 
-import net.minecraft.util.text.event.ClickEvent.Action;
+import net.minecraft.network.chat.ClickEvent.Action;
 
 public enum Compat_ClickEvent_Action {
 

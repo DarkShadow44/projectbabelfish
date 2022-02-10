@@ -91,4 +91,15 @@ Factory check if child, if so, pass flag to constructor to tell it to ignore cal
 Name methods like "getXFake()" and then use @Names annotation to supply srg/mojang srg names?
 same for classes? Just mark class
 
+auto generate code automatically, at least the basic mapping code...
 
+jede auto generierte klasse hat ein getFake, mit annotation @GetFake kann man das überschreiben (block/item singleton)
+helper project: nimmt einen input (className), wenn classname eindeutig: generiert Compa_* Klasse automatisch und compatI_ auch. danach muss man nur noch die srg namem festlegen (@Alias)
+Alle @Callbacks so generieren:
+    switch (version) {
+		case V1_18:
+			return Compat_func_149662_c(/* params */);
+		default:
+			throw version.makeException();
+		}
+	}

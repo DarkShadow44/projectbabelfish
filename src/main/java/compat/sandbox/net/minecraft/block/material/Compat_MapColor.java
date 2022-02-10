@@ -1,7 +1,5 @@
 package compat.sandbox.net.minecraft.block.material;
 
-import net.minecraft.block.material.MapColor;
-
 public class Compat_MapColor {
 
 	private static final Compat_MapColor AIR = new Compat_MapColor(MapColor.AIR);

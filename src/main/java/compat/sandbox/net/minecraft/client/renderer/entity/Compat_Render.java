@@ -3,8 +3,7 @@ package compat.sandbox.net.minecraft.client.renderer.entity;
 import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
 
 public class Compat_Render<T extends Entity> {
 	private CompatI_Render<T> wrapper;

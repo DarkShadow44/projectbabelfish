@@ -4,8 +4,7 @@ import compat.autogen.Factory;
 import compat.autogen.Factory.CtorPos;
 import compat.core.ParentSelector;
 import compat.sandbox.net.minecraft.item.Compat_Item;
-import net.minecraft.client.renderer.entity.RenderSnowball;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
 
 public class Compat_RenderSnowball<T extends Entity> extends Compat_Render<T> {
 	private CompatI_RenderSnowball<T> wrapper;
