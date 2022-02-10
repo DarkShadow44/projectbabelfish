@@ -26,11 +26,10 @@ version = '1.0'
 group = 'net.projectbabelfish'
 archivesBaseName = 'projectbabelfish'
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(16)
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
-    // mappings channel: 'official', version: '1.17.1'
-    mappings channel: 'parchment', version: '2021.09.05-1.17.1'
+    mappings channel: 'parchment', version: '2022.01.23-1.18.1'
 
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg') // Currently, this location cannot be changed from the default.
 
@@ -64,16 +63,15 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.17.1-37.0.70'
+    minecraft 'net.minecraftforge:forge:1.18.1-39.0.75'
 
-    runtimeOnly fg.deobf("mezz.jei:jei-1.17.1:8.0.0.16")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.18.1:9.2.1.69")
 
     annotationProcessor project(':ap')
     compileOnly project(':ap')
     annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
 }
 
-// Example for how to get properties into the manifest for reading at runtime.
 jar {
     manifest {
         attributes([
