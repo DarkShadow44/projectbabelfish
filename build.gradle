@@ -40,6 +40,8 @@ minecraft {
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
 
+            arg '-mixin.config=projectbabelfish.mixins.json'
+
             mods {
                 projectbabelfish {
                     source sourceSets.main
@@ -53,7 +55,6 @@ mixin {
     // disableEclipseAddon = true
     // disableTargetValidator = true
     add sourceSets.main, "projectbabelfish.refmap.json"
-    // config "projectbabelfish.mixins.json"
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }

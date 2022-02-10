@@ -103,3 +103,6 @@ Alle @Callbacks so generieren:
 			throw version.makeException();
 		}
 	}
+
+
+do ./gradlew genEclipseRuns, then import gradle project into eclipse workspace
