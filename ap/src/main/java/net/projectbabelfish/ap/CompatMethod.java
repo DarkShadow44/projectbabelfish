@@ -7,6 +7,6 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.CLASS)
-public @interface Alias {
+public @interface CompatMethod {
 	String[] names();
 }
