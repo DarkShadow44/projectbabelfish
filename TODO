@@ -106,3 +106,15 @@ Alle @Callbacks so generieren:
 
 
 do ./gradlew genEclipseRuns, then import gradle project into eclipse workspace
+
+@CompatClass
+@CompatMethod
+
+Autogen CompatI_, CompatReal, CompatWrapper_ (or what is the wrapper called?)
+
+Prevent dependency on NEI if NEI is not installed!!
+
+@TempGen to create initial Compat_Class. Can overwrite this very class?
+
+refresh gradle project helps?! WTF
+
