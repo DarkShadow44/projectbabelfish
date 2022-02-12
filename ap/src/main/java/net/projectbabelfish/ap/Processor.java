@@ -20,7 +20,7 @@ import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
-@SupportedAnnotationTypes("net.projectbabelfish.ap.TestAnnotation")
+@SupportedAnnotationTypes({"net.projectbabelfish.ap.CompatClass"})
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class Processor extends AbstractProcessor {
 
@@ -30,7 +30,10 @@ public class Processor extends AbstractProcessor {
 			for (Element element : roundEnv.getElementsAnnotatedWith(annotation)) {
 				processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Generating class for " + element);
 				try {
-					generateClass((TypeElement) element);
+					CompatClass compatClass = element.getAnnotation(CompatClass.class);
+					if (compatClass != null) {
+						generateCompatClass(compatClass, (TypeElement) element);
+					}
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -39,9 +42,9 @@ public class Processor extends AbstractProcessor {
 		return true;
 	}
 
-	private void generateClass(TypeElement typeIface) throws IOException {
+	private void generateCompatClass(CompatClass compatClass, TypeElement typeIface) throws IOException {
 		String className = typeIface.getSimpleName().toString();
-		className = className.substring(1) + "Impl";
+		className = className.replace("Compat_", "CompatI_");
 
 		TypeSpec.Builder builderClass = TypeSpec.classBuilder(className).addModifiers(Modifier.PUBLIC);
 		builderClass.addSuperinterface(typeIface.asType());
@@ -64,7 +67,7 @@ public class Processor extends AbstractProcessor {
 	private MethodSpec generateMethod(ExecutableElement method) {
 
 		MethodSpec.Builder builderMethod = MethodSpec.overriding(method);
-		builderMethod.addStatement("return 0");
+		builderMethod.addStatement("return s1");
 
 		return builderMethod.build();
 	}
