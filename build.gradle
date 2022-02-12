@@ -112,8 +112,11 @@ compileJava {
   }
 }*/
 
+eclipseJdtApt.dependsOn createSrgToMcp
+eclipseJdtApt.dependsOn createMcpToSrg
+
 eclipse {
     afterEvaluate {
-        synchronizationTasks createSrgToMcp, createMcpToSrg, mixinEclipseJdtApt, eclipseJdt, eclipseFactorypath
+        synchronizationTasks mixinEclipseJdtApt, eclipseJdt, eclipseFactorypath
     }
 }
