@@ -112,6 +112,17 @@ compileJava {
   }
 }*/
 
+task fixClasspath {
+    doLast {
+        file(".classpath").withWriter { writer ->
+            new groovy.xml.MarkupBuilder(new IndentPrinter(writer, "    ", true)).classpath {
+                classpathentry(kind:"src", path:"/ap")
+            }
+        }
+    }
+}
+
+eclipseJdtApt.dependsOn fixClasspath
 eclipseJdtApt.dependsOn createSrgToMcp
 eclipseJdtApt.dependsOn createMcpToSrg
 
