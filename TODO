@@ -116,5 +116,12 @@ Prevent dependency on NEI if NEI is not installed!!
 
 @TempGen to create initial Compat_Class. Can overwrite this very class?
 
-refresh gradle project helps?! WTF
+Use project:
+- git clean -xdf
+- eclipse import gradle project
 
+When changing processor:
+- refresh gradle project
+- change class using annotation, or clean project
+
+still prevent double wrap!

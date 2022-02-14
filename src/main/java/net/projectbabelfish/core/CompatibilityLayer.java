@@ -1,15 +1,9 @@
 package net.projectbabelfish.core;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 
 import net.minecraftforge.fml.LogicalSide;
 import net.projectbabelfish.ProjectBabelfish;
@@ -40,29 +34,6 @@ public class CompatibilityLayer {
 
 	public CompatibilityLayer(Version version) {
 		this.version = version;
-		//readClassRedirects(classRedirects, "classRedirects.txt");
-		//readClassRedirects(methodRedirects, "methodRedirects.txt");
-	}
-
-	private void readClassRedirects(Map<String, String> target, String name) {
-		InputStream inputStream = getClass().getClassLoader().getResourceAsStream(name);
-		List<String> lines;
-		try {
-			lines = IOUtils.readLines(inputStream, StandardCharsets.UTF_8);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-
-		for (String line : lines) {
-			line = line.trim().replace(' ', '\t').replace('.', '/');
-			String[] split = StringUtils.split(line);
-			if (split.length == 0)
-				continue;
-			if (split.length != 2) {
-				throw new RuntimeException("Invalid line: " + line);
-			}
-			target.put(split[0], split[1]);
-		}
 	}
 
 	public Version getVersion() {
