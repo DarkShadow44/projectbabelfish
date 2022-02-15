@@ -3,10 +3,12 @@ package net.projectbabelfish.sandbox;
 import generated.net.projectbabelfish.sandbox.CompatI_Block;
 import net.minecraft.world.level.block.Block;
 import net.projectbabelfish.ap.CompatClass;
+import net.projectbabelfish.ap.CompatGetter;
 import net.projectbabelfish.ap.CompatMethod;
+import net.projectbabelfish.ap.MethodGeneration;
 
 @CompatClass(target = Block.class, names = {})
-public class Compat_Block {
+public class Compat_Block extends Compat_BlockBehaviour {
 
 	private CompatI_Block wrapper;
 
@@ -14,9 +16,12 @@ public class Compat_Block {
 		return wrapper.get();
 	}
 
-	@CompatMethod(names = { "func_149711_c" })
+	@CompatMethod(names = { "func_149711_c" }, generation = MethodGeneration.NONE)
 	public Compat_Block setHardness(float hardness) {
-		wrapper.setHardnessSuper(hardness);
+		//if (wrapper.isChild())
+		{
+			//wrapper.get_properties().
+		}
 		return this;
 	}
 }

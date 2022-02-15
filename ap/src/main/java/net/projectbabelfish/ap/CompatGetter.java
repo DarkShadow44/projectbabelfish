@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.CLASS)
-public @interface CompatMethod {
+public @interface CompatGetter {
 	String[] names();
 
 	MethodGeneration generation() default MethodGeneration.NORMAL;
