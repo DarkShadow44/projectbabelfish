@@ -59,7 +59,7 @@ public class Processor extends AbstractProcessor {
 
 		TypeElement compatTarget = getCompatClassTarget(compatClass);
 
-		GeneratorCompatClass generator = new GeneratorCompatClass(processingEnv.getMessager(), compatClassType, compatTarget, typeSource);
+		GeneratorCompatClass generator = new GeneratorCompatClass(processingEnv, compatClassType, compatTarget, typeSource);
 		TypeSpec builderClass = generator.generateClass();
 
 		String packageName = ((PackageElement) typeSource.getEnclosingElement()).getQualifiedName().toString();

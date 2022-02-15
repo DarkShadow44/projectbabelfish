@@ -3,13 +3,15 @@ package net.projectbabelfish.ap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.annotation.processing.Messager;
+import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.TypeKind;
+import javax.lang.model.type.TypeMirror;
 import javax.tools.Diagnostic.Kind;
 
 import com.squareup.javapoet.AnnotationSpec;
@@ -26,14 +28,14 @@ public class GeneratorCompatClass {
 	private final TypeElement compatTargetElement;
 	private final TypeElement typeSource;
 	private final TypeSpec.Builder builderClass;
-	private final Messager messager;
+	private final ProcessingEnvironment processingEnv;
 
-	public GeneratorCompatClass(Messager messager, CompatClassType compatClassType, TypeElement compatTarget, TypeElement typeSource) {
+	public GeneratorCompatClass(ProcessingEnvironment processingEnv, CompatClassType compatClassType, TypeElement compatTarget, TypeElement typeSource) {
 		this.compatClassType = compatClassType;
 		this.compatTargetElement = compatTarget;
 		this.compatTarget = TypeName.get(compatTargetElement.asType());
 		this.typeSource = typeSource;
-		this.messager = messager;
+		this.processingEnv = processingEnv;
 
 		String className = typeSource.getSimpleName().toString();
 		className = className.replace("Compat_", compatClassType.getPrefix());
@@ -71,6 +73,14 @@ public class GeneratorCompatClass {
 	}
 
 	private void generateCompatClassInterface() {
+
+		TypeMirror superClass = typeSource.getSuperclass();
+		if (superClass.getKind() != TypeKind.NONE) {
+			String name = processingEnv.getTypeUtils().asElement(superClass).getSimpleName().toString();
+			name = name.replace("Compat_", "CompatI_");
+			processingEnv.getMessager().printMessage(Kind.NOTE, "Making super: " + name);
+			builderClass.addSuperinterface(ClassName.bestGuess(name));
+		}
 	}
 
 	private void generateCompatClassProxy() {
@@ -116,11 +126,10 @@ public class GeneratorCompatClass {
 	}
 
 	private Element findMcElement(String name, ElementKind kind) {
-		for (Element element : typeSource.getEnclosedElements()) {
+		for (Element element : compatTargetElement.getEnclosedElements()) {
 			if (element.getKind() != kind)
 				continue;
 
-			messager.printMessage(Kind.NOTE, element.getSimpleName());
 			if (element.getSimpleName().toString().equals(name)) {
 				return element;
 			}
@@ -184,6 +193,7 @@ public class GeneratorCompatClass {
 
 		MethodSpec.Builder builderMethod = MethodSpec.methodBuilder(method.getSimpleName().toString());
 		builderMethod.returns(TypeName.get(fieldMc.asType()));
+		builderMethod.addModifiers(Modifier.PUBLIC);
 		if (compatClassType == CompatClassType.INTERFACE) {
 			builderMethod.addModifiers(Modifier.ABSTRACT);
 		} else {
