@@ -29,13 +29,15 @@ public class GeneratorCompatClass {
 	private final TypeElement typeSource;
 	private final TypeSpec.Builder builderClass;
 	private final ProcessingEnvironment processingEnv;
+	private final List<TypeElement> children; // Use to generate getFake to check against all children
 
-	public GeneratorCompatClass(ProcessingEnvironment processingEnv, CompatClassType compatClassType, TypeElement compatTarget, TypeElement typeSource) {
+	public GeneratorCompatClass(ProcessingEnvironment processingEnv, CompatClassType compatClassType, TypeElement compatTarget, TypeElement typeSource, List<TypeElement> children) {
 		this.compatClassType = compatClassType;
 		this.compatTargetElement = compatTarget;
 		this.compatTarget = TypeName.get(compatTargetElement.asType());
 		this.typeSource = typeSource;
 		this.processingEnv = processingEnv;
+		this.children = children;
 
 		String className = typeSource.getSimpleName().toString();
 		className = className.replace("Compat_", compatClassType.getPrefix());
@@ -92,6 +94,7 @@ public class GeneratorCompatClass {
 
 		// Add constructor
 		MethodSpec.Builder constructor = MethodSpec.constructorBuilder().addParameter(compatTarget, "original");
+		constructor.addModifiers(Modifier.PUBLIC);
 		constructor.addCode("this.original = original;");
 		builderClass.addMethod(constructor.build());
 	}

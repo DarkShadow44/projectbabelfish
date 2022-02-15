@@ -15,7 +15,7 @@ public abstract class Compat_BlockBehaviour {
 		return wrapper.get();
 	}
 
-	@CompatGetter(names = {}, generation = MethodGeneration.ONLY_CHILD)
+	@CompatGetter(names = {}, generation = MethodGeneration.NONE)
 	public void get_properties() {
 
 	}

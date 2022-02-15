@@ -125,3 +125,11 @@ When changing processor:
 - change class using annotation, or clean project
 
 still prevent double wrap!
+
+must make wrapper/real handle all methods, also those from parents!
+if real is abstract, make CompatReal abstract as well.
+
+what if pass Compat_Entity(original) to mod and it casts to Compat_EntityCreeper? happens for NBTBase and Compat_EntityPlayer, WorldServer
+
+autorelay hashCode and equals to real methods? -> auto convert to usage of Compat_ funcs
+

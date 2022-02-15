@@ -1,7 +1,11 @@
 package net.projectbabelfish.ap;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.ProcessingEnvironment;
@@ -30,36 +34,50 @@ public class Processor extends AbstractProcessor {
 		super.init(processingEnv);
 	}
 
+	private List<TypeElement> allClasses;
+
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+		processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Process!");
+		allClasses = new ArrayList<>();
 		for (TypeElement annotation : annotations) {
 			for (Element element : roundEnv.getElementsAnnotatedWith(annotation)) {
-				processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Generating class for " + element);
-				try {
-					CompatClass compatClass = element.getAnnotation(CompatClass.class);
-					if (compatClass != null) {
-						generateCompatClasses(compatClass, (TypeElement) element);
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
+				allClasses.add((TypeElement) element);
+			}
+		}
+
+		for (Element element : allClasses) {
+			processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Generating class for " + element);
+			try {
+				CompatClass compatClass = element.getAnnotation(CompatClass.class);
+				if (compatClass != null) {
+					generateCompatClasses(compatClass, (TypeElement) element);
 				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 		return true;
 	}
 
-	private void generateCompatClasses(CompatClass compatClass, TypeElement typeSource) throws IOException {
-		generateCompatClass(CompatClassType.INTERFACE, compatClass, typeSource);
-		generateCompatClass(CompatClassType.PROXY, compatClass, typeSource);
-		generateCompatClass(CompatClassType.REAL, compatClass, typeSource);
+	private List<TypeElement> getChildrenFor(TypeElement typeSource) {
+		Predicate<TypeElement> subtype = element -> processingEnv.getTypeUtils().isSubtype(element.asType(), typeSource.asType()) && !element.equals(typeSource);
+		return allClasses.stream().filter(element -> subtype.test(element)).collect(Collectors.toList());
 	}
 
-	private void generateCompatClass(CompatClassType compatClassType, CompatClass compatClass, TypeElement typeSource) throws IOException {
+	private void generateCompatClasses(CompatClass compatClass, TypeElement typeSource) throws IOException {
+		List<TypeElement> children = getChildrenFor(typeSource);
+		generateCompatClass(CompatClassType.INTERFACE, compatClass, typeSource, children);
+		generateCompatClass(CompatClassType.PROXY, compatClass, typeSource, children);
+		generateCompatClass(CompatClassType.REAL, compatClass, typeSource, children);
+	}
+
+	private void generateCompatClass(CompatClassType compatClassType, CompatClass compatClass, TypeElement typeSource, List<TypeElement> children) throws IOException {
 		processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Generating class type " + compatClassType.getPrefix());
 
 		TypeElement compatTarget = getCompatClassTarget(compatClass);
 
-		GeneratorCompatClass generator = new GeneratorCompatClass(processingEnv, compatClassType, compatTarget, typeSource);
+		GeneratorCompatClass generator = new GeneratorCompatClass(processingEnv, compatClassType, compatTarget, typeSource, children);
 		TypeSpec builderClass = generator.generateClass();
 
 		String packageName = ((PackageElement) typeSource.getEnclosingElement()).getQualifiedName().toString();
