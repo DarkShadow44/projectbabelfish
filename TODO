@@ -130,6 +130,116 @@ must make wrapper/real handle all methods, also those from parents!
 if real is abstract, make CompatReal abstract as well.
 
 what if pass Compat_Entity(original) to mod and it casts to Compat_EntityCreeper? happens for NBTBase and Compat_EntityPlayer, WorldServer
+-> Compat_Entity.getFake has to consider child classes
 
-autorelay hashCode and equals to real methods? -> auto convert to usage of Compat_ funcs
+autorelay hashCode and equals to real methods? -> auto convert to usage of Compat_ funcs. impossible though, maybe used by hashmap as well... maybe just equals -> return wrapper.equals(other) and wrapper implements this
+
+#### more autogen idea
+@Parent(Compat_Block.class)
+class Compat_BlockFlower extends CompatBase_BlockFlower
+{
+    @Relay // Lets baseclass handle conversions
+    public void setSomething(int par1)
+    {
+        super(par1)
+    }
+}
+jede klasse ne getReal/getFake methode (im interface)
+
+
+document architecture somewhere
+
+### callback idea ###
+instead of HasCallback/Callback:
+@Callback(targets = {"func_12345"}
+-> allows to use callbacks across multiple forge versions, e.g. functions the same in 1.16/1.15 don't need extra "@HasCallback({ Version.V1_15_2 })"
+
+
+https://github.com/jamierocks/fabric-forge/tree/master/fabric-loader-Patches
+for fabric: use original fabric loader, just hook into it
+
+###
+list of classes with their methods to check which methods need callback? (non func methods added by forge)
+generate all super method implicitly
+let real/proxy perform fake<->real translations? two super methods, one for without and one for with?
+
+
+rewrite all resourcelocations / datapacks so that they are projectbabelfish_VERSION_modname
+
+AddPackFindersEvent
+Make sure to check the pack type the event fires for. Also, the exact place where you need to create the PackResources instance is not obvious. If you do it too far "out", it won't be recreated on a resource reload, go too far in and it will be rebuilt multiple times in a reload. This is how I did it: https://github.com/XFactHD/BuddingCrystals/blob/1.18.x/src/main/java/xfacthd/buddingcrystals/client/BCClient.java#L36-L55
+
+https://github.com/TheIllusiveC4/CulinaryConstruct/blob/1.18.x/src/main/java/top/theillusivec4/culinaryconstruct/client/model/SandwichModel.java
+
+rename namespaces? would allow two thaumcraftversions, but would break resourcepacks... own resourcepack loader
+focus on multimod from the start, all mods own sandbox. eine klasse die die ganzen renames handlet damit alles an einem ort ist.
+
+https://github.com/DarkShadow44/resourcehighlighter-dark/issues/11
+
+
+##############
+replace
+
+public class Compat_ZZZ extends Compat_XXX {
+	private CompatI_ZZZ wrapper;
+
+	public Compat_ZZZ() {
+		super(ParentSelector.NULL);
+		this.initialize(Factory.create(CtorPos.POS1, CompatI_ZZZ.class, this));
+	}
+
+	protected Compat_ZZZ(ParentSelector s) {
+		super(ParentSelector.NULL);
+	}
+
+	public Compat_ZZZ(ZZZ original) {
+		super(ParentSelector.NULL);
+		this.initialize(Factory.createWrapper(CompatI_ZZZ.class, original));
+	}
+
+	protected void initialize(CompatI_ZZZ wrapper) {
+		super.initialize(wrapper);
+		this.wrapper = wrapper;
+	}
+
+	public ZZZ getReal() {
+		return wrapper.get();
+	}
+}
+
+with
+
+add Compat_Object base class
+
+public class Compat_ZZZ extends Compat_XXX {
+    private CompatI_ZZZ wrapper;
+
+    public Compat_ZZZ(CompatI_ZZZ wrapper) {
+        super(wrapper);
+        this.wrapper = wrapper;
+    }
+    
+    public static CompatReal_Block Compat_construct() {
+        return new CompatReal_Block(this);
+    }
+}
+
+construction is handled in getFake and Compat_construct methods
+getReal gan get wrapper via Compat_Object method getReal(), Compat_Object has wrapper as well
+
+in mod, transform:
+    new Compat_ZZZ(p1, p2)
+to
+    new Compat_ZZZ(Compat_ZZZ.Compat_construct(p1, p2))
+
+
+##############
+
+WrapperToReal_IWorldAccess extends IWorldAccess, WrapperToFake_IWorldAccess extends Compat_IWorldAccess. Also have CompatI_IWorldAccess, just for getFake/getReal
+
+loaded classes in compatClassLoader need to be already transformed, document that and document whether we need / or . as separator
+
+
+No Compat_ class unless it's MC class. same for methods
+direct hashCode/equals to CompatI_
 
