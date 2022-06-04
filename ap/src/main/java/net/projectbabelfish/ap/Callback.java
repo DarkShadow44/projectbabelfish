@@ -1,8 +1,11 @@
-package net.projectbabelfish.core;
+package net.projectbabelfish.ap;
 
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Callback {
 	public boolean skipDuringConstructor() default false;

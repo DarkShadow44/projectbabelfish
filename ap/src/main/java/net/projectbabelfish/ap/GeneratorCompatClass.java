@@ -19,14 +19,15 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
 public class GeneratorCompatClass {
 	private final CompatClassType compatClassType;
-	private TypeName compatTarget;
-	private final TypeElement compatTargetElement;
-	private final TypeElement typeSource;
+	private TypeName compatTarget; // Minecraft class
+	private final TypeElement compatTargetElement; // Minecraft class
+	private final TypeElement typeSource; // Compat class
 	private final TypeSpec.Builder builderClass;
 	private final ProcessingEnvironment processingEnv;
 	private final List<TypeElement> children; // Use to generate getFake to check against all children
@@ -48,6 +49,14 @@ public class GeneratorCompatClass {
 			builderClass = TypeSpec.classBuilder(className).addModifiers(Modifier.PUBLIC);
 		}
 	}
+
+	// Helpers
+
+	private TypeElement getElementFromType(TypeMirror type) {
+		return (TypeElement) processingEnv.getTypeUtils().asElement(type);
+	}
+
+	// Generators
 
 	public TypeSpec generateClass() {
 		// Add CompatSource to link to original class
@@ -107,6 +116,13 @@ public class GeneratorCompatClass {
 
 		// Inherit from Minecraft class
 		builderClass.superclass(compatTarget);
+
+		// Add "fake" field
+		FieldSpec fieldFake = FieldSpec.builder(TypeName.get(typeSource.asType()), "fake", Modifier.PRIVATE).build();
+		builderClass.addField(fieldFake);
+
+		generateAllCallbacksForClass(typeSource);
+		generateAllConstructors();
 	}
 
 	private void addCompatI() {
@@ -211,6 +227,62 @@ public class GeneratorCompatClass {
 				builderMethod.addStatement("return $N", fieldMc.getSimpleName());
 			}
 		}
+
+		return builderMethod.build();
+	}
+
+	private void generateAllCallbacksForClass(TypeElement clazz) {
+		TypeElement parent = getElementFromType(clazz.getSuperclass());
+		if (parent.getAnnotation(CompatClass.class) != null) {
+			generateAllCallbacksForClass(parent);
+		}
+		for (Element method : clazz.getEnclosedElements()) {
+			if (method.getKind() != ElementKind.METHOD)
+				continue;
+
+			Callback compatMethod = method.getAnnotation(Callback.class);
+			if (compatMethod != null) {
+				builderClass.addMethod(generateCallback(compatMethod, (ExecutableElement) method));
+			}
+		}
+	}
+
+	private MethodSpec generateCallback(Callback compatMethod, ExecutableElement method) {
+		ExecutableElement methodMc = (ExecutableElement) findMcElement(method.getSimpleName().toString(), ElementKind.METHOD);
+
+		MethodSpec.Builder builderMethod = MethodSpec.overriding(methodMc);
+
+		CodeBlock.Builder copyCode = CodeBlock.builder();
+		List<CodeBlock> params = methodMc.getParameters().stream().map(param -> CodeBlock.of("$N", param.getSimpleName())).collect(Collectors.toList());
+		CodeBlock paramList = CodeBlock.join(params, ",");
+		String ret = methodMc.getReturnType().getKind() == TypeKind.VOID ? "" : "return ";
+		copyCode.addStatement(ret + "fake.$N($L)", methodMc.getSimpleName(), paramList);
+		builderMethod.addCode(copyCode.build());
+
+		return builderMethod.build();
+	}
+
+	private void generateAllConstructors() {
+		for (Element method : compatTargetElement.getEnclosedElements()) {
+			if (method.getKind() != ElementKind.CONSTRUCTOR)
+				continue;
+
+			builderClass.addMethod(generateConstructor((ExecutableElement) method));
+		}
+	}
+
+	private MethodSpec generateConstructor(ExecutableElement method) {
+		MethodSpec.Builder builderMethod = MethodSpec.constructorBuilder();
+		builderMethod.addParameter(ParameterSpec.builder(TypeName.get(typeSource.asType()), "fake").build());
+		Iterable<ParameterSpec> constructorParams = method.getParameters().stream().map(param -> ParameterSpec.builder(TypeName.get(param.asType()), param.getSimpleName().toString()).build()).collect(Collectors.toList());
+		builderMethod.addParameters(constructorParams);
+
+		CodeBlock.Builder copyCode = CodeBlock.builder();
+		List<CodeBlock> params = method.getParameters().stream().map(param -> CodeBlock.of("$N", param.getSimpleName())).collect(Collectors.toList());
+		CodeBlock paramList = CodeBlock.join(params, ",");
+		copyCode.addStatement("super($L)", paramList);
+		copyCode.addStatement("this.fake = fake");
+		builderMethod.addCode(copyCode.build());
 
 		return builderMethod.build();
 	}
