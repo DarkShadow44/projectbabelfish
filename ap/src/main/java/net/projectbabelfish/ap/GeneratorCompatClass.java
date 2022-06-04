@@ -75,14 +75,17 @@ public class GeneratorCompatClass {
 	}
 
 	private void generateCompatClassInterface() {
-
 		TypeMirror superClass = typeSource.getSuperclass();
-		if (superClass.getKind() != TypeKind.NONE) {
-			String name = processingEnv.getTypeUtils().asElement(superClass).getSimpleName().toString();
-			name = name.replace("Compat_", "CompatI_");
-			processingEnv.getMessager().printMessage(Kind.NOTE, "Making super: " + name);
-			builderClass.addSuperinterface(ClassName.bestGuess(name));
+		if (superClass.getKind() == TypeKind.NONE) {
+			return;
 		}
+		String name = processingEnv.getTypeUtils().asElement(superClass).getSimpleName().toString();
+		if (name.equals("Compat_Object")) {
+			return;
+		}
+		name = name.replace("Compat_", "CompatI_");
+		processingEnv.getMessager().printMessage(Kind.NOTE, "Making super: " + name);
+		builderClass.addSuperinterface(ClassName.bestGuess(name));
 	}
 
 	private void generateCompatClassProxy() {
@@ -111,6 +114,7 @@ public class GeneratorCompatClass {
 		builderClass.addSuperinterface(ClassName.bestGuess(classNameInterface));
 	}
 
+	// Generated the get method to return the minecraft object
 	private void addMethodGet() {
 		MethodSpec.Builder methodGet = MethodSpec.methodBuilder("get");
 		methodGet.returns(compatTarget);
@@ -128,6 +132,7 @@ public class GeneratorCompatClass {
 		builderClass.addMethod(methodGet.build());
 	}
 
+	// Find a method/element equivalent of the compat class in the MC class
 	private Element findMcElement(String name, ElementKind kind) {
 		for (Element element : compatTargetElement.getEnclosedElements()) {
 			if (element.getKind() != kind)

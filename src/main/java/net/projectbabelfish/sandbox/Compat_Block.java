@@ -11,14 +11,15 @@ public class Compat_Block extends Compat_BlockBehaviour {
 
 	private CompatI_Block wrapper;
 
-	public Block getReal() {
-		return wrapper.get();
+	public Compat_Block(CompatI_Block wrapper) {
+		super(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	// Set real method like with .class and stuff?
 	@CompatMethod(names = { "func_149711_c" }, generation = MethodGeneration.NONE)
 	public Compat_Block setHardness(float hardness) {
-		//if (wrapper.isChild())
+		// if (wrapper.isChild())
 		{
 			wrapper.get_properties().destroyTime(hardness);
 		}

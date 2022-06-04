@@ -7,12 +7,13 @@ import net.projectbabelfish.ap.CompatGetter;
 import net.projectbabelfish.ap.MethodGeneration;
 
 @CompatClass(target = BlockBehaviour.class, names = {})
-public abstract class Compat_BlockBehaviour {
+public abstract class Compat_BlockBehaviour extends Compat_Object {
 
 	private CompatI_BlockBehaviour wrapper;
 
-	public BlockBehaviour getReal() {
-		return wrapper.get();
+	public Compat_BlockBehaviour(CompatI_BlockBehaviour wrapper) {
+		super(wrapper);
+		this.wrapper = wrapper;
 	}
 
 	@CompatGetter(names = {}, generation = MethodGeneration.NONE)
