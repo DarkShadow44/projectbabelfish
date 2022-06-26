@@ -220,12 +220,14 @@ public class Compat_ZZZ extends Compat_XXX {
     }
     
     public static CompatReal_Block Compat_construct() {
-        return new CompatReal_Block(this);
+        return new CompatReal_Block();
     }
 }
 
 construction is handled in getFake and Compat_construct methods
 getReal gan get wrapper via Compat_Object method getReal(), Compat_Object has wrapper as well
+
+Compat_Object also calls wrapper.setCompatObj, since we can't pass the object in the constructor anymore. wrapper.setCompatObj takes object and casts it
 
 in mod, transform:
     new Compat_ZZZ(p1, p2)
@@ -242,4 +244,20 @@ loaded classes in compatClassLoader need to be already transformed, document tha
 
 No Compat_ class unless it's MC class. same for methods
 direct hashCode/equals to CompatI_
+
+generate methodsSuper for all methods in mc class (and mc superclasses)
+
+
+wrap all forge specific code into own stuff, handling in own classes, for later cross platform. maybe depend on architectury??
+
+culinary construct 1.7.10 models again
+
+ask fabric discord how to best make it so people don't report babelfish fabric issues to them...
+
+
+
+
+https://raw.githubusercontent.com/FabricMC/intermediary/master/mappings/1.18.2.tiny
+https://raw.githubusercontent.com/MinecraftForge/MCPConfig/master/versions/release/1.18.2/joined.tsrg
+https://launcher.mojang.com/v1/objects/a661c6a55a0600bd391bdbbd6827654c05b2109c/client.txt
 
