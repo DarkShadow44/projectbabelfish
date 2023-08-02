@@ -1,3 +1,9 @@
 workspace
 TEMP_CLASSES
 run
+.classpath
+.project
+.settings
+.gradle
+build
+bin
