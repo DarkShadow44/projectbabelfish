@@ -81,6 +81,8 @@ minecraft {
                     source sourceSets.main
                 }
             }
+
+            ideaModule "${project.name}.main"
         }
 
         client {

@@ -11,3 +11,8 @@ bin
 *.launch
 .factorypath
 .apt_generated
+.idea
+projectbabelfish.xml
+*.iml
+*.ipr
+*.iws
