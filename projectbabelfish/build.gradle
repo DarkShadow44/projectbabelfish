@@ -218,3 +218,15 @@ mixin {
     add sourceSets.main, "projectbabelfish.refmap.json"
     config "projectbabelfish.mixins.json"
 }
+
+task fixClasspath {
+    doLast {
+        file(".classpath").withWriter { writer ->
+            new groovy.xml.MarkupBuilder(new IndentPrinter(writer, "    ", true)).classpath {
+                classpathentry(kind:"src", path:"/ap")
+            }
+        }
+    }
+}
+
+eclipseJdtApt.dependsOn fixClasspath
