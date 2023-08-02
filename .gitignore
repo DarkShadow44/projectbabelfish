@@ -9,3 +9,5 @@ build
 bin
 .eclipse
 *.launch
+.factorypath
+.apt_generated
